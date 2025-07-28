@@ -1,12 +1,14 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../env/env';
+import { LoginResponse } from '../model/loginResponse';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Services {
+
   private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
@@ -20,4 +22,16 @@ export class Services {
       responseType: 'text',
     });
   }
+
+  login(email: string, password: string): Observable<LoginResponse> {
+  return this.http.post<LoginResponse>(
+    `${environment.apiUrl}/auth/login`,
+    { email, password },
+    {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+  );
+} 
 }
