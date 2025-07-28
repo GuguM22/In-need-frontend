@@ -173,12 +173,12 @@
         <!-- Login Link -->
         <p class="mt-4 text-center text-sm text-gray-400">
             Already have an account?
-            <a routerLink="/login" class="text-black hover:underline">Sign in</a>
+            <a routerLink="/sign-in" class="text-black hover:underline">Sign in</a>
         </p>
     </form>
 </div>
 
-<!-- In your register.html -->
+<!-- In your register -->
 <div *ngIf="showVerificationModal" class="fixed inset-0 bg-white bg-opacity-30 flex items-center justify-center z-50">
     <div class="rounded-lg shadow-xl max-w-md w-full mx-4 border border-gray-300 shadow-xl">
         <app-verify-email
