@@ -5,6 +5,7 @@ import { Register } from './component/register/register';
 import { VerifyEmail } from './component/verify-email/verify-email';
 import { SponsorDasboardComponent } from './component/sponsor-dasboard/sponsor-dasboard.component';
 import { IndividualDasboardComponent } from './component/individual-dasboard/individual-dasboard.component';
+import { OrganisationDashboardComponent } from './component/organisation-dashboard/organisation-dashboard.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'register', pathMatch: 'full' },
@@ -14,4 +15,5 @@ export const routes: Routes = [
   { path: 'Landing', component: LandingComponent },
   {path: 'sponsor-dashboard',component: SponsorDasboardComponent},
   {path: 'individual-dashboard',component: IndividualDasboardComponent},
+  {path: 'organisation-dashboard', component: OrganisationDashboardComponent}
 ];
