@@ -10,13 +10,11 @@ import { ResetPassword } from './component/reset-password/reset-password';
 import { OrganisationDashboardComponent } from './component/organisation-dashboard/organisation-dashboard.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'register', pathMatch: 'full' },
+  { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
   { path: 'verify-email', component: VerifyEmail },
   { path: 'Landing', component: LandingComponent },
-
-  
   { path: 'forgot-password', component: ForgotPassword },
   { path: 'auth/reset-password', component: ResetPassword },
   {path: 'sponsor-dashboard',component: SponsorDasboardComponent},
