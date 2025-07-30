@@ -16,6 +16,8 @@ export class Services {
   register(user: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/auth/register`, user);
   }
+
+
   verify(token: string): Observable<string> {
     return this.http.get(`${this.apiUrl}/auth/verify`, {
       params: { token },
@@ -34,4 +36,16 @@ export class Services {
     }
   );
 } 
+
+sendResetLink(email: string): Observable<any> {
+  return this.http.post(`${this.apiUrl}/auth/forgot-password`, { email });
+}
+
+resetPassword(token: string, newPassword: string, confirmPassword: string): Observable<any> {
+  return this.http.post<any>(`${this.apiUrl}/auth/reset-password`, {
+    token,
+    newPassword,
+    confirmPassword
+  });
+}
 }
