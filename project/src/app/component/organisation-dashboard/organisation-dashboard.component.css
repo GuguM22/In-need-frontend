@@ -70,6 +70,8 @@ input{
     padding-left: 10px;
 }
 
+
+
 .inputBox{
     width: 100%;
 }
@@ -168,12 +170,14 @@ input{
     margin-left: 5px;
 }
 
+
 .profile{
     display: flex;
 }
 .orgCards{
     margin-top: 10px;
 }
+
 
 .orgCard{
     border: solid rgb(182, 182, 182);
@@ -299,6 +303,34 @@ button{
     padding-bottom: 60px;
     background-color: transparent;
 }
+
+.reqBtn{
+    width: 90%;
+    display: flex;
+    align-items: end;
+    justify-content: end;
+    margin-top: 2px;
+}
+
+.postReq{
+    background-color: #5B8E7D;
+    color: white;
+    font-weight: 700;
+    padding-top: 9px;
+    padding-bottom: 28px;
+    border-radius: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 12px;
+}
+
+.heading2{
+    width: 100%;
+    padding-left: 12px;
+    margin-top: 10px;
+    margin-top: 20px;
+}
+
 /* @media (max-width: 480px) {
     .search {
         width: 90%;
