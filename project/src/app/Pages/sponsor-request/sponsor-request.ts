@@ -23,13 +23,18 @@ export class SponsorRequest {
       media: [null]
     });
 
+    // Reset defaults
     this.sponsorshipForm.reset({
-  quantity: 0,
-  requiredDate: null,
-  description: ''
-});
+      quantity: 0,
+      requiredDate: null,
+      description: ''
+    });
   }
+get priorityValue() {
+  return this.sponsorshipForm.get('priority')?.value;
+}
 
+  
   getTodayDate(): string {
     const today = new Date();
     return today.toISOString().split('T')[0];
@@ -78,10 +83,13 @@ export class SponsorRequest {
     return 'Click to change or add more files';
   }
 
+
+
+
   onSubmit(): void {
     if (this.sponsorshipForm.valid) {
       this.isSubmitting = true;
-      
+
       // Simulate API call
       setTimeout(() => {
         alert('Sponsorship request submitted successfully!');
@@ -95,11 +103,15 @@ export class SponsorRequest {
         this.isSubmitting = false;
       }, 2000);
     } else {
-      // Mark all fields as touched to show validation errors
       Object.keys(this.sponsorshipForm.controls).forEach(key => {
         this.sponsorshipForm.get(key)?.markAsTouched();
       });
     }
+  }
+
+  /** FIXED: Properly return priority control from sponsorshipForm */
+  get priorityControl() {
+    return this.sponsorshipForm.get('priority');
   }
 
   onBack(): void {
@@ -110,5 +122,3 @@ export class SponsorRequest {
     }
   }
 }
-
-
