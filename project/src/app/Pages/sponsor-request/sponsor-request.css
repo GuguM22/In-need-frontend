@@ -1,0 +1,55 @@
+/* form base */
+.form-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* form groups */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+/* input styling */
+.form-input,
+.form-textarea,
+.form-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* error state */
+.ng-invalid.ng-touched {
+  border-color: red;
+}
+
+/* upload area */
+.upload-area {
+  border: 2px dashed #aaa;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+/* submit button */
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background: #10B981;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+}

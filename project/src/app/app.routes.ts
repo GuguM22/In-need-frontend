@@ -5,9 +5,11 @@ import { Register } from './component/register/register';
 import { VerifyEmail } from './component/verify-email/verify-email';
 import { SponsorDasboardComponent } from './component/sponsor-dasboard/sponsor-dasboard.component';
 import { IndividualDasboardComponent } from './component/individual-dasboard/individual-dasboard.component';
+import { SponsorRequest } from './Pages/sponsor-request/sponsor-request';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'register', pathMatch: 'full' },
+  { path: '', redirectTo: 'sponsor-req', pathMatch: 'full' },
+  { path: 'sponsor-req', component: SponsorRequest },
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
   { path: 'verify-email', component: VerifyEmail },
