@@ -1,0 +1,306 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Readex+Pro:wght@160..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+*{
+    font-family: 'Mulish' ;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+input{
+    width: 100%;
+    max-width: 410px;
+    border: solid 1px gray;
+    border-radius:12px ;
+    height: 39px;
+    padding-left: 42px;
+    padding-right: 40px;
+    font-family: 'Mulish';
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.search{
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+      width: 90%;
+    max-width: 450px;
+   
+}
+
+
+.heading{
+    width: 100%;
+    padding-left: 12px;
+    margin-top: 10px;
+}
+
+
+.srcIcon{
+    position: absolute;
+    margin-left: 10px;
+}
+
+.iconLeft{
+    height: 20px;
+    width: 20px;
+}
+.iconRight{
+  height: 20px;
+  width: 20px;
+}
+
+.filterIcon{
+    position: absolute;
+    right: 10px;
+    z-index: 1;
+    border-left: solid 1px gray;
+    padding-left: 10px;
+}
+
+.inputBox{
+    width: 100%;
+}
+
+.individualCards{
+    width: 100%;
+    margin-top: 5px;
+}
+.indvCard{
+    border: solid rgb(182, 182, 182);
+    width: 245px;
+    border-radius: 9px;
+ }
+.thumbnailPic{
+    height: 120px;
+    width: 225px;
+    border-radius: 9px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 8px;
+}
+
+.names{
+    font-size: 15px;
+    font-weight: 800;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.descriptions{
+    font-size: 11px;
+    margin-left: 10px;
+    font-weight: 500;
+    margin-top: 5px;
+    color: gray;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 195px; /* adjust until it fits 'i' */
+
+}
+
+.time{
+    font-size: 11px;
+    margin-left: 10px;
+    font-weight: 600;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: gray;
+}
+
+.individualCards.carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 10px;
+    padding: 10px 10px 10px 10px;
+    width: 100%;
+}
+  
+  .individualCards.carousel::-webkit-scrollbar {
+    display: none;
+  }
+  .individualCards.carousel {
+    scrollbar-width: none; 
+  }
+  
+  .indvCard {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+
+  .container2{
+    padding-left: 8px;
+    margin-bottom: 100px;
+  }
+  
+  .orgP{
+   font-size: 12px;
+   font-weight: 800;
+   color: gray;
+}
+  @media (max-width: 480px) {
+    .individualCards.carousel {
+        padding-left: 16px;
+        padding-right: 8px;
+        gap: 9px;
+    }
+}
+
+.image{
+    height: 50px;
+    width: 50px;
+    border-radius:50px ;
+    margin-left: 5px;
+}
+
+.profile{
+    display: flex;
+}
+.orgCards{
+    margin-top: 10px;
+}
+
+.orgCard{
+    border: solid rgb(182, 182, 182);
+    border-radius: 9px;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10px;
+    padding-left: 5px;
+}
+
+.top{
+    display: flex;
+}
+
+.verified{
+    height: 18px;
+    width: 18px;
+    margin-top: 4px;
+    margin-left: 5px;
+}
+
+.companyName{
+    margin-left: 10px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+.loc{
+    height: 13px;
+    width: 13px;
+    margin-top: 3px;
+    margin-right: 2px;
+}
+.companyLoc{
+    display: flex;
+    font-size: 12px;
+    color: gray;
+    font-weight: 800;
+}
+
+.holder{
+    border: solid;
+}
+
+.priority{
+    text-align: end;
+    padding-right:8px;
+    margin-top: 3px;
+}
+
+button{
+    background-color: #c1121e72;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 10px;
+    height: 20px;
+    font-size: 13px;
+    color: #C1121F;
+    font-weight: 800;
+}
+
+.reqTitle{
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.desc{
+    font-size: 12px;
+    color: gray;
+    margin-top: 5px;
+}
+
+.requests{
+    padding-left: 5px;
+    margin-top: 4px;
+}
+
+.empty{
+    background-color: #219EBC;
+    margin-left: -47px;
+    width: 50px;
+
+}
+
+.fill{
+    background-color: #D9D9D9;
+    width: 100px;
+}
+
+.dayHeading{
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.progress{
+    margin-top: 10px;
+   padding-left: 5px;
+}
+
+.daysLeft{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 15px;
+}
+
+.donate{
+  margin-top: 14px;
+}
+
+.donateBtn{
+    background-color:#5B8E7D;
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 25px;
+    font-size: 12px;
+    border-radius: 7px;
+    width: 110px;
+    margin-right: 10px;
+}
+
+.progress{
+    padding-bottom: 60px;
+    background-color: transparent;
+}
+/* @media (max-width: 480px) {
+    .search {
+        width: 90%;
+    }
+} */
