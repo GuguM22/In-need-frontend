@@ -8,6 +8,10 @@ import { IndividualDasboardComponent } from './component/individual-dasboard/ind
 import { ForgotPassword } from './component/forgot-password/forgot-password';
 import { ResetPassword } from './component/reset-password/reset-password';
 import { OrganisationDashboardComponent } from './component/organisation-dashboard/organisation-dashboard.component';
+import { DonationForm } from './component/donation-component/donation-form/donation-form';
+import { DonationFrequency } from './component/donation-component/donation-frequency/donation-frequency';
+import { DonationType } from './component/donation-component/donation-type/donation-type';
+import { DonationDetails } from './component/donation-component/donation-details/donation-details';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
@@ -17,7 +21,11 @@ export const routes: Routes = [
   { path: 'Landing', component: LandingComponent },
   { path: 'forgot-password', component: ForgotPassword },
   { path: 'auth/reset-password', component: ResetPassword },
-  {path: 'sponsor-dashboard',component: SponsorDasboardComponent},
-  {path: 'individual-dashboard',component: IndividualDasboardComponent},
-  {path: 'organisation-dashboard', component: OrganisationDashboardComponent}
+  { path: 'sponsor-dashboard', component: SponsorDasboardComponent },
+  { path: 'individual-dashboard', component: IndividualDasboardComponent },
+  { path: 'organisation-dashboard', component: OrganisationDashboardComponent },
+  { path: 'donation-form', component: DonationForm },
+  { path: 'donation-frequency', component: DonationFrequency },
+  { path: 'donation-typpe', component: DonationType },
+  { path: 'donation-details', component: DonationDetails },
 ];

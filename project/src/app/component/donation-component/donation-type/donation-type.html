@@ -1,0 +1,167 @@
+<div
+  class="min-h-screen bg-white flex flex-col items-center justify-center p-4"
+>
+  <!-- Stepper -->
+  <div class="flex items-center justify-center space-x-4 mb-6" id="stepper">
+    <div
+      class="step w-8 h-8 flex items-center justify-center rounded-full bg-blue-500 text-white"
+    >
+      1
+    </div>
+    <div
+      class="step w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 text-gray-500"
+    >
+      2
+    </div>
+    <div
+      class="step w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 text-gray-500"
+    >
+      3
+    </div>
+    <div
+      class="step w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 text-gray-500"
+    >
+      4
+    </div>
+  </div>
+  <div class="step-panel" id="step-1">
+    <div class="text-center mb-4">
+      <h2 class="text-xl font-semibold">Donation Type</h2>
+      <p class="text-sm text-gray-500">What would you like to donate?</p>
+    </div>
+  </div>
+  <!-- Main Card -->
+  <div
+    class="max-w-md mx-auto p-6 bg-white rounded-lg border border-gray-300 shadow-xl"
+  >
+    <!-- Step 1 -->
+    <div class="step-panel" id="step-1">
+      <div class="text-center mb-4">
+        <h2 class="text-xl font-semibold p-4">Choose Your Donation Type</h2>
+      </div>
+
+      <!-- Step Content -->
+      <form class="space-y-4">
+        <!-- Food Donations -->
+        <label
+          class="block border rounded-xl p-4 flex items-center gap-4 cursor-pointer hover:shadow-md transition"
+        >
+          <img
+            src="https://i.pinimg.com/736x/cf/b1/aa/cfb1aa51b9d84c308f0ed811ff4d371e.jpg"
+            alt="Food"
+            class="w-12 h-12 rounded object-cover"
+          />
+          <div>
+            <p class="font-medium">Food Donations</p>
+            <p class="text-sm text-gray-500">
+              Fresh foods, groceries, or packaged food items
+            </p>
+          </div>
+          <input
+            type="radio"
+            name="donationType"
+            value="food"
+            class="ml-auto mt-1 accent-blue-500"
+          />
+        </label>
+
+        <!-- Item Donations -->
+        <label
+          class="block border rounded-xl p-4 flex items-center gap-4 cursor-pointer hover:shadow-md transition"
+        >
+          <img
+            src="https://i.pinimg.com/736x/86/0a/a0/860aa0fffb5c0f48b61574f355ec217e.jpg"
+            alt="Items"
+            class="w-12 h-12 rounded object-cover"
+          />
+          <div>
+            <p class="font-medium">Item Donations</p>
+            <p class="text-sm text-gray-500">
+              Clothing, household material, or personal items
+            </p>
+          </div>
+          <input
+            type="radio"
+            name="donationType"
+            value="item"
+            class="ml-auto mt-1 accent-blue-500"
+            checked
+          />
+        </label>
+
+        <!-- Service Donations -->
+        <label
+          class="block border rounded-xl p-4 flex items-center gap-4 cursor-pointer hover:shadow-md transition"
+        >
+          <img
+            src="https://i.pinimg.com/1200x/33/27/f1/3327f18b64752e73e5bbdaa773a16c9c.jpg"
+            alt="Service"
+            class="w-12 h-12 rounded object-cover"
+          />
+          <div>
+            <p class="font-medium">Service Donations</p>
+            <p class="text-sm text-gray-500">
+              Offering skills, volunteering or helpful services
+            </p>
+          </div>
+          <input
+            type="radio"
+            name="donationType"
+            value="service"
+            class="ml-auto mt-1 accent-blue-500"
+          />
+        </label>
+      </form>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step-panel hidden" id="step-2">
+      <div class="text-center">
+        <h2 class="text-xl font-semibold">Step 2</h2>
+        <p class="text-sm text-gray-500">
+          Describe your donation (placeholder)
+        </p>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step-panel hidden" id="step-3">
+      <div class="text-center">
+        <h2 class="text-xl font-semibold">Step 3</h2>
+        <p class="text-sm text-gray-500">Your Contact Details (placeholder)</p>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="step-panel hidden" id="step-4">
+      <div class="text-center">
+        <h2 class="text-xl font-semibold">Step 4</h2>
+        <p class="text-sm text-gray-500">Confirm and Submit (placeholder)</p>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="flex justify-between items-center w-full mt-8">
+      <button
+        id="backBtn"
+        (click)="cancel()"
+        class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
+        disabled
+      >
+        &lt; Back
+      </button>
+      <button
+        id="nextBtn"
+        (click)="proceed()"
+        class="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition"
+      >
+        Next &gt;
+      </button>
+    </div>
+
+    <!-- Error message -->
+    <p id="stepError" class="text-red-600 text-sm mt-2 text-center hidden">
+      Please complete the required fields before continuing.
+    </p>
+  </div>
+</div>
