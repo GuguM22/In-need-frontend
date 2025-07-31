@@ -23,7 +23,7 @@ export const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
   { path: 'verify-email', component: VerifyEmail },
-  { path: 'landing', component: LandingComponent },
+  { path: '', component: LandingComponent },
 
   
   { path: 'forgot-password', component: ForgotPassword },
@@ -32,7 +32,7 @@ export const routes: Routes = [
   {path: 'individual-dashboard',component: IndividualDasboardComponent},
   {path: 'organisation-dashboard', component: OrganisationDashboardComponent},
 
-  {path: 'options', component:OptionsComponent}
+  {path: 'options', component:OptionsComponent},
 
   {  path: 'req', component: SponsorRequest}
 
