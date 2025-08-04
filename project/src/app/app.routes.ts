@@ -14,7 +14,7 @@ import { SponsorRequest } from './Pages/sponsor-request/sponsor-request';
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'Landing', pathMatch: 'full' },
+  { path: '', redirectTo: 'sponsor-req', pathMatch: 'full' },
  
   { path: 'sponsor-req', component: SponsorRequest },
   { path: 'sign-in', component: SignInComponent },
