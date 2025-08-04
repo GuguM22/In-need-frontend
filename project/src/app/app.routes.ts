@@ -12,6 +12,7 @@ import { OptionsComponent } from './Pages/options/options.component';
 
 import { ResetPassword } from './component/reset-password/reset-password';
 import { SponsorRequest } from './Pages/sponsor-request/sponsor-request';
+import { UploadSuccessfullyComponent } from './Pages/upload-successfully/upload-successfully.component';
 
 
 
@@ -34,6 +35,7 @@ export const routes: Routes = [
 
   {path: 'options', component:OptionsComponent},
 
-  {  path: 'req', component: SponsorRequest}
+  {  path: 'req', component: SponsorRequest},
+  {path: 'upload-successfully',component: UploadSuccessfullyComponent}
 
 ];

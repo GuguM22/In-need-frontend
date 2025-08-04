@@ -14,22 +14,22 @@
 
         <!-- Name Field -->
         <div class="mb-3">
-            <label for="name" class="block mb-1 text-xs font-medium text-black">UserName</label>
-            <input type="text" id="name" formControlName="name"
+            <label for="username" class="block mb-1 text-xs font-medium text-black">UserName</label>
+            <input type="text" id="username" formControlName="username"
                 class="w-full p-2 text-sm bg-white border border-gray-600 rounded-md text-black placeholder-gray-400 focus:ring-1 focus:ring-gray-300 focus:border-gray-500 outline-none transition"
                 placeholder="John Doe" />
-            <div *ngIf="registerForm.get('name')?.invalid && (registerForm.get('name')?.dirty || registerForm.get('name')?.touched)"
+            <div *ngIf="registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)"
                 class="mt-1 text-xs text-red-400">
-                <div *ngIf="registerForm.get('name')?.errors?.['required']">
+                <div *ngIf="registerForm.get('username')?.errors?.['required']">
                     {{ validationMessages.name.required }}
                 </div>
-                <div *ngIf="registerForm.get('name')?.errors?.['minlength']">
+                <div *ngIf="registerForm.get('username')?.errors?.['minlength']">
                     {{ validationMessages.name.minlength }}
                 </div>
-                <div *ngIf="registerForm.get('name')?.errors?.['maxlength']">
+                <div *ngIf="registerForm.get('username')?.errors?.['maxlength']">
                     {{ validationMessages.name.maxlength }}
                 </div>
-                <div *ngIf="registerForm.get('name')?.errors?.['pattern']">
+                <div *ngIf="registerForm.get('username')?.errors?.['pattern']">
                     {{ validationMessages.name.pattern }}
                 </div>
             </div>

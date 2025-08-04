@@ -85,7 +85,7 @@
             name="donationType"
             value="item"
             class="ml-auto mt-1 accent-blue-500"
-            checked
+            [(ngModel)]  = "selectedType"
           />
         </label>
 
@@ -144,7 +144,7 @@
     <div class="flex justify-between items-center w-full mt-8">
       <button
         id="backBtn"
-        (click)="cancel()"
+        (click)="goBack()"
         class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
         disabled
       >
@@ -152,7 +152,7 @@
       </button>
       <button
         id="nextBtn"
-        (click)="proceed()"
+        (click)="goNext()"
         class="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition"
       >
         Next &gt;
