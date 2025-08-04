@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sponsor-request',
@@ -13,7 +14,7 @@ export class SponsorRequest {
   selectedFiles: File[] = [];
   isSubmitting = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.sponsorshipForm = this.fb.group({
       title: ['', Validators.required],
       priority: [''],
@@ -121,4 +122,9 @@ get priorityValue() {
       alert('This would navigate back to the previous page');
     }
   }
+
+  backButton(){
+    this.router.navigate(['organisation-dashboard']);
+  }
 }
+
