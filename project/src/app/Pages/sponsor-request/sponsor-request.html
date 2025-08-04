@@ -89,56 +89,82 @@
       </div>
 
      <!-- File Upload Section -->
-<div class="form-group">
-  <label class="form-label">Images or Videos (Optional)</label>
-  <p class="upload-help">Add photos or videos to help sponsors understand your request better</p>
-
-  <div
-    class="flex items-center justify-center w-full"
-    (drop)="onFileDrop($event)"
-    (dragover)="onDragOver($event)"
-    (dragleave)="onDragLeave($event)"
+<!-- File Upload Section -->
+<!-- File Upload Section -->
+<div
+  class="flex items-center justify-center w-full"
+  (drop)="onFileDrop($event)"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+>
+  <label
+    for="dropzone-file"
+    class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-white-800 dark:bg-white-700 hover:bg-gray-100 dark:border-white-600 dark:hover:border-white-500 dark:hover:bg-white-600"
   >
-    <label
-      for="dropzone-file"
-      class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-white-800 dark:bg-white-700 hover:bg-gray-100 dark:border-white-600 dark:hover:border-white-500 dark:hover:bg-white-600"
-    >
-      <div class="flex flex-col items-center justify-center pt-5 pb-6">
-        <svg
-          class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 20 16"
-        >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-          />
-        </svg>
-        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-          <span class="font-semibold">Click to upload</span> or drag and drop
-        </p>
-        <p class="text-xs text-gray-500 dark:text-gray-400">
-          SVG, PNG, JPG, GIF or MP4 (MAX. 800x400px)
-        </p>
-      </div>
-      <input
-        id="dropzone-file"
-        type="file"
-        (change)="onFileSelect($event)"
-        multiple
-        accept="image/*,video/*"
-        class="hidden"
-      />
-    </label>
-  </div>
-
-  
+    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+      <svg
+        class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 20 16"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+        />
+      </svg>
+      <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+        <span class="font-semibold">Click to upload</span> or drag and drop
+      </p>
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        SVG, PNG, JPG, GIF or MP4
+      </p>
+    </div>
+    <input
+      id="dropzone-file"
+      type="file"
+      (change)="onFileSelect($event)"
+      multiple
+      accept="image/*,video/*"
+      class="hidden"
+    />
+  </label>
 </div>
+
+<!-- Uploaded Files List -->
+<div *ngIf="selectedFiles.length > 0" class="mt-4 w-full">
+  <h3 class="text-sm font-semibold mb-2">Uploaded Files:</h3>
+  <ul class="space-y-1">
+    <li *ngFor="let file of selectedFiles" class="text-gray-700 text-sm">
+      {{ file.name }}
+    </li>
+  </ul>
+
+
+</div>
+
+<!-- Uploaded Previews -->
+ 
+<div *ngIf="filePreviews.length > 0" class="mt-4 grid grid-cols-3 gap-4">
+  <div *ngFor="let preview of filePreviews; let i = index" class="relative">
+    <!-- Show image preview -->
+    <img *ngIf="selectedFiles[i].type.startsWith('image/')"
+         [src]="preview"
+         class="w-full h-32 object-cover rounded-lg border" />
+
+    <!-- Show video preview -->
+    <video *ngIf="selectedFiles[i].type.startsWith('video/')"
+           [src]="preview"
+           controls
+           class="w-full h-32 object-cover rounded-lg border">
+    </video>
+  </div>
+</div>
+
 
       <!-- Submit Button -->
       <button 
