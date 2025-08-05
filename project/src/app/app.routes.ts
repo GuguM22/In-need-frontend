@@ -18,6 +18,7 @@ import { OptionsComponent } from './Pages/options/options.component';
 
 
 import { UploadSuccessfullyComponent } from './Pages/upload-successfully/upload-successfully.component';
+import { ThankYouComponent } from './Pages/thank-you/thank-you.component';
 
 
 
@@ -38,7 +39,8 @@ export const routes: Routes = [
   {path: 'options', component:OptionsComponent},
 
   {  path: 'req', component: SponsorRequest},
-  {path: 'upload-successfully',component: UploadSuccessfullyComponent}
+  {path: 'upload-successfully',component: UploadSuccessfullyComponent},
+  {path: 'thank-you',component:ThankYouComponent}
 
 
 ];
