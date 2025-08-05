@@ -21,16 +21,29 @@
             <div *ngIf="registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)"
                 class="mt-1 text-xs text-red-400">
                 <div *ngIf="registerForm.get('username')?.errors?.['required']">
-                    {{ validationMessages.name.required }}
+
+                    {{ validationMessages.username.required }}
                 </div>
                 <div *ngIf="registerForm.get('username')?.errors?.['minlength']">
-                    {{ validationMessages.name.minlength }}
+                    {{ validationMessages.username.minlength }}
                 </div>
                 <div *ngIf="registerForm.get('username')?.errors?.['maxlength']">
-                    {{ validationMessages.name.maxlength }}
+                    {{ validationMessages.username.maxlength }}
                 </div>
                 <div *ngIf="registerForm.get('username')?.errors?.['pattern']">
-                    {{ validationMessages.name.pattern }}
+                    {{ validationMessages.username.pattern }}
+
+                    {{ validationMessages.username.required }}
+                </div>
+                <div *ngIf="registerForm.get('username')?.errors?.['minlength']">
+                    {{ validationMessages.username.minlength }}
+                </div>
+                <div *ngIf="registerForm.get('username')?.errors?.['maxlength']">
+                    {{ validationMessages.username.maxlength }}
+                </div>
+                <div *ngIf="registerForm.get('username')?.errors?.['pattern']">
+                    {{ validationMessages.username.pattern }}
+
                 </div>
             </div>
         </div>
@@ -161,11 +174,11 @@
                 </div>
             </div>
         </div>
-
         <!-- Submit Button -->
         <button type="submit"
             class="w-full py-2 px-4 bg-blue-400 hover:bg-indigo-500 text-sm text-white font-medium rounded-md transition duration-200 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:ring-offset-1 focus:ring-offset-gray-800"
             [disabled]="registerForm.invalid || isLoading">
+          
             <span *ngIf="!isLoading">Register</span>
             <span *ngIf="isLoading">Processing...</span>
         </button>

@@ -25,7 +25,7 @@ export class Register implements OnInit {
   showConfirmPassword = false;
 
   validationMessages = {
-    name: {
+   username: {
       required: 'Name is required',
       minlength: 'Name must be at least 2 characters long',
       maxlength: 'Name cannot be more than 30 characters long',
@@ -62,7 +62,11 @@ export class Register implements OnInit {
   ) {
     this.registerForm = this.fb.group(
       {
-       username: [
+
+      
+
+        username: [
+
           '',
           [
             Validators.required,
@@ -160,7 +164,11 @@ export class Register implements OnInit {
 
   closeModal() {
     this.showVerificationModal = false;
+
     this.router.navigate(['/sign-in']);
+
+    this.router.navigate(['/sigin-up']);
+
   }
 
   closeErrorPopup() {
