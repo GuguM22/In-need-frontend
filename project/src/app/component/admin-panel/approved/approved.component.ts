@@ -13,16 +13,14 @@ export class ApprovedComponent {
   @Output() close = new EventEmitter<void>();
 
 
-  // Track the selected application for detailed view
-  selectedApplication: string | null = null;
+   selectedApplication: string | null = null;
 
    
-  // Set the selected application to show detailed view
-  selectApplication(appName: string): void {
+   selectApplication(appName: string): void {
     this.selectedApplication = appName;
   }
 
   closeDetails(): void {
-    this.close.emit(); // 🔴 This is what notifies the parent!
+    this.close.emit();  
   }
 }

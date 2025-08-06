@@ -4,7 +4,7 @@
 }
 .panelHeading{
     font-weight: 700;
-     margin-left: 10px;
+    margin-left: 10px;
     padding-bottom: 10px;
 }
 
@@ -151,18 +151,20 @@ img{
 
 .timestamp{
     font-size: 11px;
-    color: #00000099;
+     color: #00000099;
 }
 
 .timestamp2{
     font-size: 11px;
 }
+
 .calendarIcon{
     margin-top: 5px;
     margin-right: 3px;
     height: 13px;
     width: 13px;
 }
+
 .adminLogo2{
     height: 80px;
     padding-right: 5px;
@@ -218,7 +220,7 @@ align-items: center;
 .statusColour2{
     height: 12px;
     width: 12px;
-    background-color: #0ed00e75;
+    background-color: #d00e0e75;
     border-radius: 20px;
     margin-right: 8px;
      
@@ -325,6 +327,7 @@ img{
     border: solid rgba(128, 128, 128, 0.687);
 
 }
+
 .text2{
     margin-left: 10px;
     font-weight: 700;
@@ -369,6 +372,7 @@ img{
     padding-right: 5px;
     margin-left: 10px;
     font-family: 'Mulish';
+
 }
 
 .reviewSection2{
@@ -402,23 +406,24 @@ img{
     background-color: #FDFDFD;
  }
 
+ 
  .side3 {
     background-color: #FDFDFD;
 
    }
-  
+
   .side {
     background-color: #FDFDFD;
    }
   
-   .mid{
+ .mid{
     height: 100vh;
     margin-top: -20px;
     padding-top: 50px;
     width: 455px;
 
    }
-
+  
   .side3{
     width: 379px;
    }
@@ -432,7 +437,7 @@ img{
    }
 
    hr{
-   border-color: #b0b0b0;
+border-color: #b0b0b0;
    }
 
    .items{
@@ -467,11 +472,13 @@ margin-right: 3px;
 margin-left: 4px;
  }
 
+
+
 .btnP{
     font-weight: 400;
-   font-family: 'Gilroy-bold';
-   color: black;
-   font-size: 10px;
+font-family: 'Gilroy-bold';
+color: black;
+font-size: 10px;
 }
 
 .emailP{

@@ -6,8 +6,7 @@
 }
 .panelHeading{
     font-weight: 700;
-    /* margin-top: 10px; */
-    margin-left: 10px;
+     margin-left: 10px;
     padding-bottom: 10px;
 }
 
@@ -27,9 +26,9 @@
 }
 
 .subTitle{
-color: #0000006e;
-font-size: 12px;
-font-family: 'Gilroy-medium';
+  color: #0000006e;
+  font-size: 12px;
+  font-family: 'Gilroy-medium';
 }
 
 .title{
@@ -62,14 +61,9 @@ font-family: 'Gilroy-medium';
 
 }
 
-.statusDot{
-   /* border: solid blue; */
-}
-
 .statusColour{
     height: 12px;
     width: 12px;
-    /* background-color: #FFBA0875; */
     background-color: red;
     border-radius: 20px;
     margin-right: 8px;
@@ -159,16 +153,11 @@ img{
 
 .timestamp{
     font-size: 11px;
-    /* margin-left: 5px; */
     color: #00000099;
 }
 
 .timestamp2{
     font-size: 11px;
-}
-
-.dateDiv{
-    /* margin-top: -5px; */
 }
 .calendarIcon{
     margin-top: 5px;
@@ -177,28 +166,18 @@ img{
     width: 13px;
 }
 
-/* @import url('https://fonts.cdnfonts.com/css/gilroy-bold');
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Readex+Pro:wght@160..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap'); */
-
-
 .adminLogo2{
     height: 80px;
     padding-right: 5px;
-    /* border: solid; */
 }
 .container2{
    display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-
-/* margin-left: auto;
-margin-right: auto; */
-/* width: 800px; */
 }
 
 .adminStatus2{
-    /* border: solid; */
     margin-top: -5px;
 }
 
@@ -212,7 +191,6 @@ margin-right: auto; */
     font-weight:700;
     font-size: 16px;
     padding-top: 10px;
-    /* border: solid; */
     margin-bottom: -10px;
     padding-bottom: 2px;
 }
@@ -236,13 +214,8 @@ margin-right: auto; */
 .status2{
     margin-left: 40px;
     display: flex;
-    /* border: solid red; */
     margin-top: -3px;
     align-items: center;
-}
-
-.pending3{
-    /* border: solid green;  */
 }
 
 .statusColour2{
@@ -255,14 +228,12 @@ margin-right: auto; */
 }
 
 .statusDot{
-    /* border: solid magenta; */
     height: 10px ;
 }
 
 
 .contact2{
     border: solid #D9D9D9;
-    /* border: solid red; */
     margin-top: 30px;
     padding-top: 10px;
     width: 100%;
@@ -336,7 +307,6 @@ img{
 
 .files2{
    display: flex;
-   /* border: solid; */
    width: 368px;
    justify-content: space-between;
 }
@@ -355,9 +325,7 @@ img{
     display: flex;
     align-items: center;
     border: solid rgba(128, 128, 128, 0.687);
-
 }
-
 
 .text2{
     margin-left: 10px;
@@ -403,7 +371,6 @@ img{
     padding-right: 5px;
     margin-left: 10px;
     font-family: 'Mulish';
-
 }
 
 .reviewSection2{
@@ -420,7 +387,6 @@ img{
 
 .review2{
     font-weight: 600;
-    /* margin-bottom: 10px; */
     margin-top: 10px;
 }
 
@@ -446,37 +412,16 @@ img{
 
    }
   
-
-
- 
   .side {
     background-color: #FDFDFD;
    }
-  
-  .middle-panel {
-    /* border: 1px solid #d1d5db;  */
-    /* border-right: solid gray; */
-    /* height: 700vh; */
-    /* padding-right: 20px; */
-    /* border-radius: 0.5rem;      Rounded corners */
-    /* background-color: #FDFDFD; */
-  }
-
-  .middle{
-    /* border: solid red; */
-   }
 
    .mid{
-    /* border: solid red; */
     height: 100vh;
     margin-top: -20px;
     padding-top: 50px;
     width: 455px;
 
-   }
-  
- 
-  .pending-panel{
    }
 
   .side3{
@@ -484,14 +429,9 @@ img{
    }
 
    .right{
-    /* border: solid blue; */
     margin-left:10px;
-    /* margin-top: 20px; */
    }
-
-   .back{
-   }
-
+   
    .heading{
     margin-right: 50px;
    }

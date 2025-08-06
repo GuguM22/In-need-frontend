@@ -240,9 +240,9 @@
           <div *ngIf="activePanel === 'pending'">
             <app-pending [application]="selectedApplication" (close)="closeDetails()"></app-pending>
           </div>
-          <!-- <div *ngIf="activePanel === 'rejected'">
-            <app-admin-rejected [application]="selectedApplication" (close)="closeDetails()"></app-admin-rejected>
-          </div> -->
+          <div *ngIf="activePanel === 'rejected'">
+            <app-rejected [application]="selectedApplication" (close)="closeDetails()"></app-rejected>
+          </div>
         </div>
   
       </div> <!-- end panel content -->
