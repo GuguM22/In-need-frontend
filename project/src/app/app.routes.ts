@@ -10,6 +10,8 @@ import { ResetPassword } from './component/reset-password/reset-password';
 import { OrganisationDashboardComponent } from './component/organisation-dashboard/organisation-dashboard.component';
 import { ForgotPassword } from './component/forgot-password/forgot-password';
 import { SponsorRequest } from './Pages/sponsor-request/sponsor-request';
+import { Fequency } from './component/fequency/fequency';
+
 
 
 
@@ -25,8 +27,14 @@ import { DonationReviewComponent } from './component/donation-review/donation-re
 
 
 export const routes: Routes = [
+
   { path: '', redirectTo: 'Landing', pathMatch: 'full' },
   { path: '', component: LandingComponent },
+
+ 
+
+  
+
   { path: 'sponsor-req', component: SponsorRequest },
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
@@ -35,6 +43,10 @@ export const routes: Routes = [
    {path: 'verification-page', component: VerificationPage},
   
 
+
+
+
+  {path: 'freq',component:Fequency},
 
 
  { path: 'options', component: OptionsComponent },
