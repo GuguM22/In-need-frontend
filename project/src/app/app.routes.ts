@@ -10,6 +10,8 @@ import { ResetPassword } from './component/reset-password/reset-password';
 import { OrganisationDashboardComponent } from './component/organisation-dashboard/organisation-dashboard.component';
 import { ForgotPassword } from './component/forgot-password/forgot-password';
 import { SponsorRequest } from './Pages/sponsor-request/sponsor-request';
+import { Fequency } from './component/fequency/fequency';
+
 
 
 
@@ -20,14 +22,15 @@ import { OptionsComponent } from './Pages/options/options.component';
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'landing', pathMatch: 'full' },
+  { path: '', redirectTo: 'fequency', pathMatch: 'full' },
  
   { path: 'sponsor-req', component: SponsorRequest },
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
   { path: 'verify-email', component: VerifyEmail },
 
-  { path: '', component: LandingComponent },
+  // { path: '', component: LandingComponent },
+  {path: '',component:Fequency} 
 
 
 

@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Navbar } from './ui/navbar/navbar';
-import { FooterComponent } from "./ui/footer/footer"; 
+import { FooterComponent } from "./ui/footer/footer";
+import { Fequency } from "./component/fequency/fequency"; 
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, Fequency, Navbar],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
