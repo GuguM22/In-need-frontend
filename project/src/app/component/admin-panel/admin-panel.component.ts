@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { PendingComponent } from './pending/pending.component';
+import { ApprovedComponent } from './approved/approved.component';
 
 @Component({
   selector: 'app-admin-panel',
-  imports: [CommonModule, PendingComponent],
+  imports: [CommonModule, PendingComponent, ApprovedComponent],
   templateUrl: './admin-panel.component.html',
   styleUrl: './admin-panel.component.css'
 })

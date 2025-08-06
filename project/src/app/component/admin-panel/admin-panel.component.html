@@ -234,9 +234,9 @@
   
         <div *ngIf="selectedApplication" class="flex-1 pl-4 right">
    
-          <!-- <div *ngIf="activePanel === 'approved'">
-            <app-admin-approved [application]="selectedApplication" (close)="closeDetails()"></app-admin-approved>
-          </div> -->
+          <div *ngIf="activePanel === 'approved'">
+            <app-approved [application]="selectedApplication" (close)="closeDetails()"></app-approved>
+          </div>
           <div *ngIf="activePanel === 'pending'">
             <app-pending [application]="selectedApplication" (close)="closeDetails()"></app-pending>
           </div>
