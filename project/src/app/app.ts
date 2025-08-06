@@ -1,12 +1,25 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { Navbar } from './ui/navbar/navbar';
+import { FooterComponent } from "./ui/footer/footer";
+import { Sidebar } from "./ui/sidebar/sidebar"; 
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [RouterOutlet, CommonModule, Navbar, FooterComponent],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrls: ['./app.css']
 })
 export class App {
   protected title = 'project';
+
+   constructor(public router: Router) {}
+
+  get isAuthRoute(): boolean {
+    const hiddenRoutes = ['/sign-in', '/register', '/forgot-password', '/reset-password', '/', 'landing'];
+    return hiddenRoutes.includes(this.router.url);
+  }
 }

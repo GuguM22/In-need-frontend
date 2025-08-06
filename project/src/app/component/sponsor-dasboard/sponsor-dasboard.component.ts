@@ -1,13 +1,10 @@
-import { Component } from '@angular/core';
-import { DonationDetails } from "../donation-component/donation-details/donation-details";
-import { DonationFrequency } from "../donation-component/donation-frequency/donation-frequency";
-import { DonationForm } from "../donation-component/donation-form/donation-form";
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-sponsor-dasboard',
   standalone: true,
-  imports: [CommonModule,DonationForm],
+  imports: [CommonModule],
   templateUrl: './sponsor-dasboard.component.html',
   styleUrls: ['./sponsor-dasboard.component.css']
 })

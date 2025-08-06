@@ -25,7 +25,7 @@ export class Register implements OnInit {
   showConfirmPassword = false;
 
   validationMessages = {
-    name: {
+   username: {
       required: 'Name is required',
       minlength: 'Name must be at least 2 characters long',
       maxlength: 'Name cannot be more than 30 characters long',
