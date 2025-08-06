@@ -6,10 +6,11 @@ import { Sidebar } from "./ui/sidebar/sidebar";
 import { CommonModule } from '@angular/common';
 
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, Navbar, FooterComponent],
+  imports: [CommonModule, RouterModule],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
