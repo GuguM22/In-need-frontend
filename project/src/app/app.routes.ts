@@ -11,12 +11,8 @@ import { OrganisationDashboardComponent } from './component/organisation-dashboa
 import { ForgotPassword } from './component/forgot-password/forgot-password';
 import { SponsorRequest } from './Pages/sponsor-request/sponsor-request';
 
-
-
 import { OptionsComponent } from './Pages/options/options.component';
-
-
-
+import { VerificationPage } from './Pages/verification-page/verification-page';
 
 
 export const routes: Routes = [
@@ -26,11 +22,10 @@ export const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
   { path: 'verify-email', component: VerifyEmail },
+   {path: 'sponsor-dashboard', component: SponsorDasboardComponent},
+   {path: 'verification-page', component: VerificationPage},
+  
 
   { path: '', component: LandingComponent },
-
-
-
-
 
 ];
