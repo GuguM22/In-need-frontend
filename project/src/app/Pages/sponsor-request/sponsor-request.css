@@ -1,0 +1,81 @@
+/* form base */
+.form-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.text-align-center {
+  text-align: center;
+}
+
+/* form groups */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+.border-gray-300 { border-color: #D1D5DB; }
+.border-green-500 { border-color: #22C55E; }
+.border-yellow-500 { border-color: #EAB308; }
+.border-red-500 { border-color: #EF4444; }
+
+
+/* Default select (white) - already handled by .form-select */
+/* Default select (white) - already handled by .form-select */
+.form-select {
+  background: #fff;       /* Default white background */
+  color: #000;            /* Black text */
+  border: 1px solid #ccc; /* Default grey border */
+}
+
+.priority-selected {
+  background: #5B8E7D !important; /* Green background */
+  color: #fff !important;         /* White text */
+  border: 1px solid #5B8E7D;      /* Green border */
+}
+
+
+
+/* input styling */
+.form-input,
+.form-textarea,
+.form-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* error state */
+.ng-invalid.ng-touched {
+  border-color: red;
+}
+
+
+
+/* upload area */
+.upload-area {
+  border: 2px dashed #aaa;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+/* submit button */
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background: #5B8E7D;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+}
