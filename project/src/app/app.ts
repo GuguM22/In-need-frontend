@@ -15,7 +15,6 @@ import { CommonModule } from '@angular/common';
 
   imports: [CommonModule, RouterModule],
 
-  imports: [RouterOutlet, CommonModule, Navbar, FooterComponent],
    templateUrl: './app.html',
 
   styleUrls: ['./app.css']
@@ -23,10 +22,5 @@ import { CommonModule } from '@angular/common';
 export class App {
   protected title = 'project';
 
-   constructor(public router: Router) {}
-
-  get isAuthRoute(): boolean {
-    const hiddenRoutes = ['/sign-in', '/register', '/forgot-password', '/reset-password', '/', 'landing'];
-    return hiddenRoutes.includes(this.router.url);
-  }
+  
 }
