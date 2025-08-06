@@ -6,10 +6,12 @@ import { VerifyEmail } from './component/verify-email/verify-email';
 import { SponsorDasboardComponent } from './component/sponsor-dasboard/sponsor-dasboard.component';
 import { IndividualDasboardComponent } from './component/individual-dasboard/individual-dasboard.component';
 import { DonationReq } from './Pages/donation-req/donation-req';
+import { ReviewReq } from './Pages/review-req/review-req';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'donation-req', pathMatch: 'full' },
+  { path: '', redirectTo: 'Landing', pathMatch: 'full' },
     { path: 'donation-req', component: DonationReq },
+      { path: 'review-req', component: ReviewReq },
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
   { path: 'verify-email', component: VerifyEmail },
