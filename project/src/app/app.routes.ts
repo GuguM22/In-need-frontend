@@ -11,14 +11,21 @@ import { OrganisationDashboardComponent } from './component/organisation-dashboa
 import { ForgotPassword } from './component/forgot-password/forgot-password';
 import { SponsorRequest } from './Pages/sponsor-request/sponsor-request';
 
+
+
+
 import { OptionsComponent } from './Pages/options/options.component';
+import { from } from 'rxjs';
+import { OrganiseDetailsComponent } from './Pages/organise-details/organise-details';
+
 import { VerificationPage } from './Pages/verification-page/verification-page';
 import { AdminPanelComponent } from './component/admin-panel/admin-panel.component';
 import { DonationReviewComponent } from './component/donation-review/donation-review.component';
 
 
+
 export const routes: Routes = [
-  { path: '', redirectTo: 'landing', pathMatch: 'full' },
+  { path: '', redirectTo: 'Landing', pathMatch: 'full' },
  
   { path: 'sponsor-req', component: SponsorRequest },
   { path: 'sign-in', component: SignInComponent },
@@ -29,7 +36,20 @@ export const routes: Routes = [
   
 
   { path: '', component: LandingComponent },
-  {path:'admin', component:AdminPanelComponent},
-  {path:'donation-review', component: DonationReviewComponent}
 
+ { path: 'options', component: OptionsComponent },
+  { path: 'organise-details', component: OrganiseDetailsComponent },
+  { path: '', redirectTo: 'Landing', pathMatch: 'full' },
+   {path:'admin', component:AdminPanelComponent},
+  {path:'donation-review', component: DonationReviewComponent}
 ];
+
+
+
+
+
+
+
+ 
+
+
