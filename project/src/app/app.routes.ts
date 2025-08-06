@@ -14,6 +14,7 @@ import { SponsorRequest } from './Pages/sponsor-request/sponsor-request';
 import { OptionsComponent } from './Pages/options/options.component';
 import { VerificationPage } from './Pages/verification-page/verification-page';
 import { AdminPanelComponent } from './component/admin-panel/admin-panel.component';
+import { DonationReviewComponent } from './component/donation-review/donation-review.component';
 
 
 export const routes: Routes = [
@@ -28,6 +29,7 @@ export const routes: Routes = [
   
 
   { path: '', component: LandingComponent },
-  {path:'admin', component:AdminPanelComponent}
+  {path:'admin', component:AdminPanelComponent},
+  {path:'donation-review', component: DonationReviewComponent}
 
 ];
