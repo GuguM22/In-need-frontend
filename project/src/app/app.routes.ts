@@ -23,17 +23,17 @@ import { OrganiseDetailsComponent } from './Pages/organise-details/organise-deta
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'organise-details', pathMatch: 'full' },
+  { path: '', redirectTo: 'Landing', pathMatch: 'full' },
  
   { path: 'sponsor-req', component: SponsorRequest },
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
   { path: 'verify-email', component: VerifyEmail },
-// { path: 'organise-details', component:OrganiseDetailsComponent },
-//   { path: '', component: LandingComponent },
+
+  { path: '', component: LandingComponent },
  { path: 'options', component: OptionsComponent },
   { path: 'organise-details', component: OrganiseDetailsComponent },
-  { path: '', redirectTo: 'organise-details', pathMatch: 'full' }
+  { path: '', redirectTo: 'Landing', pathMatch: 'full' }
 ];
 
 
