@@ -13,24 +13,32 @@ import { SponsorRequest } from './Pages/sponsor-request/sponsor-request';
 
 
 
+
 import { OptionsComponent } from './Pages/options/options.component';
+import { from } from 'rxjs';
+import { OrganiseDetailsComponent } from './Pages/organise-details/organise-details';
 
 
 
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'landing', pathMatch: 'full' },
+  { path: '', redirectTo: 'organise-details', pathMatch: 'full' },
  
   { path: 'sponsor-req', component: SponsorRequest },
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
   { path: 'verify-email', component: VerifyEmail },
-
-  { path: '', component: LandingComponent },
-
-
-
-
-
+// { path: 'organise-details', component:OrganiseDetailsComponent },
+//   { path: '', component: LandingComponent },
+ { path: 'options', component: OptionsComponent },
+  { path: 'organise-details', component: OrganiseDetailsComponent },
+  { path: '', redirectTo: 'organise-details', pathMatch: 'full' }
 ];
+
+
+
+
+
+
+
