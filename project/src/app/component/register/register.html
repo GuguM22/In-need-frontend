@@ -24,7 +24,7 @@
 
                     {{ validationMessages.username.required }}
                 </div>
-                <div *ngIf="registerForm.get('username')?.errors?.['minlength']">
+                <div *ngIf="registerForm.get('userusername')?.errors?.['minlength']">
                     {{ validationMessages.username.minlength }}
                 </div>
                 <div *ngIf="registerForm.get('username')?.errors?.['maxlength']">
@@ -178,11 +178,10 @@
         <button type="submit"
             class="w-full py-2 px-4 bg-blue-400 hover:bg-indigo-500 text-sm text-white font-medium rounded-md transition duration-200 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:ring-offset-1 focus:ring-offset-gray-800"
             [disabled]="registerForm.invalid || isLoading">
-          
-            <span *ngIf="!isLoading">Register</span>
             <span *ngIf="isLoading">Processing...</span>
+             Register
         </button>
-
+       
         <!-- Login Link -->
         <p class="mt-4 text-center text-sm text-gray-400">
             Already have an account?

@@ -11,8 +11,6 @@ import { OrganisationDashboardComponent } from './component/organisation-dashboa
 import { ForgotPassword } from './component/forgot-password/forgot-password';
 import { SponsorRequest } from './Pages/sponsor-request/sponsor-request';
 
-
-
 import { OptionsComponent } from './Pages/options/options.component';
 
 
@@ -20,6 +18,7 @@ import { OptionsComponent } from './Pages/options/options.component';
 import { UploadSuccessfullyComponent } from './Pages/upload-successfully/upload-successfully.component';
 import { ThankYouComponent } from './Pages/thank-you/thank-you.component';
 
+import { VerificationPage } from './Pages/verification-page/verification-page';
 
 
 export const routes: Routes = [
@@ -37,7 +36,12 @@ export const routes: Routes = [
 
   {  path: 'req', component: SponsorRequest},
   {path: 'upload-successfully',component: UploadSuccessfullyComponent},
-  {path: 'thank-you',component:ThankYouComponent}
+  {path: 'thank-you',component:ThankYouComponent},
 
 
+   {path: 'sponsor-dashboard', component: SponsorDasboardComponent},
+   {path: 'verification-page', component: VerificationPage},
+  
+
+ 
 ];

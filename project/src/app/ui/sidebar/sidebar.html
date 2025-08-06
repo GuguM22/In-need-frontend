@@ -1,51 +1,41 @@
-<div class="fixed left-0 top-0 calc-height w-[283px] bg-white border border-gray-300 rounded-[12px] flex flex-col justify-between px-4 py-10" *ngIf="toggle">
+<body class="h-screen overflow-hidden">
+  <!-- Sidebar -->
+  <div *ngIf="toggle"
+    class="fixed top-0 left-0 h-full w-[283px] z-[9999] bg-white border border-gray-300 rounded-[12px] px-4 py-10 flex flex-col justify-between">
     <div class="flex flex-col gap-10">
-        <div class="flex flex-row justify-between">
-            <img class="rounded-full h-10 w-10" src="logo.png"/> 
-            <img (click)="handleToggle()" class="w-[30px] h-[30px] cursor-pointer hover:opacity-80 " src="icons/close.svg">
+      <div class="flex justify-between">
+        <img class="rounded-full h-10 w-10" src="logo.png" />
+        <img (click)="handleToggle()" class="w-[30px] h-[30px] cursor-pointer hover:opacity-80" src="icons/close.svg" />
+      </div>
+      <div class="flex flex-col gap-4">
+        <div class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer">
+          <img class="w-[30px] h-[30px]" src="icons/home.svg" />
+          <p>Discover</p>
         </div>
-        <div class="flex flex-col gap-4">
-            <div class="flex flex-row gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer">
-                <img class="w-[30px] h-[30px]" src="icons/home.svg">
-                <p>Discover</p>
-            </div>
-            
-            <div class="flex flex-row gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer">
-                <img class="w-[30px] h-[30px]" src="icons/donate.svg">
-                <p>Donate</p>
-            </div>
-            
-            <div class="flex flex-row gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer">
-                <img class="w-[30px] h-[30px]" src="icons/notifications.svg">
-                <p>Notifications</p>
-            </div>
-            
-            <div class="flex flex-row gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer">
-                <img class="w-[30px] h-[30px]" src="icons/profile.svg">
-                <p>Profile</p>
-            </div>
+        <div class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer">
+          <img class="w-[30px] h-[30px]" src="icons/donate.svg" />
+          <p>Donate</p>
         </div>
+        <div class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer">
+          <img class="w-[30px] h-[30px]" src="icons/notifications.svg" />
+          <p>Notifications</p>
+        </div>
+        <div class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer">
+          <img class="w-[30px] h-[30px]" src="icons/profile.svg" />
+          <a routerLink="/sponsor-deshboard">Profile</a>
+        </div>
+      </div>
     </div>
-    
-    <div class="flex flex-row gap-2 hover:bg-gray-100 p-2 rounded cursor-pointer">
-        <img class="w-[30px] h-[30px]" src="icons/exit.svg"/>
-        <p class="text-base font-extrabold">Logout</p>
+    <div class="flex gap-2 hover:bg-gray-100 p-2 rounded cursor-pointer">
+      <img class="w-[30px] h-[30px]" src="icons/exit.svg" />
+      <p class="text-base font-extrabold">Logout</p>
     </div>
-</div>
+  </div>
 
-  
-<!-- Top bar with logo and menu icon -->
-<div *ngIf="!toggle" class="w-full h-[114px] bg-white border border-gray-300 rounded-b-[20px]  px-6 py-4 flex justify-between items-center"
->
-     <!-- Menu icon to open sidebar -->
-  <img
-    (click)="handleToggle()"
-    class="w-[30px] h-[30px] cursor-pointer hover:opacity-80"
-    src="menu-icon.svg"
-  />
-  <img class="h-10 w-10 rounded-full" src="logo.png" />
-  
- 
-</div>
-
-
+  <!-- Top bar -->
+  <div *ngIf="!toggle"
+    class="fixed top-0 left-0 w-full h-[114px] bg-white border border-gray-300 rounded-b-[20px] z-40 px-6 py-4 flex justify-between items-center">
+    <img (click)="handleToggle()" class="w-[30px] h-[30px] cursor-pointer hover:opacity-80" src="menu-icon.svg" />
+    <img class="h-10 w-10 rounded-full" src="logo.png" />
+  </div>
+</body>
