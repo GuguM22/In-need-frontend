@@ -9,7 +9,7 @@ import { FooterComponent } from "../../ui/footer/footer";
 
 @Component({
   selector: 'app-organise-details',
-    imports: [CommonModule, Navbar],
+    imports: [CommonModule, Navbar, FooterComponent],
   templateUrl: './organise-details.html',
   styleUrls: ['./organise-details.css']
 })

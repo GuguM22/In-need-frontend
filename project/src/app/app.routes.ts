@@ -27,9 +27,14 @@ import { DonationReviewComponent } from './component/donation-review/donation-re
 
 
 export const routes: Routes = [
- 
+
   { path: '', redirectTo: 'Landing', pathMatch: 'full' },
+  { path: '', component: LandingComponent },
+
+ 
+
   
+
   { path: 'sponsor-req', component: SponsorRequest },
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
@@ -38,12 +43,15 @@ export const routes: Routes = [
    {path: 'verification-page', component: VerificationPage},
   
 
-  // { path: '', component: LandingComponent },
+
+
+
   {path: 'freq',component:Fequency},
 
+
  { path: 'options', component: OptionsComponent },
-  { path: 'organise-details', component: OrganiseDetailsComponent },
-  { path: '', redirectTo: 'Landing', pathMatch: 'full' },
+  { path: 'organiseDetails', component: OrganiseDetailsComponent },
+
    {path:'admin', component:AdminPanelComponent},
   {path:'donation-review', component: DonationReviewComponent}
 ];
