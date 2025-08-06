@@ -29,12 +29,9 @@ export const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
   { path: 'verify-email', component: VerifyEmail },
+  {path: 'sponsor-dasboard', component: SponsorDasboardComponent},
 
   { path: '', component: LandingComponent },
-
-  { path: '', component: LandingComponent },
-
-
 
   {path: 'options', component:OptionsComponent},
 

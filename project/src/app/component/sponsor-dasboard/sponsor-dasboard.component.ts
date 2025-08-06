@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './sponsor-dasboard.component.html',
-  styleUrl: './sponsor-dasboard.component.css'
+  styleUrls: ['./sponsor-dasboard.component.css']
 })
 export class SponsorDasboardComponent {
 
