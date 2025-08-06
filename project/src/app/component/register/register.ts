@@ -160,7 +160,7 @@ export class Register implements OnInit {
 
   closeModal() {
     this.showVerificationModal = false;
-    this.router.navigate(['/sigin-up']);
+    this.router.navigate(['/sign-in']);
   }
 
   closeErrorPopup() {

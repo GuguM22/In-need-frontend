@@ -1,0 +1,109 @@
+
+
+<app-navbar></app-navbar>
+
+
+<div *ngIf="charity " class="charity-app">
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-content">
+      <button class="back-btn" (click)="onBack()">
+        <i class="bi bi-arrow-left me-2"></i>
+        <span>Back</span>
+      </button>
+      
+     
+    </div>
+  </header>
+
+  <main class="main-content">
+
+    <section class="charity-info">
+      <div class="charity-header">
+        <div class="charity-avatar">
+          <img [src]="charity.avatarUrl" [alt]="charity.name" class="avatar-img">
+          <div *ngIf="charity.verified" class="verified-badge">
+            <i class="bi bi-check-circle-fill"></i>
+          </div>
+        </div>
+        
+        <div class="charity-details">
+          <h1 class="charity-name">{{ charity.name }}</h1>
+          <p class="charity-location">{{ charity.location }}</p>
+        </div>
+      </div>
+
+     <div class="charity-meta ">
+  <div class="urgency-section">
+    <span class="meta-label">Urgency</span>
+    <span class="urgency-badge" [ngClass]="getUrgencyClass(charity.urgency)">
+      {{ getUrgencyText(charity.urgency) }}
+    </span>
+  </div>
+        <div class="days-section">
+          <p class="meta-label">Days Left</p>
+          <p class="days-count">{{ charity.daysLeft }}/{{ charity.totalDays }}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="campaign-details">
+      <h2 class="campaign-title">{{ charity.campaignTitle }}</h2>
+      
+      <div class="campaign-description">
+        <p *ngFor="let paragraph of charity.campaignDescription" class="description-paragraph">
+          {{ paragraph }}
+        </p>
+      </div>
+
+    
+    </section>
+
+ 
+    <section class="donate-section">
+      <button class="donate-btn" (click)="onDonate()">
+        <i class="bi bi-heart-fill me-2"></i>
+        <span>Donate</span>
+      </button>
+    </section>
+
+    
+    <section *ngIf="donors.length > 0" class="previous-donors">
+      <h3 class="donors-title">Previous Donors</h3>
+      
+      <div class="donors-list">
+        <div *ngFor="let donor of donors" class="donor-card">
+          <div class="donor-header">
+            <div class="donor-info">
+              <img [src]="donor.avatarUrl" [alt]="donor.name" class="donor-avatar">
+              <div class="donor-details">
+                <h4 class="donor-name">{{ donor.name }}</h4>
+                <p class="donor-type">{{ donor.type }}</p>
+              </div>
+            </div>
+            
+            <div class="delivery-info">
+              <p class="delivery-label">Delivered on</p>
+              <p class="delivery-date">{{ donor.deliveryDate }}</p>
+            </div>
+          </div>
+          
+          <div class="donation-images">
+            <div class="images-container">
+              <img 
+                *ngFor="let image of donor.donationImages.slice(0, 3)" 
+                [src]="image" 
+                [alt]="'Donation image'" 
+                class="donation-img">
+              <div *ngIf="donor.donationImages.length > 3" class="more-images">
+                <span>+{{ donor.donationImages.length - 3 }}</span>
+              </div>
+            </div>
+            
+            <i class="bi bi-chevron-right arrow-icon"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
