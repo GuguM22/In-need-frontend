@@ -41,7 +41,7 @@ export const routes: Routes = [
   { path: 'verify-email', component: VerifyEmail },
    {path: 'sponsor-dashboard', component: SponsorDasboardComponent},
    {path: 'verification-page', component: VerificationPage},
-  
+   {path: 'organization-dashboard', component: OrganisationDashboardComponent},
 
 
 
