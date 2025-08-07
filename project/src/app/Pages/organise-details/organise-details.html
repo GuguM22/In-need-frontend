@@ -1,6 +1,4 @@
 
-
-
 <app-navbar></app-navbar>
 
 <div *ngIf="charity " class="charity-app">
@@ -35,13 +33,13 @@
 
      <div class="charity-meta ">
   <div class="urgency-section">
-    <span class="meta-label">Urgency</span>
+    <span class="meta-label  text-xs">Urgency</span>
     <span class="urgency-badge" [ngClass]="getUrgencyClass(charity.urgency)">
       {{ getUrgencyText(charity.urgency) }}
     </span>
   </div>
         <div class="days-section">
-          <p class="meta-label">Days Left</p>
+          <p class="meta-label  text-xs">Days Left</p>
           <p class="days-count">{{ charity.daysLeft }}/{{ charity.totalDays }}</p>
         </div>
       </div>
