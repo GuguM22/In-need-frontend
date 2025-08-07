@@ -13,19 +13,21 @@ import { SponsorRequest } from './Pages/sponsor-request/sponsor-request';
 
 import { OptionsComponent } from './Pages/options/options.component';
 import { VerificationPage } from './Pages/verification-page/verification-page';
+import { SponsorshipRequestPage } from './Pages/sponsorship-request-page/sponsorship-request-page';
 
 
 export const routes: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
- 
+
   { path: 'sponsor-req', component: SponsorRequest },
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
   { path: 'verify-email', component: VerifyEmail },
-   {path: 'sponsor-dashboard', component: SponsorDasboardComponent},
-   {path: 'verification-page', component: VerificationPage},
-  
-
+  { path: 'sponsor-dashboard', component: SponsorDasboardComponent },
+  { path: 'verification-page', component: VerificationPage },
+  { path: 'sponsorship-request-page', component: SponsorshipRequestPage },
+  { path: 'forgot-password', component: ForgotPassword },
+  { path: 'auth/reset-password', component: ResetPassword },
   { path: '', component: LandingComponent },
 
 ];

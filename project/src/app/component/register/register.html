@@ -163,10 +163,10 @@
         </div>
         <!-- Submit Button -->
         <button type="submit"
-            class="w-full py-2 px-4 bg-blue-400 hover:bg-indigo-500 text-sm text-white font-medium rounded-md transition duration-200 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:ring-offset-1 focus:ring-offset-gray-800"
+            class="w-full py-2 px-4 bg-[#5B8E7D] hover:bg-indigo-500 text-sm text-white font-medium rounded-md transition duration-200 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:ring-offset-1 focus:ring-offset-gray-800"
             [disabled]="registerForm.invalid || isLoading">
+            <span *ngIf="!isLoading">Register</span>
             <span *ngIf="isLoading">Processing...</span>
-             Register
         </button>
        
         <!-- Login Link -->
@@ -200,7 +200,7 @@
             </div>
 
             <!-- Error Message -->
-            <div class="text-center mb-6">
+            <div *ngIf="showErrorPopup" class="text-center mb-6">
                 <h1 class="text-3xl font-bold text-black mb-2">{{ errorMessage }}</h1>
                 <p class="text-sm text-black py-2">Please try again.</p>
             </div>
