@@ -1,10 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sponsor-request',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,CommonModule],
   templateUrl: './sponsor-request.html',
   styleUrl: './sponsor-request.css'
 })
@@ -42,49 +43,42 @@ get priorityValue() {
   }
 
   onQuantityChange(increment: boolean): void {
-    const currentValue = this.sponsorshipForm.get('quantity')?.value || 0;
-    const newValue = increment ? currentValue + 1 : Math.max(1, currentValue - 1);
-    this.sponsorshipForm.patchValue({ quantity: newValue });
+  const currentValue = this.sponsorshipForm.get('quantity')?.value || 0;
+  const newValue = increment ? currentValue + 1 : Math.max(1, currentValue - 1);
+  this.sponsorshipForm.patchValue({ quantity: newValue });
+}
+
+OnselectedFiles: File[] = [];
+filePreviews: string[] = [];
+
+onFileSelect(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  if (input.files) {
+    this.handleFiles(Array.from(input.files));
   }
+}
 
-  onFileSelect(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files) {
-      this.selectedFiles = Array.from(input.files);
-    }
+onFileDrop(event: DragEvent): void {
+  event.preventDefault();
+  if (event.dataTransfer?.files) {
+    this.handleFiles(Array.from(event.dataTransfer.files));
   }
+}
 
-  onFileDrop(event: DragEvent): void {
-    event.preventDefault();
-    if (event.dataTransfer?.files) {
-      this.selectedFiles = Array.from(event.dataTransfer.files);
-    }
-  }
+onDragOver(event: DragEvent): void {
+  event.preventDefault();
+}
 
-  onDragOver(event: DragEvent): void {
-    event.preventDefault();
-  }
+onDragLeave(event: DragEvent): void {
+  event.preventDefault();
+}
 
-  onDragLeave(event: DragEvent): void {
-    event.preventDefault();
-  }
+private handleFiles(files: File[]): void {
+  this.selectedFiles = files;
 
-  getFileDisplayText(): string {
-    if (this.selectedFiles.length === 0) {
-      return 'Upload Media Files';
-    }
-    const fileText = this.selectedFiles.length === 1 ? 'file' : 'files';
-    return `${this.selectedFiles.length} ${fileText} selected`;
-  }
-
-  getFileSubtext(): string {
-    if (this.selectedFiles.length === 0) {
-      return 'Drag and drop your files here, or browse';
-    }
-    return 'Click to change or add more files';
-  }
-
-
+  // Generate previews
+  this.filePreviews = files.map(file => URL.createObjectURL(file));
+}
 
 
   onSubmit(): void {

@@ -1,0 +1,71 @@
+<div class="min-h-screen bg-white font-sans px-4 pt-6 pb-20">
+
+    <!-- Back Button -->
+    <button class="text-sm text-gray-600 mb-4">&larr; Back</button>
+
+    <!-- Title and Description -->
+    <h2 class="text-lg font-semibold mb-1">My Sponsorship Requests</h2>
+    <p class="text-sm text-gray-500 mb-6">
+        Manage your organization’s sponsorship requests
+    </p>
+
+    <!-- Tabs -->
+    <div class="flex border-b mb-4">
+        <button (click)="activeTab !== 'sponsor'"
+            class="text-sm font-semibold border-b-2 border-black pb-1 mr-6">Sponsor Request</button>
+        <button (click)="activeTab !== 'posts'" class="text-sm text-gray-500 pb-1">Posts</button>
+    </div>
+
+    <!-- Example Sponsorship Card -->
+    <div class="bg-white border rounded-xl shadow-sm p-4 mb-4">
+        <!-- High Priority & Dot Menu -->
+<div class="flex justify-between items-start mb-2">
+  <span class="bg-red-100 text-red-500 text-xs font-semibold px-2 py-1 rounded">High Priority</span>
+
+  <!-- Dot Button (Angular click) -->
+  <button (click)="toggleActionMenu('actionMenu1')" class="text-gray-500 hover:text-black">
+    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20 ">
+      <path d="M6 10a2 2 0 114 0 2 2 0 01-4 0zm4-4a2 2 0 110-4 2 2 0 010 4zm0 12a2 2 0 110-4 2 2 0 010 4z" />
+    </svg>
+  </button>
+</div>
+
+<!-- Action Menu (visible if activeMenuId matches) -->
+<div *ngIf="activeMenuId === 'actionMenu1'" class="action-buttons flex items-center space-x-2 text-xs text-blue-600 mb-3">
+  <button>Mark Fulfilled</button>
+  <svg class="w-1.5 h-1.5 text-gray-400" fill="currentColor" viewBox="0 0 8 8">
+    <circle cx="4" cy="4" r="4" />
+  </svg>
+  <button class="text-red-500">Delete</button>
+</div>
+
+        <!-- Title and Description -->
+        <h3 class="text-base font-semibold">School Supplies</h3>
+        <p class="text-sm text-gray-500 mb-3">
+            Providing educational materials for 200+ children in underserved communities...
+        </p>
+
+
+        <!-- Footer -->
+        <div class="flex justify-between text-sm text-black">
+            <span class="text-black font-medium">Days Left</span>
+
+        </div>
+
+        <!-- Progress Bar + Days Left -->
+        <div class="flex items-center justify-between mb-2">
+            <!-- Progress Bar -->
+            <div style="width: 150px;" class="bg-gray-200 rounded-full h-2.5 mr-4">
+                <div class="bg-[#219EBC] h-2.5 rounded-full w-[58%]"></div>
+            </div>
+
+            <!-- Days Text -->
+            <span class="text-xs text-gray-600 whitespace-nowrap">15 Days</span>
+        </div>
+
+    </div>
+
+    <!-- Add more cards below if needed -->
+    <!-- Just change IDs like actionMenu2, actionMenu3, etc. -->
+
+</div>
