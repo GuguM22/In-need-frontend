@@ -1,0 +1,490 @@
+@import url('https://fonts.cdnfonts.com/css/gilroy-bold');
+*{
+    font-family: 'Gilroy-bold' ;
+}
+.panelHeading{
+    font-weight: 700;
+    margin-left: 10px;
+    padding-bottom: 10px;
+}
+
+.desc{
+    font-size: 12px;
+    color: gray;
+    font-weight: 100;
+    padding-bottom: 20px;
+
+}
+
+.topTitle{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+}
+
+.subTitle{
+color: #0000006e;
+font-size: 12px;
+font-family: 'Gilroy-medium';
+}
+
+.title{
+    font-size: 18px;
+}
+
+
+.name{
+    font-weight:700;
+    font-size: 16px;
+    padding-top: 10px;
+    margin-bottom: -10px;
+    padding-bottom: 2px;
+}
+
+ .submissionDate{
+    font-size: 12px;
+    color: gray;
+    font-weight: 400;
+}
+
+.submissionDate{
+    display: flex;
+}
+
+.status{
+    margin-left: 40px;
+    display: flex;
+    border: solid orangered;
+
+}
+
+.statusColour{
+    height: 12px;
+    width: 12px;
+    background-color: red;
+    border-radius: 20px;
+    margin-right: 8px;
+}
+
+.contactHeading{
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.email{
+     display: flex;
+    padding-left: 10px;
+    border-radius: 8px;
+    padding-bottom: 2px;
+    padding-top: 8px;
+
+ }
+
+ .number{
+    display: flex;
+    padding-left: 10px;
+    border-radius: 8px;
+    padding-bottom: 2px;
+    width: 410px;
+
+ }
+
+.emailIcon{
+    margin-right: 5px; 
+    margin-top: 5px;
+}
+
+.address{
+    text-decoration: underline;
+    margin-left: 3px;
+    font-size: 12px;
+    font-family: 'Gilroy-medium';
+    font-weight: 100px;
+    color: #00000099;
+}
+ 
+img{
+    margin-top: 2px;
+}
+
+.topCard{
+    border: solid #D9D9D9;
+    align-items: center;
+    border-radius: 8px;
+
+}
+
+.orgName{
+    display: flex;
+}
+
+.adminLogo{
+    height: 25px;
+    width: 25px;
+    margin-right: 5px;
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+.orgTitle{
+    font-size: 10px;
+    color: #00000099;
+}
+
+.name{
+    font-size: 14px;
+    padding-bottom: 7px;
+}
+
+.numbers{
+    font-size: 11px;
+    color: #00000099;
+}
+
+.submitted{
+    display: flex;
+    padding-left:10px ;
+    padding-bottom: 15px;
+}
+
+.timestamp{
+    font-size: 11px;
+     color: #00000099;
+}
+
+.timestamp2{
+    font-size: 11px;
+}
+
+.calendarIcon{
+    margin-top: 5px;
+    margin-right: 3px;
+    height: 13px;
+    width: 13px;
+}
+
+.adminLogo2{
+    height: 80px;
+    padding-right: 5px;
+}
+.container2{
+   display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+}
+
+.adminStatus2{
+    margin-top: -5px;
+}
+
+.profile2{
+    display: flex;
+    align-items: center;
+
+}
+
+.name2{
+    font-weight:700;
+    font-size: 16px;
+    padding-top: 10px;
+    margin-bottom: -10px;
+    padding-bottom: 2px;
+}
+
+.title2, .submissionDate2{
+    font-size: 12px;
+    color: gray;
+    font-weight: 400;
+}
+
+.submissionDate2{
+    display: flex;
+    margin-top: -5px;
+    align-items: center;
+}
+
+.pending{
+    font-size: 12px;
+}
+
+.status2{
+    margin-left: 40px;
+    display: flex;
+    margin-top: -3px;
+    align-items: center;
+}
+
+.statusColour2{
+    height: 12px;
+    width: 12px;
+    background-color: #d00e0e75;
+    border-radius: 20px;
+    margin-right: 8px;
+     
+}
+
+.statusDot{
+    height: 10px ;
+}
+
+
+.contact2{
+    border: solid #D9D9D9;
+    margin-top: 30px;
+    width: 100%;
+    padding-left: 20px;
+    border-radius: 12px;
+    padding-top: 10px;
+
+}
+
+.contactHeading2{
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.email2{
+    background-color: #D9D9D9;
+    display: flex;
+    padding-left: 10px;
+    border-radius: 8px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    width: 410px;
+ }
+
+ .number2{
+    background-color: #D9D9D9;
+    display: flex;
+    padding-left: 10px;
+    border-radius: 8px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    width: 410px;
+    margin-top: 15px;
+    margin-bottom: 50px;
+ }
+
+.emailIcon2{
+    margin-right: 5px;
+}
+
+.address2{
+    text-decoration: underline;
+    margin-left: 3px;
+}
+ 
+img{
+    margin-top: 2px;
+}
+
+.verfication2{
+    border: solid #D9D9D9;
+    margin-top: 20px;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 12px;
+    padding-top: 10px;
+
+}
+
+.cipc2{
+    background-color: #D9D9D9;
+    display: flex;
+    padding-left: 10px;
+    border-radius: 8px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    width: 410px;
+    margin-bottom: 15px;
+    padding-right: 5px;
+}
+
+.files2{
+   display: flex;
+   width: 368px;
+   justify-content: space-between;
+}
+
+.download2{
+    margin-left: 40px;
+    margin-top: 5px;
+}
+
+.pdfDownload2{
+    background-color: #ffff;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 400;
+    width: 108px;
+    display: flex;
+    align-items: center;
+    border: solid rgba(128, 128, 128, 0.687);
+
+}
+
+.text2{
+    margin-left: 10px;
+    font-weight: 700;
+}
+
+.dwn2{
+    margin-top: -4px;
+    padding-left: 4px;
+}
+
+.accept2{
+    display: flex;
+    margin-top: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+.acceptBtn2{
+    background-color: #5B8E7D;
+    color: white;
+    border-radius: 8px;
+    height: 35px;
+    font-size: 14px;
+    font-weight: 600;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-family: 'Mulish';
+}
+
+.rejectBtn2{
+    background-color: #C1121F;
+    color: white;
+    border-radius: 8px;
+    height: 35px;
+    font-size: 14px;
+    font-weight: 600;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 10px;
+    font-family: 'Mulish';
+
+}
+
+.reviewSection2{
+    border: solid #D9D9D9;
+    margin-top: 20px;
+    width: 100%;
+    padding-left: 20px;
+    border-radius: 12px;
+    padding-bottom: 30px;
+
+}
+
+.review2{
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.cipcP2, p{
+    font-size: 15px;
+    margin-top: 4px;
+    color: gray;
+    font-weight: normal;
+    font-style: normal;
+    font-family: 'Gilroy-medium';
+}
+
+.container3{
+    min-width:  700px;
+    margin-top: -50px;
+    height: 100%;
+    background-color: #FDFDFD;
+ }
+
+ 
+ .side3 {
+    background-color: #FDFDFD;
+
+   }
+
+  .side {
+    background-color: #FDFDFD;
+   }
+  
+ .mid{
+    height: 100vh;
+    margin-top: -20px;
+    padding-top: 50px;
+    width: 455px;
+
+   }
+  
+  .side3{
+    width: 379px;
+   }
+
+   .right{
+    margin-left:10px;
+   }
+
+   .heading{
+    margin-right: 50px;
+   }
+
+   hr{
+border-color: #b0b0b0;
+   }
+
+   .items{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 12px;
+    padding-right: 8px;
+    padding-left: 4px;
+    cursor: pointer;
+   }
+   .leftItems{
+    display: flex;
+    align-items: center;
+   }
+
+.topRight{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.btnHolder{
+    display: flex;
+    align-items: center;
+     justify-content: start;
+  
+  }
+
+.btnImg{
+margin-right: 3px;
+margin-left: 4px;
+ }
+
+
+
+.btnP{
+    font-weight: 400;
+font-family: 'Gilroy-bold';
+color: black;
+font-size: 10px;
+}
+
+.emailP{
+    text-decoration: underline;
+}
+
+.text{
+    font-size: 14px;
+}
