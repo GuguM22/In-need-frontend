@@ -15,6 +15,7 @@ import { OptionsComponent } from './Pages/options/options.component';
 import { VerificationPage } from './Pages/verification-page/verification-page';
 import { AdminPanelComponent } from './component/admin-panel/admin-panel.component';
 import { DonationReviewComponent } from './component/donation-review/donation-review.component';
+import { ReviewRequest } from './Pages/review-request/review-request';
 
 
 export const routes: Routes = [
@@ -26,6 +27,7 @@ export const routes: Routes = [
   { path: 'verify-email', component: VerifyEmail },
    {path: 'sponsor-dashboard', component: SponsorDasboardComponent},
    {path: 'verification-page', component: VerificationPage},
+   {path: 'review-request', component: ReviewRequest},
   
 
   { path: '', component: LandingComponent },
