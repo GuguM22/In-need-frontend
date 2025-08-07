@@ -1,11 +1,12 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-sponsor-dasboard',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './sponsor-dasboard.component.html',
-  styleUrl: './sponsor-dasboard.component.css'
+  styleUrls: ['./sponsor-dasboard.component.css']
 })
 export class SponsorDasboardComponent {
 

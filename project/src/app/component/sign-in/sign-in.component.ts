@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { Services } from '../../service/services';
-import { LoginResponse } from '../../model/loginResponse';
+import { LoginResponse } from '../../dto/loginResponse';
 
 @Component({
   selector: 'app-sign-in',

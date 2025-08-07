@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Navbar } from "../../ui/navbar/navbar";
 
 @Component({
   selector: 'app-options',

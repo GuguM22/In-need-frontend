@@ -63,7 +63,7 @@ export class VerifyEmail implements OnInit {
   onClose() {
     this.close.emit();
     if (this.mode === 'email') {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/sign-in']);
     }
   }
 }
