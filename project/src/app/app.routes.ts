@@ -25,6 +25,7 @@ import { AdminPanelComponent } from './component/admin-panel/admin-panel.compone
 import { DonationReviewComponent } from './component/donation-review/donation-review.component';
 import { SponsorDasboardComponent } from './component/sponsor-dasboard/sponsor-dasboard.component';
 import { OrganisationDashboardComponent } from './component/organisation-dashboard/organisation-dashboard.component';
+import { ManageSponsorComponent } from './page/manage-sponsor/manage-sponsor.component';
 
 
 
@@ -69,7 +70,8 @@ export const routes: Routes = [
   { path: 'organiseDetails', component: OrganiseDetailsComponent },
 
    {path:'admin', component:AdminPanelComponent},
-  {path:'donation-review', component: DonationReviewComponent}
+  {path:'donation-review', component: DonationReviewComponent},
+  {path:'manage-sponsor',component: ManageSponsorComponent}
 ];
 
 
