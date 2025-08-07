@@ -24,7 +24,8 @@ import { DonationReviewComponent } from './component/donation-review/donation-re
 export const routes: Routes = [
 
 
-  { path: '', redirectTo: 'organiseDetails', pathMatch: 'full' },
+  { path: '', redirectTo: 'Landing', pathMatch: 'full' },
+
   { path: 'Landing', component: LandingComponent },
 
 
