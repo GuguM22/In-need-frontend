@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-white flex flex-col items-center justify-center p-4">
+<div class="relative min-h-screen bg-white flex flex-col items-center justify-center p-4">
     <!-- Header -->
     <div class="text-center mb-6">
         <h1 class="text-2xl font-bold text-black mb-1">In-Need</h1>
@@ -23,7 +23,7 @@
                 <div *ngIf="registerForm.get('username')?.errors?.['required']">
                     {{ validationMessages.username.required }}
                 </div>
-                <div *ngIf="registerForm.get('userusername')?.errors?.['minlength']">
+                <div *ngIf="registerForm.get('username')?.errors?.['minlength']">
                     {{ validationMessages.username.minlength }}
                 </div>
                 <div *ngIf="registerForm.get('username')?.errors?.['maxlength']">
@@ -128,14 +128,8 @@
                 <div *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">
                     {{ validationMessages.password.required }}
                 </div>
-                <div *ngIf="registerForm.get('confirmPassword')?.errors?.['minlength']">
-                    {{ validationMessages.password.minlength }}
-                </div>
-                <div *ngIf="registerForm.get('confirmPassword')?.errors?.['maxlength']">
-                    {{ validationMessages.password.maxlength }}
-                </div>
                 <div *ngIf="registerForm.get('confirmPassword')?.errors?.['pattern']">
-                    {{ validationMessages.password.pattern }}
+                    {{ validationMessages.confirmPassword.pattern }}
                 </div>
             </div>
             <div *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('confirmPassword')?.touched">

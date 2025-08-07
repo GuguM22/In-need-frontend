@@ -39,15 +39,13 @@ export class Register implements OnInit {
     },
     password: {
       required: 'Password is required',
-      minlength: 'Password must be at least 8 characters long',
-      maxlength: 'Password cannot be more than 15 characters long',
-      pattern: 'Password must include uppercase, lowercase, number, special character, and no spaces',
+      minlength: 'Min 8 chars',
+      maxlength: 'Max 15 chars',
+      pattern: 'Requires A-Z, a-z, 0-9, special char, no spaces',
     },
     confirmPassword: {
       required: 'Password is required',
-      minlength: 'Password must be at least 8 characters long',
-      maxlength: 'Password cannot be more than 15 characters long',
-      pattern: 'Password must include uppercase, lowercase, number, special character, and no spaces',
+      pattern: 'Passwords must match'
     },
     role: {
       required: 'Role is required',
