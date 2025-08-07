@@ -3,14 +3,9 @@ import { LandingComponent } from './Pages/landing/landing.component';
 import { SignInComponent } from './component/sign-in/sign-in.component';
 import { Register } from './component/register/register';
 import { VerifyEmail } from './component/verify-email/verify-email';
-import { SponsorDasboardComponent } from './component/sponsor-dasboard/sponsor-dasboard.component';
-import { IndividualDasboardComponent } from './component/individual-dasboard/individual-dasboard.component';
-
-import { ResetPassword } from './component/reset-password/reset-password';
-import { OrganisationDashboardComponent } from './component/organisation-dashboard/organisation-dashboard.component';
-import { ForgotPassword } from './component/forgot-password/forgot-password';
 import { SponsorRequest } from './Pages/sponsor-request/sponsor-request';
 import { Fequency } from './component/fequency/fequency';
+
 
 
 
@@ -28,8 +23,10 @@ import { DonationReviewComponent } from './component/donation-review/donation-re
 
 export const routes: Routes = [
 
+
   { path: '', redirectTo: 'organiseDetails', pathMatch: 'full' },
   { path: 'Landing', component: LandingComponent },
+
 
  
 
