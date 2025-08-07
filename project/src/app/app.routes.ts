@@ -18,6 +18,8 @@ import { OrganiseDetailsComponent } from './Pages/organise-details/organise-deta
 import { VerificationPage } from './Pages/verification-page/verification-page';
 import { AdminPanelComponent } from './component/admin-panel/admin-panel.component';
 import { DonationReviewComponent } from './component/donation-review/donation-review.component';
+import { SponsorDasboardComponent } from './component/sponsor-dasboard/sponsor-dasboard.component';
+import { OrganisationDashboardComponent } from './component/organisation-dashboard/organisation-dashboard.component';
 
 
 
