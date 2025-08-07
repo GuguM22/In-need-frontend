@@ -79,3 +79,27 @@
   border-radius: 6px;
   font-size: 16px;
 }
+
+.back-btn {
+  display: flex;         
+  align-items: center;   
+  gap: 6px;              
+  background: none;      
+  border: none;
+  cursor: pointer;
+}
+
+.back-icon {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2;
+}
+.uploaded-files {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.uploaded-files ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
