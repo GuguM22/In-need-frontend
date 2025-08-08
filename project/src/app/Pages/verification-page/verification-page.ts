@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Navbar } from "../../ui/navbar/navbar";
+import { Sidebar } from "../../ui/sidebar/sidebar";
+import { FooterComponent } from "../../ui/footer/footer";
 
 
 @Component({
@@ -66,7 +69,7 @@ export class VerificationPage implements OnInit {
       this.uploadedFiles = Array.from(target.files);
 
       // Check file type or size
-      const validFiles = this.uploadedFiles.filter((file) => file.size < 5 * 1024 * 1024); // Max 5MB
+      const validFiles = this.uploadedFiles.filter((file) => file.size < 5 * 1024 * 1024); 
       this.uploadedFiles = validFiles;
 
       this.verificationForm.patchValue({

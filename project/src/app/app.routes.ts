@@ -6,11 +6,6 @@ import { VerifyEmail } from './component/verify-email/verify-email';
 import { SponsorRequest } from './Pages/sponsor-request/sponsor-request';
 import { Fequency } from './component/fequency/fequency';
 
-
-
-
-
-
 import { OptionsComponent } from './Pages/options/options.component';
 import { from } from 'rxjs';
 import { OrganiseDetailsComponent } from './Pages/organise-details/organise-details';
@@ -24,11 +19,7 @@ import { AdminPanelComponent } from './component/admin-panel/admin-panel.compone
 import { DonationReviewComponent } from './component/donation-review/donation-review.component';
 import { OrganisationDashboardComponent } from './component/organisation-dashboard/organisation-dashboard.component';
 
-
-
 export const routes: Routes = [
-
-
   { path: '', redirectTo: 'Landing', pathMatch: 'full' },
 
   { path: 'Landing', component: LandingComponent },
@@ -42,31 +33,17 @@ export const routes: Routes = [
   { path: 'sponsorship-request-page', component: SponsorshipRequestPage },
   { path: 'forgot-password', component: ForgotPassword },
   { path: 'auth/reset-password', component: ResetPassword },
-  { path: '', component: LandingComponent },
+  //{ path: '', component: LandingComponent },
 
-   {path: 'sponsor-dashboard', component: SponsorDasboardComponent},
-   {path: 'verification-page', component: VerificationPage},
-   {path: 'organization-dashboard', component: OrganisationDashboardComponent},
+  { path: 'sponsor-dashboard', component: SponsorDasboardComponent },
+  { path: 'verification-page', component: VerificationPage },
+  { path: 'organization-dashboard', component: OrganisationDashboardComponent },
 
+  { path: 'freq', component: Fequency },
 
-
-
-  {path: 'freq',component:Fequency},
-
-
- { path: 'options', component: OptionsComponent },
+  { path: 'options', component: OptionsComponent },
   { path: 'organiseDetails', component: OrganiseDetailsComponent },
 
-   {path:'admin', component:AdminPanelComponent},
-  {path:'donation-review', component: DonationReviewComponent}
+  { path: 'admin', component: AdminPanelComponent },
+  { path: 'donation-review', component: DonationReviewComponent },
 ];
-
-
-
-
-
-
-
- 
-
-
