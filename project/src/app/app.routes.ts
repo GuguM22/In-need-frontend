@@ -16,21 +16,29 @@ import { Fequency } from './component/fequency/fequency';
 
 
 import { OptionsComponent } from './Pages/options/options.component';
+import { ProfilepageComponent } from './component/profilepage/profilepage';
+
+
 
 
 
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'fequency', pathMatch: 'full' },
+  { path: '', redirectTo: 'profilepage', pathMatch: 'full' },
+   { path: '', component: ProfilepageComponent },
+  //  {path: '', redirectTo:'my-sponsership-request',pathMatch: 'full'},
+  //   {path: '',component:MySponsershipRequest},
  
-  { path: 'sponsor-req', component: SponsorRequest },
-  { path: 'sign-in', component: SignInComponent },
-  { path: 'register', component: Register },
-  { path: 'verify-email', component: VerifyEmail },
+  // { path: 'sponsor-req', component: SponsorRequest },
+  // { path: 'sign-in', component: SignInComponent },
+  // { path: 'register', component: Register },
+  // { path: 'verify-email', component: VerifyEmail },
 
   // { path: '', component: LandingComponent },
-  {path: '',component:Fequency} 
+  // {path: '',component:Fequency}, 
+  
+ 
 
 
 

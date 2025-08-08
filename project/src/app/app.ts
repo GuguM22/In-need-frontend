@@ -7,7 +7,7 @@ import { Fequency } from "./component/fequency/fequency";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Fequency, Navbar],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

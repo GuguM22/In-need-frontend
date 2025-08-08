@@ -16,6 +16,7 @@
     "@angular/forms": "^20.0.0",
     "@angular/platform-browser": "^20.0.0",
     "@angular/router": "^20.0.0",
+    "@ionic/angular": "^8.7.2",
     "rxjs": "~7.8.0",
     "tailwind": "^4.0.0",
     "tslib": "^2.3.0",
