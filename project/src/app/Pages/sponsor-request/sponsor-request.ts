@@ -118,7 +118,7 @@ private handleFiles(files: File[]): void {
   }
 
   backButton(){
-    this.router.navigate(['organisation-dashboard']);
+    this.router.navigate(['organization-dashboard']);
   }
 }
 
