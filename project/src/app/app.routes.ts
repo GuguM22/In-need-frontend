@@ -45,6 +45,7 @@ export const routes: Routes = [
 
   {path: 'options', component:OptionsComponent},
 
-  {path: 'req', component: SponsorRequest}
+  {path: 'req', component: SponsorRequest},
+  {path: 'profile', component :ProfilepageComponent}
 
 ];
