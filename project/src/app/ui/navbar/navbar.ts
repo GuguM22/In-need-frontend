@@ -4,15 +4,15 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
-  imports: [Sidebar, CommonModule],
+  standalone: true,                    // if standalone component
+  imports: [CommonModule, Sidebar],
   templateUrl: './navbar.html',
-  styleUrl: './navbar.css'
+  styleUrls: ['./navbar.css']           // fix plural here
 })
-export class Navbar {
+export class NavbarComponent {
   toggle = false;
 
   handleToggle() {
     this.toggle = !this.toggle;
   }
-  
 }

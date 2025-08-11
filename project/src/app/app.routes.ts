@@ -24,6 +24,9 @@ import { ProfilepageComponent } from './component/profilepage/profilepage';
 
 
 
+
+
+
 export const routes: Routes = [
 
 
@@ -46,6 +49,9 @@ export const routes: Routes = [
   {path: 'options', component:OptionsComponent},
 
   {path: 'req', component: SponsorRequest},
-  {path: 'profile', component :ProfilepageComponent}
+  {path: 'profile', component :ProfilepageComponent},
+ 
+
+
 
 ];

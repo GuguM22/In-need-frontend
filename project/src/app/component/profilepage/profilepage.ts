@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
+import { FooterComponent } from "../../ui/footer/footer";
+import { NavbarComponent } from "../../ui/navbar/navbar";
+import { Sidebar } from "../../ui/sidebar/sidebar";
 
 @Component({
   selector: 'app-profilepage',
   templateUrl: './profilepage.html',
-  styleUrls: ['./profilepage.css']
+  styleUrls: ['./profilepage.css'],
+  imports: [FooterComponent, NavbarComponent]
 })
 export class ProfilepageComponent {
   name = 'Hopewll Mthunzi';
