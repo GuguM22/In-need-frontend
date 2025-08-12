@@ -51,7 +51,7 @@ export const routes: Routes = [
 
  
 
-  {path: 'req', component: SponsorRequestComponent},
+  {path: 'sponsor-request', component: SponsorRequestComponent},
   {path: 'profile', component :ProfilepageComponent},
 
    { path: 'organiseDetails', component: OrganiseDetailsComponent },
