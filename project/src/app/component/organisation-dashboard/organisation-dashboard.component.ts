@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { SponsorRequest } from '../../Pages/sponsor-request/sponsor-request';
 
 @Component({
   selector: 'app-organisation-dashboard',
@@ -13,6 +14,6 @@ export class OrganisationDashboardComponent {
   constructor(private router: Router) { }
 
   navigateToSponsorRequest() {
-    this.router.navigate(['req']);
+    this.router.navigate(['sponsor-req']);
   }
 }

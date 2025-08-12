@@ -3,7 +3,7 @@ import { LandingComponent } from './Pages/landing/landing.component';
 import { SignInComponent } from './component/sign-in/sign-in.component';
 import { Register } from './component/register/register';
 import { VerifyEmail } from './component/verify-email/verify-email';
-import { SponsorRequest } from './Pages/sponsor-request/sponsor-request';
+import { SponsorRequest, SponsorRequestComponent } from './Pages/sponsor-request/sponsor-request';
 import { Fequency } from './component/fequency/fequency';
 
 
@@ -34,7 +34,13 @@ export const routes: Routes = [
 
   { path: 'Landing', component: LandingComponent },
  
+
   { path: 'sponsor-req', component: SponsorRequest },
+
+
+  
+
+
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
   { path: 'verify-email', component: VerifyEmail },
