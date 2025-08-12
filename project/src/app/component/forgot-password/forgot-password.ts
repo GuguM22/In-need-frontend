@@ -17,6 +17,7 @@ export class ForgotPassword implements OnInit {
   submitted = false;
   successMessage = '';
   errorMessage = '';
+  isLoading: boolean = false;
 
   constructor(private fb: FormBuilder, private userService: Services) {}
 
@@ -34,21 +35,41 @@ export class ForgotPassword implements OnInit {
   }
 
   onSubmit(): void {
-    this.submitted = true;
-    this.successMessage = '';
-    this.errorMessage = '';
+  this.submitted = true;
+  this.successMessage = '';
+  this.errorMessage = '';
+  this.isLoading = true;
 
-    if (this.forgotPasswordForm.invalid) return;
-
-    const email = this.forgotPasswordForm.get('email')?.value;
-    this.userService.sendResetLink(email).subscribe({
-      next: () => {
-        this.successMessage = 'Password reset link sent to your email.';
-      },
-      error: () => {
-        this.errorMessage = 'Something went wrong. Please try again.';
-      },
-    });
+  if (this.forgotPasswordForm.invalid) {
+    this.isLoading = false;
+    return;
   }
+
+  const email = this.forgotPasswordForm.get('email')?.value;
+  
+  this.userService.sendResetLink(email).subscribe({
+    next: () => {
+      this.successMessage = 'Password reset link has been sent to your email if the account exists.';
+      this.errorMessage = '';
+      this.isLoading = false;
+      this.forgotPasswordForm.reset();
+      this.submitted = false;
+    },
+    error: (err) => {
+      this.isLoading = false;
+      
+      // We handle different error cases
+      if (err.status === 0) {
+        this.errorMessage = 'Network error. Please check your internet connection.';
+      } else if (err.status === 404) {
+        this.errorMessage = 'No account found with this email address.';
+      } else if (err.error?.message) {
+        this.errorMessage = err.error.message;
+      } else {
+        this.errorMessage = 'An unexpected error occurred. Please try again later.';
+      }
+    }
+  });
+}
 }
 
