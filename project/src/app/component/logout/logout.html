@@ -1,28 +1,26 @@
 <div
-  class="min-h-screen bg-white flex flex-col items-center justify-center p-4">
-  <div class="p-6">
-    <h5 class="mb-1 text-xl font-medium text-black text-center ">
-      Special title treatment
+  class="fixed inset-0 bg-white bg-opacity-30 flex items-center justify-center z-50">
+  <div
+    class="bg-white rounded-lg shadow-lg p-6 w-80 max-w-full mx-4 border border-gray-300">
+    <h5 class="mb-4 text-xl font-semibold text-black text-center">
+      Sign out
     </h5>
-    <h6
-      class="mb-2 text-base font-medium leading-tight text-surface/75 dark:text-neutral-300">
-      Card subtitle
-    </h6>
-    <p class="mb-4 text-base leading-normal">
-      Some quick example text to build on the card title and make up the
-      bulk of the card's content.
+    <p class="mb-6 text-base text-center text-gray-500">
+      Are you sure you want to sign out?
     </p>
-    <a
-      type="button"
-      href="#"
-      class="pointer-events-auto me-5 inline-block cursor-pointer rounded text-base font-normal leading-normal text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:text-primary-700 dark:text-primary-400">
-      Card Link
-    </a>
-    <a
-      type="button"
-      href="#"
-      class="pointer-events-auto inline-block cursor-pointer rounded text-base font-normal leading-normal text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:text-primary-700 dark:text-primary-400">
-      Another Link
-    </a>
+    <div class="flex justify-center gap-6">
+      <button
+        (click)="onCancelSignOut()"
+        type="button"
+        class="px-5 py-2 rounded border border-[#5B8E7D] text-[#5B8E7D] font-medium transition">
+        No
+      </button>
+      <button
+        (click)="onConfirmSignOut()"
+        type="button"
+        class="px-5 py-2 rounded bg-[#5B8E7D] text-white font-medium hover:bg-primary-dark transition">
+        Yes
+      </button>
+    </div>
   </div>
 </div>
