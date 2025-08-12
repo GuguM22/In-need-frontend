@@ -6,7 +6,7 @@
   </button>
 
 
-  <div class="form-container">
+  <div class="form-container overflow-y-auto" style="max-height: 100vh;">
     <div class="form-header">
      <div class="form-header">
   <h1 class="form-title text-align-center font-bold">Create Sponsorship Request</h1>
@@ -138,28 +138,29 @@
   </div>
 
   <!-- Previews (Optional) -->
-  <div class="grid grid-cols-3 gap-4 min-h-[8rem]">
-    <div *ngFor="let preview of filePreviews; let i = index" class="relative">
-      <img *ngIf="selectedFiles[i].type.startsWith('image/')"
-           [src]="preview"
-           class="w-full h-32 object-cover rounded-lg border" />
+  <div *ngIf="selectedFiles?.length" class="grid grid-cols-3 gap-4 min-h-[8rem]">
+  <div *ngFor="let preview of filePreviews; let i = index" class="relative">
+    <img *ngIf="selectedFiles[i]?.type?.startsWith('image/')"
+         [src]="preview"
+         class="w-full h-32 object-cover rounded-lg border" />
 
-      <video *ngIf="selectedFiles[i].type.startsWith('video/')"
-             [src]="preview"
-             controls
-             class="w-full h-32 object-cover rounded-lg border">
-      </video>
-    </div>
+    <video *ngIf="selectedFiles[i]?.type?.startsWith('video/')"
+           [src]="preview"
+           controls
+           class="w-full h-32 object-cover rounded-lg border">
+    </video>
   </div>
+</div>
+
 
   <!-- Button (spaced automatically from previews/upload) -->
-  <button
+  <!-- <button
     type="submit"
     class="submit-btn"
     [disabled]="isSubmitting">
     {{ isSubmitting ? 'Submitting...' : 'Submit Request' }}
   </button>
-</div>
+</div> -->
 
 
   <!-- Submit Button (now spaced below previews) -->
