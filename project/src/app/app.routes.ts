@@ -24,6 +24,8 @@ import { AdminPanelComponent } from './component/admin-panel/admin-panel.compone
 import { DonationReviewComponent } from './component/donation-review/donation-review.component';
 import { SponsorDasboardComponent } from './component/sponsor-dasboard/sponsor-dasboard.component';
 import { OrganisationDashboardComponent } from './component/organisation-dashboard/organisation-dashboard.component';
+import { ForgotPassword } from './component/forgot-password/forgot-password';
+import { ResetPassword } from './component/reset-password/reset-password';
 
 
 
