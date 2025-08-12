@@ -27,6 +27,7 @@ import { ManageSponsorComponent } from './page/manage-sponsor/manage-sponsor.com
 
 import { Logout } from './component/logout/logout';
 import { ProfilepageComponent } from './component/profilepage/profilepage';
+import { AskUploading } from './Pages/ask-uploading/ask-uploading';
 
 
 export const routes: Routes = [
@@ -36,7 +37,7 @@ export const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
   { path: 'verify-email', component: VerifyEmail },
-  {path: 'sponsor-dasboard', component: SponsorDasboardComponent},
+  {path: 'sponsor-dashboard', component: SponsorDasboardComponent},
 
  
   { path: 'forgot-password', component: ForgotPassword },
@@ -61,5 +62,9 @@ export const routes: Routes = [
   {path:'manage-sponsor', component:  ManageSponsorComponent},
 
   {path: 'logout', component: Logout},
+  {path:'ask-uploading', component:AskUploading},
+  {path:'verification', component: VerificationPage},
+  {
+  path:'upload-succesfully', component: UploadSuccessfullyComponent} 
 
 ];
