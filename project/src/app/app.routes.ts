@@ -9,6 +9,10 @@ import { Fequency } from './component/fequency/fequency';
 
 
 
+  import { ProfilepageComponent } from './component/profilepage/profilepage';
+
+
+ 
 
 
 import { OptionsComponent } from './Pages/options/options.component';
@@ -29,28 +33,37 @@ export const routes: Routes = [
   { path: '', redirectTo: 'Landing', pathMatch: 'full' },
 
   { path: 'Landing', component: LandingComponent },
-
-
  
+
+  { path: 'sponsor-req', component: SponsorRequest },
+
 
   
 
-  { path: 'sponsor-req', component:SponsorRequestComponent },
+
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
   { path: 'verify-email', component: VerifyEmail },
+   { path: 'sponsor-dashboard', component: SponsorDasboardComponent },
+  { path: 'forgot-password', component: ForgotPassword },
+  { path: 'auth/reset-password', component: ResetPassword },
+  { path: '', component: LandingComponent },
+
    {path: 'sponsor-dashboard', component: SponsorDasboardComponent},
-   {path: 'verification-page', component: VerificationPage},
    {path: 'organization-dashboard', component: OrganisationDashboardComponent},
 
+  {path: 'options', component:OptionsComponent},
+     {path: 'verification-page', component: VerificationPage},
+ 
 
 
 
   {path: 'freq',component:Fequency},
+ 
+  {path: 'req', component: SponsorRequest},
+  {path: 'profile', component :ProfilepageComponent}
 
-
- { path: 'options', component: OptionsComponent },
-  { path: 'organiseDetails', component: OrganiseDetailsComponent },
+   { path: 'organiseDetails', component: OrganiseDetailsComponent },
 
    {path:'admin', component:AdminPanelComponent},
   {path:'donation-review', component: DonationReviewComponent}
