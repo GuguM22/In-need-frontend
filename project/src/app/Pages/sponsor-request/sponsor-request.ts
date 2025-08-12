@@ -154,7 +154,7 @@ export class SponsorRequestComponent implements OnDestroy {
   }
 
   backButton(): void {
-    this.router.navigate(['organisation-dashboard']);
+    this.router.navigate(['organization-dashboard']);
   }
 
 }

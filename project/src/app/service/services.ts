@@ -34,7 +34,7 @@ export class Services {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
-    }
+    } 
   );
 } 
 
