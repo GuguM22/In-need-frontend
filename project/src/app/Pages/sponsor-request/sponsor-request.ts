@@ -109,23 +109,23 @@ export class SponsorRequestComponent implements OnDestroy {
       formData.append('mediaurls', file, file.name);
     });
 
-    this.isSubmitting = true;
+   this.isSubmitting = true;
 
-    this.sponsorRequestService.post(formData).subscribe({
-      next: () => {
-        alert('Sponsorship request submitted successfully!');
-        this.resetForm();
-        this.isSubmitting = false;
-      },
-      error: (error) => {
-        console.error('Error submitting request:', error);
-        alert('Failed to submit sponsorship request.');
-        this.isSubmitting = false;
-      }
-    });
+this.sponsorRequestService.post(formData).subscribe({
+  next: () => {
+    this.resetForm();
+    this.isSubmitting = false;
+    this.router.navigate(['/upload-succesfully']); // ✅ Redirect to success page
+  },
+  error: (error) => {
+    console.error('Error submitting request:', error);
+    alert('Failed to submit sponsorship request.');
+    this.isSubmitting = false;
   }
+});
 
 
+  }
   private resetForm(): void {
     this.sponsorshipForm.reset({
       title: '',
