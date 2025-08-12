@@ -10,7 +10,7 @@ import { FooterComponent } from "../../ui/footer/footer";
 @Component({
   selector: 'app-verification-page',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, Navbar, FooterComponent],
   templateUrl: './verification-page.html',
   styleUrls: ['./verification-page.css'],
 })

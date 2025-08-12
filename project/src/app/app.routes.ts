@@ -18,6 +18,7 @@ import { ResetPassword } from './component/reset-password/reset-password';
 import { AdminPanelComponent } from './component/admin-panel/admin-panel.component';
 import { DonationReviewComponent } from './component/donation-review/donation-review.component';
 import { OrganisationDashboardComponent } from './component/organisation-dashboard/organisation-dashboard.component';
+import { Logout } from './component/logout/logout';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'Landing', pathMatch: 'full' },
@@ -36,7 +37,6 @@ export const routes: Routes = [
   //{ path: '', component: LandingComponent },
 
   { path: 'sponsor-dashboard', component: SponsorDasboardComponent },
-  { path: 'verification-page', component: VerificationPage },
   { path: 'organization-dashboard', component: OrganisationDashboardComponent },
 
   { path: 'freq', component: Fequency },
@@ -46,4 +46,5 @@ export const routes: Routes = [
 
   { path: 'admin', component: AdminPanelComponent },
   { path: 'donation-review', component: DonationReviewComponent },
+  {path: 'logout', component: Logout},
 ];

@@ -1,6 +1,6 @@
-
+<app-navbar></app-navbar>
 <div class="w-full h-screen overflow-x-hidden overflow-y-auto relative">
-  <div class="min-h-screen flex flex-col items-center p-4 pt-16 pb-49">
+  <div class="min-h-screen flex flex-col items-center p-4 pt-16 pb-49 shadow-xl">
     <!-- Back Button -->
     <div class="w-full max-w-sm relative mb-2">
       <div class="absolute -left-3 -top-10 flex items-center space-x-2">
@@ -16,7 +16,7 @@
           />
         </svg>
         <button
-          type="button"
+          type="button" (click)="goBack()"
           class="text-sm -left-py-3 text-black focus:outline-none"
         >
           Back
@@ -133,3 +133,4 @@
     </div>
   </div>
 </div>
+<app-footer></app-footer>
