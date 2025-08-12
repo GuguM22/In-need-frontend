@@ -6,6 +6,7 @@ import { Services } from '../../service/services';
 import { Router } from '@angular/router';
 
 
+
 @Component({
   selector: 'app-sidebar',
   standalone: true,
@@ -31,7 +32,6 @@ export class Sidebar {
 
   closeLogoutModal() {
     this.showLogoutModal = false;
-    this.router.navigate(['/sponsor-dashboard']);
   }
 
   confirmLogout() {
