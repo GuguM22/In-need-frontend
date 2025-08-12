@@ -1,0 +1,72 @@
+.profile-container {
+  max-width:screen;
+  height: 120px;
+  margin: 20px auto;
+  padding: 16px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  background-color: oklch(95.6% 0.045 203.388);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 0 12px rgba(0,0,0,0.1);
+}
+
+.profile-pic {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+@media (max-width: 480px) {
+  .profile-container {
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .profile-pic {
+    width: 100px;
+    height: 100px;
+  }
+.bio {
+  text-align: center;
+  font-size: italic;
+  color: oklch(76.5% 0.177 163.223);
+  padding: 0 10px;
+}
+.donation-info {
+  background-color:oklch(93.2% 0.032 255.585);
+  width: 100%;
+  text-align: center;
+  border-radius: 6px;
+  height: 100%;
+  padding: 10px; 
+}
+.edit-button {
+  padding: 8px 16px;
+  background-color: oklch(76.9% 0.188 70.08);
+  border-radius: 5px;
+  width: 100%;
+  font-size: 14px;  
+  cursor: pointer;
+  margin-top: 10px;
+}
+.edit-button:hover {
+   background-color: #45a049;
+}
+.badge {
+  margin-top: 10px;
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 14px;
+  color: #856404;
+  font-weight: 500;
+}
+
+}

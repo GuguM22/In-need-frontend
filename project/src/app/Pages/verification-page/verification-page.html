@@ -1,0 +1,179 @@
+<app-navbar></app-navbar>
+<div class="w-full h-screen overflow-x-hidden overflow-y-auto relative">
+  <div
+    class="min-h-screen flex flex-col items-center justify-center p-4 pt-16 pb-49"
+  >
+    <!-- Back Button -->
+    <div class="w-full max-w-sm relative mb-2">
+      <div class="absolute -left-3 -top-10 flex items-center space-x-2">
+        <svg
+          fill="#000000"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M50.2,169.6C97.9,56.3,228.5,3.1,341.8,50.9s166.4,178.3,118.7,291.6S282.2,508.9,168.9,461.1  
+               C86.4,426.4,32.7,345.5,32.7,256C32.7,226.3,38.6,196.9,50.2,169.6z M254.7,448c106,0,192-86,192-192s-86-192-192-192  
+               s-192,86-192,192S148.7,448,254.7,448z M226.7,140.7L111.4,256l115.3,115.3l21.2-21.2L168.7,271h208.2v-30H168.7l79.1-79.1  
+               L226.7,140.7z"
+          ></path>
+        </svg>
+        <button
+          type="button"
+          class="text-sm text-black focus:outline-none"
+          (click)="goBack()"
+        >
+          Back
+        </button>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <form
+      [formGroup]="verificationForm"
+      class="w-full max-w-sm bg-white p-6 rounded-lg border border-gray-300 shadow-xl"
+    >
+      <div class="text-center mb-6">
+        <h1 class="text-3xl font-bold text-black mb-1">Verification</h1>
+        <p class="text-sm text-black py-2">
+          Fill out the details below to post your sponsorship request
+        </p>
+      </div>
+
+      <!-- Phone Number Field -->
+      <div class="mb-3">
+        <label for="phone" class="block mb-1 text-xs font-medium text-black">
+          Phone
+        </label>
+        <input
+          type="tel"
+          id="phone"
+          formControlName="phone"
+          [ngClass]="{
+              'border-red-500 focus:ring-red-300 focus:border-red-500':
+                verificationForm.get('phone')?.invalid &&
+                (verificationForm.get('phone')?.dirty ||
+                  verificationForm.get('phone')?.touched)
+            }"
+          class="w-full p-2 text-sm bg-white border border-gray-600 rounded-md text-black placeholder-gray-400 focus:ring-1 focus:ring-gray-300 focus:border-gray-500 outline-none transition"
+          placeholder="enter a valid phone number"
+        />
+        @if (verificationForm.get('phone')?.invalid &&
+        (verificationForm.get('phone')?.dirty ||
+        verificationForm.get('phone')?.touched)) {
+        <div class="mt-1 text-xs text-red-400">
+          <div>
+            @if (verificationForm.get('phone')?.errors?.['required']) {
+            <div>{{ validationMessages.phone.required }}</div>
+            } @if (verificationForm.get('phone')?.errors?.['minlength']) {
+            <div>{{ validationMessages.phone.minlength }}</div>
+            } @if (verificationForm.get('phone')?.errors?.['maxlength']) {
+            <div>{{ validationMessages.phone.maxlength }}</div>
+            } @if (verificationForm.get('phone')?.errors?.['pattern']) {
+            <div>{{ validationMessages.phone.pattern }}</div>
+            }
+          </div>
+        </div>
+        }
+      </div>
+
+      <!-- Website Field -->
+      <div class="mb-3">
+        <label for="website" class="block mb-1 text-xs font-medium text-black">
+          Website
+        </label>
+        <input
+          type="text"
+          id="website"
+          formControlName="website"
+          [ngClass]="{
+              'border-red-500 focus:ring-red-300 focus:border-red-500':
+                verificationForm.get('website')?.invalid &&
+                (verificationForm.get('website')?.dirty ||
+                  verificationForm.get('website')?.touched)
+            }"
+          class="w-full p-2 text-sm bg-white border border-gray-600 rounded-md text-black placeholder-gray-400 focus:ring-1 focus:ring-gray-300 focus:border-gray-500 outline-none transition"
+          placeholder="link to the official company website"
+        />
+        @if(verificationForm.get('website')?.invalid &&
+        (verificationForm.get('website')?.dirty ||
+        verificationForm.get('website')?.touched)){
+        <div class="mt-1 text-xs text-red-400">
+          @if(verificationForm.get('website')?.errors?.['required']){
+          <div>{{ validationMessages.website.required }}</div>
+          } @if(verificationForm.get('website')?.errors?.['pattern']){
+          <div>{{ validationMessages.website.pattern}}</div>
+          }
+        </div>
+        }
+      </div>
+
+      <!-- Document Field -->
+      <div class="mb-3">
+        <h1 class="block mb-4 text-[14px] font-medium text-black pt-4">
+          Documents
+          <p class="text-[12px] font-medium text-gray-400">
+            Upload the following documents below
+          </p>
+          <p class="text-xs text-gray-400">*CIPC Registration</p>
+          <p class="text-xs font-medium text-gray-400">
+            *At least one founder identification
+          </p>
+          <p class="text-xs font-medium text-gray-400">
+            *Any additional relevant documentation
+          </p>
+        </h1>
+
+        <!-- Upload Media File -->
+        <div class="relative z-50 space-y-6">
+          <div class="flex gap-6">
+            <div
+              class="relative z-50 w-full p-4 text-sm bg-white border border-dashed border-gray-600 rounded-lg text-black hover:border-gray-600 hover:bg-gray-50 transition flex flex-col items-center justify-center cursor-pointer"
+            >
+              <svg
+                width="26"
+                height="26"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M312.6 370.6a36.5 36.5 0 0 1 0 73.1H164.5a73.1 73.1 0 0 0-73.1 73.1v292.5a73.1 73.1 0 0 0 73.1 73.1h658.2a73.1 73.1 0 0 0 73.1-73.1v-292.5a73.1 73.1 0 0 0-73.1-73.1H673.4a36.5 36.5 0 0 1 0-73.1h149.4a146.2 146.2 0 0 1 146.2 146.2v292.5a146.2 146.2 0 0 1-146.2 146.2h-658.2a146.2 146.2 0 0 1-146.2-146.2v-292.5a146.2 146.2 0 0 1 146.2-146.2h148.1zM457.1 136.8L307.1 285.5c-11.5 11.5-35.8 15-47.4 3.5a33.7 33.7 0 0 1 0-45.2L468.8 34.9c5.5-5.5 17.3-12.8 25.1-12.8 7.8 0 20.1 7.3 25.6 12.8L727.7 241.5a32.4 32.4 0 0 1 0 44.1 29.5 29.5 0 0 1-41.8 0L530.2 132.9v593.1c0 16.3-18.3 29.5-34.7 29.5-16.3 0-38.4-13.1-38.4-29.5V136.8z"
+                  fill="#000000"
+                ></path>
+              </svg>
+              <h1 class="text-[11px] text-black font-bold mt-2">
+                Upload Media Files
+              </h1>
+              <p class="text-[9.5px] text-gray-600 mt-2">
+                Drag and drop your files here, or
+                <span class="text-blue-500">browse</span>
+              </p>
+              <input
+                type="file"
+                name="documents"
+                multiple
+                class="absolute inset-0 opacity-0 cursor-pointer"
+                (change)="onFileChange($event)"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="w-full py-2 px-4 bg-[#5B8E7D] text-sm text-white font-medium rounded-md transition duration-200 focus:outline-none focus:ring-offset-1 focus:ring-offset-gray-800"
+      >
+        Submit Request
+      </button>
+    </form>
+  </div>
+</div>
+<app-footer></app-footer>

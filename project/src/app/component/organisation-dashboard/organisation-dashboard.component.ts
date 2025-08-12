@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { SponsorRequest } from '../../Pages/sponsor-request/sponsor-request';
 
 @Component({
   selector: 'app-organisation-dashboard',
