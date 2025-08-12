@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SponsorRequest } from './sponsor-request';
+import { IndividualReq } from './individual-req';
 
-describe('SponsorRequest', () => {
-  let component: SponsorRequest;
-  let fixture: ComponentFixture<SponsorRequest>;
+describe('IndividualReq', () => {
+  let component: IndividualReq;
+  let fixture: ComponentFixture<IndividualReq>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SponsorRequest]
+      imports: [IndividualReq]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SponsorRequest);
+    fixture = TestBed.createComponent(IndividualReq);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
