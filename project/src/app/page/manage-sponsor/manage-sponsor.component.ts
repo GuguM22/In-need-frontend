@@ -8,11 +8,13 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './manage-sponsor.component.html',
-  styleUrl: './manage-sponsor.component.css'
+  styleUrls: ['./manage-sponsor.component.css']
 })
 export class ManageSponsorComponent {
 activeTab: string = 'posts';
 activeMenuId: string | null = null;
+post: any;
+i: any;
 
   toggleActionMenu(menuId: string): void {
     if (this.activeMenuId === menuId) {
@@ -28,12 +30,42 @@ activeMenuId: string | null = null;
     this.isMenuOpen = !this.isMenuOpen;
   }
 
-  // Close when clicking outside (optional)
+
   @HostListener('document:click', ['$event'])
   onClick(event: MouseEvent): void {
     const target = event.target as HTMLElement;
-    if (!target.closest('.relative.flex')) {
-      this.isMenuOpen = false;
+    if (!target.closest('.relative')) {
+      this.activeMenuId = null;
     }
   }
+
+  posts = [
+    {
+      title: 'School Supplies',
+      description:
+        'Providing educational materials for 200+ children in underserved communities...',
+      daysLeft: 15,
+      progress: 58,
+      fulfilled: false
+    },
+    {
+      title: 'Food Drive',
+      description: 'Helping feed 100+ families during the winter season...',
+      daysLeft: 10,
+      progress: 72,
+      fulfilled: false
+    }
+  ];
+
+  markFulfilled(index: number): void {
+    this.posts[index].fulfilled = true;
+    this.activeMenuId = null; // close menu
+  }
+
+  deletePost(index: number): void {
+    this.posts.splice(index, 1);
+    this.activeMenuId = null; // close menu
+  }
+
 }
+

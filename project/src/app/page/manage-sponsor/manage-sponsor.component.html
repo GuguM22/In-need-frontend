@@ -1,5 +1,4 @@
 <div class="min-h-screen bg-white font-sans px-4 pt-6 pb-20">
-
   <!-- Back Button -->
   <button class="text-sm text-gray-600 mb-4">&larr; Back</button>
 
@@ -18,11 +17,10 @@
           'font-semibold border-blue-600 text-blue-600': activeTab === 'sponsor',
           'text-black font-bold border-transparent': activeTab !== 'sponsor'
         }"
-        class="w-full py-4 px-1 flex justify-center items-center gap-x-2 border-b-2  font-bold text-sm whitespace-nowrap"
+        class="w-full py-4 px-1 flex justify-center items-center gap-x-2 border-b-2 font-bold text-sm whitespace-nowrap"
       >
         Sponsor Request
       </button>
-
       <button
         (click)="activeTab = 'posts'"
         [ngClass]="{
@@ -35,54 +33,78 @@
       </button>
     </nav>
   </div>
-﻿
-  <!-- Example Sponsorship Card -->
-  <div class="bg-white border rounded-xl shadow-sm p-4 mt-4 relative">
-    
-    <!-- High Priority & Dot Menu -->
-    <div class="flex justify-between items-start mb-2">
-      <span class="bg-red-100 text-red-500 text-xs font-semibold px-2 py-1 rounded">High Priority</span>
 
-      <!-- Dot Menu Button -->
-      <button 
-        (click)="toggleActionMenu('actionMenu1')" 
-        class="text-gray-500 hover:text-black focus:outline-none"
-        aria-label="Actions"
-      >
-         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-      <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
-    </svg>
-      </button>
-    </div>
-
-    <!-- Action Menu -->
-    <div 
-      *ngIf="activeMenuId === 'actionMenu1'" 
-      class="absolute right-4 top-10 bg-white rounded-md shadow-lg z-10 border w-40"
+  <!-- Example Card -->
+  <div class="w-full max-w-sm">
+  <ng-container *ngIf="activeTab === 'posts'">
+    <div
+      class="bg-white border rounded-xl shadow-sm p-4 mt-2 relative"
+      *ngFor="let post of posts; let i = index"
     >
-      <button class="block w-full text-left px-4 py-2 text-sm text-blue-600 hover:bg-gray-100">Mark Fulfilled</button>
-      <button class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-100">Delete</button>
-    </div>
+      <!-- High Priority & Dot Menu -->
+      <div class="flex justify-between items-start mb-2">
+        <span class="bg-red-100 text-red-500 text-xs font-semibold px-2 py-1 rounded">
+          High Priority
+        </span>
 
-    <!-- Card Title & Description -->
-    <h3 class="text-base font-semibold">School Supplies</h3>
-    <p class="text-sm text-gray-500 mb-3">
-      Providing educational materials for 200+ children in underserved communities...
-    </p>
+        <!-- Green Tick if Fulfilled -->
+        <span *ngIf="post.fulfilled" class="text-green-600 text-lg font-bold">&#10004;</span>
 
-    <!-- Footer -->
-    <div class="flex justify-between text-sm text-black mb-2">
-      <span class="font-medium">Days Left</span>
-    </div>
-
-    <!-- Progress Bar + Days Left -->
-    <div class="flex items-center justify-between">
-      <div style="width: 150px;" class="bg-gray-200 rounded-full h-2.5 mr-4">
-        <div class="bg-[#219EBC] h-2.5 rounded-full w-[58%]"></div>
+        <!-- Dot Menu -->
+        <button
+          (click)="toggleActionMenu('actionMenu' + i)"
+          class="text-gray-500 hover:text-black focus:outline-none"
+          aria-label="Actions"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"
+            />
+          </svg>
+        </button>
       </div>
-      <span class="text-xs text-gray-600 whitespace-nowrap">15 Days</span>
-    </div>
 
-  </div>
+      <!-- Action Menu -->
+      <div
+        *ngIf="activeMenuId === 'actionMenu' + i"
+        class="absolute right-4 top-10 bg-white rounded-md shadow-lg z-10 border w-40"
+      >
+        <button
+          class="block w-full text-left px-4 py-2 text-sm text-green-600 hover:bg-gray-100"
+          (click)="markFulfilled(i)"
+        >
+          Mark Fulfilled
+        </button>
+        <button
+          class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-100"
+          (click)="deletePost(i)"
+        >
+          Delete
+        </button>
+      </div>
+
+      <!-- Card Title & Description -->
+      <h3 class="text-base font-semibold">{{ post.title }}</h3>
+      <p class="text-sm text-gray-500 mb-3">{{ post.description }}</p>
+
+      <!-- Footer -->
+      <div class="flex justify-between text-sm text-black mb-2">
+        <span class="font-medium">Days Left</span>
+      </div>
+
+      <!-- Progress Bar + Days Left -->
+      <div class="flex items-center justify-between">
+        <div style="width: 150px;" class="bg-gray-200 rounded-full h-2.5 mr-4">
+          <div
+            class="bg-[#219EBC] h-2.5 rounded-full"
+            [style.width.%]="post.progress"
+          ></div>
+        </div>
+        <span class="text-xs text-gray-600 whitespace-nowrap">{{ post.daysLeft }} Days</span>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
 
 </div>

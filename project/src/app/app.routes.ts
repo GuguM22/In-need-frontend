@@ -29,6 +29,7 @@ import { ManageSponsorComponent } from './page/manage-sponsor/manage-sponsor.com
 
 
 
+
 export const routes: Routes = [
 
 
@@ -71,7 +72,7 @@ export const routes: Routes = [
 
    {path:'admin', component:AdminPanelComponent},
   {path:'donation-review', component: DonationReviewComponent},
-  {path:'manage-sponsor',component: ManageSponsorComponent}
+  {path:'manage-sponsor', component:  ManageSponsorComponent}
 ];
 
 
