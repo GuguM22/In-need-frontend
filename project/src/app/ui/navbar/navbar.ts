@@ -4,10 +4,10 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
-  standalone: true,                    // if standalone component
-  imports: [CommonModule, Sidebar],
+  standalone: true,
+  imports: [Sidebar, CommonModule],
   templateUrl: './navbar.html',
-  styleUrls: ['./navbar.css']           // fix plural here
+  styleUrls: ['./navbar.css']
 })
 export class NavbarComponent {
   toggle = false;

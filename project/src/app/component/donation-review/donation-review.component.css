@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Readex+Pro:wght@160..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+*{
+    font-family: 'Mulish' ;
+}
+
+.donation-card {
+    background: white;
+    border: solid #a2a3a5;
+    border-radius: 12px;
+    padding: 32px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 80px;
+    height: 410px;
+  }
+  
+  .card-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #1f2937;
+    margin: 0 0 24px 0;
+    text-align: center;
+  }
+  
+  .donation-details {
+    margin-bottom: 32px;
+  }
+  
+  .detail-row {
+    display: flex;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+  
+  .detail-row:last-child {
+    margin-bottom: 0;
+  }
+  
+  .label {
+    font-weight: 700;
+    color: #374151;
+    min-width: 100px;
+    margin-right: 16px;
+    font-size: 15px;
+  }
+  
+  .value {
+    color: black;
+    font-size: 15px;
+    line-height: 1.4;
+    font-weight: 300;
+  }
+  
+  .button-container {
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    margin-top: 50px;
+  }
+  
+  .back-button, .confirm-button {
+    padding: 10px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 20px;
+  }
+  
+  .back-button {
+    background-color: #D9D9D9;
+    color: #374151;
+    flex: 1;
+     justify-content: center;
+  }
+  
+  .back-button:hover {
+    background-color: #bdc2cb;
+  }
+  
+  .confirm-button {
+    background-color: #5B8E7D;
+    color: white;
+    flex: 1;
+    justify-content: center;
+  }
+  
+  .confirm-button:hover {
+    background-color: #047857;
+  }
+  
+  .back-icon {
+    width: 16px;
+    height: 16px;
+  }
+  button{
+    width: 20px;
+  }
+  
+ 
