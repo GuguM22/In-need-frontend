@@ -26,9 +26,8 @@
         </div>
       </div>
     </div>
-    <div class="flex gap-2 hover:bg-gray-100 p-2 rounded cursor-pointer">
+    <div  (click)="openLogoutModal()" class="flex gap-2 hover:bg-gray-100 p-2 rounded cursor-pointer">
       <img class="w-[30px] h-[30px]" src="icons/exit.svg" />
-      
       <p class="text-base font-extrabold">Logout</p>
     </div>
   </div>
@@ -39,7 +38,12 @@
     <img (click)="handleToggle()" class="w-[30px] h-[30px] cursor-pointer hover:opacity-80" src="menu-icon.svg" />
     <img class="h-10 w-10 rounded-full" src="logo.png" />
   </div>
+
+  @if(showLogoutModal){
+ <app-logout
+  (cancel)="closeLogoutModal()"
+  (confirm)="confirmLogout()"
+></app-logout>
+}
 </body>
-<app-logout>
-  
-</app-logout>
+
