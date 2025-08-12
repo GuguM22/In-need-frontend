@@ -37,6 +37,8 @@ export const routes: Routes = [
   { path: 'register', component: Register },
   { path: 'verify-email', component: VerifyEmail },
   {path: 'sponsor-dasboard', component: SponsorDasboardComponent},
+  {path: 'sponsorship-request-page', component: SponsorshipRequestPage},
+  {path: 'verification-page', component: VerificationPage},
 
  
   { path: 'forgot-password', component: ForgotPassword },
