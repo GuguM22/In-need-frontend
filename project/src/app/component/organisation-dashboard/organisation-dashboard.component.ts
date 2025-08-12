@@ -14,6 +14,6 @@ export class OrganisationDashboardComponent {
   constructor(private router: Router) { }
 
   navigateToSponsorRequest() {
-    this.router.navigate(['sponsor-req']);
+    this.router.navigate(['req']);
   }
 }
