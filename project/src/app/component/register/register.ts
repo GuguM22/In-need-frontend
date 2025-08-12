@@ -59,7 +59,11 @@ export class Register implements OnInit {
   ) {
     this.registerForm = this.fb.group(
       {
+
+      
+
         username: [
+
           '',
           [
             Validators.required,
