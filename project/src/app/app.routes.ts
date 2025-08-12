@@ -9,6 +9,10 @@ import { Fequency } from './component/fequency/fequency';
 
 
 
+  import { ProfilepageComponent } from './component/profilepage/profilepage';
+
+
+ 
 
 
 import { OptionsComponent } from './Pages/options/options.component';
@@ -26,6 +30,8 @@ import { DonationReviewComponent } from './component/donation-review/donation-re
 import { SponsorDasboardComponent } from './component/sponsor-dasboard/sponsor-dasboard.component';
 import { OrganisationDashboardComponent } from './component/organisation-dashboard/organisation-dashboard.component';
 import { ManageSponsorComponent } from './page/manage-sponsor/manage-sponsor.component';
+import { ForgotPassword } from './component/forgot-password/forgot-password';
+import { ResetPassword } from './component/reset-password/reset-password';
 
 
 
@@ -36,16 +42,12 @@ export const routes: Routes = [
   { path: '', redirectTo: 'Landing', pathMatch: 'full' },
 
   { path: 'Landing', component: LandingComponent },
-
-
  
-
-  
-
   { path: 'sponsor-req', component: SponsorRequest },
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
   { path: 'verify-email', component: VerifyEmail },
+
   {path: 'sponsor-dasboard', component: SponsorDasboardComponent},
 
   { path: '', component: LandingComponent },
@@ -57,18 +59,28 @@ export const routes: Routes = [
   {path: 'thank-you',component:ThankYouComponent},
 
 
+
+   { path: 'sponsor-dashboard', component: SponsorDasboardComponent },
+  { path: 'forgot-password', component: ForgotPassword },
+  { path: 'auth/reset-password', component: ResetPassword },
+  { path: '', component: LandingComponent },
+
+
    {path: 'sponsor-dashboard', component: SponsorDasboardComponent},
-   {path: 'verification-page', component: VerificationPage},
    {path: 'organization-dashboard', component: OrganisationDashboardComponent},
 
+  {path: 'options', component:OptionsComponent},
+     {path: 'verification-page', component: VerificationPage},
+ 
 
 
 
   {path: 'freq',component:Fequency},
+ 
+  {path: 'req', component: SponsorRequest},
+  {path: 'profile', component :ProfilepageComponent},
 
-
- { path: 'options', component: OptionsComponent },
-  { path: 'organiseDetails', component: OrganiseDetailsComponent },
+   { path: 'organiseDetails', component: OrganiseDetailsComponent },
 
    {path:'admin', component:AdminPanelComponent},
   {path:'donation-review', component: DonationReviewComponent},
