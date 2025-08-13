@@ -1,21 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Readex+Pro:wght@160..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 *{
     font-family: 'Mulish' ;
-    /* margin: 0;
+    margin: 0;
     padding: 0;
-    box-sizing: border-box; */
+    box-sizing: border-box;
 }
 
 html, body {
-    /* width: 100%; */
-    /* overflow-x: hidden; */
-    /* height: 100%;
-    overflow-y: auto; */
+    width: 100%;
+    overflow-x: hidden;
+    
 }
 input{
     width: 100%;
     max-width: 410px;
-    border: solid 1px gray;
+    /* border: solid 1px gray; */
+    border: solid 1px #00000066;
+
     border-radius:12px ;
     height: 39px;
     padding-left: 42px;
@@ -27,7 +28,7 @@ input{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 37px;
     width: 100%;
 }
 
@@ -83,7 +84,7 @@ input{
     margin-top: 5px;
 }
 .indvCard{
-    border: solid rgb(182, 182, 182);
+    border: solid #00000030;
     width: 245px;
     border-radius: 9px;
  }
@@ -183,7 +184,7 @@ input{
 
 
 .orgCard{
-    border: solid rgb(182, 182, 182);
+    border: solid #00000030;
     border-radius: 9px;
     width: 85%;
     margin-left: auto;
