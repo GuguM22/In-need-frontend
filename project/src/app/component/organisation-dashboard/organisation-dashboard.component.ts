@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { SponsorRequest } from '../../Pages/sponsor-request/sponsor-request';
+import { HttpClient } from '@angular/common/http';
+import { SponsorRequestService } from '../../service/sponsor-request-service';
 
 @Component({
   selector: 'app-organisation-dashboard',
@@ -10,8 +12,35 @@ import { SponsorRequest } from '../../Pages/sponsor-request/sponsor-request';
 })
 export class OrganisationDashboardComponent {
 
+  requests: SponsorRequest[] = [];
 
-  constructor(private router: Router) { }
+  request: SponsorRequest = { 
+    title: '',
+    priority: '',
+    quantity: 0,
+    requiredDate: '',
+    description: '',
+    mediaUrls: []
+  };
+
+
+  constructor(private router: Router, private sponsorService: SponsorRequestService) { }
+
+  ngOnInit(): void {
+    this.loadSponsors();
+  }
+
+loadSponsors():void{
+  this.sponsorService.getAll().subscribe({
+    next: (data) => {
+      this.requests = data;
+      console.log(this.requests);
+    }, 
+    error: (error) => {
+      console.error('Error fetching sponsor requests:', error);
+    }
+  })
+}
 
   navigateToSponsorRequest() {
     this.router.navigate(['sponsor-request']);
