@@ -20,7 +20,7 @@ export interface SponsorRequest {
 @Component({
   selector: 'app-sponsor-request',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, Navbar, FooterComponent],
+  imports: [ReactiveFormsModule, CommonModule, FooterComponent],
   templateUrl: './sponsor-request.html',
   styleUrls: ['./sponsor-request.css'],
   providers: [SponsorRequestService]
