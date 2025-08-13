@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SponsorRequest } from './sponsor-request';
+import { AskUploading } from './ask-uploading';
 
-describe('SponsorRequest', () => {
-  let component: SponsorRequest;
-  let fixture: ComponentFixture<SponsorRequest>;
+describe('AskUploading', () => {
+  let component: AskUploading;
+  let fixture: ComponentFixture<AskUploading>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SponsorRequest]
+      imports: [AskUploading]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SponsorRequest);
+    fixture = TestBed.createComponent(AskUploading);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

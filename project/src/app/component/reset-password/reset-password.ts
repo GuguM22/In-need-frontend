@@ -84,6 +84,7 @@ export class ResetPassword implements OnInit {
     this.resetPasswordModal = false;
     this.router.navigate(['/sign-in']);
   }
+  
 
   onSubmit(): void {
     if (this.resetForm.invalid || !this.token) {
