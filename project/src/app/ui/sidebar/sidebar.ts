@@ -3,14 +3,14 @@ import { Navbar } from "../navbar/navbar";
 import { CommonModule } from '@angular/common';
 import { Logout } from "../../component/logout/logout";
 import { Services } from '../../service/services';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, Logout],
+  imports: [CommonModule, Logout, RouterModule],
   templateUrl: './sidebar.html',
   styleUrls: ['./sidebar.css']
 

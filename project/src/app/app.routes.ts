@@ -27,6 +27,7 @@ import { ManageSponsorComponent } from './page/manage-sponsor/manage-sponsor.com
 
 import { Logout } from './component/logout/logout';
 import { ProfilepageComponent } from './component/profilepage/profilepage';
+import { Sidebar } from './ui/sidebar/sidebar';
 
 
 export const routes: Routes = [
@@ -63,5 +64,5 @@ export const routes: Routes = [
   {path:'manage-sponsor', component:  ManageSponsorComponent},
 
   {path: 'logout', component: Logout},
-
+ 
 ];
