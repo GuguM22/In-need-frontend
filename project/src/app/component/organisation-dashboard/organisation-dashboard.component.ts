@@ -6,7 +6,7 @@ import { FooterComponent } from "../../ui/footer/footer";
 
 @Component({
   selector: 'app-organisation-dashboard',
-  imports: [Navbar, FooterComponent],
+  imports: [],
   templateUrl: './organisation-dashboard.component.html',
   styleUrl: './organisation-dashboard.component.css'
 })
