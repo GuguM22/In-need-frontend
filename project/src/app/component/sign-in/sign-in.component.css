@@ -14,3 +14,23 @@ form{
 .btn{
     margin-top: 25px;
 }
+
+svg{
+    color: #00000059;
+}
+
+label{
+    font-size: 13px;
+    margin-bottom: 14px;
+}
+
+.eye{
+    margin-top: 13px;
+}
+
+p{
+    font-weight: 500;
+}
+input{
+    padding-left: 9px;
+}
