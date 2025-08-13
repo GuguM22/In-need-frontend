@@ -19,9 +19,11 @@ import { DonationReviewComponent } from './component/donation-review/donation-re
 import { OrganisationDashboardComponent } from './component/organisation-dashboard/organisation-dashboard.component';
 import { Logout } from './component/logout/logout';
 import { ProfilepageComponent } from './component/profilepage/profilepage';
+import { Navbar } from './ui/navbar/navbar';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'Landing', pathMatch: 'full' },
+  {path:'nav',component:Navbar},
 
   { path: 'Landing', component: LandingComponent },
   {path: 'options', component:OptionsComponent},
