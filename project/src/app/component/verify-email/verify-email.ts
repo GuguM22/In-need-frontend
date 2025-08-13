@@ -13,7 +13,8 @@ import { Services } from '../../service/services';
   styleUrls: ['./verify-email.css'],  
 })
 export class VerifyEmail implements OnInit {
-  @Input() email: string = '';
+  ngOnInit(): void {}
+/*  @Input() email: string = '';
   @Input() mode: 'token' | 'email' = 'token';
   @Output() close = new EventEmitter<void>();
 
@@ -65,5 +66,5 @@ export class VerifyEmail implements OnInit {
     if (this.mode === 'email') {
       this.router.navigate(['/sign-in']);
     }
-  }
+  }*/
 }
