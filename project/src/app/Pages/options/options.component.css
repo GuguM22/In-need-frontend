@@ -9,7 +9,7 @@
 }
 
 .container{
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .types{
@@ -35,4 +35,9 @@
 }
 #nextBtn{
     width: 145px;
+}
+
+.top{
+margin-bottom: 10px;
+margin-left: 5px;
 }
