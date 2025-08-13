@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { SponsorRequest } from '../../Pages/sponsor-request/sponsor-request';
-import { FooterComponent } from "../../ui/footer/footer";
 import { Navbar } from "../../ui/navbar/navbar";
+import { FooterComponent } from "../../ui/footer/footer";
 
 @Component({
   selector: 'app-organisation-dashboard',
-  imports: [FooterComponent, Navbar],
+  imports: [],
   templateUrl: './organisation-dashboard.component.html',
   styleUrl: './organisation-dashboard.component.css'
 })

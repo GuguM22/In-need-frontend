@@ -28,6 +28,7 @@ import { ManageSponsorComponent } from './page/manage-sponsor/manage-sponsor.com
 import { Logout } from './component/logout/logout';
 import { ProfilepageComponent } from './component/profilepage/profilepage';
 import { AskUploading } from './Pages/ask-uploading/ask-uploading';
+import { DonationRequest } from './donation-request/donation-request';
 
 
 export const routes: Routes = [
@@ -56,7 +57,7 @@ export const routes: Routes = [
   { path: 'freq', component: Fequency },
 
 
- 
+ { path: 'donation-request', component: DonationRequest },
 
   {path: 'sponsor-request', component: SponsorRequestComponent},
   {path: 'profile', component :ProfilepageComponent},
