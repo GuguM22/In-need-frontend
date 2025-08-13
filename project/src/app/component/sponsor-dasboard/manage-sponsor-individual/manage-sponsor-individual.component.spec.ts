@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ComponentManageSponsorIndividualComponent } from './manage-sponsor-individual.component';
+import { ManageSponsorIndividualComponent } from './manage-sponsor-individual.component';
 
 describe('ComponentManageSponsorIndividualComponent', () => {
-  let component: ComponentManageSponsorIndividualComponent;
-  let fixture: ComponentFixture<ComponentManageSponsorIndividualComponent>;
+  let component: ManageSponsorIndividualComponent;
+  let fixture: ComponentFixture<ManageSponsorIndividualComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ComponentManageSponsorIndividualComponent]
+      imports: [ManageSponsorIndividualComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ComponentManageSponsorIndividualComponent);
+    fixture = TestBed.createComponent(ManageSponsorIndividualComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

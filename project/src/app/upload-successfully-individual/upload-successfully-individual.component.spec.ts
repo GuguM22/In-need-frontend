@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SignInIndividualComponent } from './upload-successfully-individual.component';
+import { UploadSuccessfullyindividualComponent  } from './upload-successfully-individual.component';
 
 describe('SignInIndividualComponent', () => {
-  let component: SignInIndividualComponent;
-  let fixture: ComponentFixture<SignInIndividualComponent>;
+  let component: UploadSuccessfullyindividualComponent;
+  let fixture: ComponentFixture<UploadSuccessfullyindividualComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SignInIndividualComponent]
+      imports: [UploadSuccessfullyindividualComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SignInIndividualComponent);
+    fixture = TestBed.createComponent(UploadSuccessfullyindividualComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -28,7 +28,7 @@ import { ManageSponsorComponent } from './page/manage-sponsor/manage-sponsor.com
 import { Logout } from './component/logout/logout';
 import { ProfilepageComponent } from './component/profilepage/profilepage';
 import { AskUploading } from './Pages/ask-uploading/ask-uploading';
-import { ManageSponsorIndividualComponent } from './component/verify-email/manage-sponsor-individual/manage-sponsor-individual.component';
+import { ManageSponsorIndividualComponent } from './component/sponsor-dasboard/manage-sponsor-individual/manage-sponsor-individual.component';
 
 
 export const routes: Routes = [
