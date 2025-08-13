@@ -5,3 +5,6 @@
 .calc-width{
     width: calc(100vw - 7000px);
 }
+#stepper{
+    gap: 30px;
+}
