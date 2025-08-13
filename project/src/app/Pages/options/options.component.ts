@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { Navbar } from "../../ui/navbar/navbar";
+import { FooterComponent } from "../../ui/footer/footer";
 
 @Component({
   selector: 'app-options',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, Navbar, FooterComponent],
   templateUrl: './options.component.html',
   styleUrls: ['./options.component.css']
 })
