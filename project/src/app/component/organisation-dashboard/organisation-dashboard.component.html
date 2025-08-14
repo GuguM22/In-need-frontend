@@ -5,7 +5,7 @@
             <img src="searchIcon.png" alt="" class="iconLeft">
         </div>
         <div class="inputBox">
-            <input type="search" placeholder="Search for an organisation">
+            <input type="search" placeholder="Search for an organisation"   [(ngModel)]="searchQuery"  (input)="onSearch()" >
         </div>
         <div class="filterIcon">
             <img src="filterIcon.png" alt="" class="iconRight">
@@ -124,7 +124,9 @@
         </div>
     </div>
   
-       <div *ngFor="let request of requests" class="orgCards">
+       <!-- <div *ngFor="let request of requests" class="orgCards"> -->
+        <div *ngFor="let request of filteredRequests" class="orgCards">
+
         <div class="orgCard">
             <div class="holder1">
                 <div class="profile">

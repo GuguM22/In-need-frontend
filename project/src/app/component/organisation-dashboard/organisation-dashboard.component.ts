@@ -6,10 +6,11 @@ import { FooterComponent } from "../../ui/footer/footer";
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-organisation-dashboard',
-  imports: [FooterComponent, Navbar, CommonModule, RouterLink],
+  imports: [FooterComponent, Navbar, CommonModule, RouterLink, FormsModule],
   templateUrl: './organisation-dashboard.component.html',
   styleUrl: './organisation-dashboard.component.css'
 })
@@ -25,7 +26,8 @@ export class OrganisationDashboardComponent {
     mediaUrls: []}
 
   constructor(private router: Router, private sponsorService: SponsorRequestService, private http: HttpClient) { }
-
+  searchQuery: string = '';
+  filteredRequests: SponsorRequest[] = [];
 
   ngOnInit():void {
   this.loadRequests();
@@ -39,7 +41,7 @@ export class OrganisationDashboardComponent {
       next: (data) => {
         this.requests = data;
         console.log('Requests loaded:');
-        console.log('First priority:', this.requests[0]?.priority); // 👀 Check what you’re getting
+        this.filteredRequests = [...this.requests]; 
 
       },
       error: (error) => {
@@ -75,7 +77,14 @@ export class OrganisationDashboardComponent {
     }
   }
   
-
+  onSearch(): void {
+    const query = this.searchQuery.toLowerCase();
+  
+    this.filteredRequests = this.requests.filter(request =>
+      request.title.toLowerCase().includes(query)
+      // add more conditions if you want to search by description, location, etc.
+    );
+  }
   
   
 }
