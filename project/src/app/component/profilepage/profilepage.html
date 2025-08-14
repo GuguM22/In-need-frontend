@@ -1,16 +1,17 @@
-<div class="w-screen h-screen flex flex-col bg-[#f5f5f5] overflow-y-auto">
+<div class="w-screen h-screen grid grid-rows-[auto_1fr_auto] bg-[#f5f5f5] overflow-y-auto">
   <!-- Header with Back Button -->
-  <div class="flex justify-start items-center px-6 py-4 bg-white shadow-md h-14 z-20 flex-shrink-0">
+  <div class="flex justify-between items-center px-6 py-4 bg-white shadow-md h-14 z-20 flex-shrink-0">
     <button class="flex items-center gap-2 text-black font-extrabold text-lg" (click)="goBack()">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
       </svg>
       Back
     </button>
+    
   </div>
 
   <!-- Scrollable Content -->
-  <div class="flex-1 px-4 pt-4 pb-20"> <!-- Added pb-20 to prevent content overlap -->
+  <div class=" px-4 pt-4 pb-20"> <!-- Added pb-20 to prevent content overlap -->
     <!-- Cover + Profile -->
     <div class="relative">
       <div class="h-[180px] rounded-xl overflow-hidden">
@@ -111,7 +112,7 @@
             <div *ngIf="isEditing" class="flex gap-2 flex-1">
               <button (click)="viewDocument('founderId')"
                       class="flex-1 text-left border p-2 rounded-lg shadow-sm bg-white hover:bg-green-50 text-gray-800 font-medium">
-                At least one Founder Identification
+                Founder Identification
               </button>
               <input type="file" (change)="updateDocument($event, 'founderId')"
                      class="border p-1 rounded text-sm text-gray-700 w-32" />
@@ -122,7 +123,7 @@
           <div class="flex items-center justify-between gap-2">
             <button *ngIf="!isEditing" (click)="viewDocument('additional')"
                     class="text-left border p-2 rounded-lg shadow-sm bg-white hover:bg-green-50 text-gray-800 font-medium flex-1">
-              Any Additional Relevant Documentation
+              Additional Relevant Documentation
             </button>
             <div *ngIf="isEditing" class="flex gap-2 flex-1">
               <button (click)="viewDocument('additional')"

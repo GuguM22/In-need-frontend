@@ -112,5 +112,4 @@ updateDocument(event: any, docType: string) {
 
 
 
-
 }
