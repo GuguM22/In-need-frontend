@@ -29,7 +29,8 @@ import { Logout } from './component/logout/logout';
 import { ProfilepageComponent } from './component/profilepage/profilepage';
 
 import { Navbar } from './ui/navbar/navbar';
-
+import { AskUploading } from './Pages/ask-uploading/ask-uploading';
+import { DonationRequest } from './donation-request/donation-request';
 
 
 
@@ -38,8 +39,7 @@ import { Navbar } from './ui/navbar/navbar';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'Landing', pathMatch: 'full' },
-  import { AskUploading } from './Pages/ask-uploading/ask-uploading';
-import { DonationRequest } from './donation-request/donation-request';
+
 
   { path: 'Landing', component: LandingComponent },
   {path: 'options', component:OptionsComponent},
