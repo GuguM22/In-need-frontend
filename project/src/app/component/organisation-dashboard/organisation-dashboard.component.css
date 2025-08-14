@@ -335,6 +335,113 @@ button{
     margin-top: 20px;
 }
 
+.bar-container {
+    width: 125%;
+    height: 20px;
+    background-color: #D9D9D9;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  .bar-fill {
+    height: 100%;
+    border-radius: 12px;
+    background-color: #219EBC;
+    transition: width 0.5s ease;
+  }
+  
+  /* Base priority button styles */
+.priotities button {
+    /* padding: 8px 12px; */
+    padding-left: 10px;
+    padding-right: 10px;
+    border: none;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    height: 25px;
+
+  }
+  
+  .low-priority {
+    background-color: #CCFF3375; 
+    color: #000000;
+
+  }
+  
+  .medium-priority {
+    background-color: #FFBA0875; 
+    color: #99582A;
+
+
+  }
+  
+  .high-priority {
+    background-color: #C9575775; 
+    color: #C1121F;
+
+  }
+  
+  .pagination-numbers {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+  }
+  
+  .pagination-numbers button {
+    padding: 8px 12px;
+    border: none;
+    background-color: transparent;
+    color: #333;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+  }
+  
+  .pagination-numbers button:hover {
+    color: black;
+    border: solid 1px #8f8e8e6b;
+    padding-bottom: 26px;
+    padding-left: 14px;
+    padding-right: 14px;
+    border-radius: 18px;
+    height: 30px;
+  }
+  
+  .pagination-numbers button.active {
+    border: solid 1px #0000006B;
+    padding-bottom: 26px;
+    padding-left: 14px;
+    padding-right: 14px;
+    border-radius: 18px;
+    color: black;
+    font-weight: 800;
+    height: 30px;
+
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 5px;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 4px;
+    z-index: 100;
+  }
+  
+  .dropdown-menu select {
+    padding: 6px;
+    margin-left: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 150px;
+  }
+  
 /* @media (max-width: 480px) {
     .search {
         width: 90%;
