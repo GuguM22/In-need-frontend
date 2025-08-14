@@ -14,7 +14,7 @@ import { Services } from '../../service/services';
 })
 export class VerifyEmail implements OnInit {
   ngOnInit(): void {}
- /* @Input() email: string = '';
+/*  @Input() email: string = '';
   @Input() mode: 'token' | 'email' = 'token';
   @Output() close = new EventEmitter<void>();
 

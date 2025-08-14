@@ -1,25 +1,25 @@
-<div class="w-full h-screen overflow-x-hidden overflow-y-auto relative">
-    <div class="relative min-h-screen bg-white flex flex-col items-center justify-center p-4">
+<div class="w-full overflow-x-hidden overflow-y-auto relative container">
+    <div class="relative bg-white flex flex-col items-center justify-center p-4">
         <!-- Header -->
         <div class="text-center mb-6">
-            <h1 class="text-2xl font-bold text-black mb-1">In-Need</h1>
+            <h1 class="font-bold text-black mb-1 title">In-Need</h1>
         </div>
 
         <!-- Form -->
         <form (ngSubmit)="onRegister()" [formGroup]="registerForm"
-            class="w-full max-w-sm bg-white p-6 rounded-lg border border-gray-300 shadow-xl">
+            class="w-full max-w-sm bg-white p-6 rounded-lg border border-[#00000040] shadow-xl">
             <div class="text-center mb-6">
-                <h1 class="text-3xl font-bold text-black mb-1">Sign Up</h1>
+                <h1 class="font-bold text-black  sign">Sign Up</h1>
                 <p class="text-sm text-black py-2">Enter You Details to Proceed</p>
 
             </div>
 
             <!-- Name Field -->
             <div class="mb-3">
-                <label for="username" class="block mb-1 text-xs font-medium text-black">UserName</label>
+                <label for="username" class="block text-[13px] font-medium text-black">UserName</label>
                 <input type="text" id="username" formControlName="username"
-                    class="w-full p-2 text-sm bg-white border border-gray-600 rounded-md text-black placeholder-gray-400 focus:ring-1 focus:ring-gray-300 focus:border-gray-500 outline-none transition"
-                    placeholder="John Doe" />
+                    class="w-full p-2 text-sm bg-white border border-[#00000059] rounded-md text-black placeholder-gray-400 focus:ring-1 focus:ring-gray-300 focus:border-gray-500 outline-none transition"
+                    placeholder="Enter Username" />
 
 
                 @if(registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty ||
@@ -53,10 +53,10 @@
 
             <!-- Email Field -->
             <div class="mb-3">
-                <label for="email" class="block mb-1 text-xs font-medium text-black">Email</label>
+                <label for="email" class="block text-[13px] font-medium text-black">Email</label>
                 <input type="email" id="email" name="email" formControlName="email"
-                    class="w-full p-2 text-sm bg-white border border-gray-600 rounded-md text-black placeholder-gray-400 focus:ring-1 focus:ring-gray-300 focus:border-gray-500 outline-none transition"
-                    placeholder="example@gmail.com" required pattern="^[a-zA-Z0-9._%+\-]+@gmail\.com$" />
+                    class="w-full p-2 text-sm bg-white border border-[#00000059] rounded-md text-black placeholder-gray-400 focus:ring-1 focus:ring-gray-300 focus:border-gray-500 outline-none transition"
+                    placeholder="Enter a valid email account" required pattern="^[a-zA-Z0-9._%+\-]+@gmail\.com$" />
 
 
                 @if (registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty ||
@@ -92,12 +92,12 @@
 
             <!-- Password Field -->
             <div class="mb-4 relative">
-                <label for="password" class="block mb-1 text-xs font-medium text-black">Password</label>
+                <label for="password" class="block text-[13px] font-medium text-black">Password</label>
                 <input [type]="showPassword ? 'text' : 'password'" id="password" name="password"
                     formControlName="password"
-                    class="w-full p-2 text-sm bg-white border border-gray-600 rounded-md text-black placeholder-gray-400 focus:ring-1 focus:ring-gray-300 focus:border-gray-500 outline-none transition"
+                    class="w-full p-2 text-sm bg-white border border-[#00000059] rounded-md text-black placeholder-gray-400 focus:ring-1 focus:ring-gray-300 focus:border-gray-500 outline-none transition"
                     placeholder="********" required minlength="8" maxlength="15" />
-                <button type="button" (click)="showPassword = !showPassword" class="absolute right-2 top-6.5 text-lg">
+                <button type="button" (click)="showPassword = !showPassword" class="absolute right-2 top-6.5 text-lg eye">
 
                     @if(showPassword){
                     <span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -150,13 +150,13 @@
 
             <!-- Confirm Password Field -->
             <div class="mb-4 relative">
-                <label for="confirmPassword" class="block mb-1 text-xs font-medium text-black">Confirm Password</label>
+                <label for="confirmPassword" class="block mb-1 text-[13px] font-medium text-black">Confirm Password</label>
                 <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirmPassword" name="confirmPassword"
                     formControlName="confirmPassword"
-                    class="w-full p-2 text-sm bg-white border border-gray-600 rounded-md text-black placeholder-gray-400 focus:ring-1 focus:ring-gray-300 focus:border-gray-500 outline-none transition"
+                    class="w-full p-2 text-sm bg-white border border-[#00000059] rounded-md text-black placeholder-gray-400 focus:ring-1 focus:ring-gray-300 focus:border-gray-500 outline-none transition"
                     placeholder="********" required minlength="8" maxlength="15" />
                 <button type="button" (click)="showConfirmPassword = !showConfirmPassword"
-                    class="absolute right-2 top-6.5 text-lg">
+                    class="absolute right-2 top-6.5 text-lg eye">
 
                     @if(showConfirmPassword){
                     <span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -204,11 +204,11 @@
 
             <!-- Role Selection -->
             <div class="mb-3">
-                <label for="role" class="block mb-1 text-xs font-medium text-black">Sign up as</label>
+                <label for="role" class="block text-[13px] font-bold text-black">Sign up as</label>
                 <select id="role" name="role" formControlName="role"
-                    class="w-full p-2 text-sm bg-white border border-gray-600 rounded-md text-black placeholder-gray-400 focus:ring-1 focus:ring-gray-300 focus:border-gray-500 outline-none transition"
+                    class="w-full p-2 bg-white border border-[#00000059] rounded-md text-gray-400 placeholder-gray-500 focus:ring-1 focus:ring-gray-300 focus:border-gray-500 outline-none transition"
                     required>
-                    <option value="" disabled>-- Select Role --</option>
+                    <option value="" disabled> Select Role </option>
                     <option value="INDIVIDUAL">Individual</option>
                     <option value="SPONSORS">Sponsor</option>
                     <option value="ORGANIZATION">Organization</option>
@@ -228,12 +228,12 @@
             </div>
             <!-- Submit Button -->
             <button type="submit"
-                class="w-full py-2 px-4 bg-[#5B8E7D] hover:bg-indigo-500 text-sm text-white font-medium rounded-md transition duration-200 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:ring-offset-1 focus:ring-offset-gray-800"
+                class="w-full py-2 px-4 bg-[#5B8E7D] hover:bg-[#4b8170] text-sm text-white font-medium rounded-md transition duration-200 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:ring-offset-1 focus:ring-offset-gray-800 btn"
                 [disabled]="registerForm.invalid || isLoading">
 
 
                 @if (!isLoading) {
-                <span>Register</span>
+                <span>Sign Up</span>
                 }
                 @if (isLoading) {
                 <span>Processing...</span>
@@ -250,14 +250,14 @@
         </form>
     </div>
 
-    <!-- In your register -->
+    <!-- In your register --
     @if (showVerificationModal) {
     <div class="fixed inset-0 bg-white bg-opacity-30 flex items-center justify-center z-50">
         <div class="rounded-lg shadow-xl max-w-md w-full mx-4 border border-gray-300 shadow-xl">
-            <app-verify-email [email]="submittedEmail" [mode]="'email'" (close)="closeModal()"></app-verify-email>
+            --<app-verify-email [email]="submittedEmail" [mode]="'email'" (close)="closeModal()"></app-verify-email>
         </div>
-    </div>
-    }
+    </div> --
+}-->
 
 
     <!-- Error -->

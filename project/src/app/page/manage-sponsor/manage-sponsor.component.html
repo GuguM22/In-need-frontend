@@ -1,9 +1,14 @@
+<app-navbar></app-navbar>
 <div class="min-h-screen bg-white font-sans px-4 pt-6 pb-20">
   <!-- Back Button -->
-  <button class="text-sm text-gray-600 mb-4">&larr; Back</button>
-
+  <div class="nav">
+    <button class="back-btn" type="button" >
+      <img width="20" height="20" src="https://img.icons8.com/ios/50/circled-left-2.png" alt="circled-left-2"/>
+        Back
+      </button>
+      </div>
   <!-- Title and Description -->
-  <h2 class="text-lg font-semibold mb-1">My Sponsorship Requests</h2>
+  <h2 class="text-lg font-bold mb-1">My Sponsorship Requests</h2>
   <p class="text-sm text-gray-500 mb-6">
     Manage your organization’s sponsorship requests
   </p>
@@ -17,7 +22,7 @@
           'font-semibold border-blue-600 text-blue-600': activeTab === 'sponsor',
           'text-black font-bold border-transparent': activeTab !== 'sponsor'
         }"
-        class="w-full py-4 px-1 flex justify-center items-center gap-x-2 border-b-2 font-bold text-sm whitespace-nowrap"
+        class="w-full py-4 px-1 flex justify-center items-center gap-x-2 border-b-2 font-bold text-sm whitespace-nowrap tab"
       >
         Sponsor Request
       </button>
@@ -27,7 +32,7 @@
           'font-semibold border-blue-600 text-blue-600': activeTab === 'posts',
           'text-black font-bold border-transparent': activeTab !== 'posts'
         }"
-        class="w-full py-4 px-1 flex justify-center items-center gap-x-2 border-b-2 font-bold text-sm whitespace-nowrap"
+        class="w-full py-4 px-1 flex justify-center items-center gap-x-2 border-b-2 font-bold text-sm whitespace-nowrap tabs"
       >
         Posts
       </button>
@@ -38,12 +43,12 @@
   <div class="w-full max-w-sm">
   <ng-container *ngIf="activeTab === 'posts'">
     <div
-      class="bg-white border rounded-xl shadow-sm p-4 mt-2 relative"
+      class="bg-white border rounded-xl shadow-sm p-4 mt-2 relative card"
       *ngFor="let post of posts; let i = index"
     >
       <!-- High Priority & Dot Menu -->
       <div class="flex justify-between items-start mb-2">
-        <span class="bg-red-100 text-red-500 text-xs font-semibold px-2 py-1 rounded">
+        <span class="bg-[#C9575775] text-[#C1121F] text-xs font-semibold px-2 py-1  prior">
           High Priority
         </span>
 
@@ -63,27 +68,28 @@
           class="text-gray-500 hover:text-black focus:outline-none"
           aria-label="Actions"
         >
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <!-- <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
             <path
               d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"
             />
-          </svg>
+          </svg> -->
+          <img width="20" height="20" src="https://img.icons8.com/ios/50/menu-2.png" alt="menu-2"/>
         </button>
       </div>
 
       <!-- Action Menu -->
       <div
         *ngIf="activeMenuId === 'actionMenu' + i"
-        class="absolute right-4 top-10 bg-white rounded-md shadow-lg z-10 border w-40"
+        class="absolute right-4 top-10 bg-white rounded-md shadow-lg z-10 border border-[#00000047] w-40"
       >
         <button
-          class="block w-full text-left px-4 py-2 text-sm text-green-600 hover:bg-gray-100"
+          class="block w-full text-left px-4 py-2 text-sm text-black hover:bg-gray-100"
           (click)="markFulfilled(i)"
         >
           Mark Fulfilled
         </button>
         <button
-          class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-100"
+          class="block w-full text-left px-4 py-2 text-sm text-black hover:bg-gray-100"
           (click)="deletePost(i)"
         >
           Delete
@@ -91,12 +97,12 @@
       </div>
 
       <!-- Card Title & Description -->
-      <h3 class="text-base font-semibold">{{ post.title }}</h3>
+      <h3 class="text-base title">{{ post.title }}</h3>
       <p class="text-sm text-gray-500 mb-3">{{ post.description }}</p>
 
       <!-- Footer -->
       <div class="flex justify-between text-sm text-black mb-2">
-        <span class="font-medium">Days Left</span>
+        <span class="font-[800]">Days Left</span>
       </div>
 
       <!-- Progress Bar + Days Left -->
@@ -115,3 +121,5 @@
 
 
 </div>
+
+<app-footer></app-footer>

@@ -1,0 +1,27 @@
+.number-input-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.number-controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.number-btn {
+  border: none;
+  background: transparent;
+  padding: 0.2rem;
+  cursor: pointer;
+}
+
+.number-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+}

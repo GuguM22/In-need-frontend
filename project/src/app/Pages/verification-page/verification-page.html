@@ -36,7 +36,7 @@
 
     <!-- Form -->
     <form
-      [formGroup]="verificationForm"
+      [formGroup]="verificationForm"  (ngSubmit)="onSubmit()"
       class="w-full max-w-sm bg-white p-6 rounded-lg border border-gray-300 shadow-xl"
     >
       <div class="text-center mb-6">

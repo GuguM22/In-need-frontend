@@ -4,6 +4,8 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
+import { Navbar } from "../../ui/navbar/navbar";
+import { FooterComponent } from "../../ui/footer/footer";
 
 // TypeScript interface matching your backend DTO (except media URLs are backend-only)
 export interface SponsorRequest {
