@@ -8,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './individual-dasboard.component.css'
 })
 export class IndividualDasboardComponent {
+  post(formData: FormData) {
+    throw new Error('Method not implemented.');
+  }
 
 }
