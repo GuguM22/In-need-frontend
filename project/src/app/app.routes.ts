@@ -33,6 +33,10 @@ import { AskUploading } from './Pages/ask-uploading/ask-uploading';
 import { DonationRequest } from './donation-request/donation-request';
 import { IndividualDasboardComponent } from './component/individual-dasboard/individual-dasboard.component';
 
+import { IndividualReq } from './individual-req/individual-req';
+
+
+
 
 
 
@@ -82,6 +86,9 @@ export const routes: Routes = [
   {path:'verification', component: VerificationPage},
   {
   path:'upload-succesfully', component: UploadSuccessfullyComponent},
+ 
+  {path: 'individual-request', component: IndividualReq},
+ 
   {path:'individual-dashboard', component: IndividualDasboardComponent}
-
+ 
 ];

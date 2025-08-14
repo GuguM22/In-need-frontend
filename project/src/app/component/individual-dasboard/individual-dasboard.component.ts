@@ -16,8 +16,9 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './individual-dasboard.component.css'
 })
 export class IndividualDasboardComponent {
+ 
   requests: SponsorRequest[] =[]
-
+ 
   request: SponsorRequest = {
      title: '',
      priority: '',
