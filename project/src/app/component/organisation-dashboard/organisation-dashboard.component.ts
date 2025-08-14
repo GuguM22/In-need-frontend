@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-organisation-dashboard',
-  imports: [FooterComponent, Navbar, CommonModule],
+  imports: [FooterComponent, Navbar, CommonModule, RouterLink],
   templateUrl: './organisation-dashboard.component.html',
   styleUrl: './organisation-dashboard.component.css'
 })
