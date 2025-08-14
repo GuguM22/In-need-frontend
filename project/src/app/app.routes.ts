@@ -31,6 +31,7 @@ import { ProfilepageComponent } from './component/profilepage/profilepage';
 import { Navbar } from './ui/navbar/navbar';
 import { AskUploading } from './Pages/ask-uploading/ask-uploading';
 import { DonationRequest } from './donation-request/donation-request';
+import { IndividualDasboardComponent } from './component/individual-dasboard/individual-dasboard.component';
 
 
 
@@ -80,6 +81,7 @@ export const routes: Routes = [
   {path:'ask-uploading', component:AskUploading},
   {path:'verification', component: VerificationPage},
   {
-  path:'upload-succesfully', component: UploadSuccessfullyComponent} 
+  path:'upload-succesfully', component: UploadSuccessfullyComponent},
+  {path:'individual-dashboard', component: IndividualDasboardComponent}
 
 ];
