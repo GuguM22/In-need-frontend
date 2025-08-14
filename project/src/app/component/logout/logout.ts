@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Services } from '../../service/services';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -13,31 +13,18 @@ import { CommonModule } from '@angular/common';
 })
 export class Logout {
 
-  showLogoutModal = false;
+  @Output() cancel = new EventEmitter<void>();
+  @Output() confirm = new EventEmitter<void>();
 
-  constructor(private userService: Services, private router: Router) {}
+  constructor(private router: Router) {}
 
-  openModal() {
-    this.showLogoutModal = true;
+  onCancelSignOut() {
+    this.cancel.emit();
+     //this.router.navigate(['/discover']);
   }
 
-  cancelLogout() {
-    this.showLogoutModal = false;
-  }
-    // Helper method to handle complete logout process
-  completeLogout(): void {
-    this.userService.logout().subscribe({
-      next: () => {
-        // Redirect to login page after successful logout
-        this.router.navigate(['/sign-in']);
-         this.showLogoutModal = false;
-      },
-      error: (err) => {
-        console.error('Logout failed:', err);
-        // Still redirect even if server logout failed
-        this.router.navigate(['/sign-in']);
-      }
-    });
-
+  onConfirmSignOut() {
+    this.confirm.emit();
+    this.router.navigate(['/sign-in']);
   }
 }

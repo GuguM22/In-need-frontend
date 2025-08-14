@@ -1,45 +1,58 @@
-<body class="h-screen overflow-hidden">
+
+<!-- <body class="overflow-hidden"> -->
   <!-- Sidebar -->
+  <div *ngIf="toggle" 
+     (click)="handleToggle()" 
+     class="fixed inset-0 bg-gray-100 bg-opacity-10 z-[9998] overlay">
+</div>
   <div *ngIf="toggle"
     class="fixed top-0 left-0 h-full w-[283px] z-[9999] bg-white border border-gray-300 rounded-[12px] px-4 py-10 flex flex-col justify-between">
     <div class="flex flex-col gap-10">
       <div class="flex justify-between">
+  
         <img class="rounded-full h-10 w-10" src="logo.png" />
-        <img (click)="handleToggle()" class="w-[30px] h-[30px] cursor-pointer hover:opacity-80" src="icons/close.svg" />
+        <!-- <img (click)="handleToggle()" class="w-[30px] h-[30px] cursor-pointer hover:opacity-80" src="icons/close.svg" /> -->
+        <svg (click)="handleToggle()" class="cursor-pointer hover:opacity-80" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50">
+          <path d="M 7.71875 6.28125 L 6.28125 7.71875 L 23.5625 25 L 6.28125 42.28125 L 7.71875 43.71875 L 25 26.4375 L 42.28125 43.71875 L 43.71875 42.28125 L 26.4375 25 L 43.71875 7.71875 L 42.28125 6.28125 L 25 23.5625 Z"></path>
+          </svg>
       </div>
       <div class="flex flex-col gap-4">
-        <div class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer">
+        <div class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
           <img class="w-[30px] h-[30px]" src="icons/home.svg" />
           <p>Discover</p>
         </div>
-        <div class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer">
+        <div class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
           <img class="w-[30px] h-[30px]" src="icons/donate.svg" />
           <p>Donate</p>
         </div>
-        <div class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer">
+        <div class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
           <img class="w-[30px] h-[30px]" src="icons/notifications.svg" />
           <p>Notifications</p>
         </div>
-        <div class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer">
+        <div class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
           <img class="w-[30px] h-[30px]" src="icons/profile.svg" />
           <a routerLink="/sponsor-deshboard">Profile</a>
         </div>
       </div>
     </div>
-    <div class="flex gap-2 hover:bg-gray-100 p-2 rounded cursor-pointer">
+    <div  (click)="openLogoutModal()" class="flex gap-2 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
       <img class="w-[30px] h-[30px]" src="icons/exit.svg" />
-      
       <p class="text-base font-extrabold">Logout</p>
     </div>
   </div>
 
   <!-- Top bar -->
   <div *ngIf="!toggle"
-    class="fixed top-0 left-0 w-full h-[114px] bg-white border border-gray-300 rounded-b-[20px] z-40 px-6 py-4 flex justify-between items-center">
+    class=" sticky top-0 w-full h-[80px] bg-white border border-gray-300 rounded-b-[20px] z-10 px-6 py-4 flex justify-between items-center second">
     <img (click)="handleToggle()" class="w-[30px] h-[30px] cursor-pointer hover:opacity-80" src="menu-icon.svg" />
-    <img class="h-10 w-10 rounded-full" src="logo.png" />
+    <img class="h-8 w-8 rounded-full" src="logo.png" />
   </div>
-</body>
-<app-logout>
-  
-</app-logout>
+
+  @if(showLogoutModal){
+ <app-logout
+  (cancel)="closeLogoutModal()"
+  (confirm)="confirmLogout()"
+></app-logout>
+}
+<!-- </body> -->
+

@@ -9,7 +9,7 @@ import { VerifyEmail } from "../../component/verify-email/verify-email";
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, VerifyEmail],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   providers: [Services],
   templateUrl: './register.html',
   styleUrls: ['./register.css'],
@@ -59,7 +59,11 @@ export class Register implements OnInit {
   ) {
     this.registerForm = this.fb.group(
       {
+
+      
+
         username: [
+
           '',
           [
             Validators.required,
@@ -135,7 +139,8 @@ export class Register implements OnInit {
     this.auth.register(formData).subscribe({
       next: () => {
         this.isLoading = false;
-        this.showVerificationModal = true;
+       // this.showVerificationModal = true;
+        this.router.navigate(['/sign-in']);
         this.registerForm.reset();
       },
       error: (err: HttpErrorResponse) => {
@@ -161,7 +166,7 @@ export class Register implements OnInit {
 
 
   closeModal() {
-    this.showVerificationModal = false;
+   // this.showVerificationModal = false;
     this.router.navigate(['/sign-in']);
   }
 

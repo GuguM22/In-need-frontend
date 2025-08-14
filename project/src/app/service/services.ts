@@ -19,12 +19,12 @@ export class Services {
   }
 
 
-  verify(token: string): Observable<string> {
+  /*verify(token: string): Observable<string> {
     return this.http.get(`${this.apiUrl}/auth/verify`, {
       params: { token },
       responseType: 'text',
     });
-  }
+  }*/
 
   login(email: string, password: string): Observable<LoginResponse> {
   return this.http.post<LoginResponse>(
@@ -34,7 +34,7 @@ export class Services {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
-    }
+    } 
   );
 } 
 
