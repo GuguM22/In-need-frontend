@@ -422,6 +422,26 @@ button{
 
   }
   
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 5px;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 4px;
+    z-index: 100;
+  }
+  
+  .dropdown-menu select {
+    padding: 6px;
+    margin-left: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 150px;
+  }
+  
 /* @media (max-width: 480px) {
     .search {
         width: 90%;

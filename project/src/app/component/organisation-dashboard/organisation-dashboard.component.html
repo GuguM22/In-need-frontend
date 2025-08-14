@@ -5,11 +5,27 @@
             <img src="searchIcon.png" alt="" class="iconLeft">
         </div>
         <div class="inputBox">
-            <input type="search" placeholder="Search for an organisation"   [(ngModel)]="searchQuery"  (input)="onSearch()" >
+            <input type="search" placeholder="Search for an organisation" [(ngModel)]="searchQuery"  (input)="onSearch()" >
         </div>
-        <div class="filterIcon">
+        <!-- <div class="filterIcon">
             <img src="filterIcon.png" alt="" class="iconRight">
-        </div>
+        </div> -->
+        <!-- Filter Icon -->
+<div class="filterIcon" (click)="toggleFilterDropdown()">
+    <img src="filterIcon.png" alt="Filter" class="iconRight">
+  </div>
+  
+  
+  <!-- Conditional Dropdown below icon -->
+  <div *ngIf="showFilterDropdown" class="dropdown-menu">
+    <label for="priority">Priority:</label>
+    <select id="priority" [(ngModel)]="selectedPriority" (change)="onFilterChange()">
+      <option value="">All Priorities</option>
+      <option value="high">High</option>
+      <option value="medium">Medium</option>
+      <option value="low">Low</option>
+    </select>
+  </div>
     </div>
     <div class="reqBtn">
         <div class="reqFormBtn">

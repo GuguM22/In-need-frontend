@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { SponsorRequest } from '../../Pages/sponsor-request/sponsor-request';
 import { Navbar } from "../../ui/navbar/navbar";
@@ -25,7 +25,7 @@ export class OrganisationDashboardComponent {
     description: '',
     mediaUrls: []}
 
-  constructor(private router: Router, private sponsorService: SponsorRequestService, private http: HttpClient) { }
+  constructor(private router: Router, private sponsorService: SponsorRequestService, private http: HttpClient, private elementRef: ElementRef) { }
   searchQuery: string = '';
   filteredRequests: SponsorRequest[] = [];
   currentPage: number = 1;
@@ -82,13 +82,19 @@ export class OrganisationDashboardComponent {
   onSearch(): void {
     const query = this.searchQuery.toLowerCase();
   
-    this.filteredRequests = this.requests.filter(request =>
-      request.title.toLowerCase().includes(query)
-      // add more conditions if you want to search by description, location, etc.
-    );
-    this.currentPage = 1; // reset to first page
-
+    this.filteredRequests = this.requests.filter(request => {
+      const matchesTitle = request.title.toLowerCase().includes(query);
+      const matchesPriority = this.selectedPriority 
+        ? request.priority.toLowerCase() === this.selectedPriority.toLowerCase() 
+        : true;
+  
+      return matchesTitle && matchesPriority;
+    });
+  
+    this.currentPage = 1;
   }
+  
+  
   
   get paginatedRequests(): SponsorRequest[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
@@ -120,4 +126,23 @@ export class OrganisationDashboardComponent {
     this.currentPage = page;
   }
   
+  showFilterDropdown: boolean = false;
+  selectedPriority: string = '';
+  
+
+onFilterChange(): void {
+  this.onSearch(); // reuse logic
+}
+
+toggleFilterDropdown(): void {
+  this.showFilterDropdown = !this.showFilterDropdown;
+}
+
+@HostListener('document:click', ['$event'])
+onClickOutside(event: MouseEvent): void {
+  const clickedInside = this.elementRef.nativeElement.contains(event.target);
+  if (!clickedInside) {
+    this.showFilterDropdown = false;
+  }
+}
 }
