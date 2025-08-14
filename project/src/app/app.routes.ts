@@ -27,12 +27,20 @@ import { ManageSponsorComponent } from './page/manage-sponsor/manage-sponsor.com
 
 import { Logout } from './component/logout/logout';
 import { ProfilepageComponent } from './component/profilepage/profilepage';
-import { AskUploading } from './Pages/ask-uploading/ask-uploading';
-import { DonationRequest } from './donation-request/donation-request';
+
+import { Navbar } from './ui/navbar/navbar';
+
+
+
+
+
 
 
 export const routes: Routes = [
   { path: '', redirectTo: 'Landing', pathMatch: 'full' },
+  import { AskUploading } from './Pages/ask-uploading/ask-uploading';
+import { DonationRequest } from './donation-request/donation-request';
+
   { path: 'Landing', component: LandingComponent },
   {path: 'options', component:OptionsComponent},
   { path: 'sign-in', component: SignInComponent },
