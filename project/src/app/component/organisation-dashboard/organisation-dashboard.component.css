@@ -350,6 +350,40 @@ button{
     transition: width 0.5s ease;
   }
   
+  /* Base priority button styles */
+.priotities button {
+    /* padding: 8px 12px; */
+    padding-left: 10px;
+    padding-right: 10px;
+    border: none;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    height: 25px;
+
+  }
+  
+  /* Priority-specific styles */
+  .low-priority {
+    background-color: #CCFF3375; /* green */
+    color: #000000;
+
+  }
+  
+  .medium-priority {
+    background-color: #FFBA0875; /* orange */
+    color: #99582A;
+
+
+  }
+  
+  .high-priority {
+    background-color: #C9575775; /* red */
+    color: #C1121F;
+    /* font-size: 1px; */
+
+  }
+  
 
 /* @media (max-width: 480px) {
     .search {

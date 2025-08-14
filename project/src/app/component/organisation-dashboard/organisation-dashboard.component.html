@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="container">
     <div class="search">
-        <div class="srcIcon">
+         <div class="srcIcon">
             <img src="searchIcon.png" alt="" class="iconLeft">
         </div>
         <div class="inputBox">
@@ -93,6 +93,7 @@
                     <button>High priority</button>
                 </div>
             </div>
+              
             <div class="requests">
                 <div class="reqTitle">
                     <h1>School supplies</h1>
@@ -150,11 +151,16 @@
                     </div>
                 </div>
             </div>
-            <div class="priority">
-                <div class="priotities">
-                    <button>{{request.priority}}</button>
-                </div>
-            </div>
+
+            <!-- Priority Button (inside *ngFor) -->
+    <div class="priority">
+    <div class="priotities">
+      <button [ngClass]="getPriorityClass(request.priority)">
+        {{ request.priority | titlecase }} Priority
+      </button>
+    </div>
+    </div>
+  
             <div class="requests">
                 <div class="reqTitle">
                     <h1>School supplies</h1>
@@ -192,3 +198,4 @@
         </div>
 </div>
 <app-footer></app-footer>
+

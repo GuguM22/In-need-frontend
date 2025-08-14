@@ -39,6 +39,8 @@ export class OrganisationDashboardComponent {
       next: (data) => {
         this.requests = data;
         console.log('Requests loaded:');
+        console.log('First priority:', this.requests[0]?.priority); // 👀 Check what you’re getting
+
       },
       error: (error) => {
         console.error('Error loading requests:', error);
@@ -59,5 +61,21 @@ export class OrganisationDashboardComponent {
     const percent = ((totalDuration - daysLeft) / totalDuration) * 100;
     return Math.min(100, Math.max(0, percent)); // Clamp 0–100
   }
+
+  getPriorityClass(priority: string): string {
+    switch (priority.toLowerCase()) {
+      case 'low':
+        return 'low-priority';
+      case 'medium':
+        return 'medium-priority';
+      case 'high':
+        return 'high-priority';
+      default:
+        return '';
+    }
+  }
+  
+
+  
   
 }
