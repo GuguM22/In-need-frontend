@@ -45,4 +45,19 @@ export class OrganisationDashboardComponent {
       }
     });
   }
+
+  calculateDaysLeft(requiredDate: string): number {
+    const today = new Date();
+    const endDate = new Date(requiredDate);
+    const timeDiff = endDate.getTime() - today.getTime();
+    return Math.max(0, Math.ceil(timeDiff / (1000 * 3600 * 24))); // No negative values
+  }
+  
+  calculateProgressPercent(requiredDate: string): number {
+    const totalDuration = 30; // assume 30 days for now, or store creationDate
+    const daysLeft = this.calculateDaysLeft(requiredDate);
+    const percent = ((totalDuration - daysLeft) / totalDuration) * 100;
+    return Math.min(100, Math.max(0, percent)); // Clamp 0–100
+  }
+  
 }

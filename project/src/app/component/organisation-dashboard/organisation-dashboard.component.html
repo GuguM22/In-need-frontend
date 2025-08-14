@@ -165,16 +165,20 @@
             </div>
             <div class="progress">
                 <div class="daysLeft">
-                    <div class="holder3">
-                        <div class="dayHeading">
-                            <h3>Days Left</h3>
-                        </div>
-                        <div class="tracker">
-                            <button class="fill">
-                                <button class="empty"></button>
-                            </button>
-                        </div>
+                  <div class="holder3">
+                    <div class="dayHeading">
+                      <h3>Days Left: {{ calculateDaysLeft(request.requiredDate) }}</h3>
                     </div>
+              
+                    <div class="tracker">
+                      <div class="bar-container">
+                        <div 
+                          class="bar-fill" 
+                          [style.width.%]="calculateProgressPercent(request.requiredDate)">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                     <div class="donate">
                         <div class="donateItems">
                             <button class="donateBtn" [routerLink]="['/options']"  >Donate</button>
@@ -182,6 +186,7 @@
                     </div>
                 </div>
             </div>
+        
 
         </div>
         </div>
