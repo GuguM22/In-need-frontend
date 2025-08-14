@@ -1,48 +1,47 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { SponsorRequest } from '../../Pages/sponsor-request/sponsor-request';
-import { HttpClient } from '@angular/common/http';
+import { Navbar } from "../../ui/navbar/navbar";
+import { FooterComponent } from "../../ui/footer/footer";
 import { SponsorRequestService } from '../../service/sponsor-request-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-organisation-dashboard',
-  imports: [],
+  imports: [FooterComponent, Navbar, CommonModule],
   templateUrl: './organisation-dashboard.component.html',
   styleUrl: './organisation-dashboard.component.css'
 })
 export class OrganisationDashboardComponent {
+ requests: SponsorRequest[] =[]
 
-  requests: SponsorRequest[] = [];
-
-  request: SponsorRequest = { 
+ request: SponsorRequest = {
     title: '',
     priority: '',
     quantity: 0,
     requiredDate: '',
     description: '',
-    mediaUrls: []
-  };
-
+    mediaUrls: []}
 
   constructor(private router: Router, private sponsorService: SponsorRequestService) { }
 
-  ngOnInit(): void {
-    this.loadSponsors();
+
+  ngOnint():void {
+  this.loadRequests();
   }
-
-loadSponsors():void{
-  this.sponsorService.getAll().subscribe({
-    next: (data) => {
-      this.requests = data;
-      console.log(this.requests);
-    }, 
-    error: (error) => {
-      console.error('Error fetching sponsor requests:', error);
-    }
-  })
-}
-
   navigateToSponsorRequest() {
     this.router.navigate(['sponsor-request']);
+  }
+
+  loadRequests():void {
+    this.sponsorService.getAll().subscribe({
+      next: (data) => {
+        this.requests = data;
+        console.log('Requests loaded:');
+      },
+      error: (error) => {
+        console.error('Error loading requests:', error);
+      }
+    });
   }
 }

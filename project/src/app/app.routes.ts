@@ -27,7 +27,8 @@ import { ManageSponsorComponent } from './page/manage-sponsor/manage-sponsor.com
 
 import { Logout } from './component/logout/logout';
 import { ProfilepageComponent } from './component/profilepage/profilepage';
-import { Sidebar } from './ui/sidebar/sidebar';
+import { AskUploading } from './Pages/ask-uploading/ask-uploading';
+import { DonationRequest } from './donation-request/donation-request';
 
 
 export const routes: Routes = [
@@ -37,9 +38,13 @@ export const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
   { path: 'verify-email', component: VerifyEmail },
-  {path: 'sponsor-dasboard', component: SponsorDasboardComponent},
+
+  {path: 'sponsor-dashboard', component: SponsorDasboardComponent},
+
+ 
   {path: 'sponsorship-request-page', component: SponsorshipRequestPage},
   {path: 'verification-page', component: VerificationPage},
+
 
  
   { path: 'forgot-password', component: ForgotPassword },
@@ -52,7 +57,7 @@ export const routes: Routes = [
   { path: 'freq', component: Fequency },
 
 
- 
+ { path: 'donation-request', component: DonationRequest },
 
   {path: 'sponsor-request', component: SponsorRequestComponent},
   {path: 'profile', component :ProfilepageComponent},
@@ -64,6 +69,9 @@ export const routes: Routes = [
   {path:'manage-sponsor', component:  ManageSponsorComponent},
 
   {path: 'logout', component: Logout},
-  {path: 'side', component: Sidebar}
+  {path:'ask-uploading', component:AskUploading},
+  {path:'verification', component: VerificationPage},
+  {
+  path:'upload-succesfully', component: UploadSuccessfullyComponent} 
 
 ];
