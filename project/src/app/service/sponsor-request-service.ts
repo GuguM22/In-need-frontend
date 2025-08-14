@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import formDataToJson from '../utility/toJson';
+import { SponsorRequest } from '../model/sponsor-req';
 
 @Injectable({
   providedIn: 'root'
@@ -27,10 +28,10 @@ export class SponsorRequestService {
   }
 
   // GET request optionally with token
-  getAll(): Observable<any> {
-    const token = this.getToken();
-    const headers = token ? new HttpHeaders({ "Authorization": `Bearer ${token}` }) : undefined;
+  getAll(): Observable<SponsorRequest[]> {
+    // const token = this.getToken();
+    // const headers = token ? new HttpHeaders({ "Authorization": `Bearer ${token}` }) : undefined;
 
-    return this.http.get(this.apiUrl, { headers });
+    return this.http.get<SponsorRequest[]>(this.apiUrl);
   }
 }
