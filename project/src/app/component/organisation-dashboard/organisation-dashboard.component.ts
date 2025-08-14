@@ -28,6 +28,8 @@ export class OrganisationDashboardComponent {
   constructor(private router: Router, private sponsorService: SponsorRequestService, private http: HttpClient) { }
   searchQuery: string = '';
   filteredRequests: SponsorRequest[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 3;
 
   ngOnInit():void {
   this.loadRequests();
@@ -84,7 +86,38 @@ export class OrganisationDashboardComponent {
       request.title.toLowerCase().includes(query)
       // add more conditions if you want to search by description, location, etc.
     );
+    this.currentPage = 1; // reset to first page
+
   }
   
+  get paginatedRequests(): SponsorRequest[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.filteredRequests.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+  
+  // Calculate total pages
+  get totalPages(): number {
+    return Math.ceil(this.filteredRequests.length / this.itemsPerPage);
+  }
+  
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+  
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+  
+  get pagesArray(): number[] {
+    return Array(this.totalPages).fill(0).map((x, i) => i + 1);
+  }
+  
+  goToPage(page: number): void {
+    this.currentPage = page;
+  }
   
 }

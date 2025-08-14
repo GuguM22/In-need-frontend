@@ -363,28 +363,65 @@ button{
 
   }
   
-  /* Priority-specific styles */
   .low-priority {
-    background-color: #CCFF3375; /* green */
+    background-color: #CCFF3375; 
     color: #000000;
 
   }
   
   .medium-priority {
-    background-color: #FFBA0875; /* orange */
+    background-color: #FFBA0875; 
     color: #99582A;
 
 
   }
   
   .high-priority {
-    background-color: #C9575775; /* red */
+    background-color: #C9575775; 
     color: #C1121F;
-    /* font-size: 1px; */
 
   }
   
+  .pagination-numbers {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+  }
+  
+  .pagination-numbers button {
+    padding: 8px 12px;
+    border: none;
+    background-color: transparent;
+    color: #333;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+  }
+  
+  .pagination-numbers button:hover {
+    color: black;
+    border: solid 1px #8f8e8e6b;
+    padding-bottom: 26px;
+    padding-left: 14px;
+    padding-right: 14px;
+    border-radius: 18px;
+    height: 30px;
+  }
+  
+  .pagination-numbers button.active {
+    border: solid 1px #0000006B;
+    padding-bottom: 26px;
+    padding-left: 14px;
+    padding-right: 14px;
+    border-radius: 18px;
+    color: black;
+    font-weight: 800;
+    height: 30px;
 
+  }
+  
 /* @media (max-width: 480px) {
     .search {
         width: 90%;
