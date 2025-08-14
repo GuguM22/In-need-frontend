@@ -5,6 +5,7 @@ import { Navbar } from "../../ui/navbar/navbar";
 import { FooterComponent } from "../../ui/footer/footer";
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-organisation-dashboard',
@@ -23,10 +24,10 @@ export class OrganisationDashboardComponent {
     description: '',
     mediaUrls: []}
 
-  constructor(private router: Router, private sponsorService: SponsorRequestService) { }
+  constructor(private router: Router, private sponsorService: SponsorRequestService, private http: HttpClient) { }
 
 
-  ngOnint():void {
+  ngOnInit():void {
   this.loadRequests();
   }
   navigateToSponsorRequest() {

@@ -19,9 +19,9 @@
 </div>
 <div class="heading">
     <h3 class="font-bold">Individuals in Need</h3>
-    <div *ngFor="let request of requests">
+    <!-- <div *ngFor="let request of requests">
         <p> {{request.title}}</p>
-        </div>
+        </div> -->
 </div>
 <div class="container2">
     <div class="individualCards carousel">
@@ -124,7 +124,7 @@
             </div>
         </div>
     </div>
-        <div class="orgCards">
+        <!-- <div class="orgCards">
         <div class="orgCard">
             <div class="holder1">
                 <div class="profile">
@@ -186,8 +186,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="orgCards">
+    </div> -->
+    <!-- <div class="orgCards">
         <div class="orgCard">
             <div class="holder1">
                 <div class="profile">
@@ -248,6 +248,68 @@
             </div>
 
         </div>
-    </div>
+    </div> -->
+       <div *ngFor="let request of requests" class="orgCards">
+        <div class="orgCard">
+            <div class="holder1">
+                <div class="profile">
+                    <div class="pfp">
+                        <img src="org.jpg" alt="" class="image">
+                    </div>
+                    <div class="companyName">
+                        <div class="top">
+                            <div class="cmpName">
+                                <h2>{{request.title}} </h2>
+                            </div>
+                            <div class="imgs">
+                                <img src="verified.png" alt="" class="verified">
+                            </div>
+                        </div>
+                        <div class="companyLoc">
+                            <div class="locImg">
+                                <img src="loc.png" alt="" class="loc">
+                            </div>
+                            <div class="address">
+                                <p>Gauteng, Johannesburg</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="priority">
+                <div class="priotities">
+                    <button>{{request.priority}}</button>
+                </div>
+            </div>
+            <div class="requests">
+                <div class="reqTitle">
+                    <h1>School supplies</h1>
+                </div>
+                <div class="desc">
+                    <p>{{request.description}}</p>
+                </div>
+            </div>
+            <div class="progress">
+                <div class="daysLeft">
+                    <div class="holder3">
+                        <div class="dayHeading">
+                            <h3>Days Left</h3>
+                        </div>
+                        <div class="tracker">
+                            <button class="fill">
+                                <button class="empty"></button>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="donate">
+                        <div class="donateItems">
+                            <button class="donateBtn">Donate</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        </div>
 </div>
 <app-footer></app-footer>
