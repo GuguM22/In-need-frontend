@@ -27,11 +27,16 @@ export class SponsorRequestService {
     return this.http.post(this.apiUrl, jsonData, { headers });
   }
 
-  // GET request optionally with token
-  getAll(): Observable<SponsorRequest[]> {
-    // const token = this.getToken();
-    // const headers = token ? new HttpHeaders({ "Authorization": `Bearer ${token}` }) : undefined;
 
-    return this.http.get<SponsorRequest[]>(this.apiUrl);
+
+  getAll(): Observable<SponsorRequest[]> {
+    const token = this.getToken();
+    const headers = new HttpHeaders({
+      "Authorization": `Bearer ${token}`
+    });
+    console.log("Token used:", token);
+    return this.http.get<SponsorRequest[]>(this.apiUrl, { headers });
   }
+  
+  
 }
