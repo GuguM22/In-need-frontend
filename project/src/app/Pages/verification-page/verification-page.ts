@@ -178,7 +178,7 @@ private normalizePhone(phone: string): string {
 }
 onCloseDirecting(){
    this.router.navigate(['/req']);
-
+ this.showPhoneNomberExistModal = false;
 }
 
 onClose() {

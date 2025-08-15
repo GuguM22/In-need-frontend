@@ -31,6 +31,8 @@ import { ProfilepageComponent } from './component/profilepage/profilepage';
 import { Navbar } from './ui/navbar/navbar';
 import { AskUploading } from './Pages/ask-uploading/ask-uploading';
 import { DonationRequest } from './donation-request/donation-request';
+import { IndividualDasboardComponent } from './component/individual-dasboard/individual-dasboard.component';
+import { IndividualReq } from './individual-req/individual-req';
 
 
 export const routes: Routes = [
