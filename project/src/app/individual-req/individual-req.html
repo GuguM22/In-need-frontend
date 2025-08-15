@@ -12,7 +12,10 @@
   <p class="form-subtitle text-align-center ">Fill out the details below to post your sponsorship request</p>
 </div>
 
-    <form class="individualform" [formGroup]="individualForm" (ngSubmit)="onSubmit() ">
+    
+
+
+         <form class="sponsorship-form " [formGroup]="individualForm" (ngSubmit)="onSubmit() ">
      <label for="" class="form-label">Title</label>  
       <div class="form-group">
 
@@ -22,11 +25,13 @@
           formControlName="title" 
           class="form-input" 
           placeholder="Enter a title"
-          [class.error]="individualForm.get('title')?.invalid &&  individualForm.get('title')?.touched">
+          [class.error]="  individualForm.get('title')?.invalid && individualForm.get('title')?.touched">
       </div>
 
-     
 
+      
+
+     
       <div class="form-group">
         <label for="quantity" class="form-label">Quantity</label>
         <div class="number-input-wrapper">
@@ -40,19 +45,20 @@
          
         </div>
       </div>
-
-      <div class="form-group">
+ <div class="form-group">
         <label for="date" class="form-label">Required By Date</label>
         <div class="date-input-wrapper">
-          <input 
-            type="date" 
-            id="date" 
-            formControlName="requiredDate" 
-            class="form-input date-input"
-            [class.error]="individualForm.get('requiredDate')?.invalid && individualForm.get('requiredDate')?.touched">
+             <input 
+  type="date" 
+  id="date" 
+  formControlName="requiredDate" 
+  class="form-input date-input"
+  [min]="today"
+  [class.error]="individualForm.get('requiredDate')?.invalid && individualForm.get('requiredDate')?.touched">
+        
         </div>
       </div>
-
+      
       <div class="form-group">
         <label for="description" class="form-label">Description *</label>
         <textarea 
@@ -126,10 +132,10 @@
   </button>
 
 
+
+
+
 </form>
-
-   </div>
-
 <!-- <app-footer></app-footer> -->
 
 
