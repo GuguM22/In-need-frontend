@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Readex+Pro:wght@160..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+*{
+    font-family: 'Mulish' ;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* form base */
+.form-container {
+
+border: solid #00000033;
+border-radius: 12px;
+padding-top: 17px;
+padding-left: 33px;
+padding-right: 33px;
+box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+padding-bottom: 900px;
+margin-bottom: 10px;
+
+}
+
+.container{
+  max-width: 600px;
+  /* margin: auto; */
+  padding: 20px;
+  /* background: #fff; */
+  /* border-radius: 8px; */
+}
+.text-align-center {
+  text-align: center;
+}
+
+/* form groups */
+.form-group {
+  margin-bottom: 15px;
+  
+}
+
+.form-label {
+  display: block;
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+.border-gray-300 { border-color: #D1D5DB; }
+.border-green-500 { border-color: #22C55E; }
+.border-yellow-500 { border-color: #EAB308; }
+.border-red-500 { border-color: #EF4444; }
+
+
+/* Default select (white) - already handled by .form-select */
+/* Default select (white) - already handled by .form-select */
+.form-select {
+  background: #fff;       /* Default white background */
+  color: #000;            /* Black text */
+  border: 1px solid #ccc; /* Default grey border */
+}
+
+.priority-selected {
+  background: #5B8E7D !important; /* Green background */
+  color: #fff !important;         /* White text */
+  border: 1px solid #5B8E7D;      /* Green border */
+}
+
+
+
+/* input styling */
+.form-input,
+.form-textarea,
+.form-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* error state */
+.ng-invalid.ng-touched {
+  border-color: red;
+}
+
+/* upload area */
+.upload-area {
+  border: 2px dashed #aaa;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+/* submit button */
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background: #5B8E7D;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.back-btn {
+  display: flex;         
+  align-items: center;   
+  gap: 6px;              
+  background: none;      
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.back-icon {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2;
+}
+.uploaded-files {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.uploaded-files ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.nav{
+  background-color: white;
+}
+
+.drop{
+  margin-bottom: 24px;
+}
+
+#description{
+  height: 50px;
+}
+
+.uploadP{
+  font-size: 12px;
+}
+
+label{
+  font-weight: 800;
+}
+
+.form-title{
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.form-subtitle{
+  font-weight: 500;
+  font-size: 15px;
+  margin-bottom: 14px
+}
+
+.b{
+  color: #3A86FF;
+  font-size: 11px;
+}
+.dragP{
+  font-size: 11px;
+  font-weight: 400;
+  margin-top: 5px;
+}
+.upP{
+  margin-top: 5px;
+}

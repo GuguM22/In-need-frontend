@@ -1,15 +1,31 @@
 <app-navbar></app-navbar>
 <div class="container">
     <div class="search">
-        <div class="srcIcon">
+         <div class="srcIcon">
             <img src="searchIcon.png" alt="" class="iconLeft">
         </div>
         <div class="inputBox">
-            <input type="search" placeholder="Search for an organisation">
+            <input type="search" placeholder="Search for an organisation" [(ngModel)]="searchQuery"  (input)="onSearch()" >
         </div>
-        <div class="filterIcon">
+        <!-- <div class="filterIcon">
             <img src="filterIcon.png" alt="" class="iconRight">
-        </div>
+        </div> -->
+        <!-- Filter Icon -->
+<div class="filterIcon" (click)="toggleFilterDropdown()">
+    <img src="filterIcon.png" alt="Filter" class="iconRight">
+  </div>
+  
+  
+  <!-- Conditional Dropdown below icon -->
+  <div *ngIf="showFilterDropdown" class="dropdown-menu">
+    <label for="priority">Priority:</label>
+    <select id="priority" [(ngModel)]="selectedPriority" (change)="onFilterChange()">
+      <option value="">All Priorities</option>
+      <option value="high">High</option>
+      <option value="medium">Medium</option>
+      <option value="low">Low</option>
+    </select>
+  </div>
     </div>
     <div class="reqBtn">
         <div class="reqFormBtn">
@@ -19,6 +35,7 @@
 </div>
 <div class="heading">
     <h3 class="font-bold">Individuals in Need</h3>
+
 </div>
 <div class="container2">
     <div class="individualCards carousel">
@@ -58,7 +75,7 @@
         <h3 class="font-bold">Organisations in Need</h3>
         <p class="orgP">Verfied organisations ready for your support</p>
     </div>
-    <div class="orgCards">
+    <!-- <div class="orgCards">
         <div class="orgCard">
             <div class="holder1">
                 <div class="profile">
@@ -92,6 +109,7 @@
                     <button>High priority</button>
                 </div>
             </div>
+              
             <div class="requests">
                 <div class="reqTitle">
                     <h1>School supplies</h1>
@@ -114,14 +132,17 @@
                     </div>
                     <div class="donate">
                         <div class="donateItems">
-                            <button class="donateBtn">Donate</button>
+                            <button class="donateBtn" [routerLink]="['/options']">Donate</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="orgCards">
+    </div> -->
+  
+       <!-- <div *ngFor="let request of requests" class="orgCards"> -->
+        <div *ngFor="let request of paginatedRequests" class="orgCards">
+
         <div class="orgCard">
             <div class="holder1">
                 <div class="profile">
@@ -131,7 +152,7 @@
                     <div class="companyName">
                         <div class="top">
                             <div class="cmpName">
-                                <h2>Mbali's Children Center </h2>
+                                <h2>{{request.title}} </h2>
                             </div>
                             <div class="imgs">
                                 <img src="verified.png" alt="" class="verified">
@@ -148,40 +169,60 @@
                     </div>
                 </div>
             </div>
-            <div class="priority">
-                <div class="priotities">
-                    <button>High priority</button>
-                </div>
-            </div>
+
+            <!-- Priority Button (inside *ngFor) -->
+    <div class="priority">
+    <div class="priotities">
+      <button [ngClass]="getPriorityClass(request.priority)">
+        {{ request.priority | titlecase }} Priority
+      </button>
+    </div>
+    </div>
+  
             <div class="requests">
                 <div class="reqTitle">
                     <h1>School supplies</h1>
                 </div>
                 <div class="desc">
-                    <p>Providing educational material for 200+ Children in undeserved communities</p>
+                    <p>{{request.description}}</p>
                 </div>
             </div>
             <div class="progress">
                 <div class="daysLeft">
-                    <div class="holder3">
-                        <div class="dayHeading">
-                            <h3>Days Left</h3>
-                        </div>
-                        <div class="tracker">
-                            <button class="fill">
-                                <button class="empty"></button>
-                            </button>
-                        </div>
+                  <div class="holder3">
+                    <div class="dayHeading">
+                      <h3>Days Left: {{ calculateDaysLeft(request.requiredDate) }}</h3>
                     </div>
+              
+                    <div class="tracker">
+                      <div class="bar-container">
+                        <div 
+                          class="bar-fill" 
+                          [style.width.%]="calculateProgressPercent(request.requiredDate)">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                     <div class="donate">
                         <div class="donateItems">
-                            <button class="donateBtn">Donate</button>
+                            <button class="donateBtn" [routerLink]="['/options']"  >Donate</button>
                         </div>
                     </div>
                 </div>
             </div>
+        
 
         </div>
-    </div>
+        </div>
+        <div class="pagination-numbers">
+            <button 
+              *ngFor="let page of pagesArray; let i = index"
+              (click)="goToPage(i + 1)"
+              [class.active]="currentPage === i + 1">
+              {{ i + 1 }}
+            </button>
+          </div>
+          
 </div>
 <app-footer></app-footer>
+

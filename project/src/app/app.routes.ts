@@ -27,13 +27,16 @@ import { ManageSponsorComponent } from './page/manage-sponsor/manage-sponsor.com
 
 import { Logout } from './component/logout/logout';
 import { ProfilepageComponent } from './component/profilepage/profilepage';
+
+import { Navbar } from './ui/navbar/navbar';
 import { AskUploading } from './Pages/ask-uploading/ask-uploading';
 import { DonationRequest } from './donation-request/donation-request';
-import { IndividualDasboardComponent } from './component/individual-dasboard/individual-dasboard.component';
 
 
 export const routes: Routes = [
   { path: '', redirectTo: 'Landing', pathMatch: 'full' },
+
+
   { path: 'Landing', component: LandingComponent },
   { path: 'options', component: OptionsComponent},
   { path: 'sign-in', component: SignInComponent },
@@ -74,6 +77,10 @@ export const routes: Routes = [
   {path:'ask-uploading', component:AskUploading},
   {path:'verification', component: VerificationPage},
   {
-  path:'upload-succesfully', component: UploadSuccessfullyComponent} 
-
+  path:'upload-succesfully', component: UploadSuccessfullyComponent},
+ 
+  {path: 'individual-request', component: IndividualReq},
+ 
+  {path:'individual-dashboard', component: IndividualDasboardComponent}
+ 
 ];
