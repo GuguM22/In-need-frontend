@@ -37,7 +37,7 @@ export class IndividualDasboardComponent {
    this.loadRequests();
    }
    navigateToSponsorRequest() {
-     this.router.navigate(['sponsor-request']);
+     this.router.navigate(['individual-request']);
    }
  
    loadRequests():void {
