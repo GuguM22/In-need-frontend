@@ -12,14 +12,18 @@ import { VerificationService } from '../../service/verification-service';
 @Component({
   selector: 'app-verification-page',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, Navbar, FooterComponent],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './verification-page.html',
   styleUrls: ['./verification-page.css'],
 })
 export class VerificationPage implements OnInit {
   uploadedFiles: File[] = [];
   verificationForm: FormGroup;
-
+  showPhoneNomberExistModal = false;
+  showErrorMessage = false;
+  showErrorCheck = false;
+  phone: string = '';
+  
   // Validation
   validationMessages = {
     phone: {
@@ -59,70 +63,127 @@ export class VerificationPage implements OnInit {
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.verificationService.isVerified().subscribe({
+    next: (verified: boolean) => {
+      if (verified) {
+        
+        this.router.navigate(['/sponsor-request']);
+      }
+    },
+    error: (err) => {
+      console.error('Error checking verification:', err);
+    }
+  });
+   }
 
   goBack() {
-  this.router.navigate(['/sponsor-req']);
+  this.router.navigate(['/req']);
 }
 
-  onFileChange(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    if (target.files) {
-      this.uploadedFiles = Array.from(target.files);
+onFileChange(event: Event): void {
+  const target = event.target as HTMLInputElement;
+  if (target.files) {
+    const selectedFiles = Array.from(target.files);
 
-      // Check file type or size
-      const validFiles = this.uploadedFiles.filter((file) => file.size < 5 * 1024 * 1024); 
-      this.uploadedFiles = validFiles;
+    const allFiles = [...this.uploadedFiles, ...selectedFiles];
 
-      this.verificationForm.patchValue({
-        documents: this.uploadedFiles,
-      });
+    const uniqueFiles = allFiles.filter(
+      (file, index, self) =>
+        index === self.findIndex(f => f.name === file.name && f.size === file.size)
+    );
 
-      console.log('Selected files:', this.uploadedFiles);
-    }
+    this.uploadedFiles = uniqueFiles.filter(file => file.size < 5 * 1024 * 1024);
+
+    this.verificationForm.patchValue({
+      documents: this.uploadedFiles,
+    });
+
+    console.log('Selected files:', this.uploadedFiles);
   }
-
+}
 
 onSubmit(): void {
   if (this.verificationForm.valid && this.uploadedFiles.length > 0) {
-    // Step 1: Create verification with placeholder document URLs
-    const placeholderUrls = this.uploadedFiles.map(file => `pending-${file.name}`);
-    
-    const verificationRequest: VerificationRequest = {
-      phone: this.verificationForm.value.phone,
-      website: this.verificationForm.value.website,
-      documents: placeholderUrls 
-    };
+    const rawPhone = this.verificationForm.value.phone;
+    const normalizedPhone = this.normalizePhone(rawPhone);
+    this.phone = rawPhone;
 
-    this.verificationService.createVerification(verificationRequest).subscribe({
-      next: (res) => {
-        const verificationId = res.id;
-        console.log('Verification created with ID:', res.id);
-        
-        // Step 2: Upload actual files
-        this.verificationService.uploadFiles(this.uploadedFiles, verificationId).subscribe({
-          next: (uploadRes) => {
-            console.log('Files uploaded successfully:', uploadRes.urls);
-            // Optionally update verification with real URLs here if needed
-            //this.router.navigate(['/success-page']);
-          },
-          error: (uploadErr) => {
-            console.error('File upload failed:', uploadErr);
-            // Handle upload error (maybe delete the verification record)
-          }
-        });
+    this.verificationService.phoneExists(normalizedPhone).subscribe({
+      next: (exists: boolean) => {
+        if (exists) {
+          this.showPhoneNomberExistModal = true;
+        } else {
+          this.createVerificationRequest();
+        }
       },
-      error: (createErr) => {
-        console.error('Verification creation failed:', createErr);
+      error: (err) => {
+        console.error('Error checking phone:', err);
+        this.showErrorCheck = true;
       }
     });
   } else {
     this.verificationForm.markAllAsTouched();
     if (this.uploadedFiles.length === 0) {
-      alert('Please upload at least one document');
+      this.showErrorMessage = true;
     }
   }
 }
 
+private createVerificationRequest() {
+  const placeholderUrls = this.uploadedFiles.map(file => `pending-${file.name}`);
+
+  const verificationRequest: VerificationRequest = {
+    phone: this.verificationForm.value.phone,
+    website: this.verificationForm.value.website,
+    documents: placeholderUrls
+  };
+
+  this.verificationService.createVerification(verificationRequest).subscribe({
+    next: (res) => {
+      const verificationId = res.id;
+      localStorage.setItem('hasVerified', 'true'); 
+
+      this.verificationService.uploadFiles(this.uploadedFiles, verificationId).subscribe({
+        next: (uploadRes) => {
+          this.router.navigate(['/sponsor-request']); 
+        },
+        error: (uploadErr) => {
+          console.error('File upload failed:', uploadErr);
+        }
+      });
+    },
+    error: (createErr) => {
+      console.error('Verification creation failed:', createErr);
+    }
+  });
+}
+
+
+private normalizePhone(phone: string): string {
+  // Remove non-numeric characters
+  let numeric = phone.replace(/\D/g, '');
+
+  // If starts with '0', replace with '27'
+  if (numeric.startsWith('0')) {
+    numeric = '27' + numeric.slice(1);
+  }
+
+  // If starts with '+27', remove '+'
+  if (numeric.startsWith('27') && phone.startsWith('+27')) {
+    numeric = '27' + numeric.slice(2);
+  }
+
+  return numeric;
+}
+onCloseDirecting(){
+   this.router.navigate(['/req']);
+
+}
+
+onClose() {
+  
+  this.showErrorMessage = false;
+}
 
 }

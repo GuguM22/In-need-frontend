@@ -29,17 +29,19 @@ import { Logout } from './component/logout/logout';
 import { ProfilepageComponent } from './component/profilepage/profilepage';
 import { AskUploading } from './Pages/ask-uploading/ask-uploading';
 import { DonationRequest } from './donation-request/donation-request';
+import { IndividualDasboardComponent } from './component/individual-dasboard/individual-dasboard.component';
 
 
 export const routes: Routes = [
   { path: '', redirectTo: 'Landing', pathMatch: 'full' },
   { path: 'Landing', component: LandingComponent },
-  {path: 'options', component:OptionsComponent},
+  { path: 'options', component: OptionsComponent},
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
   { path: 'verify-email', component: VerifyEmail },
 
   {path: 'sponsor-dashboard', component: SponsorDasboardComponent},
+  {path: 'individual-dashboard', component: IndividualDasboardComponent},
 
  
   {path: 'sponsorship-request-page', component: SponsorshipRequestPage},
@@ -60,7 +62,7 @@ export const routes: Routes = [
  { path: 'donation-request', component: DonationRequest },
 
   {path: 'sponsor-request', component: SponsorRequestComponent},
-  {path: 'profile', component :ProfilepageComponent},
+  {path: 'profile', component : ProfilepageComponent},
 
    { path: 'organiseDetails', component: OrganiseDetailsComponent },
 

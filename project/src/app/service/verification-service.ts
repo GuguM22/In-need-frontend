@@ -7,43 +7,65 @@ import { catchError, map, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-@Injectable({
-  providedIn: 'root'
-})
+
 export class VerificationService {
   private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
-  // Create verification 
-createVerification(data: VerificationRequest): Observable<any> {
-  const token = localStorage.getItem('token');
-  const headers = token ? new HttpHeaders({ 
-    Authorization: `Bearer ${token}`,
-    'Content-Type': 'application/json'
-  }) : new HttpHeaders({ 'Content-Type': 'application/json' });
+  // Create verification
+  createVerification(data: VerificationRequest): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = token
+      ? new HttpHeaders({
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        })
+      : new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  return this.http.post(`${this.apiUrl}/api/verify/verification`, data, {
-    headers,
-    responseType: 'json' // or 'text' if backend returns plain text
-  }).pipe(
-    catchError(error => {
-      console.error('Error creating verification:', error);
-      throw error; 
-    })
-  );
-}
+    return this.http
+      .post(`${this.apiUrl}/api/verify/verification`, data, {
+        headers,
+        responseType: 'json', // or 'text' if backend returns plain text
+      })
+      .pipe(
+        catchError((error) => {
+          console.error('Error creating verification:', error);
+          throw error;
+        })
+      );
+  }
 
   // Upload files
-  uploadFiles(files: File[], verificationId: number): Observable<{urls: string[]}> {
+  uploadFiles(
+    files: File[],
+    verificationId: number
+  ): Observable<{ urls: string[] }> {
     const formData = new FormData();
-    files.forEach(file => formData.append('files', file, file.name));
+    files.forEach((file) => formData.append('files', file, file.name));
     formData.append('verificationId', verificationId.toString());
 
     const token = localStorage.getItem('token');
-    const headers = token ? new HttpHeaders({ Authorization: `Bearer ${token}` }) : undefined;
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : undefined;
 
-    return this.http.post<{urls: string[]}>(`${this.apiUrl}/api/verify/upload`, formData, { headers });
+    return this.http.post<{ urls: string[] }>(
+      `${this.apiUrl}/api/verify/upload`,
+      formData,
+      { headers }
+    );
   }
+  // Phone number exist it will take you to another page
+  phoneExists(phone: string): Observable<boolean> { 
+    return this.http.get<boolean>(`${this.apiUrl}/api/verify/exists/phone/${phone}`);
+  }
+
+  isVerified(): Observable<boolean> {
+  const token = localStorage.getItem('token');
+  const headers = token ? new HttpHeaders({ Authorization: `Bearer ${token}` }) : undefined;
+  return this.http.get<boolean>(`${this.apiUrl}/api/verify/verified`, { headers });
+}
+
 }
 
