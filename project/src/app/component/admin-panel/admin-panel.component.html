@@ -244,8 +244,22 @@
             <app-rejected [application]="selectedApplication" (close)="closeDetails()"></app-rejected>
           </div>
         </div>
-  
+        <div *ngIf="applications.length; else noData">
+          <div *ngFor="let app of applications">
+            <p>Phone: {{ app.phone }}</p>
+            <p>Documents: {{ app.documents }}</p>
+          
+          
+            <!-- Add more fields and details -->
+          </div>
+        </div>
+        <ng-template #noData>
+          <p>No pending applications.</p>
+        </ng-template>
       </div> <!-- end panel content -->
     </div> <!-- end main flex -->
+
+ 
+    
   </aside>
   
