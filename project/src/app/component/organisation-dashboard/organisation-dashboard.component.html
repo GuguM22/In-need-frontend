@@ -27,11 +27,18 @@
     </select>
   </div>
     </div>
+    
     <div class="reqBtn">
         <div class="reqFormBtn">
             <button (click)="navigateToSponsorRequest()" class="postReq">Post a new request</button>
         </div>
     </div>
+    <div *ngIf="showVerificationAlert" class="alert alert-warning">
+        Your account is not verified. Please upload documents or wait for admin approval.
+        <button class="verify-btn" (click)="goToVerification()">Upload Documents</button>
+      </div>
+      
+      
 </div>
 <div class="heading">
     <h3 class="font-bold">Individuals in Need</h3>
