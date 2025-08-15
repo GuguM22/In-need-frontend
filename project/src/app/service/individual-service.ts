@@ -36,5 +36,4 @@ export class IndividualService {
     return this.http.get<IndividualReq[]>(this.apiUrl, { headers });
   }
   
-  
 }
