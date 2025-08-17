@@ -12,6 +12,8 @@
       <aside class="w-64 shadow-xl border-r border-gray-300 side3">
         <div class="panelHeading p-4">
           <h1 class="text-xl font-bold">Admin Panel</h1>
+          <p>Logged in as: <strong>{{ userEmail }}</strong></p>
+
           <div class="desc text-sm text-gray-500">
             <p>Vetting and verification</p>
           </div>
@@ -246,7 +248,7 @@
         </div>
         <div *ngIf="applications.length; else noData">
           <div *ngFor="let app of applications">
-            <p>Phone: {{ app.phone }}</p>
+            <p>Phone: {{ app.email }}</p>
             <p>Documents: {{ app.documents }}</p>
           
           
