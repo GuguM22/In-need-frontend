@@ -17,10 +17,10 @@ export class Fequency implements OnInit {
   selectedFrequency: string = '';
 
   frequencyTiles = [
-    { icon: "icons/digitalwatch.svg", title: "One Time Donation", description: "Make a single donation now", value: "one-time" },
-    { icon: "icons/analogwatch.svg", title: "Weekly", description: "Donate once a week", value: "weekly" },
-    { icon: "icons/monthlycalender.svg", title: "Monthly", description: "Donate monthly", value: "monthly" },
-    { icon: "icons/yearlycalender.svg", title: "Yearly", description: "Donate once a year", value: "yearly" }
+    { icon: "icons/digitalwatch.svg", title: "One Time Donation", description: "Make a single donation now", value: "One-time" },
+    { icon: "icons/analogwatch.svg", title: "Weekly", description: "Donate once a week", value: "Weekly" },
+    { icon: "icons/monthlycalender.svg", title: "Monthly", description: "Donate monthly", value: "Monthly" },
+    { icon: "icons/yearlycalender.svg", title: "Yearly", description: "Donate once a year", value: "Yearly" }
   ];
 
   constructor(private router: Router, private route: ActivatedRoute) {}
