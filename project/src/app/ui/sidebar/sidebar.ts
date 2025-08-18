@@ -1,20 +1,49 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from "../navbar/navbar";
 import { CommonModule } from '@angular/common';
+import { Logout } from "../../component/logout/logout";
+import { Services } from '../../service/services';
+import { Router, RouterModule } from '@angular/router';
+
 
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, Logout, RouterModule],
   templateUrl: './sidebar.html',
   styleUrls: ['./sidebar.css']
 
 })
 export class Sidebar {
-  toggle = true; 
+  toggle = true;
+  showLogoutModal = false;
+
+  constructor(private userService: Services, private router: Router) {}
 
   handleToggle() {
-    this.toggle = !this.toggle; 
+    this.toggle = !this.toggle;
+  }
+
+  openLogoutModal() {
+     this.toggle = false; 
+    this.showLogoutModal = true;
+  }
+
+  closeLogoutModal() {
+    this.showLogoutModal = false;
+  }
+
+  confirmLogout() {
+    this.userService.logout().subscribe({
+      next: () => {
+        this.showLogoutModal = false;
+        this.router.navigate(['/sign-in']);
+      },
+      error: (err) => {
+        console.error('Logout failed:', err);
+        this.router.navigate(['/sign-in']);
+      },
+    });
   }
 }

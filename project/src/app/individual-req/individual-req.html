@@ -1,0 +1,133 @@
+<div class="nav sticky top-0 z-10">
+<button class="back-btn" type="button" (click)="backButton()">
+  <img width="20" height="20" src="https://img.icons8.com/ios/50/circled-left-2.png" alt="circled-left-2"/>
+    Back
+  </button>
+  </div>
+<div class="container">
+  <div class="form-container" style="max-height: 100vh;">
+    <div class="form-header">
+     <div class="form-header">
+  <h1 class="form-title text-align-center font-bold">Create Sponsorship Request</h1>
+  <p class="form-subtitle text-align-center ">Fill out the details below to post your sponsorship request</p>
+</div>
+
+    
+
+         <form class="sponsorship-form " [formGroup]="individualForm" (ngSubmit)="onSubmit() ">
+     <label for="" class="form-label">Title</label>  
+      <div class="form-group">
+
+        <input 
+          type="text" 
+          id="title" 
+          formControlName="title" 
+          class="form-input" 
+          placeholder="Enter a title"
+          [class.error]="  individualForm.get('title')?.invalid && individualForm.get('title')?.touched">
+      </div>
+
+    
+      
+
+     
+      <div class="form-group">
+  <label for="neededByDate" class="form-label">Required By Date</label>
+  <input 
+    type="date" 
+    id="neededByDate" 
+    formControlName="neededByDate" 
+    class="form-input date-input"
+    [class.error]="individualForm.get('neededByDate')?.invalid && individualForm.get('neededByDate')?.touched"
+  />
+  <div class="error-message" 
+       *ngIf="individualForm.get('neededByDate')?.hasError('pastDate') && individualForm.get('neededByDate')?.touched"   
+       style="color: red;">
+    Date cannot be in the past.
+  </div>
+
+
+ 
+
+      
+      <div class="form-group">
+        <label for="description" class="form-label">Description *</label>
+        <textarea 
+          id="description" 
+          formControlName="description" 
+          class="form-textarea" 
+          rows="4"
+          [class.error]="individualForm.get('description')?.invalid && individualForm.get('description')?.touched"></textarea>
+      </div>
+
+    
+<div class="flex flex-col gap-6"> 
+
+  <div class="upload">
+    <label for="">Images or Videos (Optional)</label>
+    <p class="uploadP">Add photos or videos to help sponsors understand your request better</p>
+  </div>
+
+  <div
+  class="flex items-center justify-center w-full drop"
+  (drop)="onFileDrop($event)"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+>
+  <label
+    for="dropzone-file"
+    class="flex flex-col items-center justify-center w-full h-25 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-white hover:bg-gray-100"
+  >
+    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+      <img width="25" height="25" src="https://img.icons8.com/ios/50/upload--v1.png" alt="upload--v1"/>
+      <p class="mb-2 text-sm text-gray-500">
+        <span class="font-[#00000094] font-bold">Upload Media Files</span> 
+      </p>
+      <p class="dragP text-gray-500">
+        Drag and drop your files here, or <span class="b">browse</span>
+      </p>
+    </div>
+    <input
+      id="dropzone-file"
+      type="file"
+      (change)="onFileSelect($event)"
+      multiple
+      accept="image/*,video/*"
+      class="hidden"
+    />
+  </label>
+</div>
+
+
+<div *ngIf="selectedFiles?.length" class="file-list mt-4">
+  <h4>Uploaded Files:</h4>
+   <ul style="margin: 0; padding-left: 1rem;">
+    <li *ngFor="let file of selectedFiles">
+
+      {{ file.name.length > 30 ? (file.name | slice:0:27) + '...' : file.name }}
+    </li>
+  </ul>
+</div>
+
+
+</div>
+  
+
+  
+  <button
+    type="submit"
+    class="submit-btn"
+      style="margin-top: 1.5rem;"
+    [disabled]="isSubmitting">
+    {{ isSubmitting ? 'Submitting...' : 'Submit Request' }}
+  </button>
+
+
+
+
+
+
+
+<!-- <app-footer></app-footer> -->
+
+

@@ -9,7 +9,7 @@ import { VerifyEmail } from "../../component/verify-email/verify-email";
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, VerifyEmail],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   providers: [Services],
   templateUrl: './register.html',
   styleUrls: ['./register.css'],
@@ -25,7 +25,7 @@ export class Register implements OnInit {
   showConfirmPassword = false;
 
   validationMessages = {
-   username: {
+    username: {
       required: 'Name is required',
       minlength: 'Name must be at least 2 characters long',
       maxlength: 'Name cannot be more than 30 characters long',
@@ -35,20 +35,17 @@ export class Register implements OnInit {
       required: 'Email is required',
       email: 'Please enter a valid email address',
       pattern: 'Only Gmail addresses are allowed',
-      
+
     },
     password: {
       required: 'Password is required',
-      minlength: 'Password must be at least 8 characters long',
-      maxlength: 'Password cannot be more than 15 characters long',
-      pattern: 'Password must contain at least one number, one uppercase letter, one lowercase letter, one special character, and no spaces',
+      minlength: 'Min 8 chars',
+      maxlength: 'Max 15 chars',
+      pattern: 'Requires A-Z, a-z, 0-9, special char, no spaces',
     },
     confirmPassword: {
       required: 'Password is required',
-      minlength: 'Password must be at least 8 characters long',
-      maxlength: 'Password cannot be more than 15 characters long',
-      pattern: 'Password must contain at least one number, one uppercase letter, one lowercase letter, one special character, and no spaces',
-  
+      pattern: 'Passwords must match'
     },
     role: {
       required: 'Role is required',
@@ -62,7 +59,11 @@ export class Register implements OnInit {
   ) {
     this.registerForm = this.fb.group(
       {
+
+      
+
         username: [
+
           '',
           [
             Validators.required,
@@ -95,7 +96,7 @@ export class Register implements OnInit {
             Validators.minLength(8),
             Validators.maxLength(15),
             Validators.pattern(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\S+$).{8,}$/),
-          
+
           ],
         ],
         role: ['', Validators.required],
@@ -104,20 +105,20 @@ export class Register implements OnInit {
     );
   }
 
- ngOnInit(): void {
-  this.registerForm.get('email')?.valueChanges.subscribe(() => {
-    const emailControl = this.registerForm.get('email');
-    if (emailControl?.hasError('emailExists')) {
-      const errors = { ...emailControl.errors };
-      delete errors['emailExists'];
-      if (Object.keys(errors).length === 0) {
-        emailControl.setErrors(null);
-      } else {
-        emailControl.setErrors(errors);
+  ngOnInit(): void {
+    this.registerForm.get('email')?.valueChanges.subscribe(() => {
+      const emailControl = this.registerForm.get('email');
+      if (emailControl?.hasError('emailExists')) {
+        const errors = { ...emailControl.errors };
+        delete errors['emailExists'];
+        if (Object.keys(errors).length === 0) {
+          emailControl.setErrors(null);
+        } else {
+          emailControl.setErrors(errors);
+        }
       }
-    }
-  });
-}
+    });
+  }
 
   passwordMatchValidator(formGroup: FormGroup) {
     const password = formGroup.get('password')?.value;
@@ -126,40 +127,46 @@ export class Register implements OnInit {
   }
 
   onRegister() {
-  if (this.registerForm.invalid) {
-    this.registerForm.markAllAsTouched();
-    return;
-  }
+    if (this.registerForm.invalid) {
+      this.registerForm.markAllAsTouched();
+      return;
+    }
 
-  this.isLoading = true;
-  const formData = this.registerForm.value;
-  this.submittedEmail = formData.email;
+    this.isLoading = true;
+    const formData = this.registerForm.value;
+    this.submittedEmail = formData.email;
 
-  this.auth.register(formData).subscribe({
-    next: () => {
-      this.isLoading = false;
-      this.showVerificationModal = true;
-      this.registerForm.reset();
-    },
-   error: (err: HttpErrorResponse) => {
-        if (err.status === 400 && err.error?.message?.toLowerCase().includes('email')) {
+    this.auth.register(formData).subscribe({
+      next: () => {
+        this.isLoading = false;
+       // this.showVerificationModal = true;
+        this.router.navigate(['/sign-in']);
+        this.registerForm.reset();
+      },
+      error: (err: HttpErrorResponse) => {
+        this.isLoading = false;
+        const errorMsg = err.error?.message || err.error?.error || '';
+
+        console.log('Error response:', err);
+
+        if (err.status === 400 && errorMsg.toLowerCase().includes('email')) {
           this.errorMessage = 'This email is already registered';
-
-          const emailControl = this.registerForm.get('email');
-          const existingErrors = emailControl?.errors || {};
-          emailControl?.setErrors({ ...existingErrors, emailExists: true });
         } else {
           this.errorMessage = 'An unexpected error occurred.';
         }
 
         this.showErrorPopup = true;
+
+        const emailControl = this.registerForm.get('email');
+        const existingErrors = emailControl?.errors || {};
+        emailControl?.setErrors({ ...existingErrors, emailExists: true });
       },
     });
-}
+  }
 
 
   closeModal() {
-    this.showVerificationModal = false;
+   // this.showVerificationModal = false;
     this.router.navigate(['/sign-in']);
   }
 
