@@ -4,14 +4,14 @@ import { Router, RouterLink } from '@angular/router';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { HttpClient } from '@angular/common/http';
 import { FooterComponent } from '../../ui/footer/footer';
-import { Navbar } from '../../ui/navbar/navbar';
+import {  NavbarComponent } from '../../ui/navbar/navbar';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-individual-dasboard',
   standalone: true,
-  imports: [FooterComponent, Navbar, CommonModule, RouterLink, FormsModule],
+  imports: [FooterComponent, NavbarComponent, CommonModule, RouterLink, FormsModule],
   templateUrl: './individual-dasboard.component.html',
   styleUrl: './individual-dasboard.component.css'
 })

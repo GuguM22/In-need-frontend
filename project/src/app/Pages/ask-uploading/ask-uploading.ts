@@ -1,6 +1,6 @@
 
 import { Component } from '@angular/core';
-import { Navbar } from "../../ui/navbar/navbar";
+import { NavbarComponent } from "../../ui/navbar/navbar";
 import { FooterComponent } from "../../ui/footer/footer";
 import { Router } from '@angular/router';
 
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ask-uploading',
-  imports: [Navbar, FooterComponent],
+  imports: [NavbarComponent, FooterComponent],
   templateUrl: './ask-uploading.html',
   styleUrls: ['./ask-uploading.css']
 })
