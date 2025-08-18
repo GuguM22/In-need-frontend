@@ -34,7 +34,7 @@ import { DonationRequest } from './donation-request/donation-request';
 import { IndividualDasboardComponent } from './component/individual-dasboard/individual-dasboard.component';
 
 import { IndividualReq } from './individual-req/individual-req';
-
+// import { ThankYouComponent } from './Pages/thank-you/thank-you.component';
 
 
 
@@ -89,6 +89,16 @@ export const routes: Routes = [
  
   {path: 'individual-request', component: IndividualReq},
  
-  {path:'individual-dashboard', component: IndividualDasboardComponent}
-  
+  {path:'individual-dashboard', component: IndividualDasboardComponent},
+  {path:'thanks',component:ThankYouComponent},
+
+
+
+
+
+  { path: 'fequency', component: Fequency },
+  { path: 'donation-review', component: DonationReviewComponent },
+  { path: '', redirectTo: 'fequency', pathMatch: 'full' },
+  { path: '**', redirectTo: 'fequency' }
 ];
+  
