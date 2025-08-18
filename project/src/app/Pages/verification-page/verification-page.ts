@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Navbar } from "../../ui/navbar/navbar";
+import { NavbarComponent } from "../../ui/navbar/navbar";
 import { Sidebar } from "../../ui/sidebar/sidebar";
 import { FooterComponent } from "../../ui/footer/footer";
 import { VerificationRequest } from '../../dto/veriificationRequest';
@@ -12,7 +12,7 @@ import { VerificationService } from '../../service/verification-service';
 @Component({
   selector: 'app-verification-page',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, Navbar, FooterComponent],
+  imports: [CommonModule, ReactiveFormsModule, NavbarComponent, FooterComponent],
   templateUrl: './verification-page.html',
   styleUrls: ['./verification-page.css'],
 })

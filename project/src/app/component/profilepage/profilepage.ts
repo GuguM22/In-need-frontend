@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { Location } from '@angular/common';
 import { RouterModule } from '@angular/router'; // ✅ Needed for routerLink
 import { FooterComponent } from "../../ui/footer/footer";
-import { Navbar } from "../../ui/navbar/navbar";
 
 
 @Component({

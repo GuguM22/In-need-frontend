@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Navbar } from "../../ui/navbar/navbar";
+import {  NavbarComponent } from "../../ui/navbar/navbar";
 import { FooterComponent } from "../../ui/footer/footer";
 
 @Component({
   selector: 'app-fequency',
-  imports: [CommonModule, Navbar, FooterComponent],
+  imports: [CommonModule, NavbarComponent, FooterComponent],
   templateUrl: './fequency.html',
   styleUrl: './fequency.css'
 })

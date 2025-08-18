@@ -22,8 +22,7 @@ import { ResetPassword } from './component/reset-password/reset-password';
 import { AdminPanelComponent } from './component/admin-panel/admin-panel.component';
 import { DonationReviewComponent } from './component/donation-review/donation-review.component';
 import { OrganisationDashboardComponent } from './component/organisation-dashboard/organisation-dashboard.component';
-import { ForgotPassword } from './component/forgot-password/forgot-password';
-import { ResetPassword } from './component/reset-password/reset-password';
+
 
 
 
@@ -33,7 +32,6 @@ import { ManageSponsorComponent } from './page/manage-sponsor/manage-sponsor.com
 import { Logout } from './component/logout/logout';
 import { ProfilepageComponent } from './component/profilepage/profilepage';
 
-import { Navbar } from './ui/navbar/navbar';
 import { AskUploading } from './Pages/ask-uploading/ask-uploading';
 import { DonationRequest } from './donation-request/donation-request';
 import { IndividualDasboardComponent } from './component/individual-dasboard/individual-dasboard.component';

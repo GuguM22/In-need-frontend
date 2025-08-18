@@ -10,5 +10,3 @@ export interface User {
   verified: boolean;
  }
 
-}
-
