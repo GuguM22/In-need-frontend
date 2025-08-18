@@ -90,7 +90,7 @@ onSubmit(): void {
 
     const email = localStorage.getItem('userEmail');
     const userId = localStorage.getItem('userId');
-
+     const username = localStorage.getItem('userName');
     const verificationRequest: VerificationRequest = {
       id: 0,
       phone: this.verificationForm.value.phone,
@@ -99,6 +99,7 @@ onSubmit(): void {
       email: email || '',
       userId: userId || '',
       status: 'PENDING',  // add this line
+     username:  username || ''
 
 
     };

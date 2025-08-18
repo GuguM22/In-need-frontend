@@ -15,6 +15,7 @@ import { VerificationService } from '../../service/verification-service';
 export class AdminPanelComponent {
    userEmail: string | null = null;
   userId: string | null = null; 
+  userName: string | null= null;
   applications: VerificationRequest[] = [];
   pendingApplications: VerificationRequest[] = [];
   approvedApplications: VerificationRequest[] = [];
@@ -32,7 +33,7 @@ selectedApplication: VerificationRequest | null = null;
   ngOnInit(): void {
     this.userEmail = localStorage.getItem('userEmail');
     this.userId = localStorage.getItem('userId');
-  
+    this.userName = localStorage.getItem('userName');
     // Get pending
     this.verificationService.getVerifications('PENDING').subscribe({
       next: (data) => {
