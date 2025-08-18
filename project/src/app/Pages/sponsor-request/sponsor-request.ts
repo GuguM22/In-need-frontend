@@ -117,7 +117,7 @@ this.sponsorRequestService.post(formData).subscribe({
   next: () => {
     this.resetForm();
     this.isSubmitting = false;
-    this.router.navigate(['/upload-succesfully']); // ✅ Redirect to success page
+    this.router.navigate(['/upload-successfully']); // ✅ Redirect to success page
   },
   error: (error) => {
     console.error('Error submitting request:', error);

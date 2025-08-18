@@ -84,9 +84,8 @@ export const routes: Routes = [
   {path: 'logout', component: Logout},
   {path:'ask-uploading', component:AskUploading},
   {path:'verification', component: VerificationPage},
-  {
-  path:'upload-succesfully', component: UploadSuccessfullyComponent},
- 
+  {path: 'upload-successfully', component: UploadSuccessfullyComponent},
+  
   {path: 'individual-request', component: IndividualReq},
  
   {path:'individual-dashboard', component: IndividualDasboardComponent}
