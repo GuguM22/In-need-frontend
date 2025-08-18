@@ -21,8 +21,12 @@ import { SponsorDasboardComponent } from './component/sponsor-dasboard/sponsor-d
 import { ResetPassword } from './component/reset-password/reset-password';
 import { AdminPanelComponent } from './component/admin-panel/admin-panel.component';
 import { DonationReviewComponent } from './component/donation-review/donation-review.component';
-
 import { OrganisationDashboardComponent } from './component/organisation-dashboard/organisation-dashboard.component';
+import { ForgotPassword } from './component/forgot-password/forgot-password';
+import { ResetPassword } from './component/reset-password/reset-password';
+
+
+
 
 import { ManageSponsorComponent } from './page/manage-sponsor/manage-sponsor.component';
 
@@ -42,9 +46,6 @@ import { IndividualReq } from './individual-req/individual-req';
 
 
 
-import { ReviewRequest } from './Pages/review-request/review-request';
-
-
 
 export const routes: Routes = [
   { path: '', redirectTo: 'Landing', pathMatch: 'full' },
@@ -56,19 +57,18 @@ export const routes: Routes = [
   { path: 'register', component: Register },
   { path: 'verify-email', component: VerifyEmail },
 
-   {path: 'sponsor-dashboard', component: SponsorDasboardComponent},
-   {path: 'verification-page', component: VerificationPage},
-   {path: 'review-request', component: ReviewRequest},
-  
-
+  {path: 'sponsor-dashboard', component: SponsorDasboardComponent},
 
  
+  {path: 'sponsorship-request-page', component: SponsorshipRequestPage},
   {path: 'verification-page', component: VerificationPage},
 
 
  
+
   { path: 'forgot-password', component: ForgotPassword },
   { path: 'auth/reset-password', component: ResetPassword },
+
 
 
  { path: 'organization-dashboard', component: OrganisationDashboardComponent },
@@ -96,5 +96,5 @@ export const routes: Routes = [
   {path: 'individual-request', component: IndividualReq},
  
   {path:'individual-dashboard', component: IndividualDasboardComponent}
-  
+ 
 ];

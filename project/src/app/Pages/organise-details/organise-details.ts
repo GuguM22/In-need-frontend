@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { Navbar } from "../../ui/navbar/navbar";
+import { NavbarComponent } from "../../ui/navbar/navbar";
 import { FooterComponent } from "../../ui/footer/footer";
 
 
 
 @Component({
   selector: 'app-organise-details',
-    imports: [CommonModule, Navbar, FooterComponent],
+    imports: [CommonModule, NavbarComponent, FooterComponent],
   templateUrl: './organise-details.html',
   styleUrls: ['./organise-details.css']
 })
