@@ -11,6 +11,7 @@ import { Router, RouterModule } from '@angular/router';
   styleUrls: ['./upload-successfully-individual.component.css']
 })
 export class UploadSuccessfullyindividualComponent {
+activeTab: any;
 
   constructor(private router: Router){}
 }

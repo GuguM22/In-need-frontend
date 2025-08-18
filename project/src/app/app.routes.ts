@@ -29,7 +29,8 @@ import { Logout } from './component/logout/logout';
 import { ProfilepageComponent } from './component/profilepage/profilepage';
 import { AskUploading } from './Pages/ask-uploading/ask-uploading';
 import { DonationRequest } from './donation-request/donation-request';
-import { ManageSponsorIndividualComponent } from './component/sponsor-dasboard/manage-sponsor-individual/manage-sponsor-individual.component';
+
+
 
 
 export const routes: Routes = [
@@ -72,7 +73,7 @@ export const routes: Routes = [
   {path:'ask-uploading', component:AskUploading},
   {path:'verification', component: VerificationPage},
   {path:'upload-succesfully', component: UploadSuccessfullyComponent},
-  {path:'manage-sponsor-individual',component:ManageSponsorIndividualComponent},
+  {path:'manage-sponsor-individual',component:ManageSponsorComponent},
   {path:'upload-successfully-individual',component: UploadSuccessfullyComponent}
 
 ];

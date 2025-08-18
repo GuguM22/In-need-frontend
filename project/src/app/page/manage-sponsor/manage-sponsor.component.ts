@@ -8,11 +8,14 @@ import { Navbar } from "../../ui/navbar/navbar";
 @Component({
   selector: 'app-manage-sponsor',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, FooterComponent, Navbar],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './manage-sponsor.component.html',
   styleUrls: ['./manage-sponsor.component.css']
 })
 export class ManageSponsorComponent {
+goBack() {
+throw new Error('Method not implemented.');
+}
 activeTab: string = 'posts';
 activeMenuId: string | null = null;
 post: any;

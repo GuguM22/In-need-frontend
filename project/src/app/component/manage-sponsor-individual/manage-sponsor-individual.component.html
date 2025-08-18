@@ -1,10 +1,34 @@
-<div class="min-h-screen bg-white font-sans px-4 pt-6 pb-20">
+
+<app-navbar></app-navbar>
+<div class="min-h-screen flex flex-col items-center justify-center bg-white font-sans px-4 pt-6 pb-20">
   <!-- Back Button -->
-  <button class="text-sm text-gray-600 mb-4">&larr; Back</button>
+  
+  <!-- Back Button -->
+    <div class="w-full max-w-sm relative mb-2">
+      <div class="absolute -left-3 -top-10 flex items-center space-x-2">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <!-- Back arrow icon -->
+          <path
+            d="M50.2,169.6C97.9,56.3,228.5,3.1,341.8,50.9s166.4,178.3,118.7,291.6S282.2,508.9,168.9,461.1C86.4,426.4,32.7,345.5,32.7,256C32.7,226.3,38.6,196.9,50.2,169.6z M254.7,448c106,0,192-86,192-192s-86-192-192-192s-192,86-192,192S148.7,448,254.7,448z M226.7,140.7L111.4,256l115.3,115.3l21.2-21.2L168.7,271h208.2v-30H168.7l79.1-79.1L226.7,140.7z"
+          />
+        </svg>
+        <button
+          type="button" (click)="goBack()"
+          class="text-sm -left-py-3 text-black focus:outline-none"
+        >
+          Back
+        </button>
+      </div>
+    </div>
 
   <!-- Title and Description -->
   <h2 class="text-lg font-semibold mb-1">My Sponsorship Requests</h2>
-  <p class="text-sm text-gray-500 mb-6">
+  <p class="text-sm text-gray-500 mb-[20px]">
     Manage your organization’s sponsorship requests
   </p>
 
@@ -47,14 +71,13 @@
           High Priority
         </span>
 
-   <!-- Done label if Fulfilled -->
- <span *ngIf="post.fulfilled" class="text-emerald-500 text-lg font-bold">
-  <img 
-    src="https://i.pinimg.com/736x/f6/b9/17/f6b917ba705ab05ebfa958b57bc1963a.jpg" 
-    alt="Fulfilled" 
-    class="w-8 h-8 inline-block mr-40 mb-4"
-  />
-</span>
+        <!-- Image if Fulfilled -->
+<img 
+  *ngIf="post.fulfilled"
+  src="https://i.pinimg.com/1200x/14/15/34/141534c31edfe922c168d5f8cbbd4bda.jpg" 
+  alt="Fulfilled"
+  class="w-10 h-10 mb-5 "
+/>
 
 
         <!-- Dot Menu -->
@@ -112,7 +135,5 @@
     </div>
   </ng-container>
 </div>
-
-
 </div>
-
+<app-footer></app-footer>

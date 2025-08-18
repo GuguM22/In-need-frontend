@@ -2,15 +2,20 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { FooterComponent } from "../../ui/footer/footer";
+import { Navbar } from "../../ui/navbar/navbar";
 
 @Component({
   selector: 'app-manage-sponsor-individual',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, FooterComponent, Navbar],
   templateUrl: './manage-sponsor-individual.component.html',
   styleUrls: ['./manage-sponsor-individual.component.css']
 })
 export class ManageSponsorIndividualComponent {
+goBack() {
+throw new Error('Method not implemented.');
+}
   activeTab: string = 'posts';
   activeMenuId: string | null = null;
   isMenuOpen: boolean = false;
