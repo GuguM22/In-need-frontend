@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FooterComponent } from './footer';
+import { SponsorRequest } from './sponsor-request';
 
-describe('Footer', () => {
-  let component: FooterComponent;
-  let fixture: ComponentFixture<FooterComponent>;
+describe('SponsorRequest', () => {
+  let component: SponsorRequest;
+  let fixture: ComponentFixture<SponsorRequest>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FooterComponent]
+      imports: [SponsorRequest]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(FooterComponent);
+    fixture = TestBed.createComponent(SponsorRequest);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

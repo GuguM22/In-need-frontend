@@ -1,11 +1,11 @@
+<div class="nav sticky top-0 z-10">
 <button class="back-btn" type="button" (click)="backButton()">
-    <svg class="back-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-      <path d="M19 12H6m0 0l6-6m-6 6l6 6"/>
-    </svg>
+  <img width="20" height="20" src="https://img.icons8.com/ios/50/circled-left-2.png" alt="circled-left-2"/>
     Back
   </button>
-
-  <div class="form-container overflow-y-auto" style="max-height: 100vh;">
+  </div>
+<div class="container">
+  <div class="form-container" style="max-height: 100vh;">
     <div class="form-header">
      <div class="form-header">
   <h1 class="form-title text-align-center font-bold">Create Sponsorship Request</h1>
@@ -13,7 +13,7 @@
 </div>
 
     <form class="sponsorship-form " [formGroup]="sponsorshipForm" (ngSubmit)="onSubmit() ">
-      Title 
+     <label for="" class="form-label">Title</label>  
       <div class="form-group">
 
         <input 
@@ -36,6 +36,7 @@
            
           </select>
           
+          
         </div>
       </div>
 
@@ -49,18 +50,7 @@
             class="form-input number-input" 
             min="1"
             [class.error]=" sponsorshipForm.get('quantity')?.invalid && sponsorshipForm.get('quantity')?.touched">
-          <div class="number-controls">
-            <button type="button" class="number-btn number-up" (click)="onQuantityChange(true)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path d="M18 15l-6-6-6 6"/>
-              </svg>
-            </button>
-            <button type="button" class="number-btn number-down" (click)="onQuantityChange(false)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path d="M6 9l6 6 6-6"/>
-              </svg>
-            </button>
-          </div>
+         
         </div>
       </div>
 
@@ -86,44 +76,31 @@
           [class.error]="sponsorshipForm.get('description')?.invalid && sponsorshipForm.get('description')?.touched"></textarea>
       </div>
 
-     <!-- File Upload Section -->
+    
+<div class="flex flex-col gap-6"> 
 
-<!-- Full Container for Upload + Previews + Button -->
-<div class="flex flex-col gap-6"> <!-- gap creates space everywhere -->
+  <div class="upload">
+    <label for="">Images or Videos (Optional)</label>
+    <p class="uploadP">Add photos or videos to help sponsors understand your request better</p>
+  </div>
 
-  <!-- Upload Section -->
   <div
-    class="flex items-center justify-center w-full"
+    class="flex items-center justify-center w-full drop"
     (drop)="onFileDrop($event)"
     (dragover)="onDragOver($event)"
     (dragleave)="onDragLeave($event)"
   >
     <label
       for="dropzone-file"
-      class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-white-800 dark:bg-white-700 hover:bg-gray-100 dark:border-white-600 dark:hover:border-white-500 dark:hover:bg-white-600"
+      class="flex flex-col items-center justify-center w-full h-25 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-white dark:hover:bg-white-800 dark:bg-white-700 hover:bg-gray-100 dark:border-white-600 dark:hover:border-white-500 dark:hover:bg-white-600"
     >
       <div class="flex flex-col items-center justify-center pt-5 pb-6">
-        <svg
-          class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 20 16"
-        >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-          />
-        </svg>
-        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-          <span class="font-semibold">Click to upload</span> or drag and drop
+        <img width="25" height="25" src="https://img.icons8.com/ios/50/upload--v1.png" alt="upload--v1"/>
+        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400 upP">
+          <span class="font-[#00000094] font-bold">Upload Media Files</span> 
         </p>
-        <p class="text-xs text-gray-500 dark:text-gray-400">
-          SVG, PNG, JPG, GIF or MP4
-        </p>
+        <p class="dragP text-gray-500 dark:text-gray-400">
+          Drag and drop your files here, or <span class="b">browse  </span>      </p>
       </div>
       <input
         id="dropzone-file"
@@ -150,6 +127,7 @@
     </video>
   </div>
 </div>
+</div>
   
 
   <!-- Button (spaced automatically from previews/upload) -->
@@ -169,4 +147,11 @@
     [disabled]="isSubmitting">
     {{ isSubmitting ? 'Submitting...' : 'Submit Request' }}
   </button>
+
+
+</form>
+
+   </div>
+
+<!-- <app-footer></app-footer> -->
 

@@ -25,5 +25,6 @@ export class Logout {
 
   onConfirmSignOut() {
     this.confirm.emit();
+    this.router.navigate(['/sign-in']);
   }
 }

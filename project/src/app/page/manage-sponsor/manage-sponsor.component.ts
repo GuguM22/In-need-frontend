@@ -2,11 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { FooterComponent } from "../../ui/footer/footer";
+import { Navbar } from "../../ui/navbar/navbar";
 
 @Component({
   selector: 'app-manage-sponsor',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, FooterComponent, Navbar],
   templateUrl: './manage-sponsor.component.html',
   styleUrls: ['./manage-sponsor.component.css']
 })

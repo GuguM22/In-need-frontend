@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { Navbar } from "../../ui/navbar/navbar";
 import { Sidebar } from "../../ui/sidebar/sidebar";
 import { FooterComponent } from "../../ui/footer/footer";
+import { VerificationRequest } from '../../dto/veriificationRequest';
+import { VerificationService } from '../../service/verification-service';
 
 
 @Component({
@@ -35,7 +37,7 @@ export class VerificationPage implements OnInit {
     },
   };
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private verificationService: VerificationService) {
     this.verificationForm = this.formBuilder.group({
       phone: [
         '',
@@ -80,12 +82,50 @@ export class VerificationPage implements OnInit {
     }
   }
 
-  onSubmit(): void {
-    if (this.verificationForm.valid) {
-      console.log('Form submitted:', this.verificationForm.value);
 
-    } else {
-      this.verificationForm.markAllAsTouched();
+onSubmit(): void {
+  if (this.verificationForm.valid && this.uploadedFiles.length > 0) {
+    // Step 1: Create verification with placeholder document URLs
+    const placeholderUrls = this.uploadedFiles.map(file => `pending-${file.name}`);
+    const email = localStorage.getItem('userEmail');
+
+    const verificationRequest: VerificationRequest = {
+      phone: this.verificationForm.value.phone,
+      website: this.verificationForm.value.website,
+      documents: placeholderUrls,
+      email: email || '' // fallback to empty string if null
+
+    };
+
+    this.verificationService.createVerification(verificationRequest).subscribe({
+      next: (res) => {
+        const verificationId = res.id;
+        console.log('Verification created with ID:', res.id);
+        
+        // Step 2: Upload actual files
+        this.verificationService.uploadFiles(this.uploadedFiles, verificationId).subscribe({
+          next: (uploadRes) => {
+            console.log('Files uploaded successfully:', uploadRes.urls);
+            // Optionally update verification with real URLs here if needed
+            //this.router.navigate(['/success-page']);
+          },
+          error: (uploadErr) => {
+            console.error('File upload failed:', uploadErr);
+            // Handle upload error (maybe delete the verification record)
+          }
+        });
+      },
+      error: (createErr) => {
+        console.error('Verification creation failed:', createErr);
+      }
+    });
+  } else {
+    this.verificationForm.markAllAsTouched();
+    if (this.uploadedFiles.length === 0) {
+      alert('Please upload at least one document');
     }
   }
+}
+
+
 }
