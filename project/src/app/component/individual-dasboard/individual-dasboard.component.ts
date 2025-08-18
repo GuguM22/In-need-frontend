@@ -4,7 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { HttpClient } from '@angular/common/http';
 import { FooterComponent } from '../../ui/footer/footer';
-import { NavbarComponent } from '../../ui/navbar/navbar';
+import {  NavbarComponent } from '../../ui/navbar/navbar';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
