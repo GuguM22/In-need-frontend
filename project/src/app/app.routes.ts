@@ -22,6 +22,11 @@ import { ResetPassword } from './component/reset-password/reset-password';
 import { AdminPanelComponent } from './component/admin-panel/admin-panel.component';
 import { DonationReviewComponent } from './component/donation-review/donation-review.component';
 import { OrganisationDashboardComponent } from './component/organisation-dashboard/organisation-dashboard.component';
+import { ForgotPassword } from './component/forgot-password/forgot-password';
+import { ResetPassword } from './component/reset-password/reset-password';
+
+
+
 
 import { ManageSponsorComponent } from './page/manage-sponsor/manage-sponsor.component';
 
@@ -60,8 +65,10 @@ export const routes: Routes = [
 
 
  
+
   { path: 'forgot-password', component: ForgotPassword },
   { path: 'auth/reset-password', component: ResetPassword },
+
 
 
  { path: 'organization-dashboard', component: OrganisationDashboardComponent },
