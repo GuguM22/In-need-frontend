@@ -1,20 +1,73 @@
 import { Component } from '@angular/core';
 import { Navbar } from "../navbar/navbar";
 import { CommonModule } from '@angular/common';
+import { Logout } from "../../component/logout/logout";
+import { Services } from '../../service/services';
+import { Router, RouterModule } from '@angular/router';
+
 
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, Logout, RouterModule],
   templateUrl: './sidebar.html',
   styleUrls: ['./sidebar.css']
 
 })
 export class Sidebar {
-  toggle = true; 
+  toggle = true;
+  showLogoutModal = false;
+
+  constructor(private userService: Services, private router: Router) {}
+
+  dashboardRoute: string = '/'; // default fallback
+
+  ngOnInit() {
+    const role = localStorage.getItem('userRole');
+
+    switch (role) {
+      case 'SPONSORS':
+        this.dashboardRoute = '/sponsor-dashboard';
+        break;
+      case 'ORGANIZATION':
+        this.dashboardRoute = '/organization-dashboard';
+        break;
+      case 'INDIVIDUAL':
+        this.dashboardRoute = '/individual-dashboard';
+        break;
+      case 'ADMIN':
+        this.dashboardRoute = '/admin';
+        break;
+      default:
+        this.dashboardRoute = '/individual-dashboard'; // fallback
+    }
+  }
+
 
   handleToggle() {
-    this.toggle = !this.toggle; 
+    this.toggle = !this.toggle;
+  }
+
+  openLogoutModal() {
+     this.toggle = false; 
+    this.showLogoutModal = true;
+  }
+
+  closeLogoutModal() {
+    this.showLogoutModal = false;
+  }
+
+  confirmLogout() {
+    this.userService.logout().subscribe({
+      next: () => {
+        this.showLogoutModal = false;
+        this.router.navigate(['/sign-in']);
+      },
+      error: (err) => {
+        console.error('Logout failed:', err);
+        this.router.navigate(['/sign-in']);
+      },
+    });
   }
 }

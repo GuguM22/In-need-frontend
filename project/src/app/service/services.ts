@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { environment } from '../env/env';
 import { LoginResponse } from '../dto/loginResponse';
 import { Donation } from '../model/donation';
@@ -19,12 +19,12 @@ export class Services {
   }
 
 
-  verify(token: string): Observable<string> {
+  /*verify(token: string): Observable<string> {
     return this.http.get(`${this.apiUrl}/auth/verify`, {
       params: { token },
       responseType: 'text',
     });
-  }
+  }*/
 
   login(email: string, password: string): Observable<LoginResponse> {
   return this.http.post<LoginResponse>(
@@ -34,7 +34,7 @@ export class Services {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
-    }
+    } 
   );
 } 
 
@@ -49,4 +49,31 @@ resetPassword(token: string, newPassword: string, confirmPassword: string): Obse
     confirmPassword
   });
 }
+
+// user-services.ts
+logout(): Observable<any> {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token ?? ''}`
+  });
+
+  return this.http.post(`${this.apiUrl}/auth/logout`, {}, {
+    headers,
+    responseType: 'json'
+  }).pipe(
+    tap({
+      next: () => {
+       
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+      },
+      error: () => {
+        
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+      }
+    })
+  );
+}
+
 }
