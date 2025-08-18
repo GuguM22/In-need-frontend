@@ -1,0 +1,26 @@
+<div
+  class="fixed inset-0 bg-white bg-opacity-30 flex items-center justify-center z-50">
+  <div
+    class="bg-white rounded-lg shadow-lg p-6 w-80 max-w-full mx-4 border border-gray-300">
+    <h5 class="mb-4 text-xl font-semibold text-black text-center">
+      Sign out
+    </h5>
+    <p class="mb-6 text-base text-center text-gray-500">
+      Are you sure you want to sign out?
+    </p>
+    <div class="flex justify-center gap-6">
+      <button
+        (click)="onCancelSignOut()"
+        type="button"
+        class="px-5 py-2 rounded border border-[#5B8E7D] text-[#5B8E7D] font-medium transition">
+        No
+      </button>
+      <button
+        (click)="onConfirmSignOut()"
+        type="button"
+        class="px-5 py-2 rounded bg-[#5B8E7D] text-white font-medium hover:bg-primary-dark transition">
+        Yes
+      </button>
+    </div>
+  </div>
+</div>

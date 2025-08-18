@@ -1,0 +1,311 @@
+/* Base */
+.charity-app {
+  font-family: 'Inter', sans-serif;
+  background: #fff;
+  padding: 16px;
+  color: #2c2c2c;
+}
+
+
+/* HEADER */
+.app-header {
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.back-btn {
+  border: none;
+  background: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: #2c2c2c;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+
+
+/* CHARITY INFO */
+.charity-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.charity-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.charity-avatar {
+  position: relative;
+}
+
+.avatar-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.verified-badge {
+  position: absolute;
+  right: -4px;
+  bottom: -4px;
+  background: #fff;
+  border-radius: 50%;
+  font-size: 14px;
+  color: #1da1f2;
+}
+
+/* NAME + LOCATION */
+.charity-name {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.charity-location {
+  font-size: 13px;
+  color: #777;
+  margin-top: 2px;
+}
+
+/* META (Urgency + Days Left) */
+.charity-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+ 
+  
+}
+
+.urgency-section {
+  display: flex;
+  justify-content: flex-start; /* Push urgency to the right */
+  flex: 1; /* Take up remaining space */
+    order: -7
+}
+
+.urgency-badge {
+  padding: 2px 14px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+   display: inline-block;
+transform: translateX(10px);
+}
+
+
+.badge-high-priority {
+    
+  background-color: #C9575775;
+  color:  #e74c3c;
+}
+
+.badge-medium-priority {
+  background-color: #f39c12;
+  color: #fff;
+}
+
+.badge-low-priority {
+  background-color: #27ae60;
+  color: #fff;
+}
+
+/* CAMPAIGN DETAILS */
+.campaign-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+
+
+.campaign-description p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.goal-text {
+  font-weight: 600;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+/* DONATE BUTTON */
+.donate-section {
+  margin: 16px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.donate-btn {
+  width: 370px;
+  height: 43px;
+  background: radial-gradient(
+    934px at 6% 39.5%,
+    rgb(255, 35, 90) 0.2%,
+    rgb(255, 35, 144) 54.8%,
+    rgb(250, 99, 160) 93.4%
+  );
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+.donate-btn:hover {
+  background: #9d0437;
+}
+
+/* PREVIOUS DONORS */
+.previous-donors {
+  margin-top: 24px;
+}
+
+.donate-section {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  margin: 20px 0;
+}
+
+.donate-btn {
+  width: 370px;
+  height: 43px;
+  background-color: #4e7c6f;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.donate-btn:hover {
+  background-color: #3e6458;
+}
+
+.btn.btn-success {
+  width: 370px;
+  height: 43px;
+  background-color: #4e7c6f; /* same green as Donate */
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn.btn-success:hover {
+  background-color: #3e6458;
+}
+
+
+.donors-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.donor-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Donor Header */
+.donor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.donor-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.donor-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.donor-name {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.donor-type {
+  font-size: 11px;
+  color: #777;
+}
+
+.delivery-info {
+  font-size: 11px;
+  color: #555;
+  text-align: right;
+}
+
+/* Donation Images */
+.donation-images {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.images-container {
+  display: flex;
+  gap: 6px;
+}
+
+.donation-img {
+  width: 58px;
+  height: 58px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.more-images {
+  width: 58px;
+  height: 58px;
+  background: #eee;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #444;
+}
+
+.arrow-icon {
+  font-size: 16px;
+  color: #888;
+}

@@ -1,17 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-landing',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.css'
 })
-export class LandingComponent {
-   constructor(private router: Router) {}  // Inject Router here
+export class LandingComponent  {
+  constructor(private router:Router){}
 
-  goToSignin() {
-    this.router.navigate(['/sign-in']);  // Use injected router
+  goToSignIn() {
+   this.router.navigate(['/sign-in']);
   }
 
 }

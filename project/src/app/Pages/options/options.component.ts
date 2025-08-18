@@ -1,21 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { Navbar } from "../../ui/navbar/navbar";
+import { FooterComponent } from "../../ui/footer/footer";
 
 @Component({
   selector: 'app-options',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule, Navbar, FooterComponent],
   templateUrl: './options.component.html',
-  styleUrl: './options.component.css'
+  styleUrls: ['./options.component.css']
 })
 export class OptionsComponent {
-proceed() {
-throw new Error('Method not implemented.');
-}
-cancel() {
-throw new Error('Method not implemented.');
-}
+
 
   showError: boolean = false;
   errorMessage: string = '';
@@ -31,6 +29,7 @@ throw new Error('Method not implemented.');
       this.showError = false;
       if (this.currentStep < this.totalSteps) {
         this.currentStep++;
+      
       }
     } else {
       this.errorMessage = 'Please complete all required fields before continuing.';

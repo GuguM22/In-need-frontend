@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReviewRequest } from './review-request';
+import { AskUploading } from './ask-uploading';
 
-describe('ReviewRequest', () => {
-  let component: ReviewRequest;
-  let fixture: ComponentFixture<ReviewRequest>;
+describe('AskUploading', () => {
+  let component: AskUploading;
+  let fixture: ComponentFixture<AskUploading>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReviewRequest]
+      imports: [AskUploading]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ReviewRequest);
+    fixture = TestBed.createComponent(AskUploading);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
