@@ -3,12 +3,12 @@ import { Component, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from "../../ui/footer/footer";
-import { Navbar } from "../../ui/navbar/navbar";
+import { NavbarComponent } from "../../ui/navbar/navbar";
 
 @Component({
   selector: 'app-manage-sponsor',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, FooterComponent, Navbar],
+  imports: [CommonModule, FormsModule, RouterModule, FooterComponent, NavbarComponent],
   templateUrl: './manage-sponsor.component.html',
   styleUrls: ['./manage-sponsor.component.css']
 })

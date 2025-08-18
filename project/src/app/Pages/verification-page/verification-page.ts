@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Navbar } from "../../ui/navbar/navbar";
+import { NavbarComponent } from "../../ui/navbar/navbar";
 import { Sidebar } from "../../ui/sidebar/sidebar";
 import { FooterComponent } from "../../ui/footer/footer";
 import { VerificationRequest } from '../../dto/veriificationRequest';
@@ -12,7 +12,7 @@ import { VerificationService } from '../../service/verification-service';
 @Component({
   selector: 'app-verification-page',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, Navbar, FooterComponent],
+  imports: [CommonModule, ReactiveFormsModule, NavbarComponent, FooterComponent],
   templateUrl: './verification-page.html',
   styleUrls: ['./verification-page.css'],
 })
@@ -87,13 +87,19 @@ onSubmit(): void {
   if (this.verificationForm.valid && this.uploadedFiles.length > 0) {
     // Step 1: Create verification with placeholder document URLs
     const placeholderUrls = this.uploadedFiles.map(file => `pending-${file.name}`);
+
     const email = localStorage.getItem('userEmail');
+    const userId = localStorage.getItem('userId');
 
     const verificationRequest: VerificationRequest = {
+      id: 0,
       phone: this.verificationForm.value.phone,
       website: this.verificationForm.value.website,
       documents: placeholderUrls,
-      email: email || '' // fallback to empty string if null
+      email: email || '',
+      userId: userId || '',
+      status: 'PENDING',  // add this line
+
 
     };
 

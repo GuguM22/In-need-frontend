@@ -7,8 +7,8 @@
     </button>
 </div>
 </div> 
-<div class="container2">
-<div class="heading">
+<div *ngIf="selectedApplication" class="container2">
+  <div class="heading">
   <div class="profile2">
     <div class="companyLogo2">
       <div class="adminLogo2">
@@ -44,11 +44,11 @@
   <h1 class="font-semibold mb-2">Contact Information</h1>
   <div class="flex items-center mb-2 email2">
     <img width="22" height="22" src="https://img.icons8.com/ios/50/new-post--v1.png" />
-    <p class="ml-2 emailP">kg&#64;gmail.com</p>
+    <p class="ml-2 emailP">{{ selectedApplication.email }}</p>
   </div>
   <div class="flex items-center number2">
     <img width="22" height="22" src="https://img.icons8.com/ios/50/phone--v1.png" />
-    <p class="ml-2">011378492783</p>
+    <p>{{ selectedApplication.phone }}</p>
   </div>
 </div>
 
@@ -59,7 +59,7 @@
   <!-- Each document -->
   <div class="cipc2 flex items-center mb-3">
     <img width="22" height="22" src="https://img.icons8.com/ios/50/doc.png" />
-    <p class="ml-2 flex-1 text">CIPC Registration document.pdf</p>
+    <p class="ml-2 flex-1 text">{{ selectedApplication.documents }}</p>
     <div class="download2">
         <button class="pdfDownload2">
             <div class="btnHolder flex items-center">
@@ -104,15 +104,29 @@
     </button>
 
     
-   
+
     </div>
     
   </div>
   <div class="reviewSection2 mt-6">
     <h1 class="font-semibold mb-2">Review Actions</h1>
     <div class="flex gap-4 accept2">
-      <button class="acceptBtn2 bg-green-500 text-white px-4 py-2 rounded">Approve Application</button>
-      <button class="rejectBtn2 bg-red-500 text-white px-4 py-2 rounded">Reject Application</button>
+      <!-- <button class="acceptBtn2 bg-green-500 text-white px-4 py-2 rounded">Approve Application</button> -->
+      <button 
+      class="acceptBtn2 bg-green-500 text-white px-4 py-2 rounded"
+      (click)="approve(selectedApplication)"
+      [disabled]="selectedApplication.verified"
+    >
+      {{ selectedApplication.verified ? 'Application Approved' : 'Approve Application' }}
+    </button>
+    
+    <button 
+      class="rejectBtn2 bg-red-500 text-white px-4 py-2 rounded"
+      (click)="reject(selectedApplication)"
+    >
+      Reject Application
+    </button>
+    
     </div>
   </div>
 </div>

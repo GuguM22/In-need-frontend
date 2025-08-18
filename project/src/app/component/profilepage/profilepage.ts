@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Location } from '@angular/common';
 import { RouterModule } from '@angular/router'; // ✅ Needed for routerLink
 import { FooterComponent } from "../../ui/footer/footer";
-import { Navbar } from "../../ui/navbar/navbar";
+
 
 @Component({
   selector: 'app-profilepage',
@@ -15,6 +16,10 @@ import { Navbar } from "../../ui/navbar/navbar";
     RouterModule,   // ✅ Add this
   ],
   templateUrl: './profilepage.html',
+
+
+
+  
 })
 export class ProfilepageComponent {
 viewDocument(arg0: string) {

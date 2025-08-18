@@ -64,7 +64,7 @@ export class SignInComponent {
         localStorage.setItem('userRole', response.role);
         localStorage.setItem('userEmail', response.email);
         localStorage.setItem('verified', response.verified.toString());
-
+        localStorage.setItem('userId', response.id.toString());
 
         // Use enum for role checking
         const role = response.role as Role;
@@ -83,7 +83,7 @@ export class SignInComponent {
             this.router.navigate(['/individual-dashboard']);
             break;
           case Role.ADMIN:
-            this.router.navigate(['/admin']);
+            this.router.navigate(['/admin-dashboard']);
             break;
           default:
             this.router.navigate(['/individual-dashboard']);

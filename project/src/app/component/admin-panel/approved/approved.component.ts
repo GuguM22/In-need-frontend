@@ -13,12 +13,12 @@ export class ApprovedComponent {
   @Output() close = new EventEmitter<void>();
 
 
-   selectedApplication: string | null = null;
+  //  selectedApplication: string | null = null;
 
    
-   selectApplication(appName: string): void {
-    this.selectedApplication = appName;
-  }
+  //  selectApplication(appName: string): void {
+  //   this.selectedApplication = appName;
+  // }
 
   closeDetails(): void {
     this.close.emit();  
