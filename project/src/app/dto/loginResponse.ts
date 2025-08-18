@@ -4,5 +4,5 @@ export interface LoginResponse {
   role: 'SPONSORS' | 'ORGANIZATION' | 'INDIVIDUAL';
   email: string;
   verified: boolean;
-
+  id: number;
 }
