@@ -27,37 +27,27 @@
           [class.error]="  individualForm.get('title')?.invalid && individualForm.get('title')?.touched">
       </div>
 
-
+    
       
 
      
       <div class="form-group">
-        <label for="quantity" class="form-label">Quantity</label>
-        <div class="number-input-wrapper">
-          <input 
-            type="number" 
-            id="quantity" 
-            formControlName="quantity" 
-            class="form-input number-input" 
-            min="1"
-            [class.error]=" individualForm.get('quantity')?.invalid && individualForm.get('quantity')?.touched">
-         
-        </div>
-      </div>
+  <label for="neededByDate" class="form-label">Required By Date</label>
+  <input 
+    type="date" 
+    id="neededByDate" 
+    formControlName="neededByDate" 
+    class="form-input date-input"
+    [class.error]="individualForm.get('neededByDate')?.invalid && individualForm.get('neededByDate')?.touched"
+  />
+  <div class="error-message" 
+       *ngIf="individualForm.get('neededByDate')?.hasError('pastDate') && individualForm.get('neededByDate')?.touched"   
+       style="color: red;">
+    Date cannot be in the past.
+  </div>
 
- <div class="form-group">
-        <label for="date" class="form-label">Required By Date</label>
-        <div class="date-input-wrapper">
-             <input 
-  type="date" 
-  id="date" 
-  formControlName="requiredDate" 
-  class="form-input date-input"
-  [min]="today"
-  [class.error]="individualForm.get('requiredDate')?.invalid && individualForm.get('requiredDate')?.touched">
-        
-        </div>
-      </div>
+
+ 
 
       
       <div class="form-group">
@@ -79,48 +69,47 @@
   </div>
 
   <div
-    class="flex items-center justify-center w-full drop"
-    (drop)="onFileDrop($event)"
-    (dragover)="onDragOver($event)"
-    (dragleave)="onDragLeave($event)"
+  class="flex items-center justify-center w-full drop"
+  (drop)="onFileDrop($event)"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+>
+  <label
+    for="dropzone-file"
+    class="flex flex-col items-center justify-center w-full h-25 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-white hover:bg-gray-100"
   >
-    <label
-      for="dropzone-file"
-      class="flex flex-col items-center justify-center w-full h-25 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-white dark:hover:bg-white-800 dark:bg-white-700 hover:bg-gray-100 dark:border-white-600 dark:hover:border-white-500 dark:hover:bg-white-600"
-    >
-      <div class="flex flex-col items-center justify-center pt-5 pb-6">
-        <img width="25" height="25" src="https://img.icons8.com/ios/50/upload--v1.png" alt="upload--v1"/>
-        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400 upP">
-          <span class="font-[#00000094] font-bold">Upload Media Files</span> 
-        </p>
-        <p class="dragP text-gray-500 dark:text-gray-400">
-          Drag and drop your files here, or <span class="b">browse  </span>      </p>
-      </div>
-      <input
-        id="dropzone-file"
-        type="file"
-        (change)="onFileSelect($event)"
-        multiple
-        accept="image/*,video/*"
-        class="hidden"
-      />
-    </label>
-  </div>
-
-  
-  <div *ngIf="selectedFiles?.length" class="grid grid-cols-3 gap-4 min-h-[8rem]">
-  <div *ngFor="let preview of filePreviews; let i = index" class="relative">
-    <img *ngIf="selectedFiles[i]?.type?.startsWith('image/')"
-         [src]="preview"
-         class="w-full h-32 object-cover rounded-lg border" />
-
-    <video *ngIf="selectedFiles[i]?.type?.startsWith('video/')"
-           [src]="preview"
-           controls
-           class="w-full h-32 object-cover rounded-lg border">
-    </video>
-  </div>
+    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+      <img width="25" height="25" src="https://img.icons8.com/ios/50/upload--v1.png" alt="upload--v1"/>
+      <p class="mb-2 text-sm text-gray-500">
+        <span class="font-[#00000094] font-bold">Upload Media Files</span> 
+      </p>
+      <p class="dragP text-gray-500">
+        Drag and drop your files here, or <span class="b">browse</span>
+      </p>
+    </div>
+    <input
+      id="dropzone-file"
+      type="file"
+      (change)="onFileSelect($event)"
+      multiple
+      accept="image/*,video/*"
+      class="hidden"
+    />
+  </label>
 </div>
+
+
+<div *ngIf="selectedFiles?.length" class="file-list mt-4">
+  <h4>Uploaded Files:</h4>
+   <ul style="margin: 0; padding-left: 1rem;">
+    <li *ngFor="let file of selectedFiles">
+
+      {{ file.name.length > 30 ? (file.name | slice:0:27) + '...' : file.name }}
+    </li>
+  </ul>
+</div>
+
+
 </div>
   
 
@@ -128,6 +117,7 @@
   <button
     type="submit"
     class="submit-btn"
+      style="margin-top: 1.5rem;"
     [disabled]="isSubmitting">
     {{ isSubmitting ? 'Submitting...' : 'Submit Request' }}
   </button>
@@ -136,8 +126,8 @@
 
 
 
-</form>
-</div>
+
+
 <!-- <app-footer></app-footer> -->
 
 
