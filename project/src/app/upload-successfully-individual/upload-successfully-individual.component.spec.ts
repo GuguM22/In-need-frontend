@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UploadSuccessfullyindividualComponent  } from './upload-successfully-individual.component';
 
-describe('SignInIndividualComponent', () => {
+describe('UploadSuccessfullyindividualComponent', () => {
   let component: UploadSuccessfullyindividualComponent;
   let fixture: ComponentFixture<UploadSuccessfullyindividualComponent>;
 

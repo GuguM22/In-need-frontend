@@ -34,6 +34,7 @@ import { DonationRequest } from './donation-request/donation-request';
 import { IndividualDasboardComponent } from './component/individual-dasboard/individual-dasboard.component';
 
 import { IndividualReq } from './individual-req/individual-req';
+import { ManageSponsorIndividualComponent } from './component/manage-sponsor-individual/manage-sponsor-individual.component';
 
 
 
@@ -90,6 +91,7 @@ export const routes: Routes = [
  
   {path: 'individual-request', component: IndividualReq},
  
-  {path:'individual-dashboard', component: IndividualDasboardComponent}
+  {path:'individual-dashboard', component: IndividualDasboardComponent},
+  {path:'manage-sponsor-individual',component: ManageSponsorIndividualComponent}
   
 ];

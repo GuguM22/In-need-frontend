@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FooterComponent } from "../../ui/footer/footer";
 import { Navbar } from "../../ui/navbar/navbar";
 
@@ -13,9 +13,8 @@ import { Navbar } from "../../ui/navbar/navbar";
   styleUrls: ['./manage-sponsor-individual.component.css']
 })
 export class ManageSponsorIndividualComponent {
-goBack() {
-throw new Error('Method not implemented.');
-}
+
+
   activeTab: string = 'posts';
   activeMenuId: string | null = null;
   isMenuOpen: boolean = false;
@@ -38,6 +37,7 @@ throw new Error('Method not implemented.');
       fulfilled: false
     }
   ];
+  router: any;
 
   toggleActionMenu(menuId: string): void {
     // Toggle menu open/close for specific post
@@ -66,11 +66,9 @@ throw new Error('Method not implemented.');
     }
   }
 
-  deletePost(index: number): void {
-    // Delete a post safely
-    if (index > -1 && index < this.posts.length) {
-      this.posts.splice(index, 1);
-      this.activeMenuId = null;
-    }
+  goBack() {
+    this.router.navigate(['/Landing']); 
   }
-}
+
+  }
+
