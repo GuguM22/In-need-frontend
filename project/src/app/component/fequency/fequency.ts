@@ -2,15 +2,14 @@ import { CommonModule } from '@angular/common';
  import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
-import { Navbar } from "../../ui/navbar/navbar";
+import { NavbarComponent } from "../../ui/navbar/navbar";
  
-import { Component } from '@angular/core';
  import { FooterComponent } from "../../ui/footer/footer";
 
 @Component({
   selector: 'app-fequency',
    standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, Navbar, FooterComponent],
+  imports: [CommonModule, FormsModule, RouterModule, NavbarComponent, FooterComponent],
  
   templateUrl: './fequency.html',
   styleUrls: ['./fequency.css']

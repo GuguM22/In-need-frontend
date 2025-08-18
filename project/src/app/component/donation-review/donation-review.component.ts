@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Navbar } from "../../ui/navbar/navbar";
+import { NavbarComponent } from "../../ui/navbar/navbar";
 import { FooterComponent } from "../../ui/footer/footer";
 
 @Component({
   selector: 'app-donation-review',
   standalone: true,
-  imports: [CommonModule, RouterModule, Navbar, FooterComponent],
+  imports: [CommonModule, RouterModule, NavbarComponent, FooterComponent],
   templateUrl: './donation-review.component.html',
   styleUrls: ['./donation-review.component.css']
 })
