@@ -21,6 +21,30 @@ export class Sidebar {
 
   constructor(private userService: Services, private router: Router) {}
 
+  dashboardRoute: string = '/'; // default fallback
+
+  ngOnInit() {
+    const role = localStorage.getItem('userRole');
+
+    switch (role) {
+      case 'SPONSORS':
+        this.dashboardRoute = '/sponsor-dashboard';
+        break;
+      case 'ORGANIZATION':
+        this.dashboardRoute = '/organization-dashboard';
+        break;
+      case 'INDIVIDUAL':
+        this.dashboardRoute = '/individual-dashboard';
+        break;
+      case 'ADMIN':
+        this.dashboardRoute = '/admin';
+        break;
+      default:
+        this.dashboardRoute = '/individual-dashboard'; // fallback
+    }
+  }
+
+
   handleToggle() {
     this.toggle = !this.toggle;
   }

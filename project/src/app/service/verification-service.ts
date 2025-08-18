@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../env/env';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { VerificationRequest } from '../dto/veriificationRequest';
 import { catchError, map, Observable } from 'rxjs';
 
@@ -45,5 +45,20 @@ createVerification(data: VerificationRequest): Observable<any> {
 
     return this.http.post<{urls: string[]}>(`${this.apiUrl}/api/verify/upload`, formData, { headers });
   }
+
+  getVerifications(status?: string): Observable<VerificationRequest[]> {
+    const token = localStorage.getItem('token');
+    const headers = token ? new HttpHeaders().set('Authorization', `Bearer ${token}`) : undefined;
+    const params = status ? new HttpParams().set('status', status) : undefined;
+  
+    return this.http.get<VerificationRequest[]>('/api/admin/verifications', {
+      headers,
+      params,
+      responseType: 'json' as const
+    });
+  }
+  
+  
+  
 }
 
