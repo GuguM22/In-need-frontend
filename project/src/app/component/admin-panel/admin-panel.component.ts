@@ -13,7 +13,7 @@ import { VerificationService } from '../../service/verification-service';
   styleUrl: './admin-panel.component.css'
 })
 export class AdminPanelComponent {
-  userEmail: string | null = null;
+   userEmail: string | null = null;
   userId: string | null = null; 
   applications: VerificationRequest[] = [];
   pendingApplications: VerificationRequest[] = [];
@@ -61,7 +61,7 @@ selectedApplication: VerificationRequest | null = null;
     });
   }
   
-    // selectedApplication: string | null = null;
+    // selectedApplication: string | null = null
   
     openPanel(panel: 'pending' | 'approved' | 'rejected'): void {
       if (this.activePanel !== panel) {
@@ -78,7 +78,7 @@ selectedApplication: VerificationRequest | null = null;
       this.selectedApplication = null;
     }
 
-    selectApplication(app: VerificationRequest): void {
+     selectApplication(app: VerificationRequest): void {
       this.selectedApplication = app;
     }
 
@@ -111,4 +111,5 @@ selectedApplication: VerificationRequest | null = null;
     }
     
   
+ 
 }

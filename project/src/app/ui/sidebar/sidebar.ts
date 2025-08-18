@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Navbar } from "../navbar/navbar";
+import { NavbarComponent } from "../navbar/navbar";
 import { CommonModule } from '@angular/common';
 import { Logout } from "../../component/logout/logout";
 import { Services } from '../../service/services';
@@ -20,30 +20,6 @@ export class Sidebar {
   showLogoutModal = false;
 
   constructor(private userService: Services, private router: Router) {}
-
-  dashboardRoute: string = '/'; // default fallback
-
-  ngOnInit() {
-    const role = localStorage.getItem('userRole');
-
-    switch (role) {
-      case 'SPONSORS':
-        this.dashboardRoute = '/sponsor-dashboard';
-        break;
-      case 'ORGANIZATION':
-        this.dashboardRoute = '/organization-dashboard';
-        break;
-      case 'INDIVIDUAL':
-        this.dashboardRoute = '/individual-dashboard';
-        break;
-      case 'ADMIN':
-        this.dashboardRoute = '/admin';
-        break;
-      default:
-        this.dashboardRoute = '/individual-dashboard'; // fallback
-    }
-  }
-
 
   handleToggle() {
     this.toggle = !this.toggle;

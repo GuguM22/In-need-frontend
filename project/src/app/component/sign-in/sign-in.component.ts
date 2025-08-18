@@ -83,7 +83,7 @@ export class SignInComponent {
             this.router.navigate(['/individual-dashboard']);
             break;
           case Role.ADMIN:
-            this.router.navigate(['/admin']);
+            this.router.navigate(['/admin-dashboard']);
             break;
           default:
             this.router.navigate(['/individual-dashboard']);

@@ -9,3 +9,6 @@ export interface User {
   role: Role;
   verified: boolean;
  }
+
+}
+

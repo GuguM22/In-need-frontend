@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { VerificationRequest, VerificationResponse } from '../dto/veriificationRequest';
 import { catchError, map, Observable, tap } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -127,7 +128,6 @@ createVerification(data: VerificationRequest): Observable<any> {
       })
     );
   }
-  
   
 }
 

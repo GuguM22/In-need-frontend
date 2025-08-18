@@ -5,4 +5,5 @@ export interface LoginResponse {
   email: string;
   verified: boolean;
   id: number;
+
 }

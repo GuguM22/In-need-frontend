@@ -15,6 +15,7 @@ export interface VerificationRequest{
     status?: 'PENDING' | 'APPROVED' | 'REJECTED'; 
 }
 
+
 export interface VerificationResponse {
     id?: number;
     phone: string;

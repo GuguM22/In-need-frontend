@@ -442,39 +442,6 @@ button{
     width: 150px;
   }
   
-  .alert-warning {
-    padding: 10px;
-    background-color: #fff3cd;
-    border: 1px solid #ffeeba;
-    border-radius: 6px;
-    color: #856404;
-    margin-bottom: 15px;
-    margin-top: 10px;
-    width: 378px;
-    font-weight: 700;
-  }
-
-  .clickable-alert {
-    cursor: pointer;
-  }
-  .underline {
-    text-decoration: underline;
-    color: blue;
-  }
-
-  .verify-btn{
-   color: white;
-   background-color: #5B8E7D;
-   font-weight: 700;
-   font-size: 11px;
-    padding-top: 2px;
-    padding-bottom: 22px;
-    padding-left: 5px;
-    padding-right: 8px;
-    border-radius: 6px;
-  }
-  
-  
 /* @media (max-width: 480px) {
     .search {
         width: 90%;

@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
-import { Navbar } from './ui/navbar/navbar';
 import { FooterComponent } from "./ui/footer/footer";
  
 import { Sidebar } from "./ui/sidebar/sidebar"; 
 import { CommonModule } from '@angular/common';
  
-
 
 @Component({
   selector: 'app-root',
