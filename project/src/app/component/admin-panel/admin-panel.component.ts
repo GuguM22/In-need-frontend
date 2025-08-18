@@ -3,8 +3,6 @@ import { Component } from '@angular/core';
 import { PendingComponent } from './pending/pending.component';
 import { ApprovedComponent } from './approved/approved.component';
 import { RejectedComponent } from './rejected/rejected.component';
-import { VerificationRequest } from '../../dto/veriificationRequest';
-import { VerificationService } from '../../service/verification-service';
 
 @Component({
   selector: 'app-admin-panel',
@@ -13,25 +11,7 @@ import { VerificationService } from '../../service/verification-service';
   styleUrl: './admin-panel.component.css'
 })
 export class AdminPanelComponent {
-  userEmail: string | null = null;
-  applications: VerificationRequest[] = [];
 
-  constructor(private verificationService: VerificationService) {}
-
-
-  ngOnInit(): void {
-    // ✅ Get user email from localStorage
-    this.userEmail = localStorage.getItem('userEmail');
-
-    // Fetch pending verifications
-    this.verificationService.getVerifications('PENDING').subscribe({
-      next: (data) => {
-        console.log('Verifications fetched:', data);
-        this.applications = data;
-      },
-      error: (err) => console.error('Error fetching pending verifications', err),
-    });
-  }
   activePanel: 'pending' | 'approved' | 'rejected' | null = null;
 
     selectedApplication: string | null = null;
@@ -50,7 +30,5 @@ export class AdminPanelComponent {
     closeDetails(): void {
       this.selectedApplication = null;
     }
-
- 
 
 }

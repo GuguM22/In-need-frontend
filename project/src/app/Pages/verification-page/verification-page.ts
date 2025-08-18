@@ -87,14 +87,11 @@ onSubmit(): void {
   if (this.verificationForm.valid && this.uploadedFiles.length > 0) {
     // Step 1: Create verification with placeholder document URLs
     const placeholderUrls = this.uploadedFiles.map(file => `pending-${file.name}`);
-    const email = localStorage.getItem('userEmail');
-
+    
     const verificationRequest: VerificationRequest = {
       phone: this.verificationForm.value.phone,
       website: this.verificationForm.value.website,
-      documents: placeholderUrls,
-      email: email || '' // fallback to empty string if null
-
+      documents: placeholderUrls 
     };
 
     this.verificationService.createVerification(verificationRequest).subscribe({
