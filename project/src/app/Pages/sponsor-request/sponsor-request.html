@@ -36,6 +36,7 @@
            
           </select>
           
+          
         </div>
       </div>
 
@@ -49,18 +50,7 @@
             class="form-input number-input" 
             min="1"
             [class.error]=" sponsorshipForm.get('quantity')?.invalid && sponsorshipForm.get('quantity')?.touched">
-          <!-- <div class="number-controls">
-            <button type="button" class="number-btn number-up" (click)="onQuantityChange(true)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path d="M18 15l-6-6-6 6"/>
-              </svg>
-            </button>
-            <button type="button" class="number-btn number-down" (click)="onQuantityChange(false)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path d="M6 9l6 6 6-6"/>
-              </svg>
-            </button>
-          </div> -->
+         
         </div>
       </div>
 
@@ -86,16 +76,14 @@
           [class.error]="sponsorshipForm.get('description')?.invalid && sponsorshipForm.get('description')?.touched"></textarea>
       </div>
 
-     <!-- File Upload Section -->
-
-<!-- Full Container for Upload + Previews + Button -->
-<div class="flex flex-col gap-6"> <!-- gap creates space everywhere -->
+    
+<div class="flex flex-col gap-6"> 
 
   <div class="upload">
     <label for="">Images or Videos (Optional)</label>
     <p class="uploadP">Add photos or videos to help sponsors understand your request better</p>
   </div>
-  <!-- Upload Section -->
+
   <div
     class="flex items-center justify-center w-full drop"
     (drop)="onFileDrop($event)"
