@@ -81,11 +81,16 @@
             <div class="topTitle mb-4">
               <h2 class="text-lg font-semibold title">Pending Applications</h2>
               <p class="text-sm text-gray-600">3 Applications</p>
+              <!-- <p class="text-sm text-gray-600">{{ pendingApplications.length }} Applications</p> -->
             </div>
   
             <!-- Application Card -->
-            <div class="cards">
-              <div class="topCard" (click)="selectApplication('Kg\'s Child Hope Center')">
+            <!-- <div *ngIf="applications.length; else noData" class="cards"> -->
+              <div *ngIf="pendingApplications.length > 0; else noPending" class="cards space-y-4">
+            <div>
+                <!-- <div *ngFor="let app of pendingApplications" class="topCard cursor-pointer" (click)="selectApplication(app)"> -->
+              <div *ngFor="let app of pendingApplications" (click)="selectApplication(app)">
+              <div class="topCard">
                 <div class="orgName">
                   <div class="companyLogo">
                     <div class="adminLogo">
@@ -106,7 +111,7 @@
                   <img width="13" height="13" src="https://img.icons8.com/ios/50/new-post--v1.png" alt="email icon" />
                   </div>
                   <div class="address">
-                  <p>kg&#64;gmail.com</p>
+                  <p>{{app.email}}</p>
                   </div>
                 </div>
                 <div class="number">
@@ -114,7 +119,7 @@
                   <img width="13" height="13" src="https://img.icons8.com/ios/50/phone--v1.png" alt="phone icon"/>
                   </div>
                   <div class="numbers">
-                  <p>011378492783</p>
+                  <p>{{app.phone}}</p>
                   </div>
                 </div>
                 <div class="submitted">
@@ -128,6 +133,9 @@
               </div>
             </div>
           </div>
+          </div>
+          <ng-template #noPending><p>No pending applications.</p></ng-template>
+        </div>
           <div *ngIf="activePanel === 'approved'">
             <div class="topTitle mb-4">
               <h2 class="text-lg font-semibold title">Approved Applications</h2>
@@ -135,8 +143,9 @@
             </div>
   
             <!-- Application Card -->
-            <div class="cards">
-              <div class="topCard" (click)="selectApplication('Kg\'s Child Hope Center')">
+            <div *ngIf="approvedApplications.length > 0; else noApproved" class="cards space-y-4">
+              <div *ngFor="let app of approvedApplications" (click)="selectApplication(app)">
+              <div class="topCard"  >
                 <div class="orgName">
                   <div class="companyLogo">
                     <div class="adminLogo">
@@ -157,7 +166,7 @@
                   <img width="13" height="13" src="https://img.icons8.com/ios/50/new-post--v1.png" alt="email icon" />
                   </div>
                   <div class="address">
-                  <p>kg&#64;gmail.com</p>
+                  <p>{{app.email}}</p>
                   </div>
                 </div>
                 <div class="number">
@@ -178,6 +187,10 @@
                 </div>
               </div>
             </div>
+            </div>
+            <ng-template #noApproved>
+              <p>No approved applications.</p>
+            </ng-template>
           </div>
           <div *ngIf="activePanel === 'rejected'">
             <div class="topTitle mb-4">
@@ -186,8 +199,9 @@
             </div>
   
             <!-- Application Card -->
-            <div class="cards">
-              <div class="topCard" (click)="selectApplication('Kg\'s Child Hope Center')">
+            <div *ngIf="rejectedApplications.length > 0; else noRejected" class="cards">
+              <div *ngFor="let app of rejectedApplications">
+                <div class="topCard" (click)="selectApplication(app)">
                 <div class="orgName">
                   <div class="companyLogo">
                     <div class="adminLogo">
@@ -208,7 +222,7 @@
                   <img width="13" height="13" src="https://img.icons8.com/ios/50/new-post--v1.png" alt="email icon" />
                   </div>
                   <div class="address">
-                  <p>kg&#64;gmail.com</p>
+                  <p>{{app.email}}</p>
                   </div>
                 </div>
                 <div class="number">
@@ -231,6 +245,8 @@
             </div>
           </div>
         </div>
+        <ng-template #noRejected><p>No rejected applications.</p></ng-template>
+        </div>
   
         <div *ngIf="selectedApplication" class="flex-1 pl-4 right">
    
@@ -238,13 +254,25 @@
             <app-approved [application]="selectedApplication" (close)="closeDetails()"></app-approved>
           </div>
           <div *ngIf="activePanel === 'pending'">
-            <app-pending [application]="selectedApplication" (close)="closeDetails()"></app-pending>
+            <!-- <app-pending [application]="selectApplication" (close)="closeDetails()"></app-pending> -->
+            <app-pending
+            [applications]="applications"
+            [selectedApplication]="selectedApplication"
+            (select)="selectApplication($event)"
+            (close)="closeDetails()"
+            (approved)="onApplicationApproved($event)"
+            (rejected)="onApplicationRejected($event)"
+          ></app-pending>
+          
           </div>
           <div *ngIf="activePanel === 'rejected'">
             <app-rejected [application]="selectedApplication" (close)="closeDetails()"></app-rejected>
           </div>
         </div>
-  
+ 
+        <ng-template #noData>
+          <p>No pending applications.</p>
+        </ng-template>
       </div> <!-- end panel content -->
     </div> <!-- end main flex -->
   </aside>
