@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IndividualService } from '../service/individual-service';
 import { CommonModule } from '@angular/common';
@@ -12,13 +12,15 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./individual-req.css']
 })
 export class IndividualReq implements OnDestroy {
+today: any;
 onDragLeave($event: DragEvent) {
 throw new Error('Method not implemented.');
 }
 
+
   filePreviews: string[] = [];
   isSubmitting = false;
-  individualForm: FormGroup;
+ individualForm!: FormGroup;
   selectedFiles: File[] = [];
 
   constructor(
@@ -26,21 +28,38 @@ throw new Error('Method not implemented.');
     private router: Router,
     private http: HttpClient,
     private individualService: IndividualService
-  ) {
-    this.individualForm = this.fb.group({
-      title: ['', Validators.required],
-      priority: [''],
-      quantity: [1, [Validators.required, Validators.min(1)]],
-      requiredDate: [this.getTodayDate(), Validators.required],
-      description: ['', Validators.required],
-      media: [null]
-    });
+  ) {}
+    ngOnInit() {
+  this.today = new Date().toISOString().split('T')[0];
+
+  this.individualForm = this.fb.group({
+    title: ['', Validators.required],
+   
+    quantity: [1, [Validators.required, Validators.min(1)]],
+    requiredDate: [this.today, [Validators.required, this.minTodayDateValidator.bind(this)]],
+    description: ['', Validators.required],
+    media: [null]
+  });
+
+    }
+
+onDragOver(event: DragEvent): void {
+    event.preventDefault();
   }
 
   getTodayDate(): string {
-    return new Date().toISOString().split('T')[0];
-  }
+  return this.today;
+}
+  
+minTodayDateValidator(control: AbstractControl) {
+  if (!control.value) return null;
+  const selectedDate = new Date(control.value);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return selectedDate < today ? { minDate: true } : null;
+}
 
+  
   onQuantityChange(increment: boolean): void {
     const currentValue = this.individualForm.get('quantity')?.value || 0;
     const newValue = increment ? currentValue + 1 : Math.max(1, currentValue - 1);
@@ -61,10 +80,7 @@ throw new Error('Method not implemented.');
     }
   }
 
-  onDragOver(event: DragEvent): void {
-    event.preventDefault();
-  }
-
+  
   private handleFiles(files: File[]): void {
     this.revokePreviews();
     this.selectedFiles = files;
@@ -77,51 +93,60 @@ throw new Error('Method not implemented.');
   }
 
   onSubmit(): void {
-    if (this.individualForm.invalid) {
-      this.individualForm.markAllAsTouched();
-      return;
+  if (this.individualForm.invalid) {
+    this.individualForm.markAllAsTouched();
+    return;
+  }
+
+  const formData = new FormData();
+
+  // Request object
+  const request = {
+    title: this.individualForm.get('title')?.value,
+    urgency: this.individualForm.get('priority')?.value || '',
+    quantity: Number(this.individualForm.get('quantity')?.value),
+    neededByDate: this.individualForm.get('requiredDate')?.value,
+    description: this.individualForm.get('description')?.value,
+    mediaUrls: ["", ""]
+  };
+
+  formData.append('request', new Blob([JSON.stringify(request)], { type: 'application/json' }));
+
+  this.selectedFiles.forEach(file => {
+    formData.append('mediaFiles', file, file.name); 
+  });
+
+  this.isSubmitting = true;
+
+  this.individualService.post(formData).subscribe({
+    next: () => {
+      this.resetForm();
+      this.isSubmitting = false;
+      this.router.navigate(['/upload-successfully']);
+    },
+    error: (error: any) => {
+      console.error('Error submitting request:', error);
+      alert('Failed to submit individual request: ' + error.message);
+      this.isSubmitting = false;
     }
+  });
+}
 
-    const formData = new FormData();
-    formData.append('title', this.individualForm.get('title')?.value);
-    formData.append('priority', this.individualForm.get('priority')?.value || '');
-    formData.append('quantity', String(this.individualForm.get('quantity')?.value));
-    formData.append('requiredDate', this.individualForm.get('requiredDate')?.value);
-    formData.append('description', this.individualForm.get('description')?.value);
-
-    this.selectedFiles.forEach(file => {
-      formData.append('media', file, file.name); // ✅ matches backend field name
-    });
-
-    this.isSubmitting = true;
-
-    this.individualService.post(formData).subscribe({
-      next: () => {
-        this.resetForm();
-        this.isSubmitting = false;
-        this.router.navigate(['/upload-successfully']);
-      },
-      error: (error: any) => {
-        console.error('Error submitting request:', error);
-        alert('Failed to submit sponsorship request.');
-        this.isSubmitting = false;
-      }
-    });
-  }
-
+   
   private resetForm(): void {
-    this.individualForm.reset({
-      title: '',
-      priority: '',
-      quantity: 1,
-      requiredDate: this.getTodayDate(),
-      description: '',
-      media: null
-    });
-    this.selectedFiles = [];
-    this.revokePreviews();
-  }
+  this.individualForm.reset({
+    title: '',
+    priority: '',
+    quantity: 1,
+    requiredDate: this.getTodayDate(), // <-- works now
+    description: '',
+    media: null
+  });
+  this.selectedFiles = [];
+  this.revokePreviews();
+}
 
+ 
   ngOnDestroy(): void {
     this.revokePreviews();
   }
