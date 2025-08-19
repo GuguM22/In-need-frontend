@@ -65,6 +65,7 @@ export class SignInComponent {
         localStorage.setItem('userEmail', response.email);
         localStorage.setItem('verified', response.verified.toString());
         localStorage.setItem('userId', response.id.toString());
+        localStorage.setItem('userName', response.username);
 
         // Use enum for role checking
         const role = response.role as Role;

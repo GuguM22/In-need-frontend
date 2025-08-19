@@ -3,6 +3,7 @@
 <div class="min-h-screen flex flex-col items-center justify-center bg-white font-sans px-4 pt-6 pb-20">
   <!-- Back Button -->
   
+  <!-- Back Button -->
     <div class="w-full max-w-sm relative mb-2">
       <div class="absolute -left-3 -top-10 flex items-center space-x-2">
         <svg
@@ -17,7 +18,7 @@
           />
         </svg>
         <button
-          type=(click)="goBack()" [routerLink]="'/review-request'"
+          type="button" (click)="goBack()"
           class="text-sm -left-py-3 text-black focus:outline-none"
         >
           Back
@@ -78,6 +79,7 @@
   class="w-8 h-8 mb-5 -ml-40 mb-10"
 />
 
+
         <!-- Dot Menu -->
         <button
           (click)="toggleActionMenu('actionMenu' + i)"
@@ -103,7 +105,12 @@
         >
           Mark Fulfilled
         </button>
-        
+        <!-- <button
+          class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-100"
+          (click)="updatePost(i)"
+        >
+          update
+        </button> -->
       </div>
 
       <!-- Card Title & Description -->

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { VerificationRequest } from '../../../dto/veriificationRequest';
 import { CommonModule } from '@angular/common';
 import { VerificationService } from '../../../service/verification-service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-pending',
@@ -18,7 +19,7 @@ export class PendingComponent {
   @Output() approved = new EventEmitter<VerificationRequest>();
   @Output() rejected = new EventEmitter<VerificationRequest>();
   
-  constructor(private verificationService: VerificationService) {}
+  constructor(private verificationService: VerificationService, private http: HttpClient) {}
 
   // Set the selected application to show detailed view
   selectApplication(app: VerificationRequest): void {
@@ -29,21 +30,6 @@ export class PendingComponent {
     this.close.emit(); // 🔴 This is what notifies the parent!
   }
 
-  downloadDocument(documentId: number, fileName: string) {
-    // Assuming you have a base URL where documents are hosted
-    const baseUrl = 'http://localhost:5050/documents/download/'; // your backend endpoint
-  
-    const url = baseUrl + documentId;
-  
-    // Create an invisible <a> tag, trigger click to download
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = fileName; // Suggest filename to browser
-    // link.target = '_blank'; // open in new tab if browser blocks download
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
 
   approveUser(app: VerificationRequest): void {
     if (!app || !app.userId) {
@@ -84,5 +70,13 @@ export class PendingComponent {
     // Call your service to reject, then emit
     this.rejected.emit(app);
   }
+  
+
+  downloadDocument(fileName: string): void {
+    const url = `http://localhost:5050/api/verify/download/${fileName}`;
+    window.open(url, '_blank');
+  }
+  
+ 
   
 }

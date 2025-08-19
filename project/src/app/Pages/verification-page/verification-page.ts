@@ -127,6 +127,7 @@ onSubmit(): void {
       return;
     }
 
+
     if (this.verificationForm.valid && this.uploadedFiles.length > 0) {
       const rawPhone = this.verificationForm.value.phone;
       const normalizedPhone = this.normalizePhone(rawPhone);
@@ -143,8 +144,18 @@ onSubmit(): void {
 
 private createVerificationRequest() {
   const placeholderUrls = this.uploadedFiles.map(file => `pending-${file.name}`);
-  const email = localStorage.getItem('userEmail');
-  const userId = localStorage.getItem('userId');
+    const email = localStorage.getItem('userEmail');
+    const userId = localStorage.getItem('userId');
+     const username = localStorage.getItem('userName');
+    const verificationRequest: VerificationRequest = {
+      id: 0,
+      phone: this.verificationForm.value.phone,
+      website: this.verificationForm.value.website,
+      documents: placeholderUrls,
+      email: email || '',
+      userId: userId || '',
+      status: 'PENDING',  // add this line
+     username:  username || ''
 
   // Check if required fields are present
   if (!email) {
@@ -158,18 +169,7 @@ private createVerificationRequest() {
     // Handle the error - show message to user
     return;
   }
-
-
-  const verificationRequest: VerificationRequest = {
-    id: 0,
-    phone: this.verificationForm.value.phone,
-    website: this.verificationForm.value.website,
-    documents: placeholderUrls,
-    email: email || '',
-    userId: userId || '',
-    status: 'PENDING'
-  };
-
+  
   this.verificationService.createVerification(verificationRequest).subscribe({
     next: (res) => {
       const verificationId = res.id;

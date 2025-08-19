@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ThankYouComponent } from './thank-you.component';
+import { VerifyEmail } from './verify-email';
 
-describe('ThankYouComponent', () => {
-  let component: ThankYouComponent;
-  let fixture: ComponentFixture<ThankYouComponent>;
+describe('VerifyEmail', () => {
+  let component: VerifyEmail;
+  let fixture: ComponentFixture<VerifyEmail>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ThankYouComponent]
+      imports: [VerifyEmail]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ThankYouComponent);
+    fixture = TestBed.createComponent(VerifyEmail);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -20,5 +20,4 @@ describe('ThankYouComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  
 });

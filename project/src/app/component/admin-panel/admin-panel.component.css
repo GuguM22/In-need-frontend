@@ -487,3 +487,18 @@ border-color: #b0b0b0;
     padding-right: 18px; /* optional for scrollbar spacing */
   }
   
+  .message{
+    opacity: 0.9;
+  }
+
+  .btnModal{
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .canclBtn, .conBtn{
+    margin-right: 10px;
+    border-radius: 12px;
+    width: 100px;
+  }
+
