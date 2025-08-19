@@ -17,7 +17,7 @@
     </div>
     <div class="companyName2">
       <div class="name">
-      <h1>Kg's Child Hope Center</h1>
+        <h1>{{ application.username }}</h1>
       </div>
       <div class="title">
       <p class="title2">Organisation</p>
@@ -44,11 +44,11 @@
   <h1 class="font-semibold mb-2">Contact Information</h1>
   <div class="flex items-center mb-2 email2">
     <img width="22" height="22" src="https://img.icons8.com/ios/50/new-post--v1.png" />
-    <p class="ml-2 emailP">{{ selectedApplication?.email }}</p>
+    <p class="ml-2 emailP">{{ application.email }}</p>
   </div>
   <div class="flex items-center number2">
     <img width="22" height="22" src="https://img.icons8.com/ios/50/phone--v1.png" />
-    <p class="ml-2">{{ selectedApplication?.phone }}</p>
+    <p class="ml-2">{{ application.phone }}</p>
   </div>
 </div>
 
@@ -59,9 +59,9 @@
   <!-- Each document -->
   <div class="cipc2 flex items-center mb-3">
     <img width="22" height="22" src="https://img.icons8.com/ios/50/doc.png" />
-    <p class="ml-2 flex-1 text">{{ selectedApplication?.documents }}</p>
+    <p class="ml-2 flex-1 text">{{ application.documents }}</p>
     <div class="download2">
-        <button class="pdfDownload2">
+        <!-- <button class="pdfDownload2">
             <div class="btnHolder flex items-center">
                 <div class="btnImg">
           <img width="13" height="13" src="https://img.icons8.com/ios/50/download.png" />
@@ -70,7 +70,20 @@
           <p class="ml-1 btnP">Download</p>
           </div>
           </div>
-        </button>
+        </button> -->
+        <div *ngFor="let doc of application.documents">
+          <!-- <p>{{ doc  }}</p> -->
+          <button class="pdfDownload2">
+              <div class="btnHolder flex items-center">
+                  <div class="btnImg">
+            <img width="13" height="13" src="https://img.icons8.com/ios/50/download.png" />
+            </div>
+            <div class="btnText">
+            <p class="ml-1 btnP cursor-pointer" (click)="downloadDocument(doc)">Download</p>
+            </div>
+            </div>
+          </button>
+          </div>
   </div>
   </div>
 

@@ -17,7 +17,7 @@
     </div>
     <div class="companyName2">
       <div class="name">
-      <h1>Kg's Child Hope Center</h1>
+      <h1>{{ application.username }}</h1>
       </div>
       <div class="title">
       <p class="title2">Organisation</p>
@@ -61,7 +61,8 @@
     <img width="22" height="22" src="https://img.icons8.com/ios/50/doc.png" />
     <p class="ml-2 flex-1 text">{{ application?.documents }}</p>
     <div class="download2">
-        <button class="pdfDownload2">
+      <!-- <div *ngFor="let doc of application?.documents" class="cipc2 flex items-center mb-3">
+        <button class="pdfDownload2" (click)="downloadDocument(doc)">
             <div class="btnHolder flex items-center">
                 <div class="btnImg">
           <img width="13" height="13" src="https://img.icons8.com/ios/50/download.png" />
@@ -69,8 +70,24 @@
           <div class="btnText">
           <p class="ml-1 btnP">Download</p>
           </div>
+      
+          
           </div>
         </button>
+        </div> -->
+        <div *ngFor="let doc of application.documents">
+          <!-- <p>{{ doc  }}</p> -->
+          <button class="pdfDownload2">
+              <div class="btnHolder flex items-center">
+                  <div class="btnImg">
+            <img width="13" height="13" src="https://img.icons8.com/ios/50/download.png" />
+            </div>
+            <div class="btnText">
+            <p class="ml-1 btnP cursor-pointer" (click)="downloadDocument(doc)">Download</p>
+            </div>
+            </div>
+          </button>
+          </div>
   </div>
   </div>
 

@@ -1,8 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-approved',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './approved.component.html',
   styleUrl: './approved.component.css'
 })
@@ -23,4 +24,10 @@ export class ApprovedComponent {
   closeDetails(): void {
     this.close.emit();  
   }
+  downloadDocument(fileName: string): void {
+    const url = `http://localhost:5050/api/verify/download/${fileName}`;
+    window.open(url, '_blank');
+  }
+  
+  
 }
