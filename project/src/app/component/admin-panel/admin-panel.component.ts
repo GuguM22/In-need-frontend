@@ -20,6 +20,10 @@ export class AdminPanelComponent {
   pendingApplications: VerificationRequest[] = [];
   approvedApplications: VerificationRequest[] = [];
   rejectedApplications: VerificationRequest[] = [];
+  showConfirmModal = false;
+  modalTitle = '';
+  modalMessage = '';
+  modalAction: (() => void) | null = null;
 
 selectedApplication: VerificationRequest | null = null;
 
@@ -84,33 +88,92 @@ selectedApplication: VerificationRequest | null = null;
     }
 
 
-    onApplicationApproved(app: VerificationRequest) {
-      this.verificationService.updateStatus(app.id, 'APPROVED').subscribe({
-        next: () => {
-          app.status = 'APPROVED'; // Update local object
-          this.pendingApplications = this.pendingApplications.filter(a => a.id !== app.id);
-          this.approvedApplications.push(app);
-          this.selectedApplication = null;
-          this.activePanel = 'approved';
-        },
-        error: (err) => {
-          console.error('Error approving application:', err);
-          // Optionally show a user-facing error message
-        }
-      });
+    // onApplicationApproved(app: VerificationRequest) {
+    //   this.verificationService.updateStatus(app.id, 'APPROVED').subscribe({
+    //     next: () => {
+    //       app.status = 'APPROVED'; // Update local object
+    //       this.pendingApplications = this.pendingApplications.filter(a => a.id !== app.id);
+    //       this.approvedApplications.push(app);
+    //       this.selectedApplication = null;
+    //       this.activePanel = 'approved';
+    //     },
+    //     error: (err) => {
+    //       console.error('Error approving application:', err);
+    //     }
+    //   });
+    // }
+    
+    
+    // onApplicationRejected(app: VerificationRequest) {
+    //   this.verificationService.updateStatus(app.id, 'REJECTED').subscribe(() => {
+    //     app.status = 'REJECTED';
+    //     this.pendingApplications = this.pendingApplications.filter(a => a.id !== app.id);
+    //     this.rejectedApplications.push(app);
+    //     this.selectedApplication = null;
+    //     this.activePanel = 'rejected';
+    //   });
+    // }
+    
+    openConfirmModal(title: string, message: string, action: () => void) {
+      this.modalTitle = title;
+      this.modalMessage = message;
+      this.modalAction = action;
+      this.showConfirmModal = true;
     }
     
+    // Confirm/cancel modal
+    confirmModalAction() {
+      if (this.modalAction) {
+        this.modalAction();
+      }
+      this.showConfirmModal = false;
+    }
+    
+    cancelModal() {
+      this.showConfirmModal = false;
+    }
+
+    onApplicationApproved(app: VerificationRequest) {
+      this.openConfirmModal(
+        'Approve Application',
+        'Are you sure you want to approve this application?',
+        () => {
+          this.verificationService.updateStatus(app.id, 'APPROVED').subscribe({
+            next: () => {
+              app.status = 'APPROVED';
+              this.pendingApplications = this.pendingApplications.filter(a => a.id !== app.id);
+              this.approvedApplications.push(app);
+              this.selectedApplication = null;
+              this.activePanel = 'approved';
+            },
+            error: (err) => {
+              console.error('Error approving application:', err);
+            }
+          });
+        }
+      );
+    }
     
     onApplicationRejected(app: VerificationRequest) {
-      this.verificationService.updateStatus(app.id, 'REJECTED').subscribe(() => {
-        app.status = 'REJECTED';
-        this.pendingApplications = this.pendingApplications.filter(a => a.id !== app.id);
-        this.rejectedApplications.push(app);
-        this.selectedApplication = null;
-        this.activePanel = 'rejected';
-      });
+      this.openConfirmModal(
+        'Reject Application',
+        'Are you sure you want to reject this application?',
+        () => {
+          this.verificationService.updateStatus(app.id, 'REJECTED').subscribe({
+            next: () => {
+              app.status = 'REJECTED';
+              this.pendingApplications = this.pendingApplications.filter(a => a.id !== app.id);
+              this.rejectedApplications.push(app);
+              this.selectedApplication = null;
+              this.activePanel = 'rejected';
+            },
+            error: (err) => {
+              console.error('Error rejecting application:', err);
+            }
+          });
+        }
+      );
     }
     
-  
  
 }
