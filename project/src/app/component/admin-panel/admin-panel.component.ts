@@ -5,10 +5,14 @@ import { ApprovedComponent } from './approved/approved.component';
 import { RejectedComponent } from './rejected/rejected.component';
 import { VerificationRequest, VerificationResponse } from '../../dto/veriificationRequest';
 import { VerificationService } from '../../service/verification-service';
+import { Router } from '@angular/router';
+import { Services } from '../../service/services';
+import { FooterComponent } from '../../ui/footer/footer';
+import { Logout } from '../logout/logout';
 
 @Component({
   selector: 'app-admin-panel',
-  imports: [CommonModule, PendingComponent, ApprovedComponent, RejectedComponent],
+  imports: [CommonModule, PendingComponent, ApprovedComponent, RejectedComponent, Logout],
   templateUrl: './admin-panel.component.html',
   styleUrl: './admin-panel.component.css'
 })
@@ -24,6 +28,8 @@ export class AdminPanelComponent {
   modalTitle = '';
   modalMessage = '';
   modalAction: (() => void) | null = null;
+  showLogoutModal = false;
+  toggle = true; // For sidebar toggle
 
 selectedApplication: VerificationRequest | null = null;
 
@@ -31,7 +37,7 @@ selectedApplication: VerificationRequest | null = null;
   activePanel: 'pending' | 'approved' | 'rejected' | null = 'pending'; // default to pending
 
 
-  constructor(private verificationService: VerificationService) {}
+  constructor(private verificationService: VerificationService, private router: Router, private userService: Services) {}
 
 
   ngOnInit(): void {
@@ -180,5 +186,27 @@ selectedApplication: VerificationRequest | null = null;
       );
     }
     
+
+    openLogoutModal() {
+      this.toggle = false; 
+     this.showLogoutModal = true;
+   }
+ 
+   closeLogoutModal() {
+     this.showLogoutModal = false;
+   }
+ 
+   confirmLogout() {
+     this.userService.logout().subscribe({
+       next: () => {
+         this.showLogoutModal = false;
+         this.router.navigate(['/sign-in']);
+       },
+       error: (err) => {
+         console.error('Logout failed:', err);
+         this.router.navigate(['/sign-in']);
+       },
+     });
+   }
  
 }
