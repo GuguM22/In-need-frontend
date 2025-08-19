@@ -74,6 +74,7 @@
         <!-- Food Donations -->
         <label
           class="block border rounded-xl p-4 flex items-center gap-4 cursor-pointer hover:shadow-md transition types"
+          (click)="selectType('food')"
         >
           <img
             src="https://i.pinimg.com/736x/cf/b1/aa/cfb1aa51b9d84c308f0ed811ff4d371e.jpg"
@@ -97,6 +98,7 @@
         <!-- Item Donations -->
         <label
           class="block border rounded-xl p-4 flex items-center gap-4 cursor-pointer hover:shadow-md transition types"
+          (click)="selectType('item')"
         >
           <img
             src="https://i.pinimg.com/736x/86/0a/a0/860aa0fffb5c0f48b61574f355ec217e.jpg"
@@ -121,6 +123,7 @@
         <!-- Service Donations -->
         <label
           class="block border rounded-xl p-4 flex items-center gap-4 cursor-pointer hover:shadow-md transition types"
+          (click)="selectType('service')"
         >
           <img
             src="https://i.pinimg.com/1200x/33/27/f1/3327f18b64752e73e5bbdaa773a16c9c.jpg"
@@ -181,7 +184,7 @@
       </button>
       <button
         id="nextBtn"
-        (click)="goNext()" [routerLink]="'/req'"
+        (click)="goNext()"
         
         class="px-6 py-2 bg-[#5B8E7D] text-white font-[800] rounded-lg hover:bg-emerald-700 transition"
       >
