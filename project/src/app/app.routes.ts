@@ -92,6 +92,7 @@ export const routes: Routes = [
   {path: 'individual-request', component: IndividualReq},
  
   {path:'individual-dashboard', component: IndividualDasboardComponent},
-  {path:'manage-sponsor-individual',component: ManageSponsorIndividualComponent}
+  {path:'manage-sponsor-individual',component: ManageSponsorIndividualComponent},
+  {path:'thanks', component: ThankYouComponent}
   
 ];

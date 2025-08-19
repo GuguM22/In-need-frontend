@@ -25,9 +25,14 @@ export class DonationRequest {
       notes: ['']
     });
   }
-goNext() {
-this.router.navigate(['/freq'])
-}
+  goNext() {
+    if (this.sponsorshipForm.valid) {
+      localStorage.setItem("donationRequest", JSON.stringify(this.sponsorshipForm.value))
+    } else {
+      this.sponsorshipForm.markAllAsTouched();
+    }
+    this.router.navigate(['/freq'])
+  }
   // Custom validator for future dates
   futureDateValidator(control: any) {
     const selectedDate = new Date(control.value);
