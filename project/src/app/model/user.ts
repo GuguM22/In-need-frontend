@@ -7,6 +7,4 @@ export interface User {
   password: string;
   username: string;
   role: Role;
-  verified: boolean;
-
 }

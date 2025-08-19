@@ -21,8 +21,6 @@ import { SponsorDasboardComponent } from './component/sponsor-dasboard/sponsor-d
 import { ResetPassword } from './component/reset-password/reset-password';
 import { AdminPanelComponent } from './component/admin-panel/admin-panel.component';
 import { DonationReviewComponent } from './component/donation-review/donation-review.component';
-import { ReviewRequest } from './Pages/review-request/review-request';
-
 import { OrganisationDashboardComponent } from './component/organisation-dashboard/organisation-dashboard.component';
 
 import { ManageSponsorComponent } from './page/manage-sponsor/manage-sponsor.component';
@@ -36,6 +34,7 @@ import { DonationRequest } from './donation-request/donation-request';
 import { IndividualDasboardComponent } from './component/individual-dasboard/individual-dasboard.component';
 
 import { IndividualReq } from './individual-req/individual-req';
+import { ReviewRequest } from './Pages/review-request/review-request';
 
 
 
@@ -53,11 +52,6 @@ export const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
   { path: 'verify-email', component: VerifyEmail },
-
-   {path: 'sponsor-dashboard', component: SponsorDasboardComponent},
-   {path: 'verification-page', component: VerificationPage},
-   {path: 'review-request', component: ReviewRequest},
-
 
   {path: 'sponsor-dashboard', component: SponsorDasboardComponent},
 
@@ -94,8 +88,7 @@ export const routes: Routes = [
   {path: 'upload-successfully', component: UploadSuccessfullyComponent},
   
   {path: 'individual-request', component: IndividualReq},
- 
+ {path: 'review-request', component: ReviewRequest},
   {path:'individual-dashboard', component: IndividualDasboardComponent}
-
-  
+ 
 ];

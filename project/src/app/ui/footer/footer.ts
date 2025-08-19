@@ -12,28 +12,5 @@ import { Navbar } from '../navbar/navbar';
 })
 export class FooterComponent {
   
-  dashboardRoute: string = '/'; // default fallback
-
-  ngOnInit(): void {
-    const role = localStorage.getItem('userRole');
-
-    switch (role) {
-      case 'SPONSORS':
-        this.dashboardRoute = '/sponsor-dashboard';
-        break;
-      case 'ORGANIZATION':
-        this.dashboardRoute = '/organization-dashboard';
-        break;
-      case 'INDIVIDUAL':
-        this.dashboardRoute = '/individual-dashboard';
-        break;
-      case 'ADMIN':
-        this.dashboardRoute = '/admin';
-        break;
-      default:
-        this.dashboardRoute = '/individual-dashboard';
-        break;
-    }
-  }
 
 }

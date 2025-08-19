@@ -12,8 +12,6 @@
       <aside class="w-64 shadow-xl border-r border-gray-300 side3">
         <div class="panelHeading p-4">
           <h1 class="text-xl font-bold">Admin Panel</h1>
-          <p>Logged in as: <strong>{{ userEmail }}</strong></p>
-
           <div class="desc text-sm text-gray-500">
             <p>Vetting and verification</p>
           </div>
@@ -246,22 +244,8 @@
             <app-rejected [application]="selectedApplication" (close)="closeDetails()"></app-rejected>
           </div>
         </div>
-        <div *ngIf="applications.length; else noData">
-          <div *ngFor="let app of applications">
-            <p>Phone: {{ app.email }}</p>
-            <p>Documents: {{ app.documents }}</p>
-          
-          
-            <!-- Add more fields and details -->
-          </div>
-        </div>
-        <ng-template #noData>
-          <p>No pending applications.</p>
-        </ng-template>
+  
       </div> <!-- end panel content -->
     </div> <!-- end main flex -->
-
- 
-    
   </aside>
   

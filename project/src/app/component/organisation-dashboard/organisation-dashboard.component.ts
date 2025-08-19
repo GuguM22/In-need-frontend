@@ -16,8 +16,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class OrganisationDashboardComponent {
  requests: SponsorRequest[] =[]
- isVerified: boolean = false;
- showVerificationAlert: boolean = false;
+
  request: SponsorRequest = {
     title: '',
     priority: '',
@@ -33,16 +32,10 @@ export class OrganisationDashboardComponent {
   itemsPerPage: number = 3;
 
   ngOnInit():void {
-  this.isVerified = localStorage.getItem('verified') === 'true';
   this.loadRequests();
   }
   navigateToSponsorRequest() {
-    if (this.isVerified) {
-      this.router.navigate(['sponsor-request']); // ✅ navigate only if verified
-    } else {
-      this.showVerificationAlert = true; // show alert if not verified
-      setTimeout(() => this.showVerificationAlert = false, 7000); // optional: hide after 5s
-    }
+    this.router.navigate(['sponsor-request']);
   }
 
   loadRequests():void {
@@ -152,8 +145,4 @@ onClickOutside(event: MouseEvent): void {
     this.showFilterDropdown = false;
   }
 }
-goToVerification(): void {
-  this.router.navigate(['/verification']);
-}
-
 }

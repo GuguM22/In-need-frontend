@@ -54,17 +54,22 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <label for="date" class="form-label">Required By Date</label>
-        <div class="date-input-wrapper">
-          <input 
-            type="date" 
-            id="date" 
-            formControlName="requiredDate" 
-            class="form-input date-input"
-            [class.error]="sponsorshipForm.get('requiredDate')?.invalid && sponsorshipForm.get('requiredDate')?.touched">
-        </div>
-      </div>
+     <div class="form-group">
+  <label for="date" class="form-label">Required By Date</label>
+  <input 
+    type="date" 
+    id="date" 
+    formControlName="requiredDate" 
+    class="form-input date-input"
+    [class.error]="sponsorshipForm.get('requiredDate')?.invalid && sponsorshipForm.get('requiredDate')?.touched"
+       style="color: red;">
+  />
+  <div class="error-message" *ngIf="sponsorshipForm.get('requiredDate')?.hasError('pastDate') && sponsorshipForm.get('requiredDate')?.touched">
+    Date cannot be in the past.
+  </div>
+</div>
+
+
 
       <div class="form-group">
         <label for="description" class="form-label">Description *</label>
@@ -144,6 +149,7 @@
   <button
     type="submit"
     class="submit-btn"
+      style="margin-top: 1.5rem;"
     [disabled]="isSubmitting">
     {{ isSubmitting ? 'Submitting...' : 'Submit Request' }}
   </button>
