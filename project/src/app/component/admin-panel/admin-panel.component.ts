@@ -41,11 +41,16 @@ selectedApplication: VerificationRequest | null = null;
     // Get pending
     this.verificationService.getVerifications('PENDING').subscribe({
       next: (data) => {
-        this.pendingApplications = data;
-        console.log('Pending:', data);
-      },
-      error: (err) => console.error('Error fetching pending verifications', err),
+        // Convert submittedDate strings to Date objects
+        this.pendingApplications = data;  // no conversion
+
+
+    this.pendingApplications.forEach(app => {
+      console.log('Pending submittedDate as Date:', app.submittedDate, typeof app.submittedDate);
     });
+  },
+  error: (err) => console.error('Error fetching pending verifications', err),
+});
   
     // Get approved
     this.verificationService.getVerifications('APPROVED').subscribe({

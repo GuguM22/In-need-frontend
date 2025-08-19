@@ -31,7 +31,7 @@
             </div>
             </div>
             <div class="notification">
-              <button class="pendingNoti">1</button>
+              <button class="pendingNoti">{{ pendingApplications.length }}</button>
             </div>
             </div>
             </li>
@@ -48,7 +48,7 @@
               </div>
               </div>
               <div class="notification">
-                <button class="approvedNoti">1</button>
+                <button class="approvedNoti">{{ approvedApplications.length }}</button>
               </div>
               </div>
               </li>
@@ -65,7 +65,7 @@
           </div>
           </div>
           <div class="notification">
-            <button class="rejectedNoti">1</button>
+            <button class="rejectedNoti">{{ rejectedApplications.length }}</button>
           </div>
           </div>
           </li>
@@ -80,7 +80,7 @@
           <div *ngIf="activePanel === 'pending'">
             <div class="topTitle mb-4">
               <h2 class="text-lg font-semibold title">Pending Applications</h2>
-              <p class="text-sm text-gray-600">3 Applications</p>
+              <p class="text-sm text-gray-600">{{ pendingApplications.length }} Applications</p>
               <!-- <p class="text-sm text-gray-600">{{ pendingApplications.length }} Applications</p> -->
             </div>
   
@@ -127,7 +127,7 @@
                   <img width="13" height="13" src="https://img.icons8.com/ios/50/overtime--v1.png" alt="time icon" />
                  </div>
                  <div class="timestamp">
-                  <p>Submitted on 15/04/2025</p>
+                   <p>Submitted on {{ app.submittedDate | date: 'dd/MM/yyyy' }}</p>
                   </div>
                 </div>
               </div>
@@ -139,7 +139,7 @@
           <div *ngIf="activePanel === 'approved'">
             <div class="topTitle mb-4">
               <h2 class="text-lg font-semibold title">Approved Applications</h2>
-              <p class="text-sm text-gray-600">3 Applications</p>
+              <p class="text-sm text-gray-600">{{ approvedApplications.length }} Applications</p>
             </div>
   
             <!-- Application Card -->
@@ -182,8 +182,8 @@
                   <img width="13" height="13" src="https://img.icons8.com/ios/50/overtime--v1.png" alt="time icon" />
                  </div>
                  <div class="timestamp">
-                  <p>Submitted on 15/04/2025</p>
-                  </div>
+                  <p>Submitted on {{ app.submittedDate | date: 'dd/MM/yyyy' }}</p>
+                </div>
                 </div>
               </div>
             </div>
@@ -195,7 +195,7 @@
           <div *ngIf="activePanel === 'rejected'">
             <div class="topTitle mb-4">
               <h2 class="text-lg font-semibold title">Rejected Applications</h2>
-              <p class="text-sm text-gray-600">3 Applications</p>
+              <p class="text-sm text-gray-600">{{ rejectedApplications.length }} Applications</p>
             </div>
   
             <!-- Application Card -->
@@ -238,7 +238,7 @@
                   <img width="13" height="13" src="https://img.icons8.com/ios/50/overtime--v1.png" alt="time icon" />
                  </div>
                  <div class="timestamp">
-                  <p>Submitted on 15/04/2025</p>
+                  <p>Submitted on {{ app.submittedDate | date: 'dd/MM/yyyy' }}</p>
                   </div>
                 </div>
               </div>

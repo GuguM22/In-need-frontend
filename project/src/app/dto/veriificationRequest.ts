@@ -14,6 +14,7 @@ export interface VerificationRequest{
     verified?: boolean;
     status?: 'PENDING' | 'APPROVED' | 'REJECTED'; 
     username: string;
+    submittedDate?: string;
 }
 
 
@@ -26,4 +27,5 @@ export interface VerificationResponse {
     status: string;
     userEmail: string;  // for displaying in UI
     userId: string;
+    submittedDate?: string;
 }
