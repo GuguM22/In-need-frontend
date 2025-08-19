@@ -13,6 +13,7 @@ export interface VerificationRequest{
     userId: string;
     verified?: boolean;
     status?: 'PENDING' | 'APPROVED' | 'REJECTED'; 
+    username: string;
 }
 
 
