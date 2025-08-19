@@ -6,7 +6,7 @@ import { VerifyEmail } from './component/verify-email/verify-email';
 import { SponsorRequest, SponsorRequestComponent } from './Pages/sponsor-request/sponsor-request';
 import { Fequency } from './component/fequency/fequency';
 import { OptionsComponent } from './Pages/options/options.component';
-
+import { NavbarComponent } from "./ui/navbar/navbar";
 
 
 import { UploadSuccessfullyComponent } from './Pages/upload-successfully/upload-successfully.component';
@@ -44,12 +44,12 @@ import { IndividualReq } from './individual-req/individual-req';
 
 
 
-
 export const routes: Routes = [
   { path: '', redirectTo: 'Landing', pathMatch: 'full' },
 
 
   { path: 'Landing', component: LandingComponent },
+   {path: ' Navbar', component: NavbarComponent },
   {path: 'options', component:OptionsComponent},
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },

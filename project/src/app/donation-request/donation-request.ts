@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterModule } from '@angular/router';
-import { Navbar } from "../ui/navbar/navbar";
+import {  NavbarComponent } from "../ui/navbar/navbar";
 import { FooterComponent } from "../ui/footer/footer";
 
 @Component({
   selector: 'app-donation-request',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, Navbar, FooterComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule,  FooterComponent, NavbarComponent],
   templateUrl: './donation-request.html',
   styleUrls: ['./donation-request.css']
 })
