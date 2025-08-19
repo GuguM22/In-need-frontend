@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms'; // Add this import
 import { Fequency } from './fequency';
-import { Navbar } from "../../ui/navbar/navbar";
+import { NavbarComponent } from "../../ui/navbar/navbar";
 import { FooterComponent } from "../../ui/footer/footer";
 
 describe('Fequency', () => {
@@ -13,7 +13,7 @@ describe('Fequency', () => {
       imports: [
         FormsModule, // Add FormsModule here
         Fequency,    // This is your standalone component
-        Navbar,      // Import its dependencies
+        NavbarComponent,      // Import its dependencies
         FooterComponent
       ]
     })
