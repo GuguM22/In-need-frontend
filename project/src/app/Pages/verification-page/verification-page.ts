@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Navbar } from "../../ui/navbar/navbar";
+import { NavbarComponent } from "../../ui/navbar/navbar";
 import { Sidebar } from "../../ui/sidebar/sidebar";
 import { FooterComponent } from "../../ui/footer/footer";
 import { VerificationRequest } from '../../dto/veriificationRequest';
@@ -12,7 +12,7 @@ import { VerificationService } from '../../service/verification-service';
 @Component({
   selector: 'app-verification-page',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, NavbarComponent, FooterComponent],
   templateUrl: './verification-page.html',
   styleUrls: ['./verification-page.css'],
 })
@@ -64,7 +64,7 @@ export class VerificationPage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.verificationService.isVerified().subscribe({
+   /* this.verificationService.isVerified().subscribe({
     next: (verified: boolean) => {
       if (verified) {
         
@@ -74,7 +74,7 @@ export class VerificationPage implements OnInit {
     error: (err) => {
       console.error('Error checking verification:', err);
     }
-  });
+  });*/
    }
 
   goBack() {
@@ -105,11 +105,31 @@ onFileChange(event: Event): void {
 
 onSubmit(): void {
   if (this.verificationForm.valid && this.uploadedFiles.length > 0) {
+
     const rawPhone = this.verificationForm.value.phone;
     const normalizedPhone = this.normalizePhone(rawPhone);
     this.phone = rawPhone;
 
-    this.verificationService.phoneExists(normalizedPhone).subscribe({
+    // Step 1: Create verification with placeholder document URLs
+    const placeholderUrls = this.uploadedFiles.map(file => `pending-${file.name}`);
+
+    const email = localStorage.getItem('userEmail');
+    const userId = localStorage.getItem('userId');
+
+    const verificationRequest: VerificationRequest = {
+      id: 0,
+      phone: this.verificationForm.value.phone,
+      website: this.verificationForm.value.website,
+      documents: placeholderUrls,
+      email: email || '',
+      userId: userId || '',
+      status: 'PENDING',  // add this line
+
+
+    };
+
+
+   /* this.verificationService.phoneExists(normalizedPhone).subscribe({
       next: (exists: boolean) => {
         if (exists) {
           this.showPhoneNomberExistModal = true;
@@ -127,7 +147,8 @@ onSubmit(): void {
     if (this.uploadedFiles.length === 0) {
       this.showErrorMessage = true;
     }
-  }
+  }*/
+}
 }
 
 private createVerificationRequest() {
@@ -136,7 +157,10 @@ private createVerificationRequest() {
   const verificationRequest: VerificationRequest = {
     phone: this.verificationForm.value.phone,
     website: this.verificationForm.value.website,
-    documents: placeholderUrls
+    documents: placeholderUrls,
+    id: 0,
+    email: '',
+    userId: ''
   };
 
   this.verificationService.createVerification(verificationRequest).subscribe({

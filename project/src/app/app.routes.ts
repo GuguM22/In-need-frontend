@@ -23,12 +23,15 @@ import { AdminPanelComponent } from './component/admin-panel/admin-panel.compone
 import { DonationReviewComponent } from './component/donation-review/donation-review.component';
 import { OrganisationDashboardComponent } from './component/organisation-dashboard/organisation-dashboard.component';
 
+
+
+
+
 import { ManageSponsorComponent } from './page/manage-sponsor/manage-sponsor.component';
 
 import { Logout } from './component/logout/logout';
 import { ProfilepageComponent } from './component/profilepage/profilepage';
 
-import { Navbar } from './ui/navbar/navbar';
 import { AskUploading } from './Pages/ask-uploading/ask-uploading';
 import { DonationRequest } from './donation-request/donation-request';
 import { IndividualDasboardComponent } from './component/individual-dasboard/individual-dasboard.component';
@@ -54,8 +57,10 @@ export const routes: Routes = [
 
 
  
+
   { path: 'forgot-password', component: ForgotPassword },
   { path: 'auth/reset-password', component: ResetPassword },
+
 
 
  { path: 'organization-dashboard', component: OrganisationDashboardComponent },
@@ -78,9 +83,8 @@ export const routes: Routes = [
   {path: 'logout', component: Logout},
   {path:'ask-uploading', component:AskUploading},
   {path:'verification', component: VerificationPage},
-  {
-  path:'upload-succesfully', component: UploadSuccessfullyComponent},
- 
+  {path: 'upload-successfully', component: UploadSuccessfullyComponent},
+  
   {path: 'individual-request', component: IndividualReq},
  
   {path:'individual-dashboard', component: IndividualDasboardComponent}

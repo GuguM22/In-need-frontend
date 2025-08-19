@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { Location } from '@angular/common';
 import { RouterModule } from '@angular/router'; // ✅ Needed for routerLink
 import { FooterComponent } from "../../ui/footer/footer";
-import { Navbar } from "../../ui/navbar/navbar";
 import { Services } from '../../service/services';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Donation } from '../../service/donation';
@@ -17,6 +16,7 @@ import { Role } from '../../constant/role';
     CommonModule,
     FormsModule,
     RouterModule,
+   
 ],
   providers: [Services],
   templateUrl: './profilepage.html',
@@ -27,60 +27,50 @@ export class ProfilepageComponent implements OnInit {
   uploading = false;
   isSponsor = false;
 
-  role = Role.SPONSORS;
+  role = Role.SPONSORS || Role.INDIVIDUAL;
 
 
   constructor(private location: Location, private service: Services) {}
 
 ngOnInit() {
-  this.service.profile().subscribe((data: any) => {
-   /* console.log('Full profile data:', data);
-    console.log('User role:', data.role);
-    console.log('SPONSORS role constant:', this.role); */
+  this.service.profile().subscribe({
+    next: (data: any) => {
+      this.name = data.name || '';
+      this.email = data.email || '';
+      this.bio = data.bio || '';
+      
+      // Handle phone number based on role
+      this.isSponsor = data.role?.toUpperCase() === Role.SPONSORS || data.role?.toUpperCase() === Role.INDIVIDUAL;
+      this.phone = this.isSponsor ? 'Not applicable' : (data.phone || 'Not verified yet');
+      
+      // Handle location
+      if (data.location) {
+        this.Location = [data.location.city, data.location.province]
+          .filter(Boolean).join(', ');
+      }
 
-    this.name = this.capitalizeFirstLetter(data.name);
-    this.email = this.capitalizeFirstLetter(data.email);
-    this.bio = data.bio;
-
-  
-    this.isSponsor = data.role?.toUpperCase() === this.role?.toUpperCase();
-    console.log('Is sponsor:', this.isSponsor); 
-  
-    if (this.isSponsor) {
-  // Show sponsor organisation phone if available
-  this.phone = data.phone ? data.phone : 'Not applicable';
-  this.editPhone = data.phone || '';
-} else {
-  if (data.phone) {
-    // If you have a verification flag in your backend (example: data.phoneVerified)
-    if (data.phoneVerified) {
-      this.phone = data.phone;
-    } else {
-      this.phone = 'Not verified yet';
-    }
-    this.editPhone = data.phone;
-  } else {
-    this.phone = 'No phone provided';
-    this.editPhone = '';
-  }
+      // Load profile image if available
+      if (data.profileImagePath) {
+        this.loadProfileImage(data.profileImagePath);
+      }
+    },
+    error: (err) => console.error('Failed to load profile', err)
+  });
 }
 
-    console.log('Phone display:', this.phone); 
-
-    if (data.location) {
-      this.Location = this.capitalizeFirstLetter(data.location.city) + ', ' +
-                     this.capitalizeFirstLetter(data.location.province);
-    }
-
-    if (data.profileImagePath) {
-      this.service.getProfileImage(data.profileImagePath).subscribe({
-        next: (blob) => {
-          this.profileImageUrl = URL.createObjectURL(blob);
-        },
-        error: (err) => {
-          console.error('Failed to load profile image:', err);
-        }
-      });
+private loadProfileImage(imagePath: string) {
+  this.service.getProfileImage(imagePath).subscribe({
+    next: (blob) => {
+      if (blob.size > 0) {
+        this.profileImageUrl = URL.createObjectURL(blob);
+      } else {
+        // Set default image if blob is empty
+        this.profileImageUrl = 'assets/default-profile.png';
+      }
+    },
+    error: (err) => {
+      console.error('Image load error:', err);
+      this.profileImageUrl = 'assets/default-profile.png';
     }
   });
 }
@@ -102,12 +92,11 @@ ngOnInit() {
   cipcFile: any;
   founderIdFile: any;
   additionalFile: any;
-
-  toggleEdit() {
+toggleEdit() {
   if (this.isEditing) {
-    // Save changes to backend
     const updateData = {
       bio: this.editBio,
+      phone: this.editPhone, // ✅ Include phone number
       location: {
         city: this.editLocation.split(',')[0]?.trim() || '',
         province: this.editLocation.split(',')[1]?.trim() || ''
@@ -117,10 +106,9 @@ ngOnInit() {
     this.service.updateProfile(updateData).subscribe({
       next: (res) => {
         console.log('Profile updated:', res);
-        // Update local view after successful save
         this.name = this.editName;
         this.email = this.editEmail;
-        this.phone = this.editPhone;
+        this.phone = this.editPhone; // ✅ Update local phone
         this.bio = this.editBio;
         this.Location = this.editLocation;
       },
@@ -132,11 +120,10 @@ ngOnInit() {
   } else {
     this.editName = this.name;
     this.editEmail = this.email;
-    this.editPhone = this.phone;
+    this.editPhone = this.phone; // ✅ Initialize phone
     this.editBio = this.bio;
     this.editLocation = this.Location;
   }
-
   this.isEditing = !this.isEditing;
 }
 
@@ -164,18 +151,21 @@ private capitalizeFirstLetter(str: string): string {
   }
 }
 uploadImage(file: File) {
+  this.uploading = true;
+  
   this.service.uploadProfile(file).subscribe({
     next: (response: HttpResponse<any>) => {
-      console.log('Full response:', response);
-      if (response.status === 200) {
-        console.log('Upload successful!', response.body);
-
-        this.profileImageUrl = `${this.service.baseUrl}${response.body.filePath}`;
-       
+      if (response.status === 200 && response.body?.filePath) {
+        // Refresh the image
+        this.service.getProfileImage(response.body.filePath).subscribe(blob => {
+          this.profileImageUrl = URL.createObjectURL(blob);
+        });
       }
+      this.uploading = false;
     },
     error: (error) => {
       console.error('Upload failed:', error);
+      this.uploading = false;
       this.showError(error.message || 'Failed to upload image');
     }
   });

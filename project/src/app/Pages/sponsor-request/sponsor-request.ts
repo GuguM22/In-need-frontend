@@ -4,8 +4,9 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
-import { Navbar } from "../../ui/navbar/navbar";
 import { FooterComponent } from "../../ui/footer/footer";
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+
 
 // TypeScript interface matching your backend DTO (except media URLs are backend-only)
 export interface SponsorRequest {
@@ -15,6 +16,16 @@ export interface SponsorRequest {
   requiredDate: string; // ISO date string e.g. "2025-08-12"
   description: string;
   mediaUrls?: File[];
+}
+
+export function futureDateValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (!control.value) return null; // Required validator handles empty
+    const selectedDate = new Date(control.value);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return selectedDate >= today ? null : { pastDate: true };
+  };
 }
 
 @Component({
@@ -34,27 +45,28 @@ export class SponsorRequestComponent implements OnDestroy {
 
   constructor(private fb: FormBuilder, private router: Router, private http: HttpClient, private sponsorRequestService: SponsorRequestService) {
     this.sponsorshipForm = this.fb.group({
-      title: ['', Validators.required],
-      priority: [''],
-      quantity: [1, [Validators.required, Validators.min(1)]],
-      requiredDate: [this.getTodayDate(), Validators.required],
-      description: ['', Validators.required],
-      media: [null]
-    });
+  title: ['', Validators.required],
+  priority: [''],
+  quantity: [1, [Validators.required, Validators.min(1)]],
+  requiredDate: [this.getTodayDate(), [Validators.required, futureDateValidator()]],
+  description: ['', Validators.required],
+  media: [null]
+});
   }
-
-  
   getTodayDate(): string {
     return new Date().toISOString().split('T')[0];
   }
 
+
+ 
+  
   onQuantityChange(increment: boolean): void {
     const currentValue = this.sponsorshipForm.get('quantity')?.value || 0;
     const newValue = increment ? currentValue + 1 : Math.max(1, currentValue - 1);
     this.sponsorshipForm.patchValue({ quantity: newValue });
   }
 
-  
+
   onFileSelect(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files) {
@@ -117,7 +129,7 @@ this.sponsorRequestService.post(formData).subscribe({
   next: () => {
     this.resetForm();
     this.isSubmitting = false;
-    this.router.navigate(['/upload-succesfully']); // ✅ Redirect to success page
+    this.router.navigate(['/upload-successfully']); // ✅ Redirect to success page
   },
   error: (error) => {
     console.error('Error submitting request:', error);
