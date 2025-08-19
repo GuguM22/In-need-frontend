@@ -23,6 +23,7 @@ export class VerificationPage implements OnInit {
   showErrorMessage = false;
   showErrorCheck = false;
   phone: string = '';
+  isAlreadyVerified = false;
   
   // Validation
   validationMessages = {
@@ -64,7 +65,7 @@ export class VerificationPage implements OnInit {
   }
 
   ngOnInit(): void {
-   /* this.verificationService.isVerified().subscribe({
+   /*this.verificationService.isVerified().subscribe({
     next: (verified: boolean) => {
       if (verified) {
         
@@ -75,8 +76,26 @@ export class VerificationPage implements OnInit {
       console.error('Error checking verification:', err);
     }
   });*/
+
+   //this.checkVerificationStatus();
    }
 
+    private checkVerificationStatus(): void {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      this.verificationService.getUserVerificationStatus(userId).subscribe({
+        next: (status: string) => {
+          if (status === 'APPROVED') {
+            this.isAlreadyVerified = true;
+            this.router.navigate(['/sponsor-request']); // Redirect if already verified
+          }
+        },
+        error: (err) => {
+          console.error('Error checking verification status:', err);
+        }
+      });
+    }
+  }
   goBack() {
   this.router.navigate(['/req']);
 }
@@ -102,65 +121,53 @@ onFileChange(event: Event): void {
     console.log('Selected files:', this.uploadedFiles);
   }
 }
-
 onSubmit(): void {
-  if (this.verificationForm.valid && this.uploadedFiles.length > 0) {
-
-    const rawPhone = this.verificationForm.value.phone;
-    const normalizedPhone = this.normalizePhone(rawPhone);
-    this.phone = rawPhone;
-
-    // Step 1: Create verification with placeholder document URLs
-    const placeholderUrls = this.uploadedFiles.map(file => `pending-${file.name}`);
-
-    const email = localStorage.getItem('userEmail');
-    const userId = localStorage.getItem('userId');
-
-    const verificationRequest: VerificationRequest = {
-      id: 0,
-      phone: this.verificationForm.value.phone,
-      website: this.verificationForm.value.website,
-      documents: placeholderUrls,
-      email: email || '',
-      userId: userId || '',
-      status: 'PENDING',  // add this line
-
-
-    };
-
-
-   /* this.verificationService.phoneExists(normalizedPhone).subscribe({
-      next: (exists: boolean) => {
-        if (exists) {
-          this.showPhoneNomberExistModal = true;
-        } else {
-          this.createVerificationRequest();
-        }
-      },
-      error: (err) => {
-        console.error('Error checking phone:', err);
-        this.showErrorCheck = true;
-      }
-    });
-  } else {
-    this.verificationForm.markAllAsTouched();
-    if (this.uploadedFiles.length === 0) {
-      this.showErrorMessage = true;
+  if (this.isAlreadyVerified) {
+      this.router.navigate(['/sponsor-request']);
+      return;
     }
-  }*/
-}
+
+    if (this.verificationForm.valid && this.uploadedFiles.length > 0) {
+      const rawPhone = this.verificationForm.value.phone;
+      const normalizedPhone = this.normalizePhone(rawPhone);
+      this.phone = rawPhone;
+
+      this.createVerificationRequest();
+    } else {
+      this.verificationForm.markAllAsTouched();
+      if (this.uploadedFiles.length === 0) {
+        this.showErrorMessage = true;
+      }
+    }
 }
 
 private createVerificationRequest() {
   const placeholderUrls = this.uploadedFiles.map(file => `pending-${file.name}`);
+  const email = localStorage.getItem('userEmail');
+  const userId = localStorage.getItem('userId');
+
+  // Check if required fields are present
+  if (!email) {
+    console.error('Email is required but not found in localStorage');
+    // Handle the error - show message to user
+    return;
+  }
+  
+  if (!userId) {
+    console.error('User ID is required but not found in localStorage');
+    // Handle the error - show message to user
+    return;
+  }
+
 
   const verificationRequest: VerificationRequest = {
+    id: 0,
     phone: this.verificationForm.value.phone,
     website: this.verificationForm.value.website,
     documents: placeholderUrls,
-    id: 0,
-    email: '',
-    userId: ''
+    email: email || '',
+    userId: userId || '',
+    status: 'PENDING'
   };
 
   this.verificationService.createVerification(verificationRequest).subscribe({

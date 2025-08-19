@@ -14,29 +14,39 @@ export class VerificationService {
 
   constructor(private http: HttpClient) {}
 
-  // Create verification
-  createVerification(data: VerificationRequest): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = token
-      ? new HttpHeaders({
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        })
-      : new HttpHeaders({ 'Content-Type': 'application/json' });
-
-    return this.http
-      .post(`${this.apiUrl}/api/verify/verification`, data, {
-        headers,
-        responseType: 'json', // or 'text' if backend returns plain text
+// Create verification
+createVerification(data: VerificationRequest): Observable<any> {
+  const token = localStorage.getItem('token');
+  const headers = token
+    ? new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
       })
-      .pipe(
-        catchError((error) => {
-          console.error('Error creating verification:', error);
-          throw error;
-        })
-      );
-  }
+    : new HttpHeaders({ 'Content-Type': 'application/json' });
 
+  return this.http
+    .post(`${this.apiUrl}/api/verify/verification`, data, {
+      headers,
+      responseType: 'json', 
+    })
+    .pipe(
+      catchError((error) => {
+        console.error('Error creating verification:', error);
+        throw error;
+      })
+    );
+}
+
+ getUserVerificationStatus(userId: string): Observable<string> {
+    // Now this will be correct: /api/verify/verification/status/{userId}
+    return this.http.get<string>(
+      `${this.apiUrl}/api/verify/verification/status/${userId}`, 
+      { 
+       
+        responseType: 'text' as 'json'
+      }
+    );
+  }
   // Upload files
   uploadFiles(
     files: File[],
