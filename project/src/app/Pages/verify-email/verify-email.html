@@ -1,0 +1,55 @@
+<!-- Header --
+<h1 class="text-3xl  text-center text-black mb-2 pt-2">Verification Sent</h1>
+
+<div class="p-6 text-center text-gray-400 rounded-md">
+  -- Loading state --
+  @if (loading) {
+  <div class="flex flex-col items-center">
+    <div
+      class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mb-4 text-green-600 bg-indigo-500">
+    </div>
+    <p>Verifying...</p>
+  </div>
+  }
+
+
+  -- It shows success state --
+  @if (!loading && isSuccess) {
+  <div class="flex flex-col items-center">
+    <div class="h-12 w-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
+      <svg class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+      </svg>
+    </div>
+    <h3 class="text-lg font-medium text-black mb-2">{{ message }}</h3>
+    @if (mode === 'email') {
+    <p class="text-sm text-gray-400 mb-6">
+      Please check your inbox at
+      <span class="font-medium text-gray-400">{{ email }}</span>
+    </p>
+    }
+
+    <button (click)="onClose()"
+      class="w-full py-2 px-4  bg-blue-400 hover:bg-indigo-500  text-sm text-white font-medium rounded-md transition duration-200 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:ring-offset-1 focus:ring-offset-gray-800">
+      Continue to Login
+    </button>
+  </div>
+
+
+  }
+  -- It shows error state --
+  @if (!loading && !isSuccess) {
+  <div class="flex flex-col items-center">
+    <div class="h-12 w-12 bg-red-100 rounded-full flex items-center justify-center mb-4">
+      <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </div>
+    <h3 class="text-lg font-medium text-white mb-2">>{{ message }}</h3>
+    <button (click)="onClose()"
+      class="w-full py-2 px-4  bg-red-400  text-sm text-white font-medium rounded-md transition duration-200 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:ring-offset-1 focus:ring-offset-gray-800">
+      > Try Again
+    </button>
+  </div>
+  }
+</div> -->
