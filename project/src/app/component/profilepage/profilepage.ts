@@ -6,7 +6,9 @@ import { RouterModule } from '@angular/router'; // ✅ Needed for routerLink
 import { FooterComponent } from "../../ui/footer/footer";
 import { Navbar } from "../../ui/navbar/navbar";
 import { Services } from '../../service/services';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Donation } from '../../service/donation';
+import { Role } from '../../constant/role';
 
 @Component({
   selector: 'app-profilepage',
@@ -14,30 +16,75 @@ import { HttpClient } from '@angular/common/http';
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule,   
-  ],
+    RouterModule,
+],
   providers: [Services],
   templateUrl: './profilepage.html',
 })
 export class ProfilepageComponent implements OnInit {
-  viewDocument(arg0: string) {
-    throw new Error('Method not implemented.');
-  }
   isEditing = false;
+  profileImageUrl: string | ArrayBuffer | null = null;
+  uploading = false;
+  isSponsor = false;
+
+  role = Role.SPONSORS;
+
 
   constructor(private location: Location, private service: Services) {}
 
-  ngOnInit() {
-    this.service.profile().subscribe((data: any) => {
-      this.name = this.capitalizeFirstLetter(data.name);
-      this.email = this.capitalizeFirstLetter(data.email);
-      this.bio = data.bio;
-      this.phone = data.phone || 'Not verified yet';
-      if (data.location) {
-        this.Location =  this.capitalizeFirstLetter(data.location.city) + ', ' + this.capitalizeFirstLetter(data.location.province);
-      }
-    });
+ngOnInit() {
+  this.service.profile().subscribe((data: any) => {
+   /* console.log('Full profile data:', data);
+    console.log('User role:', data.role);
+    console.log('SPONSORS role constant:', this.role); */
+
+    this.name = this.capitalizeFirstLetter(data.name);
+    this.email = this.capitalizeFirstLetter(data.email);
+    this.bio = data.bio;
+
+  
+    this.isSponsor = data.role?.toUpperCase() === this.role?.toUpperCase();
+    console.log('Is sponsor:', this.isSponsor); 
+  
+    if (this.isSponsor) {
+  // Show sponsor organisation phone if available
+  this.phone = data.phone ? data.phone : 'Not applicable';
+  this.editPhone = data.phone || '';
+} else {
+  if (data.phone) {
+    // If you have a verification flag in your backend (example: data.phoneVerified)
+    if (data.phoneVerified) {
+      this.phone = data.phone;
+    } else {
+      this.phone = 'Not verified yet';
+    }
+    this.editPhone = data.phone;
+  } else {
+    this.phone = 'No phone provided';
+    this.editPhone = '';
   }
+}
+
+    console.log('Phone display:', this.phone); 
+
+    if (data.location) {
+      this.Location = this.capitalizeFirstLetter(data.location.city) + ', ' +
+                     this.capitalizeFirstLetter(data.location.province);
+    }
+
+    if (data.profileImagePath) {
+      this.service.getProfileImage(data.profileImagePath).subscribe({
+        next: (blob) => {
+          this.profileImageUrl = URL.createObjectURL(blob);
+        },
+        error: (err) => {
+          console.error('Failed to load profile image:', err);
+        }
+      });
+    }
+  });
+}
+
 
   // Displayed profile data
   name = '';
@@ -102,8 +149,43 @@ private capitalizeFirstLetter(str: string): string {
     this.location.back();
   }
 
+  onFileSelected(event: Event) {
+  const input = event.target as HTMLInputElement;
+  if (input.files && input.files[0]) {
+    const file = input.files[0];
+
+    // Preview the image
+    const reader = new FileReader();
+    reader.onload = (e) => this.profileImageUrl = e.target?.result as string;
+    reader.readAsDataURL(file);
+
+    // Upload to backend
+    this.uploadImage(file);
+  }
+}
+uploadImage(file: File) {
+  this.service.uploadProfile(file).subscribe({
+    next: (response: HttpResponse<any>) => {
+      console.log('Full response:', response);
+      if (response.status === 200) {
+        console.log('Upload successful!', response.body);
+
+        this.profileImageUrl = `${this.service.baseUrl}${response.body.filePath}`;
+       
+      }
+    },
+    error: (error) => {
+      console.error('Upload failed:', error);
+      this.showError(error.message || 'Failed to upload image');
+    }
+  });
+}
+
+  showError(arg0: any) {
+    
+  }
   // Array to store uploaded files
-  uploadedFiles: File[] = [];
+  /*uploadedFiles: File[] = [];
 
   // Method to handle file selection
   onFileSelected(event: Event) {
@@ -147,6 +229,5 @@ private capitalizeFirstLetter(str: string): string {
 
     // Optionally: update uploadedFiles array if you display all files
     this.uploadedFiles.push(file);
-  }
+  }*/
 }
-

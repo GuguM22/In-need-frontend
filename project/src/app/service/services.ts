@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { environment } from '../env/env';
 import { LoginResponse } from '../dto/loginResponse';
 import { Donation } from '../model/donation';
@@ -13,6 +13,10 @@ export class Services {
   private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
+
+   get baseUrl(): string {
+    return this.apiUrl;
+  }
 
   register(user: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/auth/register`, user);
@@ -94,5 +98,33 @@ updateProfile(updateData: any): Observable<any> {
   );
 }
 
+uploadProfile(file: File): Observable<any> {
+  const formData = new FormData();
+  formData.append('profileImage', file);
+  
+  const token = localStorage.getItem('token');
+  
+  return this.http.post(`${this.apiUrl}/auth/upload-profile-image`, formData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      // Don't set Content-Type - let browser set it automatically
+    },
+    observe: 'response' // Get full HttpResponse
+  }).pipe(
+    catchError(error => {
+      console.error('API Error:', error);
+      return throwError(() => error);
+    })
+  );
+}
+
+getProfileImage(filePath: string): Observable<Blob> {
+  return this.http.get(`${this.apiUrl}/auth/images/${filePath}`, {
+    headers: new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    }),
+    responseType: 'blob'
+  });
+}
 
 }
