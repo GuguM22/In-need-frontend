@@ -69,9 +69,24 @@
           </div>
           </div>
           </li>
+          <li>
+            <div class="items hover:bg-gray-100" (click)="openLogoutModal()">
+              <div class="leftItems">
+              <div class="itemIcon">
+                <img width="25" height="25" src="https://img.icons8.com/ios/50/logout-rounded-left.png" alt="logout-rounded-left"/>       
+              </div>
+              <div class="itemButton">
+            <button class="w-full text-left p-2 hover:bg-gray-100 rounded">Logout</button>
+          </div>
+          </div>
+          <!-- <div class="notification">
+            <button class="rejectedNoti">{{ rejectedApplications.length }}</button>
+          </div> -->
+          </div>
+          </li>
         </ul>
       </aside>
-  
+
       <!-- Panel Content -->
       <div *ngIf="activePanel" class="p-6 transition-all duration-300 flex flex-grow middle">
   
@@ -290,3 +305,11 @@
     </div>
   </div>
 </div>
+
+
+@if(showLogoutModal){
+  <app-logout
+   (cancel)="closeLogoutModal()"
+   (confirm)="confirmLogout()"
+ ></app-logout>
+ }
