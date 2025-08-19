@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, HostListener } from '@angular/core';
-import { Navbar } from "../../ui/navbar/navbar";
+import { NavbarComponent } from "../../ui/navbar/navbar";
 import { FooterComponent } from '../../ui/footer/footer';
 import { Router, RouterLink } from '@angular/router';
 import { SponsorRequest } from '../../model/sponsor-req';
@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-sponsor-dasboard',
   standalone: true,
-  imports: [CommonModule, Navbar, FooterComponent, RouterLink, FormsModule],
+  imports: [CommonModule, NavbarComponent, FooterComponent, RouterLink, FormsModule],
   templateUrl: './sponsor-dasboard.component.html',
   styleUrls: ['./sponsor-dasboard.component.css']
 })

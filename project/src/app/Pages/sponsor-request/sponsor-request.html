@@ -62,9 +62,9 @@
     formControlName="requiredDate" 
     class="form-input date-input"
     [class.error]="sponsorshipForm.get('requiredDate')?.invalid && sponsorshipForm.get('requiredDate')?.touched"
-       style="color: red;">
+  
   />
-  <div class="error-message" *ngIf="sponsorshipForm.get('requiredDate')?.hasError('pastDate') && sponsorshipForm.get('requiredDate')?.touched">
+  <div class="error-message" *ngIf="sponsorshipForm.get('requiredDate')?.hasError('pastDate') && sponsorshipForm.get('requiredDate')?.touched"  style="color: red;">
     Date cannot be in the past.
   </div>
 </div>
