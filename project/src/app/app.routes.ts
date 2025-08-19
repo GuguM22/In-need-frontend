@@ -34,6 +34,7 @@ import { DonationRequest } from './donation-request/donation-request';
 import { IndividualDasboardComponent } from './component/individual-dasboard/individual-dasboard.component';
 
 import { IndividualReq } from './individual-req/individual-req';
+import { PreviewSponsor } from './Pages/preview-sponsor/preview-sponsor';
 
 
 
@@ -88,6 +89,8 @@ export const routes: Routes = [
   
   {path: 'individual-request', component: IndividualReq},
  
-  {path:'individual-dashboard', component: IndividualDasboardComponent}
+  {path:'individual-dashboard', component: IndividualDasboardComponent},
+  {path: 'preview-sponsor/:id', component:PreviewSponsor },
+  
  
 ];

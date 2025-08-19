@@ -1,0 +1,51 @@
+<div class="bg-gray-50 rounded-xl p-6 sticky top-6">
+  <h3 class="text-lg font-semibold text-gray-900 mb-4">Live Preview</h3>
+
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+    <!-- Header -->
+    <div class="p-6 border-b border-gray-100">
+      <h4 class="text-xl font-bold text-gray-900 mb-2">
+        {{ formData?.title || 'Enter a title' }}
+      </h4>
+      <div class="flex items-center gap-3">
+       <span *ngIf="formData?.priority" 
+      class="px-3 py-1 rounded-full text-xs font-semibold border"
+      [ngClass]="getPriorityColor(formData.priority)">
+  {{ formData.priority }} Priority
+</span>
+
+        <span class="text-sm text-gray-500">
+          Qty: {{ formData?.quantity }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="p-6">
+      <p class="text-gray-700 mb-4">
+        {{ formData?.description || 'Enter a description...' }}
+      </p>
+
+      <!-- Media Preview -->
+      <ng-container *ngFor="let preview of filePreviews">
+  <img *ngIf="preview.endsWith('.png') || preview.endsWith('.jpg') || preview.endsWith('.jpeg')" 
+       [src]="preview" class="w-full h-32 object-cover rounded-lg border" />
+  <video *ngIf="preview.endsWith('.mp4')" [src]="preview" controls class="w-full h-32 object-cover rounded-lg border"></video>
+</ng-container>
+
+
+      <!-- Footer -->
+      <div class="pt-4 border-t border-gray-100 text-sm text-gray-500">
+        Due: {{ formatDate(formData?.requiredDate) }}
+      </div>
+    </div>
+
+    <!-- Update Button -->
+    <div class="p-6 border-t border-gray-100 flex justify-end">
+      <button (click)="onUpdate()" 
+              class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700">
+        Update
+      </button>
+    </div>
+  </div>
+</div>
