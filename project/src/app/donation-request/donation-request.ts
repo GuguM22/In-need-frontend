@@ -2,18 +2,18 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterModule } from '@angular/router';
+import { Navbar } from "../ui/navbar/navbar";
+import { FooterComponent } from "../ui/footer/footer";
 
 @Component({
   selector: 'app-donation-request',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule,RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, Navbar, FooterComponent],
   templateUrl: './donation-request.html',
   styleUrls: ['./donation-request.css']
 })
 export class DonationRequest {
-goNext() {
-throw new Error('Method not implemented.');
-}
+
   sponsorshipForm: FormGroup;
 
   constructor(private fb: FormBuilder, private router: Router) {
@@ -25,7 +25,9 @@ throw new Error('Method not implemented.');
       notes: ['']
     });
   }
-
+goNext() {
+this.router.navigate(['/freq'])
+}
   // Custom validator for future dates
   futureDateValidator(control: any) {
     const selectedDate = new Date(control.value);
@@ -35,13 +37,13 @@ throw new Error('Method not implemented.');
   }
 
   goBack() {
-    this.router.navigate(['/previous-page']); // Adjust route as needed
+    this.router.navigate(['/options']); // Adjust route as needed
   }
 
   onSubmit() {
     if (this.sponsorshipForm.valid) {
       // Process form data if needed
-      this.router.navigate(['/fequency']);
+      this.router.navigate(['/freq']);
     } else {
       this.markFormGroupTouched(this.sponsorshipForm);
     }

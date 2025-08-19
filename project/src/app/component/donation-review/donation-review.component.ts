@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-donation-review',
-  imports: [RouterLink],
+  imports: [],
   templateUrl: './donation-review.component.html',
   styleUrl: './donation-review.component.css'
 })
