@@ -1,0 +1,139 @@
+
+<app-navbar></app-navbar>
+<div class="min-h-screen flex flex-col items-center justify-center bg-white font-sans px-4 pt-6 pb-20">
+  <!-- Back Button -->
+  
+  <!-- Back Button -->
+    <div class="w-full max-w-sm relative mb-2">
+      <div class="absolute -left-3 -top-10 flex items-center space-x-2">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 512 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <!-- Back arrow icon -->
+          <path
+            d="M50.2,169.6C97.9,56.3,228.5,3.1,341.8,50.9s166.4,178.3,118.7,291.6S282.2,508.9,168.9,461.1C86.4,426.4,32.7,345.5,32.7,256C32.7,226.3,38.6,196.9,50.2,169.6z M254.7,448c106,0,192-86,192-192s-86-192-192-192s-192,86-192,192S148.7,448,254.7,448z M226.7,140.7L111.4,256l115.3,115.3l21.2-21.2L168.7,271h208.2v-30H168.7l79.1-79.1L226.7,140.7z"
+          />
+        </svg>
+        <button
+          type="button" (click)="goBack()"
+          class="text-sm -left-py-3 text-black focus:outline-none"
+        >
+          Back
+        </button>
+      </div>
+    </div>
+
+  <!-- Title and Description -->
+  <h2 class="text-lg font-semibold mb-1">My Sponsorship Requests</h2>
+  <p class="text-sm text-gray-500 mb-[20px]">
+    Manage your organization’s sponsorship requests
+  </p>
+
+  <!-- Tabs Navigation -->
+  <div class="border-b border-gray-200 w-full max-w-sm">
+    <nav class="-mb-0.5 flex justify-center gap-x-6" role="tablist">
+      <button
+        (click)="activeTab = 'sponsor'"
+        [ngClass]="{
+          'font-semibold border-blue-600 text-blue-600': activeTab === 'sponsor',
+          'text-black font-bold border-transparent': activeTab !== 'sponsor'
+        }"
+        class="w-full py-4 px-1 flex justify-center items-center gap-x-2 border-b-2 font-bold text-sm whitespace-nowrap"
+      >
+        Sponsor Request
+      </button>
+      <button
+        (click)="activeTab = 'posts'"
+        [ngClass]="{
+          'font-semibold border-blue-600 text-blue-600': activeTab === 'posts',
+          'text-black font-bold border-transparent': activeTab !== 'posts'
+        }"
+        class="w-full py-4 px-1 flex justify-center items-center gap-x-2 border-b-2 font-bold text-sm whitespace-nowrap"
+      >
+        Posts
+      </button>
+    </nav>
+  </div>
+
+  <!-- Example Card -->
+  <div class="w-full max-w-sm">
+  <ng-container *ngIf="activeTab === 'posts'">
+    <div
+      class="bg-white border rounded-xl shadow-sm p-4 mt-2 relative"
+      *ngFor="let post of posts; let i = index"
+    >
+      <!-- High Priority & Dot Menu -->
+      <div class="flex justify-between items-start mb-2">
+        <span class="bg-red-100 text-red-500 text-xs font-semibold px-2 py-1 rounded">
+          High Priority
+        </span>
+
+        <!-- Image if Fulfilled -->
+<img 
+  *ngIf="post.fulfilled"
+  src="https://i.pinimg.com/1200x/14/15/34/141534c31edfe922c168d5f8cbbd4bda.jpg" 
+  alt="Fulfilled"
+  class="w-8 h-8 mb-5 -ml-40 mb-10"
+/>
+
+
+        <!-- Dot Menu -->
+        <button
+          (click)="toggleActionMenu('actionMenu' + i)"
+          class="text-gray-500 hover:text-black focus:outline-none"
+          aria-label="Actions"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Action Menu -->
+      <div
+        *ngIf="activeMenuId === 'actionMenu' + i"
+        class="absolute right-4 top-10 bg-white rounded-md shadow-lg z-10 border w-40"
+      >
+        <button
+          class="block w-full text-left px-4 py-2 text-sm text-green-600 hover:bg-gray-100"
+          (click)="markFulfilled(i)"
+        >
+          Mark Fulfilled
+        </button>
+        <!-- <button
+          class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-100"
+          (click)="updatePost(i)"
+        >
+          update
+        </button> -->
+      </div>
+
+      <!-- Card Title & Description -->
+      <h3 class="text-base font-semibold">{{ post.title }}</h3>
+      <p class="text-sm text-gray-500 mb-3">{{ post.description }}</p>
+
+      <!-- Footer -->
+      <div class="flex justify-between text-sm text-black mb-2">
+        <span class="font-medium">Days Left</span>
+      </div>
+
+      <!-- Progress Bar + Days Left -->
+      <div class="flex items-center justify-between">
+        <div style="width: 150px;" class="bg-gray-200 rounded-full h-2.5 mr-4">
+          <div
+            class="bg-[#219EBC] h-2.5 rounded-full"
+            [style.width.%]="post.progress"
+          ></div>
+        </div>
+        <span class="text-xs text-gray-600 whitespace-nowrap">{{ post.daysLeft }} Days</span>
+      </div>
+    </div>
+  </ng-container>
+</div>
+</div>
+<app-footer></app-footer>

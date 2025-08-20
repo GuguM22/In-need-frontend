@@ -114,7 +114,7 @@ img{
     border: solid #D9D9D9;
     align-items: center;
     border-radius: 8px;
-
+    margin-bottom: 10px;
 }
 
 .orgName{
@@ -481,3 +481,24 @@ border-color: #b0b0b0;
     font-size: 12px;
     font-weight: 800;
 }
+.cards {
+    max-height: 656px; /* or whatever fits your layout */
+    overflow-y: auto;
+    padding-right: 18px; /* optional for scrollbar spacing */
+  }
+  
+  .message{
+    opacity: 0.9;
+  }
+
+  .btnModal{
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .canclBtn, .conBtn{
+    margin-right: 10px;
+    border-radius: 12px;
+    width: 100px;
+  }
+

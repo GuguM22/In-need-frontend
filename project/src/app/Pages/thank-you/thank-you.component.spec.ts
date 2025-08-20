@@ -20,4 +20,5 @@ describe('ThankYouComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
 });

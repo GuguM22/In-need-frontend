@@ -4,6 +4,10 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
+
+
+import { FooterComponent } from "../../ui/footer/footer";
+
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { PreviewSponsor } from "../preview-sponsor/preview-sponsor";
 

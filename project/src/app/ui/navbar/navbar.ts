@@ -10,11 +10,13 @@ import { FooterComponent } from "../footer/footer";
   templateUrl: './navbar.html',
   styleUrls: ['./navbar.css']
 })
-export class Navbar {
+export class NavbarComponent {
   toggle = false;
 
-  handleToggle() {
+  handleToggle() { 
     this.toggle = !this.toggle;
-  }
+
   
+  }
+
 }

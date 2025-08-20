@@ -1,165 +1,343 @@
+
 <div class="w-screen h-screen grid grid-rows-[auto_1fr_auto] bg-[#f5f5f5] overflow-y-auto">
   <!-- Header with Back Button -->
-  <div class="flex justify-between items-center px-6 py-4 bg-white shadow-md h-14 z-20 flex-shrink-0">
+<!----  <div class="flex justify-between items-center px-6 py-4 bg-white shadow-md h-14 z-20 flex-shrink-0">
     <button class="flex items-center gap-2 text-black font-extrabold text-lg" (click)="goBack()">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
       </svg>
       Back
-    </button>
-    
-  </div>
+    </button> 
+  </div> -->
 
   <!-- Scrollable Content -->
-  <div class=" px-4 pt-4 pb-20"> <!-- Added pb-20 to prevent content overlap -->
+  <div class="px-4 pt-4 pb-20">
+    <!-- Added pb-20 to prevent content overlap -->
     <!-- Cover + Profile -->
     <div class="relative">
       <div class="h-[180px] rounded-xl overflow-hidden">
-        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1509099836639-18ba1795216d');"></div>
+        <div
+          class="absolute inset-0 bg-cover bg-center"
+          style="
+            background-image: url('https://images.unsplash.com/photo-1509099836639-18ba1795216d');
+          "
+        ></div>
       </div>
       <!-- Badge -->
-      <div class="absolute top-2 right-2 bg-[#4CAF50] px-2 py-0.5 rounded-full text-xs font-bold z-10"> IN NEED </div>
+      <div
+        class="absolute top-2 right-2 bg-[#4CAF50] px-2 py-0.5 rounded-full text-xs font-bold z-none"
+      >
+        IN NEED
+      </div>
       <!-- Profile Image -->
       <div class="absolute left-4 -bottom-10 z-20">
-        <img src="Letsdoit!.jpeg" class="w-[80px] h-[80px] rounded-full border-4 border-white object-cover shadow-lg">
-      </div>
+  <img 
+    [src]="profileImageUrl || 'logo.png'" 
+    class="w-[80px] h-[80px] rounded-full border-4 border-white object-cover shadow-lg"
+    alt="Profile Image"
+    (click)="fileInput.click()"
+    style="cursor: pointer;"
+  >
+</div>
+
+<!-- Hidden file input -->
+<input 
+  type="file" 
+  (change)="onFileSelected($event)" 
+  #fileInput 
+  class="hidden" 
+  accept="image/*"
+>
+
     </div>
 
     <!-- Name & Info -->
-    <div class="mt-16 max-w-md mx-auto flex flex-col gap-1">
-      <h1 *ngIf="!isEditing" class="font-extrabold text-xl mb-0.5">{{ name }}</h1>
-      <input *ngIf="isEditing" [(ngModel)]="editName" class="border p-1 rounded text-black w-full mb-1" />
+    <div class="mt-16 max-w-md mx-auto flex flex-col gap-1 pointer-events-none">
+      <h1 *ngIf="!isEditing" class="font-extrabold text-xl mb-0.5 ">
+        {{ name }}
+      </h1>
+      <input
+        *ngIf="isEditing"
+        [(ngModel)]="editName"
+        class="border p-1 rounded text-black w-full mb-1"
+      />
       <p class="text-xs opacity-70 mb-1">Helping since 2020</p>
     </div>
 
     <!-- Profile Info -->
-    <div class="max-w-md mx-auto flex flex-col gap-4 mt-4">
+       <div class="max-w-md mx-auto flex flex-col gap-4 mt-4">
       <!-- Name & Contact -->
       <div class="flex items-center gap-3 bg-white p-3 rounded-lg shadow-md">
         <div class="flex-shrink-0">
-          <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-green-500 to-green-700 flex items-center justify-center text-white font-bold text-lg"> {{ name.charAt(0) }} </div>
+          <div
+            class="w-10 h-10 rounded-full bg-gradient-to-tr from-green-500 to-green-700 flex items-center justify-center text-white font-bold text-lg"
+          >
+            {{ name.charAt(0) }}
+          </div>
         </div>
-        <div>
-          <h2 *ngIf="!isEditing" class="text-xl font-semibold text-gray-900 tracking-wide">{{ name }}</h2>
-          <input *ngIf="isEditing" [(ngModel)]="editName" class="border p-1 rounded text-black w-full mb-1" />
-          <p *ngIf="!isEditing" class="text-gray-600 text-xs mt-0.5"> <span>{{ email }}</span> &nbsp;&bull;&nbsp; <span>{{ phone }}</span> </p>
+        <div >
+          <h2
+            *ngIf="!isEditing"
+            class="text-xl font-semibold text-gray-900 tracking-wide pointer-events-none"
+          >
+            {{ name }}
+          </h2>
+          <input
+            *ngIf="isEditing"
+            [(ngModel)]="editName"
+            class="border p-1 rounded text-black w-full mb-1 pointer-events-none"
+          />
+          <p *ngIf="!isEditing" class="text-gray-600 text-xs mt-0.5">
+            <span>{{ email }}</span> &nbsp;&bull;&nbsp; <span>{{ phone }}</span>
+          </p>
           <div *ngIf="isEditing" class="flex flex-col gap-1">
-            <input [(ngModel)]="editEmail" class="border p-1 rounded text-black text-xs" placeholder="Email" />
-            <input [(ngModel)]="editPhone" class="border p-1 rounded text-black text-xs" placeholder="Phone" />
+            <input
+              [(ngModel)]="editEmail"
+              class="w-70 h-8 border p-1 rounded text-black text-xs"
+              placeholder="Email" disabled
+            />
+            <input
+              [(ngModel)]="editPhone"   *ngIf="!isSponsor && phone !== 'Not verified yet'"
+              class="w-70 h-8 border p-1 rounded text-black w-full text-xs"
+              placeholder="Phone" 
+            />
           </div>
         </div>
       </div>
 
       <!-- Short Bio -->
-      <div class="p-4 rounded-2xl bg-gradient-to-r from-teal-50 via-white to-blue-50 shadow-lg border border-teal-200 hover:shadow-2xl transition-shadow duration-400 ease-in-out">
+      <div
+        class="p-4 rounded-2xl bg-gradient-to-r from-teal-50 via-white to-blue-50 shadow-lg border border-teal-200 hover:shadow-2xl transition-shadow duration-400 ease-in-out"
+      >
         <h3 class="text-lg font-bold text-green-700 mb-2">Short Bio / Story</h3>
-        <p *ngIf="!isEditing" class="text-gray-700 text-sm leading-relaxed tracking-wide">{{ bio }}</p>
-        <textarea *ngIf="isEditing" [(ngModel)]="editBio" class="border p-1 rounded text-black w-full text-sm"></textarea>
+        <p
+          *ngIf="!isEditing"
+          class="text-gray-700 text-sm leading-relaxed tracking-wide"
+        >
+          {{ bio }}
+        </p>
+        <textarea
+          *ngIf="isEditing"
+          [(ngModel)]="editBio"
+          class="border resize-none h-30 p-1 rounded text-black w-full text-sm"
+        ></textarea>
       </div>
 
       <!-- Location -->
       <div>
         <div class="flex items-center gap-2 mb-1">
-          <div class="w-7 h-7 flex items-center justify-center rounded-full bg-green-600 text-white">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div
+            class="w-7 h-7 flex items-center justify-center rounded-full bg-green-600 text-white"
+          >
+            <!---  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.657 0 3-1.343 3-3S13.657 5 12 5 9 6.343 9 8s1.343 3 3 3z" />
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22s8-4.5 8-10a8 8 0 10-16 0c32 5.5 8 10 8 pathogenicity 8 10z" />
+            </svg> -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+              />
             </svg>
           </div>
           <h3 class="text-sm font-semibold text-gray-700">Location</h3>
         </div>
-        <div *ngIf="!isEditing" class="bg-gradient-to-r from-green-50 to-green-100 p-2 rounded-lg shadow-sm flex flex-col gap-1">
+        <div
+          *ngIf="!isEditing"
+          class="bg-gradient-to-r from-green-50 to-green-100 p-2 rounded-lg shadow-sm flex flex-col gap-1"
+        >
           <span class="text-gray-800 text-xs font-medium">{{ Location }}</span>
-          <a href="https://www.google.com/maps/search/{{ Location }}" target="_blank" class class="text-green-600 hover:underline text-xs font-semibold self-start"> 📍 View on Map </a>
+          <a
+            href="https://www.google.com/maps/search/{{ Location }}"
+            target="_blank"
+            class
+            class="text-green-600 hover:underline text-xs font-semibold self-start"
+          >
+            📍 View on Map
+          </a>
         </div>
-        <input *ngIf="isEditing" [(ngModel)]="editLocation" class="border p-1 rounded text-black w-full text-xs" />
+        <input
+          *ngIf="isEditing"
+          [(ngModel)]="editLocation"
+          class="w-70 h-8 border p-1 rounded text-black w-full text-xs"
+        />
       </div>
 
       <!-- Edit Button -->
       <div class="flex justify-center mt-4">
-        <button (click)="toggleEdit()"
-                class="bg-green-700 text-white px-6 py-3 rounded-lg shadow-md hover:bg-green-800 text-sm font-semibold w-full max-w-md">
+        <button
+          (click)="toggleEdit()"
+          class="bg-[#5B8E7D] text-white px-6 py-3 rounded-lg shadow-md text-sm font-semibold w-full max-w-md"
+        >
           {{ isEditing ? 'Save Changes' : 'Edit Profile' }}
         </button>
       </div>
 
       <!-- View / Edit Documents -->
       <div class="mt-6 flex flex-col gap-2">
-        <h3 class="text-lg font-bold text-green-700 mb-2">Documents</h3>
+       <!---- <h3 class="text-lg font-bold text-green-700 mb-2">Documents</h3>
         <div class="flex flex-col gap-2">
-          <!-- CIPC Registration -->
+          <-- CIPC Registration --
           <div class="flex items-center justify-between gap-2">
-            <button *ngIf="!isEditing" (click)="viewDocument('cipc')"
-                    class="text-left border p-2 rounded-lg shadow-sm bg-white hover:bg-green-50 text-gray-800 font-medium flex-1">
+            <button
+              *ngIf="!isEditing"
+              (click)="viewDocument('cipc')"
+              class="text-left border p-2 rounded-lg shadow-sm bg-white hover:bg-green-50 text-gray-800 font-medium flex-1"
+            >
               CIPC Registration
             </button>
             <div *ngIf="isEditing" class="flex gap-2 flex-1">
-              <button (click)="viewDocument('cipc')"
-                      class="flex-1 text-left border p-2 rounded-lg shadow-sm bg-white hover:bg-green-50 text-gray-800 font-medium">
+              <button
+                (click)="viewDocument('cipc')"
+                class="flex-1 text-left border p-2 rounded-lg shadow-sm bg-white hover:bg-green-50 text-gray-800 font-medium"
+              >
                 CIPC Registration
               </button>
-              <input type="file" (change)="updateDocument($event, 'cipc')"
-                     class="border p-1 rounded text-sm text-gray-700 w-32" />
+              <input
+                type="file"
+                (change)="updateDocument($event, 'cipc')"
+                class="border p-1 rounded text-sm text-gray-700 w-32"
+              />
             </div>
           </div>
 
-          <!-- Founder Identification -->
+          <-- Founder Identification --
           <div class="flex items-center justify-between gap-2">
-            <button *ngIf="!isEditing" (click)="viewDocument('founderId')"
-                    class="text-left border p-2 rounded-lg shadow-sm bg-white hover:bg-green-50 text-gray-800 font-medium flex-1">
+            <button
+              *ngIf="!isEditing"
+              (click)="viewDocument('founderId')"
+              class="text-left border p-2 rounded-lg shadow-sm bg-white hover:bg-green-50 text-gray-800 font-medium flex-1"
+            >
               Founder Identification
             </button>
             <div *ngIf="isEditing" class="flex gap-2 flex-1">
-              <button (click)="viewDocument('founderId')"
-                      class="flex-1 text-left border p-2 rounded-lg shadow-sm bg-white hover:bg-green-50 text-gray-800 font-medium">
+              <button
+                (click)="viewDocument('founderId')"
+                class="flex-1 text-left border p-2 rounded-lg shadow-sm bg-white hover:bg-green-50 text-gray-800 font-medium"
+              >
                 Founder Identification
               </button>
-              <input type="file" (change)="updateDocument($event, 'founderId')"
-                     class="border p-1 rounded text-sm text-gray-700 w-32" />
+              <input
+                type="file"
+                (change)="updateDocument($event, 'founderId')"
+                class="border p-1 rounded text-sm text-gray-700 w-32"
+              />
             </div>
           </div>
 
-          <!-- Additional Documentation -->
+          <-- Additional Documentation --
           <div class="flex items-center justify-between gap-2">
-            <button *ngIf="!isEditing" (click)="viewDocument('additional')"
-                    class="text-left border p-2 rounded-lg shadow-sm bg-white hover:bg-green-50 text-gray-800 font-medium flex-1">
+            <button
+              *ngIf="!isEditing"
+              (click)="viewDocument('additional')"
+              class="text-left border p-2 rounded-lg shadow-sm bg-white hover:bg-green-50 text-gray-800 font-medium flex-1"
+            >
               Additional Relevant Documentation
             </button>
             <div *ngIf="isEditing" class="flex gap-2 flex-1">
-              <button (click)="viewDocument('additional')"
-                      class="flex-1 text-left border p-2 rounded-lg shadow-sm bg-white hover:bg-green-50 text-gray-800 font-medium">
+              <button
+                (click)="viewDocument('additional')"
+                class="flex-1 text-left border p-2 rounded-lg shadow-sm bg-white hover:bg-green-50 text-gray-800 font-medium"
+              >
                 Any Additional Relevant Documentation
               </button>
-              <input type="file" (change)="updateDocument($event, 'additional')"
-                     class="border p-1 rounded text-sm text-gray-700 w-32" />
+              <input
+                type="file"
+                (change)="updateDocument($event, 'additional')"
+                class="border p-1 rounded text-sm text-gray-700 w-32"
+              />
             </div>
           </div>
         </div>
-      </div>
+      </div>-->
     </div>
   </div>
 
   <!-- Footer -->
-  <div class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 flex-shrink-0 z-30">
+  <div
+    class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 flex-shrink-0 z-30"
+  >
     <div class="grid grid-cols-4 max-w-lg mx-auto font-medium py-4">
-      <button type="button" class="inline-flex flex-col items-center justify-center px-5 group">
-        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 50 50" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
-          <path d="M25 3 L44 18 L44 45 L32 45 L32 26 L18 26 L18 45 L6 45 L6 18 L25 3 Z"></path>
+      <button
+        type="button"
+        class="inline-flex flex-col items-center justify-center px-5 group"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="30"
+          height="30"
+          viewBox="0 0 50 50"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linejoin="round"
+          stroke-linecap="round"
+        >
+          <path
+            d="M25 3 L44 18 L44 45 L32 45 L32 26 L18 26 L18 45 L6 45 L6 18 L25 3 Z"
+          ></path>
         </svg>
-        <span class="text-sm text-gray-500 group-hover:text-green-600">Home</span>
+        <span class="text-sm text-gray-500 group-hover:text-green-600"
+          >Home</span
+        >
       </button>
-      <button type="button" [routerLink]="'/view'" class="inline-flex flex-col items-center justify-center px-5 group">
-        <img width="30" height="30" src="https://img.icons8.com/ios/50/view-file.png" alt="view-file"/>
-        <span class="text-sm text-gray-500 group-hover:text-green-600">Views</span>
+      <button
+        type="button"
+        [routerLink]="'/view'"
+        class="inline-flex flex-col items-center justify-center px-5 group"
+      >
+        <img
+          width="30"
+          height="30"
+          src="https://img.icons8.com/ios/50/view-file.png"
+          alt="view-file"
+        />
+        <span class="text-sm text-gray-500 group-hover:text-green-600"
+          >Views</span
+        >
       </button>
-      <button type="button" class="inline-flex flex-col items-center justify-center px-5 group">
-        <img width="30" height="30" src="https://img.icons8.com/ios/50/donate.png" alt="donate"/>
-        <span class="text-sm text-gray-500 group-hover:text-green-600">Donation</span>
+      <button
+        type="button"
+        class="inline-flex flex-col items-center justify-center px-5 group"
+      >
+        <img
+          width="30"
+          height="30"
+          src="https://img.icons8.com/ios/50/donate.png"
+          alt="donate"
+        />
+        <span class="text-sm text-gray-500 group-hover:text-green-600"
+          >Donation</span
+        >
       </button>
-      <button type="button" [routerLink]="'/profile'" class="inline-flex flex-col items-center justify-center px-5 group">
-        <img width="30" height="30" src="https://img.icons8.com/ios/50/user-male-circle--v1.png" alt="profile"/>
+      <button
+        type="button"
+        [routerLink]="'/profile'"
+        class="inline-flex flex-col items-center justify-center px-5 group"
+      >
+        <img
+          width="30"
+          height="30"
+          src="https://img.icons8.com/ios/50/user-male-circle--v1.png"
+          alt="profile"
+        />
         <span class="text-sm text-green-700 font-semibold">Profile</span>
       </button>
     </div>
+
   </div>
 </div>

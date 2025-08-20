@@ -1,22 +1,33 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FooterComponent } from "../../ui/footer/footer";
-import { Navbar } from "../../ui/navbar/navbar";
+import { NavbarComponent } from "../../ui/navbar/navbar";
 
 @Component({
   selector: 'app-manage-sponsor',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, FooterComponent, Navbar],
+  imports: [CommonModule, FormsModule, RouterModule, FooterComponent, NavbarComponent],
   templateUrl: './manage-sponsor.component.html',
   styleUrls: ['./manage-sponsor.component.css']
 })
 export class ManageSponsorComponent {
+
+
 activeTab: string = 'posts';
 activeMenuId: string | null = null;
 post: any;
 i: any;
+
+constructor(private router: Router) {}
+
+  goBack() {
+    this.router.navigate(['/verification']);
+  }
+
+
+
 
   toggleActionMenu(menuId: string): void {
     if (this.activeMenuId === menuId) {
@@ -64,10 +75,12 @@ i: any;
     this.activeMenuId = null; // close menu
   }
 
-  deletePost(index: number): void {
-    this.posts.splice(index, 1);
-    this.activeMenuId = null; // close menu
+
+    
   }
 
-}
+  
+  
+
+
 
