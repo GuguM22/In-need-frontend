@@ -57,64 +57,25 @@
   <h1 class="font-semibold mb-2">Verification Documents</h1>
 
   <!-- Each document -->
-  <div class="cipc2 flex items-center mb-3">
-    <img width="22" height="22" src="https://img.icons8.com/ios/50/doc.png" />
-    <p class="ml-2 flex-1 text">{{ selectedApplication.documents }}</p>
-    <div class="download2">
-      <!-- <div *ngFor="let doc of selectedApplication.documents">
-        <p>{{ doc  }}</p>
-        <button (click)="downloadDocument(doc)">Download</button>
-      </div> -->
-      
-      <div *ngFor="let doc of selectedApplication.documents">
-        <!-- <p>{{ doc  }}</p> -->
-        <button class="pdfDownload2">
-            <div class="btnHolder flex items-center">
-                <div class="btnImg">
-          <img width="13" height="13" src="https://img.icons8.com/ios/50/download.png" />
+  <div *ngFor="let doc of selectedApplication.documents">
+    <!-- Each document -->
+    <div class="cipc2 flex items-center mb-3">
+      <img width="22" height="22" src="https://img.icons8.com/ios/50/doc.png" />
+      <p class="ml-2 flex-1 text">{{ doc}}</p>
+      <div class="download2">
+          <button class="pdfDownload2">
+              <div class="btnHolder flex items-center">
+                  <div class="btnImg">
+            <img width="13" height="13" src="https://img.icons8.com/ios/50/download.png" />
+            </div>
+            <div class="btnText">
+            <p class="ml-1 btnP cursor-pointer" (click)="downloadDocument(doc)">Download</p>
+            </div>
+            </div>
+          </button>
           </div>
-          <div class="btnText">
-          <p class="ml-1 btnP cursor-pointer" (click)="downloadDocument(doc)">Download</p>
-          </div>
-          </div>
-        </button>
-        </div>
-  </div>
-  </div>
-
-  <div class="cipc2 flex items-center mb-3">
-    <img width="22" height="22" src="https://img.icons8.com/ios/50/doc.png" />
-    <p class="ml-2 flex-1 text">Founder ID.pdf</p>
-    <button class="pdfDownload2">
-        <div class="btnHolder flex items-center">
-            <div class="btnImg">
-      <img width="13" height="13" src="https://img.icons8.com/ios/50/download.png" />
-      </div>
-      <div class="btnText">
-      <p class="ml-1 btnP cursor-pointer">Download</p>
-      </div>
-      </div>
-    </button>
-  </div>
-
-  <div class="cipc2 flex items-center mb-3">
-    <img width="22" height="22" src="https://img.icons8.com/ios/50/doc.png" />
-    <p class="ml-2 flex-1 text">Tax clearance.pdf</p>
-    <button class="pdfDownload2">
-        <div class="btnHolder flex items-center">
-            <div class="btnImg">
-      <img width="13" height="13" src="https://img.icons8.com/ios/50/download.png" />
-      </div>
-      <div class="btnText">
-      <p class="ml-1 btnP cursor-pointer">Download</p>
-      </div>
-      </div>
-    </button>
-
-    
-
     </div>
-    
+    </div>
   </div>
   <div class="reviewSection2 mt-6">
     <h1 class="font-semibold mb-2">Review Actions</h1>
@@ -137,6 +98,7 @@
     
     </div>
   </div>
+
 </div>
 
 

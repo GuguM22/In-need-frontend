@@ -37,7 +37,12 @@ import { DonationRequest } from './donation-request/donation-request';
 import { IndividualDasboardComponent } from './component/individual-dasboard/individual-dasboard.component';
 import { IndividualReq } from './individual-req/individual-req';
 
+import { AdminDashComponent } from './component/admin-dash/admin-dash.component';
+// import { ThankYouComponent } from './Pages/thank-you/thank-you.component';
+
+
 import { PreviewSponsor } from './Pages/preview-sponsor/preview-sponsor';
+
 
 
 
@@ -106,5 +111,13 @@ export const routes: Routes = [
   {path:'manage-sponsor-individual',component: ManageSponsorIndividualComponent},
   {path:'thanks', component: ThankYouComponent}
   
+
+
+  { path: 'fequency', component: Fequency },
+  { path: 'donation-review', component: DonationReviewComponent },
+  { path: '', redirectTo: 'fequency', pathMatch: 'full' },
+  {path:'admin-dash', component: AdminDashComponent},
+  { path: '**', redirectTo: 'fequency' }
+ 
 
 ];
