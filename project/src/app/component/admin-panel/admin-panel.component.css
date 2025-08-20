@@ -252,13 +252,15 @@ align-items: center;
  .number2{
     background-color: #D9D9D9;
     display: flex;
-    padding-left: 10px;
+     padding-left: 10px;
     border-radius: 8px;
     padding-bottom: 8px;
     padding-top: 8px;
-    width: 410px;
+    /* width: 410px; */
+    width: 80%;
     margin-top: 15px;
     margin-bottom: 50px;
+    max-width: 600px;
  }
 
 .emailIcon2{
@@ -502,3 +504,86 @@ border-color: #b0b0b0;
     width: 100px;
   }
 
+/* For very large screens like TVs (Full HD and up) */
+@media (min-width: 1920px) {
+    html {
+      font-size: 20px; /* Base font size increase */
+    }
+  
+    .topCard, .contact2, .verfication2, .reviewSection2 {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+  
+    .adminLogo, .adminLogo2 {
+      height: 60px;
+      width: 60px;
+    }
+  
+    .name, .name2 {
+      font-size: 22px;
+    }
+  
+    .title, .title2 {
+      font-size: 20px;
+    }
+  
+    .desc, .subTitle, .email2, .number2, .cipc2, .timestamp, .timestamp2 {
+      font-size: 16px;
+    }
+  
+    .acceptBtn2, .rejectBtn2 {
+      height: 50px;
+      font-size: 18px;
+      width: 140px;
+    }
+  
+    .sidebar {
+      width: 380px;
+    }
+  
+    .mid {
+      width: 600px;
+    }
+  
+    .cards {
+      max-height: none;
+      overflow-y: visible;
+    }
+  }
+
+  @media (min-width: 2560px) {
+    html {
+      font-size: 24px;
+    }
+  
+    .adminLogo, .adminLogo2 {
+      height: 80px;
+      width: 80px;
+    }
+  
+    .mid {
+      width: 800px;
+    }
+  
+    .topCard {
+      padding: 20px;
+    }
+  
+    .email2, .number2, .cipc2 {
+      width: 600px;
+    }
+  }
+  
+  @media (min-width: 1920px) {
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+  
+    .calendarIcon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  

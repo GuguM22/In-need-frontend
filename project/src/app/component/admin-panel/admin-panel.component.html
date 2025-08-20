@@ -88,20 +88,18 @@
       </aside>
 
       <!-- Panel Content -->
-      <div *ngIf="activePanel" class="p-6 transition-all duration-300 flex flex-grow middle">
+      <div *ngIf="activePanel" class="p-6 transition-all duration-300 flex flex-grow middle bg-white">
   
         <!-- Middle Panel (Pending Applications) -->
-        <div class="pr-4 border-r border-gray-300 mid">
-          <div *ngIf="activePanel === 'pending'">
+        <div class="pr-4 border-r bg-white border-gray-300 mid">
+          <div *ngIf="activePanel === 'pending'" class="bg-white">
             <div class="topTitle mb-4">
               <h2 class="text-lg font-semibold title">Pending Applications</h2>
               <p class="text-sm text-gray-600">{{ pendingApplications.length }} Applications</p>
-              <!-- <p class="text-sm text-gray-600">{{ pendingApplications.length }} Applications</p> -->
-            </div>
+             </div>
   
             <!-- Application Card -->
-            <!-- <div *ngIf="applications.length; else noData" class="cards"> -->
-              <div *ngIf="pendingApplications.length > 0; else noPending" class="cards space-y-4 cursor-pointer">
+               <div *ngIf="pendingApplications.length > 0; else noPending" class="cards space-y-4 cursor-pointer">
             <div>
                 <!-- <div *ngFor="let app of pendingApplications" class="topCard cursor-pointer" (click)="selectApplication(app)"> -->
               <div *ngFor="let app of pendingApplications" (click)="selectApplication(app)">
