@@ -26,3 +26,15 @@
   height: 16px;
   stroke-width: 2;
 }
+.navbar-container {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: top 0.3s;
+  z-index: 9999;
+}
+
+.hidden-navbar {
+  top: -100px; /* move navbar completely out of view */
+}
