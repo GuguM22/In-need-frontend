@@ -1,0 +1,64 @@
+<app-admin-panel></app-admin-panel>
+<div class="container" [class.hidden]="isSidebarContentOpen">
+    <div class="dashboard-header">
+      <h1 class="dashboard-title">Dashboard Overview</h1>
+      <p class="dashboard-subtitle">Monitor your vetting and verification processes</p>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-header">
+          <span class="metric-title">Pending Queue</span>
+          <div class="metric-icon pending">⏳</div>
+        </div>
+        <div class="metric-value">3</div>
+        <div class="metric-change">+2 from yesterday</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-header">
+          <span class="metric-title">Approved</span>
+          <div class="metric-icon approved">✓</div>
+        </div>
+        <div class="metric-value">3</div>
+        <div class="metric-change">+15 from yesterday</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-header">
+          <span class="metric-title">Rejected</span>
+          <div class="metric-icon rejected">✗</div>
+        </div>
+        <div class="metric-value">3</div>
+        <div class="metric-change">+3 from yesterday</div>
+      </div>
+    </div>
+
+    <div class="activity-section">
+      <div class="activity-header">
+        <h2 class="activity-title">Recent Activity</h2>
+        <div class="quick-actions">
+          <button class="action-btn primary">View All</button>
+          <button class="action-btn">Export Data</button>
+        </div>
+      </div>
+
+      <div class="activity-list">
+        <!-- <div class="activity-item" *ngFor="let item of recentActivity">
+          <div class="activity-content">
+            <div class="activity-text">{{ item.text }}</div>
+            <div class="activity-time">{{ item.time }}</div>
+          </div>
+          <div class="activity-status" [class]="item.status">
+            {{ item.status }}
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  
+  <!-- Sidebar content detection overlay -->
+  <div class="sidebar-detector" 
+       [class.active]="isSidebarContentOpen"
+       (click)="closeSidebarContent()">
+  </div>
