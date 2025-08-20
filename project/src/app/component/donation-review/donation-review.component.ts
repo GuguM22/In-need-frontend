@@ -35,10 +35,7 @@ export class DonationReviewComponent implements OnInit {
   //   alert(`You selected: ${this.selectedFrequency}`);
   // }
    confirmDonation() {
-    if (!this.selectedFrequency) {
-      alert('Please select a frequency before continuing.');
-      return;
-    }
+    console.log("in here")
     this.router.navigate(['/thanks'], { 
       queryParams: { frequency: this.selectedFrequency } 
     });
