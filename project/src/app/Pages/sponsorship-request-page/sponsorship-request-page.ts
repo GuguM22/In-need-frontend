@@ -8,6 +8,7 @@ import { Sidebar } from "../../ui/sidebar/sidebar";
 @Component({
   selector: 'app-sponsorship-request-page',
   standalone: true,
+
   imports: [CommonModule, RouterModule, FooterComponent, NavbarComponent],
   templateUrl: './sponsorship-request-page.html',
   styleUrls: ['./sponsorship-request-page.css']

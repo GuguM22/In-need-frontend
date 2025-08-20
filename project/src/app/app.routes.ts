@@ -6,7 +6,7 @@ import { VerifyEmail } from './component/verify-email/verify-email';
 import { SponsorRequest, SponsorRequestComponent } from './Pages/sponsor-request/sponsor-request';
 import { Fequency } from './component/fequency/fequency';
 import { OptionsComponent } from './Pages/options/options.component';
-
+import { NavbarComponent } from "./ui/navbar/navbar";
 
 
 import { UploadSuccessfullyComponent } from './Pages/upload-successfully/upload-successfully.component';
@@ -35,13 +35,21 @@ import { ProfilepageComponent } from './component/profilepage/profilepage';
 import { AskUploading } from './Pages/ask-uploading/ask-uploading';
 import { DonationRequest } from './donation-request/donation-request';
 import { IndividualDasboardComponent } from './component/individual-dasboard/individual-dasboard.component';
-
 import { IndividualReq } from './individual-req/individual-req';
+
 import { AdminDashComponent } from './component/admin-dash/admin-dash.component';
 // import { ThankYouComponent } from './Pages/thank-you/thank-you.component';
 
 
+import { PreviewSponsor } from './Pages/preview-sponsor/preview-sponsor';
 
+
+
+
+
+
+
+import { ManageSponsorIndividualComponent } from './component/manage-sponsor-individual/manage-sponsor-individual.component';
 
 
 
@@ -51,12 +59,13 @@ export const routes: Routes = [
 
 
   { path: 'Landing', component: LandingComponent },
-  {path: 'options', component:OptionsComponent},
+  { path: 'options', component: OptionsComponent},
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
   { path: 'verify-email', component: VerifyEmail },
 
   {path: 'sponsor-dashboard', component: SponsorDasboardComponent},
+  {path: 'individual-dashboard', component: IndividualDasboardComponent},
 
  
   {path: 'sponsorship-request-page', component: SponsorshipRequestPage},
@@ -79,7 +88,8 @@ export const routes: Routes = [
  { path: 'donation-request', component: DonationRequest },
 
   {path: 'sponsor-request', component: SponsorRequestComponent},
-  {path: 'profile', component :ProfilepageComponent},
+  {path: 'profile', component : ProfilepageComponent},
+
 
    { path: 'organiseDetails', component: OrganiseDetailsComponent },
 
@@ -94,11 +104,13 @@ export const routes: Routes = [
   
   {path: 'individual-request', component: IndividualReq},
  
-   {path:'individual-dashboard', component: IndividualDasboardComponent},
-  {path:'thanks',component:ThankYouComponent},
 
+  {path: 'preview-sponsor/:id', component:PreviewSponsor },
+  
 
-
+  {path:'manage-sponsor-individual',component: ManageSponsorIndividualComponent},
+  {path:'thanks', component: ThankYouComponent}
+  
 
 
   { path: 'fequency', component: Fequency },
@@ -107,5 +119,5 @@ export const routes: Routes = [
   {path:'admin-dash', component: AdminDashComponent},
   { path: '**', redirectTo: 'fequency' }
  
+
 ];
-  

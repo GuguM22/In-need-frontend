@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { NavbarComponent } from "../../ui/navbar/navbar";
 import { FooterComponent } from "../../ui/footer/footer";
 
@@ -13,50 +13,11 @@ import { FooterComponent } from "../../ui/footer/footer";
   styleUrls: ['./options.component.css']
 })
 export class OptionsComponent {
-
-
   showError: boolean = false;
   errorMessage: string = '';
   currentStep: number = 1;
   totalSteps: number = 3;
-
-  get isFirstStep(): boolean {
-    return this.currentStep === 1;
-  }
-
-  goNext(): void {
-    if (this.validateStep()) {
-      this.showError = false;
-      if (this.currentStep < this.totalSteps) {
-        this.currentStep++;
-      
-      }
-    } else {
-      this.errorMessage = 'Please complete all required fields before continuing.';
-      this.showError = true;
-    }
-  }
-
-  goBack(): void {
-    if (this.currentStep > 1) {
-      this.currentStep--;
-      this.showError = false;
-    } else {
-      this.errorMessage = 'You are already on the first step.';
-      this.showError = true;
-    }
-  }
-
-  validateStep(): boolean {
-    // Replace this with your real validation logic
-    // For example, check if a form field is filled
-    // return this.myForm.valid;
-    return false; // simulate validation failure
-  }
-
-
-
-
+  selectedType: string = "";
 
   donationOptions = [
     {
@@ -78,12 +39,39 @@ export class OptionsComponent {
       icon: '🤝'
     }
   ];
-  selectedType: string | undefined;
 
-  selectDonation(type: string) {
-    this.selectedType = type;
+  constructor(private router: Router) {}
+
+  get isFirstStep(): boolean {
+    return this.currentStep === 1;
   }
 
+  selectType(type: string) {
+    this.selectedType = type
+  }
 
+  goNext(): void {
+    if(this.selectedType == "") return
 
+    localStorage.setItem('donationType', this.selectedType)
+
+    this.router.navigate(['/donation-request'])
+  }
+
+  goBack(): void {
+    if (this.currentStep > 1) {
+      this.currentStep--;
+      this.showError = false;
+    } else {
+      this.errorMessage = 'You are already on the first step.';
+      this.showError = true;
+    }
+  }
+
+  validateStep(): boolean {
+    // Replace this with your real validation logic
+    // For example, check if a form field is filled
+    // return this.myForm.valid;
+    return false; // simulate validation failure
+  }
 }

@@ -13,7 +13,10 @@ import { FooterComponent } from "../footer/footer";
 export class NavbarComponent {
   toggle = false;
 
-  handleToggle() {
+  handleToggle() { 
     this.toggle = !this.toggle;
+
+  
   }
+
 }

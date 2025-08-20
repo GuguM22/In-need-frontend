@@ -43,6 +43,9 @@ export class Fequency implements OnInit {
       alert('Please select a frequency before continuing.');
       return;
     }
+
+    localStorage.setItem('donationFreq', this.selectedFrequency)
+
     this.router.navigate(['/donation-review'], { 
       queryParams: { frequency: this.selectedFrequency } 
     });
