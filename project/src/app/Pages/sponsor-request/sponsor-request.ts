@@ -13,6 +13,7 @@ import { PreviewSponsor } from "../preview-sponsor/preview-sponsor";
 
 // Interface for backend DTO
 export interface SponsorRequest {
+  id?: string; 
   title: string;
   priority: string;
   quantity: number;

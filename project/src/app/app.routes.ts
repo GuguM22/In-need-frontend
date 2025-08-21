@@ -60,7 +60,7 @@ export const routes: Routes = [
 
 
   { path: 'Landing', component: LandingComponent },
-  { path: 'options', component: OptionsComponent},
+  { path: 'options/:id', component: OptionsComponent},
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
   { path: 'verify-email', component: VerifyEmail },

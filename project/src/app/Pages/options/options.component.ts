@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NavbarComponent } from "../../ui/navbar/navbar";
 import { FooterComponent } from "../../ui/footer/footer";
+import { SponsorRequestService } from '../../service/sponsor-request-service';
 
 @Component({
   selector: 'app-options',
@@ -18,6 +19,8 @@ export class OptionsComponent {
   currentStep: number = 1;
   totalSteps: number = 3;
   selectedType: string = "";
+  requestId: string = '';
+  requestDetails: any;
 
   donationOptions = [
     {
@@ -40,7 +43,8 @@ export class OptionsComponent {
     }
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,  private route: ActivatedRoute,
+    private sponsorService: SponsorRequestService) {}
 
   get isFirstStep(): boolean {
     return this.currentStep === 1;
@@ -74,4 +78,19 @@ export class OptionsComponent {
     // return this.myForm.valid;
     return false; // simulate validation failure
   }
+
+  ngOnInit(): void {
+    this.requestId = this.route.snapshot.paramMap.get('id') || '';
+
+    this.sponsorService.getById(this.requestId).subscribe({
+      next: (data) => {
+        this.requestDetails = data;
+        // You now have the data for that specific organization/request
+      },
+      error: (err) => {
+        console.error('Error fetching request details:', err);
+      }
+    });
+  }
 }
+
