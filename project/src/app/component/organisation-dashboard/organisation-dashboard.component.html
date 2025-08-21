@@ -46,24 +46,23 @@
 </div>
 <div class="container2">
     <div class="individualCards carousel">
-        <div class="indvCard">
+        <div class="indvCard"  *ngFor="let i of individuals">
             <div class="thumbnail">
-                <img src="donation.jpg" alt="" class="thumbnailPic">
+                <img [src]="i.mediaUrls
+                " alt="" class="thumbnailPic">
             </div>
             <div class="user">
-                <h4 class="names">Nkosi John</h4>
+                <h4 class="names">{{i.title}}</h4>
             </div>
             <div class="description">
-                <p class="descriptions">Need to pay for school fees so that i Lorem ipsum dolor sit amet consectetur
-                    adipisicing elit. Veritatis quas consectetur, dolorem nesciunt dicta officia officiis! Impedit
-                    reprehenderit amet consequatur.
+                <p class="descriptions">{{i.description}}
                 <p>
             </div>
             <div class="timestamp">
-                <p class="time">2 Hours</p>
-            </div>
+                <p class="time">{{i.neededByDate}}</p>
+             </div>
         </div>
-        <div class="indvCard">
+        <!-- <div class="indvCard">
             <div class="thumbnail">
                 <img src="donation.jpg" alt="" class="thumbnailPic">
             </div>
@@ -76,7 +75,7 @@
             <div class="timestamp">
                 <p class="time">2 Hours</p>
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="heading2">
         <h3 class="font-bold">Organisations in Need</h3>
