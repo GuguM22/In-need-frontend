@@ -112,6 +112,10 @@ export const routes: Routes = [
  
 
   {path: 'preview-sponsor/:id', component:PreviewSponsor },
+   
+   {path: 'review-request', component: ReviewRequest}
+  
+ 
 
 
   {path: 'preview-individual/:id', component:PreviewIndividual },
@@ -129,4 +133,4 @@ export const routes: Routes = [
 
  
 
-];
+ ];

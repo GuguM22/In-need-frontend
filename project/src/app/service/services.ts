@@ -81,11 +81,12 @@ export class Services {
   }
 
   profile(): Observable<any> {
-    const token = localStorage.getItem('token');
-    return this.http.get(`${this.apiUrl}/auth/profile`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-  }
+  const token = localStorage.getItem('token');
+  return this.http.get(`${this.apiUrl}/auth/profile`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+}
+
 
   updateProfile(updateData: any): Observable<any> {
     const token = localStorage.getItem('token');

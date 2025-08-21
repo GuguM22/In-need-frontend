@@ -42,13 +42,14 @@ goNext() {
   const donationRequest: DonationRequestDTO = {
     description: formValue.description,
     quantity: formValue.quantity,
-    preference: formValue.logistics, // DELIVERY or PICK_UP
+    preference: formValue.logistics,
     additionalNotes: formValue.notes,
-    donorEmail: localStorage.getItem('userEmail') || 'bob@gmail.com',
+    donorEmail: localStorage.getItem('userEmail') || '',
     createdAt: new Date(),
     availability: formValue.requiredDate,
     type: DonationType.FOOD,
-    frequency: DonationFrequency.ONE_TIME
+    frequency: DonationFrequency.ONE_TIME,
+    donorName:  localStorage.getItem('donorName') || '',
   };
 
   localStorage.setItem('donationRequest', JSON.stringify(donationRequest));

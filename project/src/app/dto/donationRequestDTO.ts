@@ -13,4 +13,6 @@ export interface DonationRequestDTO {
   frequency: DonationFrequency;
   donorEmail: string;
   createdAt: Date;
+  profileImagePath?: string;
+  donorName: string;
 }
