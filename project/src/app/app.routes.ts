@@ -109,7 +109,7 @@ export const routes: Routes = [
   {path: 'preview-sponsor/:id', component:PreviewSponsor },
 
 
-  
+  {path: 'preview-individual/:id', component:PreviewIndividual },
 
   {path:'manage-sponsor-individual',component: ManageSponsorIndividualComponent},
   {path:'thanks', component: ThankYouComponent},
