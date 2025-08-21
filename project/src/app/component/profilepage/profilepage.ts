@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Location } from '@angular/common';
-import { RouterModule } from '@angular/router'; // ✅ Needed for routerLink
+import { RouterModule } from '@angular/router'; 
 import { FooterComponent } from "../../ui/footer/footer";
 import { Services } from '../../service/services';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Donation } from '../../service/donation';
+import { DonationService } from '../../service/donation';
 import { Role } from '../../constant/role';
 
 @Component({
