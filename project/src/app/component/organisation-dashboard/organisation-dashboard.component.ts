@@ -1,7 +1,7 @@
 import { Component, ElementRef, HostListener } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { SponsorRequest } from '../../Pages/sponsor-request/sponsor-request';
-import { Navbar } from "../../ui/navbar/navbar";
+import { NavbarComponent } from "../../ui/navbar/navbar";
 import { FooterComponent } from "../../ui/footer/footer";
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { CommonModule } from '@angular/common';
@@ -10,13 +10,14 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-organisation-dashboard',
-  imports: [FooterComponent, Navbar, CommonModule, RouterLink, FormsModule],
+  imports: [FooterComponent, NavbarComponent, CommonModule, RouterLink, FormsModule],
   templateUrl: './organisation-dashboard.component.html',
   styleUrl: './organisation-dashboard.component.css'
 })
 export class OrganisationDashboardComponent {
  requests: SponsorRequest[] =[]
-
+ isVerified: boolean = false;
+ showVerificationAlert: boolean = false;
  request: SponsorRequest = {
     title: '',
     priority: '',
@@ -32,10 +33,16 @@ export class OrganisationDashboardComponent {
   itemsPerPage: number = 3;
 
   ngOnInit():void {
+  this.isVerified = localStorage.getItem('verified') === 'true';
   this.loadRequests();
   }
   navigateToSponsorRequest() {
-    this.router.navigate(['sponsor-request']);
+    if (this.isVerified) {
+      this.router.navigate(['sponsor-request']); // ✅ navigate only if verified
+    } else {
+      this.showVerificationAlert = true; // show alert if not verified
+      setTimeout(() => this.showVerificationAlert = false, 7000); // optional: hide after 5s
+    }
   }
 
   loadRequests():void {
@@ -145,4 +152,9 @@ onClickOutside(event: MouseEvent): void {
     this.showFilterDropdown = false;
   }
 }
+goToVerification(): void {
+  this.router.navigate(['/verification']);
 }
+
+}
+

@@ -1,11 +1,31 @@
 <app-navbar></app-navbar>
 
 <div
-  class=" bg-white flex flex-col  justify-center p-4 container"
+  class=" bg-white flex flex-col  justify-center p-4 container pb-[5.9rem]"
 >
-<div class="top">
-  <h2 class="text-[#000000] font-extrabold text-lg">Back</h2>
+<div class="top flex items-center space-x-2">
+  <!-- Back arrow icon -->
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="w-5 h-5 text-black"
+    fill="currentColor"
+    viewBox="0 0 512 512"
+  >
+    <path
+      d="M50.2,169.6C97.9,56.3,228.5,3.1,341.8,50.9s166.4,178.3,118.7,291.6S282.2,508.9,168.9,461.1C86.4,426.4,32.7,345.5,32.7,256C32.7,226.3,38.6,196.9,50.2,169.6z M254.7,448c106,0,192-86,192-192s-86-192-192-192s-192,86-192,192S148.7,448,254.7,448z M226.7,140.7L111.4,256l115.3,115.3l21.2-21.2L168.7,271h208.2v-30H168.7l79.1-79.1L226.7,140.7z"
+    />
+  </svg>
+
+  <!-- Back button -->
+  <button
+    type="button"
+    (click)="goBack()" [routerLink]="'/individual-dashboard'"
+    class="text-sm font-bold text-black focus:outline-none"
+  >
+    Back
+  </button>
 </div>
+
   <!-- Stepper -->
   <!-- <div class="back">
     <h3>Back</h3>
@@ -54,6 +74,7 @@
         <!-- Food Donations -->
         <label
           class="block border rounded-xl p-4 flex items-center gap-4 cursor-pointer hover:shadow-md transition types"
+          (click)="selectType('food')"
         >
           <img
             src="https://i.pinimg.com/736x/cf/b1/aa/cfb1aa51b9d84c308f0ed811ff4d371e.jpg"
@@ -77,6 +98,7 @@
         <!-- Item Donations -->
         <label
           class="block border rounded-xl p-4 flex items-center gap-4 cursor-pointer hover:shadow-md transition types"
+          (click)="selectType('item')"
         >
           <img
             src="https://i.pinimg.com/736x/86/0a/a0/860aa0fffb5c0f48b61574f355ec217e.jpg"
@@ -101,6 +123,7 @@
         <!-- Service Donations -->
         <label
           class="block border rounded-xl p-4 flex items-center gap-4 cursor-pointer hover:shadow-md transition types"
+          (click)="selectType('service')"
         >
           <img
             src="https://i.pinimg.com/1200x/33/27/f1/3327f18b64752e73e5bbdaa773a16c9c.jpg"
@@ -153,7 +176,7 @@
     <div class="flex justify-between items-center w-full mt-8">
       <button
         id="backBtn"
-        (click)="goBack()" [routerLink]="'/sponsor-dasboard'"
+        (click)="goBack()" [routerLink]="'/individual-dashboard'"
         class="px-6 py-2 bg-[#D9D9D9] text-gray-700 font-[800] rounded-lg hover:bg-gray-300 transition"
         
       >
@@ -161,7 +184,7 @@
       </button>
       <button
         id="nextBtn"
-        (click)="goNext()" [routerLink]="'/sponsor-req'"
+        (click)="goNext()"
         
         class="px-6 py-2 bg-[#5B8E7D] text-white font-[800] rounded-lg hover:bg-emerald-700 transition"
       >

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Navbar } from "../navbar/navbar";
+import { NavbarComponent } from "../navbar/navbar";
 import { CommonModule } from '@angular/common';
 import { Logout } from "../../component/logout/logout";
 import { Services } from '../../service/services';
