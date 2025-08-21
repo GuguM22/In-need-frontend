@@ -1,9 +1,9 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { Router } from '@angular/router';
-import { IndividualService } from '../service/individual-service';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnDestroy } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { IndividualService } from '../service/individual-service';
+import { PreviewIndividual } from '../Pages/preview-individual/preview-individual';
 
 /** Validator: date cannot be in the past */
 export function futureDateValidator(): ValidatorFn {
@@ -21,130 +21,129 @@ export function futureDateValidator(): ValidatorFn {
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './individual-req.html',
-  styleUrls: ['./individual-req.css']
+  styleUrls: ['./individual-req.css'],
+  providers: [IndividualService]
 })
-export class IndividualReq implements OnInit, OnDestroy {
-  today: string = '';
-  individualForm!: FormGroup;
+export class IndividualReq implements OnDestroy {
+
+  isNewRequest: any;
+onDragLeave($event: DragEvent) {
+throw new Error('Method not implemented.');
+}
+onDragOver($event: DragEvent) {
+throw new Error('Method not implemented.');
+}
+onFileDrop($event: DragEvent) {
+throw new Error('Method not implemented.');
+}
+
+ individualForm: FormGroup;
   selectedFiles: File[] = [];
   filePreviews: string[] = [];
   isSubmitting = false;
 
+  previewData: any = null;
+  isEditing = true; // <-- control form vs preview
+
   constructor(
     private fb: FormBuilder,
-    private router: Router,
-    private http: HttpClient,
     private individualService: IndividualService
-  ) {}
-
-  ngOnInit() {
-    this.today = new Date().toISOString().split('T')[0];
-
+  ) {
     this.individualForm = this.fb.group({
       title: ['', Validators.required],
-      urgency: [''], // optional
+      urgency: [''],
       quantity: [1, [Validators.required, Validators.min(1)]],
-      neededByDate: [this.today, [Validators.required, futureDateValidator()]],
-      description: ['', Validators.required],
-      media: [null]
+      neededByDate: [this.getTodayDate(), [Validators.required, futureDateValidator()]],
+      description: ['', Validators.required]
     });
   }
-
+  
   getTodayDate(): string {
-    return this.today;
-  }
-
-  onQuantityChange(increment: boolean): void {
-    const currentValue = this.individualForm.get('quantity')?.value || 0;
-    const newValue = increment ? currentValue + 1 : Math.max(1, currentValue - 1);
-    this.individualForm.patchValue({ quantity: newValue });
-  }
-
-  onFileSelect(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files) this.handleFiles(Array.from(input.files));
-  }
-
-  onFileDrop(event: DragEvent): void {
-    event.preventDefault();
-    if (event.dataTransfer?.files) this.handleFiles(Array.from(event.dataTransfer.files));
-  }
-
-  onDragOver(event: DragEvent): void {
-    event.preventDefault();
-  }
-
-  onDragLeave(event: DragEvent): void {
-    event.preventDefault();
-  }
-
-  private handleFiles(files: File[]): void {
-    this.revokePreviews();
-    this.selectedFiles = files;
-    this.filePreviews = files.map(file => URL.createObjectURL(file));
-  }
-
-  private revokePreviews(): void {
-    this.filePreviews.forEach(url => URL.revokeObjectURL(url));
-    this.filePreviews = [];
+    return new Date().toISOString().split('T')[0];
   }
 
   onSubmit(): void {
-    if (this.individualForm.invalid) {
-      this.individualForm.markAllAsTouched();
-      return;
-    }
+  if (this.individualForm.invalid) {
+    this.individualForm.markAllAsTouched();
+    return;
+  }
 
-    const formData = new FormData();
-    const request = {
-      title: this.individualForm.get('title')?.value,
-      urgency: this.individualForm.get('urgency')?.value || '',
-      quantity: Number(this.individualForm.get('quantity')?.value),
-      neededByDate: this.individualForm.get('neededByDate')?.value,
-      description: this.individualForm.get('description')?.value,
-      mediaUrls: ["", ""]
-    };
+  const formData = new FormData();
+  formData.append('title', this.individualForm.get('title')?.value);
+  formData.append('urgency', this.individualForm.get('urgency')?.value || '');
+  formData.append('quantity', String(this.individualForm.get('quantity')?.value));
+  formData.append('neededByDate', this.individualForm.get('neededByDate')?.value);
+  formData.append('description', this.individualForm.get('description')?.value);
+  this.selectedFiles.forEach(file => formData.append('mediaFiles', file, file.name));
 
-    localStorage.setItem('debugRequest', JSON.stringify(request));
-    console.log('Request payload:', request);
+  this.isSubmitting = true;
 
-    formData.append('request', new Blob([JSON.stringify(request)], { type: 'application/json' }));
-    this.selectedFiles.forEach(file => formData.append('mediaFiles', file, file.name));
-
-    this.isSubmitting = true;
-
-    this.individualService.post(formData).subscribe({
-      next: () => {
-        this.resetForm();
+  if (!this.isNewRequest && this.previewData?.id) {
+    // SECOND submission: update existing request → go back to table after
+    this.individualService.update(this.previewData.id, formData).subscribe({
+      next: (updated: any) => {
         this.isSubmitting = false;
-        this.router.navigate(['/upload-successfully']);
+        alert('Request updated successfully.');
+        // Navigate back to table (or previous page)
+        this.backButton(); // assuming this goes to the table page
       },
-      error: (error: any) => {
-        console.error('Error submitting request:', error);
-        alert('Failed to submit individual request: ' + error.message);
+      error: (err: any) => {
+        console.error(err);
+        alert('Failed to update request.');
+        this.isSubmitting = false;
+      }
+    });
+  } else {
+    // FIRST submission: create new request → go to preview mode
+    this.individualService.post(formData).subscribe({
+      next: (created: any) => {
+        this.previewData = created;
+        this.filePreviews = this.selectedFiles.map(f => URL.createObjectURL(f));
+        this.isEditing = false;       // go to preview
+        this.isSubmitting = false;
+        this.isNewRequest = false;    // mark that next submit will be an update
+      },
+      error: (err: any) => {
+        console.error(err);
+        alert('Failed to submit request.');
         this.isSubmitting = false;
       }
     });
   }
+}
 
-  private resetForm(): void {
-    this.individualForm.reset({
-      title: '',
-      urgency: '',
-      quantity: 1,
-      neededByDate: this.getTodayDate(),
-      description: '',
-      media: null
-    });
-    this.selectedFiles = [];
-    this.revokePreviews();
-  }
+onEdit(): void {
+  if (!this.previewData) return;
+  this.isEditing = true;
+  this.individualForm.patchValue({
+    title: this.previewData.title,
+    urgency: this.previewData.urgency,
+    quantity: this.previewData.quantity,
+    neededByDate: this.previewData.neededByDate,
+    description: this.previewData.description
+  });
+  this.filePreviews = this.previewData.mediaUrls || [];
+}
+backButton(): void {
+  // Option 1: Go back in browser history
+  window.history.back();
 
-  ngOnDestroy(): void {
-    this.revokePreviews();
-  }
+}
+onFileSelect(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  if (input.files) {
+    this.selectedFiles = Array.from(input.files);
 
-  backButton(): void {
-    this.router.navigate(['organization-dashboard']);
+    // Revoke previous previews
+    this.filePreviews.forEach(url => URL.revokeObjectURL(url));
+    this.filePreviews = this.selectedFiles.map(file => URL.createObjectURL(file));
   }
 }
+  ngOnDestroy(): void {
+  // Revoke any object URLs to avoid memory leaks
+  this.filePreviews.forEach(url => URL.revokeObjectURL(url));
+  this.filePreviews = [];
+}
+
+}
+

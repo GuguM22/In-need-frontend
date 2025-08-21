@@ -9,10 +9,12 @@ import { Router } from '@angular/router';
 import { Services } from '../../service/services';
 import { FooterComponent } from '../../ui/footer/footer';
 import { Logout } from '../logout/logout';
+import { AdminDashComponent } from "../admin-dash/admin-dash.component";
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-admin-panel',
-  imports: [CommonModule, PendingComponent, ApprovedComponent, RejectedComponent, Logout],
+  imports: [CommonModule, PendingComponent, ApprovedComponent, RejectedComponent, Logout, AdminDashComponent],
   templateUrl: './admin-panel.component.html',
   styleUrl: './admin-panel.component.css'
 })
@@ -24,59 +26,86 @@ export class AdminPanelComponent {
   pendingApplications: VerificationRequest[] = [];
   approvedApplications: VerificationRequest[] = [];
   rejectedApplications: VerificationRequest[] = [];
+  recentActivities: VerificationRequest[] = []; 
   showConfirmModal = false;
   modalTitle = '';
   modalMessage = '';
   modalAction: (() => void) | null = null;
   showLogoutModal = false;
-  toggle = true; // For sidebar toggle
+  toggle = true; 
 
 selectedApplication: VerificationRequest | null = null;
 
-  // selectedApplication: VerificationRequest | null = null;
   activePanel: 'pending' | 'approved' | 'rejected' | null = 'pending'; // default to pending
 
 
   constructor(private verificationService: VerificationService, private router: Router, private userService: Services) {}
 
 
-  ngOnInit(): void {
-    this.userEmail = localStorage.getItem('userEmail');
-    this.userId = localStorage.getItem('userId');
-    this.userName = localStorage.getItem('userName');
-    // Get pending
-    this.verificationService.getVerifications('PENDING').subscribe({
-      next: (data) => {
-        // Convert submittedDate strings to Date objects
-        this.pendingApplications = data;  // no conversion
+// ngOnInit(): void {
+//   this.userEmail = localStorage.getItem('userEmail');
+//   this.userId = localStorage.getItem('userId');
+//   this.userName = localStorage.getItem('userName');
 
+//   combineLatest([
+//     this.verificationService.getVerifications('PENDING'),
+//     this.verificationService.getVerifications('APPROVED'),
+//     this.verificationService.getRejectedVerifications()
+//   ]).subscribe({
+//     next: ([pending, approved, rejected]) => {
+//       this.pendingApplications = pending;
+//       this.approvedApplications = approved;
+//       this.rejectedApplications = rejected;
 
-    this.pendingApplications.forEach(app => {
-      console.log('Pending submittedDate as Date:', app.submittedDate, typeof app.submittedDate);
-    });
-  },
-  error: (err) => console.error('Error fetching pending verifications', err),
-});
+//       this.recentActivities = [...pending, ...approved, ...rejected]
+//       .filter(app => !!app.submittedDate) 
+//       .sort((a, b) =>
+//         new Date(b.submittedDate as string).getTime() - new Date(a.submittedDate as string).getTime()
+//       );
+    
+
+//       console.log('Recent activities:', this.recentActivities);
+//     },
+//     error: (err) => {
+//       console.error('Error fetching verification data:', err);
+//     }
+//   });
+// }
   
-    // Get approved
-    this.verificationService.getVerifications('APPROVED').subscribe({
-      next: (data) => {
-        this.approvedApplications = data;
-        console.log('Approved:', data);
-      },
-      error: (err) => console.error('Error fetching approved verifications', err),
-    });
-  
-    // Get rejected (custom endpoint)
-    this.verificationService.getRejectedVerifications().subscribe({
-      next: (data) => {
-        this.rejectedApplications = data;
-        console.log('Rejected:', data);
-      },
-      error: (err) => console.error('Error fetching rejected verifications', err),
-    });
-  }
-  
+
+ngOnInit(): void {
+  this.userEmail = localStorage.getItem('userEmail');
+  this.userId = localStorage.getItem('userId');
+  this.userName = localStorage.getItem('userName');
+
+  combineLatest([
+    this.verificationService.getVerifications('PENDING'),
+    this.verificationService.getVerifications('APPROVED'),
+    this.verificationService.getRejectedVerifications()
+  ]).subscribe({
+    next: ([pending, approved, rejected]) => {
+      // Sort each list by submittedDate (newest first)
+      this.pendingApplications = pending
+        .filter(app => !!app.submittedDate)
+        .sort((a, b) => new Date(b.submittedDate as string).getTime() - new Date(a.submittedDate as string).getTime());
+
+      this.approvedApplications = approved
+        .filter(app => !!app.submittedDate)
+        .sort((a, b) => new Date(b.submittedDate as string).getTime() - new Date(a.submittedDate as string).getTime());
+
+      this.rejectedApplications = rejected
+        .filter(app => !!app.submittedDate)
+        .sort((a, b) => new Date(b.submittedDate as string).getTime() - new Date(a.submittedDate as string).getTime());
+
+      // For recent activities (optional)
+      this.recentActivities = [...this.pendingApplications, ...this.approvedApplications, ...this.rejectedApplications];
+    },
+    error: (err) => {
+      console.error('Error fetching verification data:', err);
+    }
+  });
+}
+
     // selectedApplication: string | null = null
   
     openPanel(panel: 'pending' | 'approved' | 'rejected'): void {
@@ -98,32 +127,6 @@ selectedApplication: VerificationRequest | null = null;
       this.selectedApplication = app;
     }
 
-
-    // onApplicationApproved(app: VerificationRequest) {
-    //   this.verificationService.updateStatus(app.id, 'APPROVED').subscribe({
-    //     next: () => {
-    //       app.status = 'APPROVED'; // Update local object
-    //       this.pendingApplications = this.pendingApplications.filter(a => a.id !== app.id);
-    //       this.approvedApplications.push(app);
-    //       this.selectedApplication = null;
-    //       this.activePanel = 'approved';
-    //     },
-    //     error: (err) => {
-    //       console.error('Error approving application:', err);
-    //     }
-    //   });
-    // }
-    
-    
-    // onApplicationRejected(app: VerificationRequest) {
-    //   this.verificationService.updateStatus(app.id, 'REJECTED').subscribe(() => {
-    //     app.status = 'REJECTED';
-    //     this.pendingApplications = this.pendingApplications.filter(a => a.id !== app.id);
-    //     this.rejectedApplications.push(app);
-    //     this.selectedApplication = null;
-    //     this.activePanel = 'rejected';
-    //   });
-    // }
     
     openConfirmModal(title: string, message: string, action: () => void) {
       this.modalTitle = title;

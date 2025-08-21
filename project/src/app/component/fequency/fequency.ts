@@ -17,25 +17,30 @@ import { NavbarComponent } from "../../ui/navbar/navbar";
 export class Fequency implements OnInit {
 
   selectedFrequency: string = '';
+  currentStep = 3; 
 
   frequencyTiles = [
-    { icon: "icons/digitalwatch.svg", title: "One Time Donation", description: "Make a single donation now", value: "One-time" },
-    { icon: "icons/analogwatch.svg", title: "Weekly", description: "Donate once a week", value: "Weekly" },
-    { icon: "icons/monthlycalender.svg", title: "Monthly", description: "Donate monthly", value: "Monthly" },
-    { icon: "icons/yearlycalender.svg", title: "Yearly", description: "Donate once a year", value: "Yearly" }
+    { icon: "icons/digitalwatch.svg", title: "One Time Donation", description: "Make a single donation now", value: "ONE_TIME" },
+    { icon: "icons/analogwatch.svg", title: "Weekly", description: "Donate once a week", value: "WEEKLY" },
+    { icon: "icons/monthlycalender.svg", title: "Monthly", description: "Donate monthly", value: "MONTHLY" },
+    { icon: "icons/yearlycalender.svg", title: "Yearly", description: "Donate once a year", value: "QUARTERLY" }
   ];
 
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    // ✅ Restore selection if coming back from Donation Review
+    // Restore selection if coming back from Donation Review
     this.route.queryParams.subscribe(params => {
-      this.selectedFrequency = params['frequency'] || '';
+      this.selectedFrequency = (params['frequency'] || '').toUpperCase();
     });
   }
 
+  selectFrequency(tileValue: string) {
+    this.selectedFrequency = tileValue.toUpperCase();
+  }
+
   goBack() {
-    this.router.navigate(['/previous']); // replace with your actual previous page
+    this.router.navigate(['/donation-request']); 
   }
 
   goNext() {
@@ -44,7 +49,7 @@ export class Fequency implements OnInit {
       return;
     }
 
-    localStorage.setItem('donationFreq', this.selectedFrequency)
+    localStorage.setItem('donationFreq', this.selectedFrequency);
 
     this.router.navigate(['/donation-review'], { 
       queryParams: { frequency: this.selectedFrequency } 

@@ -63,8 +63,8 @@
   
   .metrics-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
+    gap: 1rem;
     margin-bottom: 2rem;
   }
   
@@ -75,6 +75,7 @@
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     transition: all 0.2s ease;
     border: 1px solid #e2e8f0;
+    width: 250px;
   }
   
   .metric-card:hover {
@@ -110,15 +111,18 @@
   }
   
   .metric-icon.pending {
-    background-color: #f59e0b;
+    background-color: #FFBA0875;
+    border: solid #0000004D;
   }
   
   .metric-icon.approved {
-    background-color: #10b981;
+    background-color: #219EBC;
+    border: solid #0000004D;
   }
   
   .metric-icon.rejected {
-    background-color: #ef4444;
+    background-color: #C1121F;
+    border: solid #0000004D;
   }
   
   .metric-value {
@@ -139,6 +143,7 @@
     padding: 1.5rem;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     border: 1px solid #e2e8f0;
+    width: 90%;
   }
   
   .activity-header {

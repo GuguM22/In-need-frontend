@@ -6,7 +6,7 @@ import { FooterComponent } from "../footer/footer";
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [Sidebar, CommonModule, FooterComponent],
+  imports: [CommonModule, FooterComponent, Sidebar],
   templateUrl: './navbar.html',
   styleUrls: ['./navbar.css']
 })

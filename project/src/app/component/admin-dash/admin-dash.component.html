@@ -1,7 +1,7 @@
-<app-admin-panel></app-admin-panel>
+<!-- <app-admin-panel></app-admin-panel> -->
 <div class="container" [class.hidden]="isSidebarContentOpen">
     <div class="dashboard-header">
-      <h1 class="dashboard-title">Dashboard Overview</h1>
+      <h1 class="dashboard-title">Admin Overview</h1>
       <p class="dashboard-subtitle">Monitor your vetting and verification processes</p>
     </div>
 
@@ -11,8 +11,8 @@
           <span class="metric-title">Pending Queue</span>
           <div class="metric-icon pending">⏳</div>
         </div>
-        <div class="metric-value">3</div>
-        <div class="metric-change">+2 from yesterday</div>
+        <div class="metric-value">{{ pendingApplications.length }}</div>
+        <div class="metric-change">applications</div>
       </div>
 
       <div class="metric-card">
@@ -20,8 +20,8 @@
           <span class="metric-title">Approved</span>
           <div class="metric-icon approved">✓</div>
         </div>
-        <div class="metric-value">3</div>
-        <div class="metric-change">+15 from yesterday</div>
+        <div class="metric-value">{{ approvedApplications.length }}</div>
+        <div class="metric-change">applications</div>
       </div>
 
       <div class="metric-card">
@@ -29,8 +29,8 @@
           <span class="metric-title">Rejected</span>
           <div class="metric-icon rejected">✗</div>
         </div>
-        <div class="metric-value">3</div>
-        <div class="metric-change">+3 from yesterday</div>
+        <div class="metric-value">{{ rejectedApplications.length }}</div>
+        <div class="metric-change">applications</div>
       </div>
     </div>
 
@@ -38,27 +38,28 @@
       <div class="activity-header">
         <h2 class="activity-title">Recent Activity</h2>
         <div class="quick-actions">
-          <button class="action-btn primary">View All</button>
-          <button class="action-btn">Export Data</button>
+       
         </div>
       </div>
 
       <div class="activity-list">
-        <!-- <div class="activity-item" *ngFor="let item of recentActivity">
+        <div class="activity-item" *ngFor="let activity of recentActivities | slice:0:5">
           <div class="activity-content">
-            <div class="activity-text">{{ item.text }}</div>
-            <div class="activity-time">{{ item.time }}</div>
+            <div class="activity-text">      {{ activity.username }} submitted an application
+            </div>
+            <div class="activity-time">  {{ activity.submittedDate | date: 'dd/MM/yyyy'}}</div>
           </div>
-          <div class="activity-status" [class]="item.status">
-            {{ item.status }}
+          <div class="activity-status">
+            <span [ngClass]="{
+              'text-[#e28d00]': activity.status === 'PENDING',
+              'text-[#219EBC]': activity.status === 'APPROVED',
+              'text-[#C1121F]': activity.status === 'REJECTED'
+            }">
+              {{ activity.status }}
+            </span>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
   </div>
   
-  <!-- Sidebar content detection overlay -->
-  <div class="sidebar-detector" 
-       [class.active]="isSidebarContentOpen"
-       (click)="closeSidebarContent()">
-  </div>
