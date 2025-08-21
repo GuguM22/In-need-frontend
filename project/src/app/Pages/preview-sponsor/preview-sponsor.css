@@ -1,0 +1,28 @@
+.preview-container {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.preview-title {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.preview-field {
+  margin-bottom: 0.5rem;
+}
+
+.preview-gallery {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.preview-image {
+  max-width: 150px;
+  border-radius: 6px;
+  object-fit: cover;
+}

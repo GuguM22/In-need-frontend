@@ -1,0 +1,266 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    margin-left: 365px; /* Account for sidebar width */
+    max-width: calc(100vw - 365px);
+    padding: 2rem;
+    min-height: 100vh;
+    transition: opacity 0.3s ease;
+  }
+  
+  .container.hidden {
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: -1;
+  }
+  
+  .sidebar-detector {
+    position: fixed;
+    top: 0;
+    left: 365px;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  .sidebar-detector.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  .dashboard-header {
+    margin-bottom: 2rem;
+  }
+  
+  .dashboard-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+  }
+  
+  .dashboard-subtitle {
+    color: #64748b;
+    font-size: 1rem;
+  }
+  
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .metric-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease;
+    border: 1px solid #e2e8f0;
+    width: 250px;
+  }
+  
+  .metric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .metric-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .metric-title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .metric-icon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: white;
+    font-size: 0.875rem;
+  }
+  
+  .metric-icon.pending {
+    background-color: #FFBA0875;
+    border: solid #0000004D;
+  }
+  
+  .metric-icon.approved {
+    background-color: #219EBC;
+    border: solid #0000004D;
+  }
+  
+  .metric-icon.rejected {
+    background-color: #C1121F;
+    border: solid #0000004D;
+  }
+  
+  .metric-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+  }
+  
+  .metric-change {
+    font-size: 0.875rem;
+    color: #64748b;
+  }
+  
+  .activity-section {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    border: 1px solid #e2e8f0;
+    width: 90%;
+  }
+  
+  .activity-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .activity-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e293b;
+  }
+  
+  .activity-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  
+  .activity-item:last-child {
+    border-bottom: none;
+  }
+  
+  .activity-content {
+    flex: 1;
+  }
+  
+  .activity-text {
+    color: #374151;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .activity-time {
+    color: #9ca3af;
+    font-size: 0.75rem;
+  }
+  
+  .activity-status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  
+  .activity-status.pending {
+    background-color: #fef3c7;
+    color: #92400e;
+  }
+  
+  .activity-status.approved {
+    background-color: #d1fae5;
+    color: #065f46;
+  }
+  
+  .activity-status.rejected {
+    background-color: #fee2e2;
+    color: #991b1b;
+  }
+  
+  .quick-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .action-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: white;
+    color: #374151;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .action-btn:hover {
+    background: #f9fafb;
+    border-color: #9ca3af;
+  }
+  
+  .action-btn.primary {
+    background: #3b82f6;
+    color: white;
+    border-color: #3b82f6;
+  }
+  
+  .action-btn.primary:hover {
+    background: #2563eb;
+    border-color: #2563eb;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      margin-left: 0;
+      max-width: 100vw;
+      padding: 1rem;
+    }
+    
+    .metrics-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    
+    .quick-actions {
+      flex-direction: column;
+    }
+    
+    .dashboard-title {
+      font-size: 1.5rem;
+    }
+  }

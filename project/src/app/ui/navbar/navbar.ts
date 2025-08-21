@@ -6,14 +6,17 @@ import { FooterComponent } from "../footer/footer";
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [Sidebar, CommonModule, FooterComponent],
+  imports: [CommonModule, Sidebar, FooterComponent],
   templateUrl: './navbar.html',
   styleUrls: ['./navbar.css']
 })
 export class NavbarComponent {
   toggle = false;
 
-  handleToggle() {
+  handleToggle() { 
     this.toggle = !this.toggle;
+
+  
   }
+
 }

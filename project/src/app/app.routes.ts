@@ -36,8 +36,22 @@ import { AskUploading } from './Pages/ask-uploading/ask-uploading';
 import { DonationRequest } from './donation-request/donation-request';
 import { IndividualDasboardComponent } from './component/individual-dasboard/individual-dasboard.component';
 import { IndividualReq } from './individual-req/individual-req';
+
+import { AdminDashComponent } from './component/admin-dash/admin-dash.component';
+// import { ThankYouComponent } from './Pages/thank-you/thank-you.component';
+
+
+import { PreviewSponsor } from './Pages/preview-sponsor/preview-sponsor';
+
+
+
+
+
+
+
 import { ManageSponsorIndividualComponent } from './component/manage-sponsor-individual/manage-sponsor-individual.component';
 import { ReviewRequest } from './Pages/review-request/review-request';
+
 
 
 
@@ -72,7 +86,6 @@ export const routes: Routes = [
   { path: 'freq', component: Fequency },
 
 
-
  { path: 'donation-request', component: DonationRequest },
 
   {path: 'sponsor-request', component: SponsorRequestComponent},
@@ -94,6 +107,22 @@ export const routes: Routes = [
 
   {path:'individual-dashboard', component: IndividualDasboardComponent},
   {path:'manage-sponsor-individual',component: ManageSponsorIndividualComponent},
-  {path:'thanks', component: ThankYouComponent}
+  {path:'thanks', component: ThankYouComponent},
+ 
+
+  {path: 'preview-sponsor/:id', component:PreviewSponsor },
   
+
+  {path:'manage-sponsor-individual',component: ManageSponsorIndividualComponent},
+  {path:'thanks', component: ThankYouComponent},
+  
+
+
+  { path: 'fequency', component: Fequency },
+  { path: 'donation-review', component: DonationReviewComponent },
+  { path: '', redirectTo: 'fequency', pathMatch: 'full' },
+  {path:'admin-dash', component: AdminDashComponent},
+  { path: '**', redirectTo: 'fequency' }
+ 
+
 ];
