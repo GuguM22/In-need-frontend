@@ -1,4 +1,5 @@
 export interface SponsorRequest {
+  posts: never[];
   title: string;
   priority: string;
   quantity: number;

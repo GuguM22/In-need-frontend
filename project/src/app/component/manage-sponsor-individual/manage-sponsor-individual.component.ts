@@ -25,7 +25,7 @@ export class ManageSponsorIndividualComponent {
       description:
         'Supporting an individual with essential medical equipment and supplies...',
       daysLeft: 7,
-      progress: 80,
+      progress: 99,
       fulfilled: false
     },
     {
