@@ -4,14 +4,11 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
-
-
-import { FooterComponent } from "../../ui/footer/footer";
-
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { PreviewSponsor } from "../preview-sponsor/preview-sponsor";
 
-// Interface for backend DTO
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+
+// Backend DTO
 export interface SponsorRequest {
   title: string;
   priority: string;
@@ -21,7 +18,7 @@ export interface SponsorRequest {
   mediaUrls?: File[];
 }
 
-// Validator to prevent past dates
+// Validator for dates
 export function futureDateValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     if (!control.value) return null;
@@ -35,18 +32,22 @@ export function futureDateValidator(): ValidatorFn {
 @Component({
   selector: 'app-sponsor-request',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, PreviewSponsor],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './sponsor-request.html',
   styleUrls: ['./sponsor-request.css'],
   providers: [SponsorRequestService]
 })
 export class SponsorRequestComponent implements OnDestroy {
-
+isEditing: any;
+onEdit() {
+throw new Error('Method not implemented.');
+}
   sponsorshipForm: FormGroup;
   selectedFiles: File[] = [];
   filePreviews: string[] = [];
   isSubmitting = false;
   showPreview = false;
+previewData: any;
 
   constructor(
     private fb: FormBuilder,
@@ -106,8 +107,10 @@ export class SponsorRequestComponent implements OnDestroy {
     }
   }
 
-  editForm(): void { this.showPreview = false; }
-/* 
+  editForm(): void { 
+    this.showPreview = false; 
+  }
+
   onSubmit(): void {
     if (this.sponsorshipForm.invalid) {
       this.sponsorshipForm.markAllAsTouched();
@@ -126,10 +129,15 @@ export class SponsorRequestComponent implements OnDestroy {
     this.isSubmitting = true;
 
     this.sponsorRequestService.post(formData).subscribe({
-      next: () => {
-        this.resetForm();
+      next: (createdRequest: any) => {
         this.isSubmitting = false;
-        this.router.navigate(['/preview-sponsor']);
+        this.resetForm();
+
+        if (createdRequest?.id) {
+          this.router.navigate(['/preview-sponsor', createdRequest.id]);
+        } else {
+          console.error('No ID returned from backend');
+        }
       },
       error: (err) => {
         console.error(err);
@@ -137,45 +145,7 @@ export class SponsorRequestComponent implements OnDestroy {
         this.isSubmitting = false;
       }
     });
-  } */
- onSubmit(): void {
-  if (this.sponsorshipForm.invalid) {
-    this.sponsorshipForm.markAllAsTouched();
-    return;
   }
-
-  const formData = new FormData();
-  formData.append('title', this.sponsorshipForm.get('title')?.value);
-  formData.append('priority', this.sponsorshipForm.get('priority')?.value || '');
-  formData.append('quantity', String(this.sponsorshipForm.get('quantity')?.value));
-  formData.append('requiredDate', this.sponsorshipForm.get('requiredDate')?.value);
-  formData.append('description', this.sponsorshipForm.get('description')?.value);
-
-  this.selectedFiles.forEach(file => formData.append('mediaurls', file, file.name));
-
-  this.isSubmitting = true;
-
-  // Post to backend
-  this.sponsorRequestService.post(formData).subscribe({
-    next: (createdRequest: any) => {
-      this.isSubmitting = false;
-      this.resetForm();
-
-      // Navigate to preview page using the returned ID
-      if (createdRequest?.id) {
-        this.router.navigate(['/preview-sponsor', createdRequest.id]);
-      } else {
-        console.error('No ID returned from backend');
-      }
-    },
-    error: (err) => {
-      console.error(err);
-      alert('Failed to submit sponsorship request.');
-      this.isSubmitting = false;
-    }
-  });
-}
-
 
   private resetForm(): void {
     this.sponsorshipForm.reset({
@@ -195,5 +165,4 @@ export class SponsorRequestComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void { this.revokePreviews(); }
-
 }
