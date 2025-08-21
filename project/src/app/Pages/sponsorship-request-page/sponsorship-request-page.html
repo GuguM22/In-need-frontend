@@ -64,31 +64,32 @@
     <div class="w-full max-w-sm">
       <!-- Sponsor Request Tab Content -->
       @if (activeTab === 'sponsor') {
-      <div class="mt-4">
-        <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
-          <div class="mb-4">
-            <p class="text-gray-500 text-sm">Sponsorship request for</p>
-            <h2 class="text-lg font-bold text-gray-800">School Supplies</h2>
-          </div>
-
-          <div class="flex items-center mb-6">
-            <div class="mr-3">
-              <img class="h-10 w-10 rounded-full" src="logo.png" />
-            </div>
-            <div class="flex-grow">
-              <h3 class="text-gray-800 font-medium">John Doe</h3>
-              <p class="text-gray-500 text-sm">Sponsor</p>
-            </div>
-            <button
-              type="button"
-              [routerLink]="'/review-request'"
-              class="py-2 px-4 bg-[#5B8E7D] text-sm text-white font-medium rounded-md"
-            >
-              View Request
-            </button>
-          </div>
-        </div>
+     <div *ngFor="let donation of donations" class="mt-4">
+    <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+      <div class="mb-4">
+        <p class="text-gray-500 text-sm">Sponsorship request for</p>
+        <h2 class="text-lg font-bold text-gray-800">{{ donation.description }}</h2>
       </div>
+
+      <div class="flex items-center mb-6">
+        <div class="mr-3">
+          <img class="h-10 w-10 rounded-full" [src]="donation.profileImageUrl" />
+
+        </div>
+        <div class="flex-grow">
+          <h3 class="text-gray-800 font-medium">{{ donation.donorEmail}}</h3>
+          <p class="text-gray-500 text-sm">Sponsor</p>
+        </div>
+        <button
+          type="button"
+          [routerLink]="'/review-request/'"
+          class="py-2 px-4 bg-[#5B8E7D] text-sm text-white font-medium rounded-md"
+        >
+          View Request
+        </button>
+      </div>
+    </div>
+  </div>
 
       }
 

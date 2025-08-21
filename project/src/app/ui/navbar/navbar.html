@@ -1,5 +1,9 @@
-
-<nav *ngIf="!toggle" class="w-full h-[80px] bg-[oklch(64.8% 0.2 131.684)] border border-gray-300 px-6 py-4 flex justify-between items-center sticky top-0 z-50 overflow-hidden">
+@if (!toggle) {
+    <!-- bg-[oklch(64.8% 0.2 131.684)]-->
+<nav
+    class="w-full h-[80px] bg-white border border-gray-300 px-6 py-4 flex justify-between items-center sticky top-0 z-50 overflow-hidden">
     <img (click)="handleToggle()" src="menu-icon.svg" class="menu" />
-    <img class="rounded-full h-8 w-8" src="logo.png"/> 
+    <img class="rounded-full h-8 w-8 object-cover" [src]="profileImageUrl" alt="Profile" />
 </nav>
+}
+

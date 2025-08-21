@@ -45,6 +45,7 @@ import { PreviewSponsor } from './Pages/preview-sponsor/preview-sponsor';
 
 
 import { ManageSponsorIndividualComponent } from './component/manage-sponsor-individual/manage-sponsor-individual.component';
+import { ReviewRequest } from './Pages/review-request/review-request';
 
 
 
@@ -102,9 +103,8 @@ export const routes: Routes = [
 
   {path: 'preview-sponsor/:id', component:PreviewSponsor },
   
-
   {path:'manage-sponsor-individual',component: ManageSponsorIndividualComponent},
-  {path:'thanks', component: ThankYouComponent}
+  {path:'thanks', component: ThankYouComponent},
+  {path: 'review-request', component: ReviewRequest}
   
-
 ];
