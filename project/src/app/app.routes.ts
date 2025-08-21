@@ -37,6 +37,7 @@ import { DonationRequest } from './donation-request/donation-request';
 import { IndividualDasboardComponent } from './component/individual-dasboard/individual-dasboard.component';
 import { IndividualReq } from './individual-req/individual-req';
 import { ManageSponsorIndividualComponent } from './component/manage-sponsor-individual/manage-sponsor-individual.component';
+import { ReviewRequest } from './Pages/review-request/review-request';
 
 
 
@@ -83,14 +84,14 @@ export const routes: Routes = [
    {path:'admin', component:AdminPanelComponent},
   {path:'donation-review', component: DonationReviewComponent},
   {path:'manage-sponsor', component:  ManageSponsorComponent},
-
+   {path:'review-request', component:  ReviewRequest},
   {path: 'logout', component: Logout},
   {path:'ask-uploading', component:AskUploading},
   {path:'verification', component: VerificationPage},
   {path: 'upload-successfully', component: UploadSuccessfullyComponent},
   
   {path: 'individual-request', component: IndividualReq},
- 
+
   {path:'individual-dashboard', component: IndividualDasboardComponent},
   {path:'manage-sponsor-individual',component: ManageSponsorIndividualComponent},
   {path:'thanks', component: ThankYouComponent}
