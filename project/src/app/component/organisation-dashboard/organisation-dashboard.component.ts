@@ -1,12 +1,12 @@
 import { Component, ElementRef, HostListener } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { SponsorRequest } from '../../Pages/sponsor-request/sponsor-request';
 import { NavbarComponent } from "../../ui/navbar/navbar";
 import { FooterComponent } from "../../ui/footer/footer";
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { SponsorRequest } from '../../model/sponsor-req';
 
 @Component({
   selector: 'app-organisation-dashboard',
