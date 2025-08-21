@@ -42,6 +42,7 @@ import { AdminDashComponent } from './component/admin-dash/admin-dash.component'
 
 
 import { PreviewSponsor } from './Pages/preview-sponsor/preview-sponsor';
+import { PreviewIndividual } from './Pages/preview-individual/preview-individual';
 
 
 
@@ -60,7 +61,7 @@ export const routes: Routes = [
 
 
   { path: 'Landing', component: LandingComponent },
-  { path: 'options', component: OptionsComponent},
+  { path: 'options/:id', component: OptionsComponent},
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
   { path: 'verify-email', component: VerifyEmail },
@@ -111,7 +112,9 @@ export const routes: Routes = [
  
 
   {path: 'preview-sponsor/:id', component:PreviewSponsor },
-  
+
+
+  {path: 'preview-individual/:id', component:PreviewIndividual },
 
   {path:'manage-sponsor-individual',component: ManageSponsorIndividualComponent},
   {path:'thanks', component: ThankYouComponent},
@@ -123,6 +126,7 @@ export const routes: Routes = [
   { path: '', redirectTo: 'fequency', pathMatch: 'full' },
   {path:'admin-dash', component: AdminDashComponent},
   { path: '**', redirectTo: 'fequency' }
+
  
 
 ];

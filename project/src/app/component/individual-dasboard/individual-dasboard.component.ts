@@ -20,12 +20,14 @@ export class IndividualDasboardComponent {
   requests: SponsorRequest[] =[]
  
   request: SponsorRequest = {
-     title: '',
-     priority: '',
-     quantity: 0,
-     requiredDate: '',
-     description: '',
-     mediaUrls: []}
+    title: '',
+    priority: '',
+    quantity: 0,
+    requiredDate: '',
+    description: '',
+    mediaUrls: [],
+    posts: []
+  }
  
    constructor(private router: Router, private sponsorService: SponsorRequestService, private http: HttpClient, private elementRef: ElementRef) { }
    searchQuery: string = '';
