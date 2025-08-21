@@ -35,6 +35,7 @@ import { IndividualDasboardComponent } from './component/individual-dasboard/ind
 
 import { IndividualReq } from './individual-req/individual-req';
 import { PreviewSponsor } from './Pages/preview-sponsor/preview-sponsor';
+import { PreviewIndividual } from './Pages/preview-individual/preview-individual';
 
 
 
@@ -91,6 +92,6 @@ export const routes: Routes = [
  
   {path:'individual-dashboard', component: IndividualDasboardComponent},
   {path: 'preview-sponsor/:id', component:PreviewSponsor },
-  
+  {path: 'preview-individual/:id', component:PreviewIndividual },
  
 ];
