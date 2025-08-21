@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import {  NavbarComponent } from "../ui/navbar/navbar";
 import { FooterComponent } from "../ui/footer/footer";
+import { DonationRequestDTO } from '../dto/donationRequestDTO';
+import { DonationType } from '../constant/donation-type';
+import { DonationFrequency } from '../constant/donation-frequency';
 
 @Component({
   selector: 'app-donation-request',
@@ -24,15 +27,35 @@ export class DonationRequest {
       logistics: ['', Validators.required],
       notes: ['']
     });
+    console.log(this.sponsorshipForm.value);
   }
-  goNext() {
-    if (this.sponsorshipForm.valid) {
-      localStorage.setItem("donationRequest", JSON.stringify(this.sponsorshipForm.value))
-    } else {
-      this.sponsorshipForm.markAllAsTouched();
-    }
-    this.router.navigate(['/freq'])
+goNext() {
+  if (!this.sponsorshipForm.valid) {
+    this.sponsorshipForm.markAllAsTouched();
+    console.log('Form invalid', this.sponsorshipForm.value);
+    return;
   }
+
+  const formValue = this.sponsorshipForm.value;
+  //console.log('Form values:', formValue);
+
+  const donationRequest: DonationRequestDTO = {
+    description: formValue.description,
+    quantity: formValue.quantity,
+    preference: formValue.logistics, // DELIVERY or PICK_UP
+    additionalNotes: formValue.notes,
+    donorEmail: localStorage.getItem('userEmail') || 'bob@gmail.com',
+    createdAt: new Date(),
+    availability: formValue.requiredDate,
+    type: DonationType.FOOD,
+    frequency: DonationFrequency.ONE_TIME
+  };
+
+  localStorage.setItem('donationRequest', JSON.stringify(donationRequest));
+  this.router.navigateByUrl('/freq');
+}
+
+
   // Custom validator for future dates
   futureDateValidator(control: any) {
     const selectedDate = new Date(control.value);
@@ -42,17 +65,17 @@ export class DonationRequest {
   }
 
   goBack() {
-    this.router.navigate(['/options']); // Adjust route as needed
+    this.router.navigate(['/options']); 
   }
 
-  onSubmit() {
+  /*onSubmit() {
     if (this.sponsorshipForm.valid) {
       // Process form data if needed
       this.router.navigate(['/freq']);
     } else {
       this.markFormGroupTouched(this.sponsorshipForm);
     }
-  }
+  }*/
 
   onQuantityChange(increment: boolean): void {
     const currentValue = this.sponsorshipForm.get('quantity')?.value || 0;

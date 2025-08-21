@@ -2,7 +2,7 @@ import { DonationFrequency } from "../constant/donation-frequency";
 import { DonationType } from "../constant/donation-type";
 import { LogisticPreference } from "../constant/logistic-peference";
 
-export interface Donation {
+export interface DonationRequestDTO {
   id?: number; 
   description: string;
   quantity: number;

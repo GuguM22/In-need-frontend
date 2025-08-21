@@ -2,7 +2,7 @@
 
 <!-- Scrollable Main Content -->
 <div class="mt-[74px] mb-[64px] overflow-y-auto h-screen px-6 py-4">
-  
+
   <!-- Stepper -->
   <div class="flex items-center justify-center space-x-4 mb-6 stepper" id="stepper">
     <div class="step w-10 h-10 flex items-center justify-center rounded-full bg-blue-500 text-white">1</div>
@@ -16,21 +16,41 @@
     <h2 class="card-title font-bold text-xl mb-4">Review your donation</h2>
 
     <div class="donation-details space-y-3">
-      <div class="detail-row flex justify-between"><span class="label font-medium">Type:</span><span class="value">Items</span></div>
-      <div class="detail-row flex justify-between"><span class="label font-medium">Description:</span><span class="value">Two t-shirts and white blazer</span></div>
-      <div class="detail-row flex justify-between"><span class="label font-medium">Quantity:</span><span class="value">2 items</span></div>
-      <div class="detail-row flex justify-between"><span class="label font-medium">Frequency:</span><span class="value">One-time</span></div>
-      <div class="detail-row flex justify-between"><span class="label font-medium">Logistics:</span><span class="value">Delivery</span></div>
+      <div class="detail-row flex justify-between">
+        <span class="label font-medium">Type:</span>
+        <span class="value">{{ selectedType }}</span>
+      </div>
+      <div class="detail-row flex justify-between">
+        <span class="label font-medium">Description:</span>
+        <span class="value">{{ description }}</span>
+      </div>
+      <div class="detail-row flex justify-between">
+        <span class="label font-medium">Quantity:</span>
+        <span class="value">{{ quantity }} {{selectedType }}</span>
+      </div>
+      <div class="detail-row flex justify-between">
+        <span class="label font-medium">Frequency:</span>
+        <span class="value">{{ selectedFrequency }}</span>
+      </div>
+      <div class="detail-row flex justify-between">
+        <span class="label font-medium">Logistics:</span>
+        <span class="value">{{ selectPreference }}</span>
+      </div>
     </div>
 
+
     <div class="button-container flex gap-4 mt-1000">
-      <button class="flex-1 flex items-center justify-center gap-2 px-6 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition" (click)="goBack()">
-        <img width="14" height="14" src="https://img.icons8.com/ios/50/back--v1.png" alt="back"/>
+      <button (click)="goBack()"
+        class="flex-1 flex items-center justify-center gap-2 px-6 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition"
+        (click)="goBack()">
+        <img width="14" height="14" src="https://img.icons8.com/ios/50/back--v1.png" alt="back" />
         Back
       </button>
-      <button class="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-[#5B8E7D] text-white rounded hover:bg-[#5B8E7D] transition" (click)="confirmDonation()">
-               <span>Confirm</span>
-        <img src="icons/greaterthan.svg" alt="next" class="w-5 h-5"/>
+      <button
+        class="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-[#5B8E7D] text-white rounded hover:bg-[#5B8E7D] transition"
+        (click)="confirmDonation()">
+        <span>Confirm</span>
+        <img src="icons/greaterthan.svg" alt="next" class="w-5 h-5" />
       </button>
     </div>
   </div>
