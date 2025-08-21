@@ -92,7 +92,7 @@
   
         <!-- Middle Panel (Pending Applications) -->
         <div class="pr-4 border-r bg-white border-gray-300 mid">
-          <div *ngIf="activePanel === 'pending'" class="bg-white">
+           <div *ngIf="activePanel === 'pending'" class="bg-white">
             <div class="topTitle mb-4">
               <h2 class="text-lg font-semibold title">Pending Applications</h2>
               <p class="text-sm text-gray-600">{{ pendingApplications.length }} Applications</p>
@@ -261,14 +261,14 @@
         <ng-template #noRejected><p>No rejected applications.</p></ng-template>
         </div>
   
-        <div *ngIf="selectedApplication" class="flex-1 pl-4 right">
+        <div *ngIf="selectedApplication" class="flex-1 pl-4 right right-panel-overlay">
    
           <div *ngIf="activePanel === 'approved'">
             <app-approved [application]="selectedApplication" (close)="closeDetails()"></app-approved>
           </div>
           <div *ngIf="activePanel === 'pending'">
             <!-- <app-pending [application]="selectApplication" (close)="closeDetails()"></app-pending> -->
-            <app-pending
+            <app-pending class="bg-red"
             [applications]="applications"
             [selectedApplication]="selectedApplication"
             (select)="selectApplication($event)"
@@ -304,10 +304,15 @@
   </div>
 </div>
 
-
 @if(showLogoutModal){
   <app-logout
    (cancel)="closeLogoutModal()"
    (confirm)="confirmLogout()"
  ></app-logout>
  }
+ <app-admin-dash
+ [pendingApplications]="pendingApplications"
+ [approvedApplications]="approvedApplications"
+ [rejectedApplications]="rejectedApplications"
+ [recentActivities]="recentActivities"
+ ></app-admin-dash>
