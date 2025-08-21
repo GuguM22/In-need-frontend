@@ -37,7 +37,13 @@ import { DonationRequest } from './donation-request/donation-request';
 import { IndividualDasboardComponent } from './component/individual-dasboard/individual-dasboard.component';
 import { IndividualReq } from './individual-req/individual-req';
 
+import { AdminDashComponent } from './component/admin-dash/admin-dash.component';
+// import { ThankYouComponent } from './Pages/thank-you/thank-you.component';
+
+
 import { PreviewSponsor } from './Pages/preview-sponsor/preview-sponsor';
+import { PreviewIndividual } from './Pages/preview-individual/preview-individual';
+
 
 
 
@@ -55,7 +61,7 @@ export const routes: Routes = [
 
 
   { path: 'Landing', component: LandingComponent },
-  { path: 'options', component: OptionsComponent},
+  { path: 'options/:id', component: OptionsComponent},
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
   { path: 'verify-email', component: VerifyEmail },
@@ -92,19 +98,39 @@ export const routes: Routes = [
    {path:'admin', component:AdminPanelComponent},
   {path:'donation-review', component: DonationReviewComponent},
   {path:'manage-sponsor', component:  ManageSponsorComponent},
-
+   {path:'review-request', component:  ReviewRequest},
   {path: 'logout', component: Logout},
   {path:'ask-uploading', component:AskUploading},
   {path:'verification', component: VerificationPage},
   {path: 'upload-successfully', component: UploadSuccessfullyComponent},
   
   {path: 'individual-request', component: IndividualReq},
+
+  {path:'individual-dashboard', component: IndividualDasboardComponent},
+  {path:'manage-sponsor-individual',component: ManageSponsorIndividualComponent},
+  {path:'thanks', component: ThankYouComponent},
  
 
   {path: 'preview-sponsor/:id', component:PreviewSponsor },
+   
+   {path: 'review-request', component: ReviewRequest}
   
+ 
+
+
+  {path: 'preview-individual/:id', component:PreviewIndividual },
+
   {path:'manage-sponsor-individual',component: ManageSponsorIndividualComponent},
   {path:'thanks', component: ThankYouComponent},
-  {path: 'review-request', component: ReviewRequest}
   
-];
+
+
+  { path: 'fequency', component: Fequency },
+  { path: 'donation-review', component: DonationReviewComponent },
+  { path: '', redirectTo: 'fequency', pathMatch: 'full' },
+  {path:'admin-dash', component: AdminDashComponent},
+  { path: '**', redirectTo: 'fequency' }
+
+ 
+
+ ];

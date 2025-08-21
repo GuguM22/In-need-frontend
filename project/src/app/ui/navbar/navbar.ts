@@ -7,8 +7,8 @@ import { Services } from '../../service/services';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './navbar.html',
+  imports: [CommonModule, FooterComponent, Sidebar],
+   templateUrl: './navbar.html',
   styleUrls: ['./navbar.css']
 })
 export class NavbarComponent {
