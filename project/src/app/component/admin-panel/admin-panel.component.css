@@ -423,6 +423,8 @@ img{
     margin-left:10px;
    }
 
+  
+
    .heading{
     margin-right: 50px;
    }
@@ -540,6 +542,7 @@ border-color: #b0b0b0;
   
     .sidebar {
       width: 380px;
+      background-color: rgba(255, 255, 255, 0.9);
     }
   
     .mid {
