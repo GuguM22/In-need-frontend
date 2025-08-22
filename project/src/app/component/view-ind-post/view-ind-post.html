@@ -7,6 +7,10 @@
     <div class="images">
       <img *ngFor="let url of individual.mediaUrls" [src]="'http://localhost:5050/' + url" alt="Post image">
     </div>
+
+    <div class="donate-button-container">
+        <button class="donateBtn bg-green-700" [routerLink]="['/options', individual.id]">Donate</button>
+      </div>
   </div>
   
   <div *ngIf="!individual">

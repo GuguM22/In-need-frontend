@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { SponsorRequest } from '../../../model/sponsor-req';
 import { SponsorRequestService } from '../../../service/sponsor-request-service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-view-org-post',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './view-org-post.html',
   styleUrl: './view-org-post.css'
 })
