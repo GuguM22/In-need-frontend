@@ -48,8 +48,7 @@
     <div class="individualCards carousel">
         <div class="indvCard"  *ngFor="let i of individuals">
             <div class="thumbnail">
-                <img [src]="i.mediaUrls
-                " alt="" class="thumbnailPic">
+                <img *ngFor="let url of i.mediaUrls" [src]="'http://localhost:5050/' + url" />
             </div>
             <div class="user">
                 <h4 class="names">{{i.title}}</h4>
