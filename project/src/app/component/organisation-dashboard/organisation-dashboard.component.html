@@ -46,7 +46,7 @@
 </div>
 <div class="container2">
     <div class="individualCards carousel">
-        <div class="indvCard"  *ngFor="let i of individuals">
+        <div class="indvCard"  *ngFor="let i of individuals" [routerLink]="['/view-indv-post', i.id]">
             <div class="thumbnail">
                 <img *ngFor="let url of i.mediaUrls" [src]="'http://localhost:5050/' + url" />
             </div>
@@ -148,7 +148,7 @@
        <!-- <div *ngFor="let request of requests" class="orgCards"> -->
         <div *ngFor="let request of paginatedRequests" class="orgCards">
 
-        <div class="orgCard">
+        <div class="orgCard"  [routerLink]="['/view-post', request.id]" >
             <div class="holder1">
                 <div class="profile">
                     <div class="pfp">

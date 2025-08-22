@@ -11,6 +11,7 @@ import { IndividualRequest, IndividualService } from '../../service/individual-s
 
 @Component({
   selector: 'app-organisation-dashboard',
+  standalone: true,
   imports: [FooterComponent, NavbarComponent, CommonModule, RouterLink, FormsModule],
   templateUrl: './organisation-dashboard.component.html',
   styleUrl: './organisation-dashboard.component.css'
@@ -169,6 +170,9 @@ loadIndividuals(): void {
       console.error('Error loading individuals:', error);
     }
   });
+}
+viewPostDetails(id: string): void {
+  this.router.navigate(['/view-post', id]);
 }
 
 }
