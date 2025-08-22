@@ -27,7 +27,7 @@ export class SponsorDasboardComponent {
    requiredDate: '',
    description: '',
    mediaUrls: [],
-   posts: []
+    
  }
 
   constructor(private router: Router, private sponsorService: SponsorRequestService, private http: HttpClient, private elementRef: ElementRef, private individualService: IndividualService ) { }
