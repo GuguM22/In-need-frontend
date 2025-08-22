@@ -51,8 +51,11 @@ import { PreviewIndividual } from './Pages/preview-individual/preview-individual
 
 
 import { ManageSponsorIndividualComponent } from './component/manage-sponsor-individual/manage-sponsor-individual.component';
+ import { ViewOrgPost } from './component/organisation-dashboard/view-org-post/view-org-post';
+import { ViewIndPost } from './component/view-ind-post/view-ind-post';
+ 
 import { ReviewRequest } from './Pages/review-request/review-request';
-
+ 
 
 
 
@@ -129,6 +132,8 @@ export const routes: Routes = [
   { path: 'donation-review', component: DonationReviewComponent },
   { path: '', redirectTo: 'fequency', pathMatch: 'full' },
   {path:'admin-dash', component: AdminDashComponent},
+  {path: 'view-post/:id', component: ViewOrgPost},
+  {path: 'view-indv-post/:id', component: ViewIndPost},
   { path: '**', redirectTo: 'fequency' }
 
  
