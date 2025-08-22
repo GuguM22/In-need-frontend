@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 
 
@@ -53,7 +53,7 @@ export class SponsorRequestComponent implements OnDestroy {
     private fb: FormBuilder,
     private router: Router,
     private http: HttpClient,
-    private sponsorRequestService: SponsorRequestService
+    private sponsorRequestService: SponsorRequestService,
   ) {
     this.sponsorshipForm = this.fb.group({
       title: ['', Validators.required],
@@ -164,7 +164,7 @@ export class SponsorRequestComponent implements OnDestroy {
 
       // Navigate to preview page using the returned ID
       if (createdRequest?.id) {
-        this.router.navigate(['/preview-sponsor', createdRequest.id]);
+        this.router.navigate(['/manage-sponsor-individual', createdRequest.id]);
       } else {
         console.error('No ID returned from backend');
       }

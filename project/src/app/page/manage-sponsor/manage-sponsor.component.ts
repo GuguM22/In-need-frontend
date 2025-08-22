@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import { FooterComponent } from "../../ui/footer/footer";
 import { NavbarComponent } from "../../ui/navbar/navbar";
+import { SponsorRequestService } from '../../service/sponsor-request-service';
 
 @Component({
   selector: 'app-manage-sponsor',
@@ -13,21 +14,20 @@ import { NavbarComponent } from "../../ui/navbar/navbar";
   styleUrls: ['./manage-sponsor.component.css']
 })
 export class ManageSponsorComponent {
+  activeTab: string = 'posts';
+  activeMenuId: string | null = null;
+  post: any;
+  i: any;
+  sponsorId: any;
 
-
-activeTab: string = 'posts';
-activeMenuId: string | null = null;
-post: any;
-i: any;
-
-constructor(private router: Router) {}
+  constructor(private router: Router,
+    private sponsorRequestService: SponsorRequestService,
+    private route: ActivatedRoute
+  ) {}
 
   goBack() {
     this.router.navigate(['/verification']);
   }
-
-
-
 
   toggleActionMenu(menuId: string): void {
     if (this.activeMenuId === menuId) {
@@ -40,9 +40,8 @@ constructor(private router: Router) {}
    isMenuOpen = false;
 
   toggleMenu(): void {
-    this.isMenuOpen = !this.isMenuOpen;
+    this.isMenuOpen = !this.isMenuOpen;  
   }
-
 
   @HostListener('document:click', ['$event'])
   onClick(event: MouseEvent): void {
@@ -58,26 +57,45 @@ constructor(private router: Router) {}
       description:
         'Providing educational materials for 200+ children in underserved communities...',
       daysLeft: 15,
-      progress: 58,
+      progress: 90,
       fulfilled: false
     },
     {
       title: 'Food Drive',
       description: 'Helping feed 100+ families during the winter season...',
       daysLeft: 10,
-      progress: 72,
+      progress: 12,
       fulfilled: false
     }
   ];
+
+  calculateProgress(progressLeft: number): number {
+    const progress = 100; // the maximum progress value
+    if (progressLeft <= 0) return 0;   // full bar
+    if (progressLeft >= progress) return 100; // empty bar
+    return (progressLeft / progress) * 100; // percentage
+  }
 
   markFulfilled(index: number): void {
     this.posts[index].fulfilled = true;
     this.activeMenuId = null; // close menu
   }
 
+  // ngOnInit(): void {
+  //    this.fetchUserPosts();
+  // }
 
+  // fetchUserPosts(): void {
+  //   this.sponsorRequestService.getMyPosts().subscribe({
+  //     next: (data) => {
+  //       this.posts = data || [];
+  //     },
+  //     error: (err) => console.error('Error fetching user posts:', err)
+  //   });
+  // }
+}
     
-  }
+  
 
   
   

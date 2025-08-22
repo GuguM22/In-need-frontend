@@ -28,6 +28,7 @@ export class DonationReviewComponent implements OnInit {
   availability: string = '';
   additionalNotes: string = '';
   emailAddress: string = '';
+  userName: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -47,6 +48,8 @@ export class DonationReviewComponent implements OnInit {
       this.availability = donation.availability || '';
       this.additionalNotes = donation.additionalNotes || '';
       this.emailAddress = localStorage.getItem('userEmail') || '';
+      this.userName = localStorage.getItem('donorName') || '';
+
     }
   }
 
@@ -70,10 +73,11 @@ export class DonationReviewComponent implements OnInit {
       additionalNotes: this.additionalNotes,
       preference: this.selectPreference as LogisticPreference,
       type: this.selectedType as DonationType,
-      frequency: this.selectedFrequency as DonationFrequency, 
+      frequency: this.selectedFrequency as DonationFrequency,
       donorEmail: this.emailAddress,
       createdAt: new Date(),
-      availability: this.availability
+      availability: this.availability,
+      donorName: this.userName,
     };
 
 

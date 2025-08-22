@@ -10,25 +10,46 @@
     </button>
 
     <!-- Main Card Container -->
-    <div class="bg-white w-full border border-gray-300 rounded-lg p-6 min-h-[500px] space-y-6">
+    <div *ngFor="let donation of donations" class="bg-white w-full border border-gray-300 rounded-lg p-6 min-h-[500px] space-y-6">
       <!-- Title -->
       <h2 class="text-center text-lg font-semibold mb-8">Review request</h2>
 
       <!-- Details Section -->
+      <!-- Details Section -->
       <div class="text-sm text-gray-800 space-y-4 mb-8">
-        <div><span class="font-semibold">Type:</span> Items</div>
-        <div><span class="font-semibold">Description:</span> this is two t-shirts and a white blazer</div>
-        <div><span class="font-semibold">Quantity:</span> 2 items</div>
-        <div><span class="font-semibold">Frequency:</span> One-time</div>
-        <div><span class="font-semibold">Logistics:</span> Delivery</div>
+        <div>
+          <span class=" text-lg font-semibold font-medium">Type:</span>
+          <span class=" font-medium ml-1">{{donation.type}}</span>
+        </div>
+        <div>
+          <span class=" text-lg font-semibold font-medium">Description:</span>
+          <span class=" font-medium ml-1">{{donation.description}}</span>
+        </div>
+
+        <div>
+          <span class=" text-lg font-semibold font-medium">Quantity:</span>
+          <span class=" font-medium ml-1">{{donation.quantity}} items</span>
+        </div>
+
+        <div>
+          <span class=" text-lg font-semibold font-medium">Frequency:</span>
+          <span class=" font-medium ml-1">{{donation.frequency}}</span>
+        </div>
+
+        <div>
+          <span class=" text-lg font-semibold font-medium">Logistics:</span>
+          <span class=" font-medium ml-1">{{donation.preference}}</span>
+        </div>
+
       </div>
+
 
       <!-- Buttons - Now with text forced to one line -->
       <div class="flex justify-center gap-4 mb-8">
-        <button type="submit" class="flex-1 h-10 px-4 text-sm text-white whitespace-nowrap justify-center focus:outline-none rounded-lg border hover:opacity-90 transition duration-200" style="background-color: #5B8E7D; border-color: #5B8E7D;">
+        <button (click)="updateDonation(donation.id, true)" type="submit" class="flex-1 h-10 px-4 text-sm text-white whitespace-nowrap justify-center focus:outline-none rounded-lg border hover:opacity-90 transition duration-200" style="background-color: #5B8E7D; border-color: #5B8E7D;">
           Accept Donation
         </button>
-        <button class="flex-1 h-10 px-4 text-sm text-white whitespace-nowrap justify-center rounded-lg border hover:opacity-90 transition duration-200" style="background-color: #C1121F; border-color: #C1121F;">
+        <button (click)="updateDonation(donation.id, false)" class="flex-1 h-10 px-4 text-sm text-white whitespace-nowrap justify-center rounded-lg border hover:opacity-90 transition duration-200" style="background-color: #C1121F; border-color: #C1121F;">
           Decline Donation
         </button>
       </div>
@@ -39,7 +60,7 @@
         <div class="flex items-center space-x-3">
           <img src="https://via.placeholder.com/32" alt="Sponsor" class="w-10 h-10 rounded-full">
           <div>
-            <p class="text-sm font-medium">Jacky Selebe</p>
+            <p class="text-sm font-medium">{{emailAddress}}</p>
             <p class="text-xs text-gray-500">Sponsor</p>
           </div>
         </div>

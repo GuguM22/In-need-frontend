@@ -51,9 +51,11 @@ import { PreviewIndividual } from './Pages/preview-individual/preview-individual
 
 
 import { ManageSponsorIndividualComponent } from './component/manage-sponsor-individual/manage-sponsor-individual.component';
-import { ViewOrgPost } from './component/organisation-dashboard/view-org-post/view-org-post';
+ import { ViewOrgPost } from './component/organisation-dashboard/view-org-post/view-org-post';
 import { ViewIndPost } from './component/view-ind-post/view-ind-post';
-
+ 
+import { ReviewRequest } from './Pages/review-request/review-request';
+ 
 
 
 
@@ -99,16 +101,24 @@ export const routes: Routes = [
    {path:'admin', component:AdminPanelComponent},
   {path:'donation-review', component: DonationReviewComponent},
   {path:'manage-sponsor', component:  ManageSponsorComponent},
-
+   {path:'review-request', component:  ReviewRequest},
   {path: 'logout', component: Logout},
   {path:'ask-uploading', component:AskUploading},
   {path:'verification', component: VerificationPage},
   {path: 'upload-successfully', component: UploadSuccessfullyComponent},
   
   {path: 'individual-request', component: IndividualReq},
+
+  {path:'individual-dashboard', component: IndividualDasboardComponent},
+  {path:'manage-sponsor-individual',component: ManageSponsorIndividualComponent},
+  {path:'thanks', component: ThankYouComponent},
  
 
   {path: 'preview-sponsor/:id', component:PreviewSponsor },
+   
+   {path: 'review-request', component: ReviewRequest}
+  
+ 
 
 
   {path: 'preview-individual/:id', component:PreviewIndividual },
@@ -128,4 +138,4 @@ export const routes: Routes = [
 
  
 
-];
+ ];
