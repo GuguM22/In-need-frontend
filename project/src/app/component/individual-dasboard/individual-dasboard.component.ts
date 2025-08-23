@@ -1,12 +1,12 @@
-import { Component, ElementRef, HostListener } from '@angular/core';
-import { SponsorRequest } from '../../model/sponsor-req';
-import { Router, RouterLink } from '@angular/router';
-import { SponsorRequestService } from '../../service/sponsor-request-service';
-import { HttpClient } from '@angular/common/http';
-import { FooterComponent } from '../../ui/footer/footer';
-import {  NavbarComponent } from '../../ui/navbar/navbar';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Component, ElementRef, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { SponsorRequest } from '../../model/sponsor-req';
+import { SponsorRequestService } from '../../service/sponsor-request-service';
+import { FooterComponent } from '../../ui/footer/footer';
+import { NavbarComponent } from '../../ui/navbar/navbar';
 
 @Component({
   selector: 'app-individual-dasboard',
@@ -26,7 +26,7 @@ export class IndividualDasboardComponent {
     requiredDate: '',
     description: '',
     mediaUrls: [],
-    posts: []
+    //posts: []
   }
  
    constructor(private router: Router, private sponsorService: SponsorRequestService, private http: HttpClient, private elementRef: ElementRef) { }

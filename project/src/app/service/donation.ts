@@ -1,11 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { environment } from '../env/env';
-import { DonationRequest } from '../donation-request/donation-request';
-import { Donation } from '../model/donation';
+import { Observable, tap } from 'rxjs';
 import { DonationRequestDTO } from '../dto/donationRequestDTO';
 import { DonationUpdate } from '../dto/donationUpdate';
+import { environment } from '../env/env';
+import { Donation } from '../model/donation';
+import { DonationStateService } from './donation-state-service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,35 +13,31 @@ import { DonationUpdate } from '../dto/donationUpdate';
 export class DonationService {
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private donationStateService: DonationStateService) { }
 
   createDonation(donation: DonationRequestDTO): Observable<any> {
- 
+
+    const token = localStorage.getItem('token');
+    const headers = token ? new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }) : new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post(`${this.apiUrl}/auth/donations/post`, donation, { headers });
+  }
+
+  getDonations(): Observable<Donation[]> {
   const token = localStorage.getItem('token');
+
   const headers = token ? new HttpHeaders({
     'Authorization': `Bearer ${token}`,
     'Content-Type': 'application/json'
   }) : new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  return this.http.post(`${this.apiUrl}/auth/donations/post`, donation, { headers });
-}
-getDonations(): Observable<any[]> {
-  const token = localStorage.getItem('token');
-  //const headers = token ? { Authorization: `Bearer ${token}` } : {};
-
-  const headers = token ? new HttpHeaders({
-    'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json'
-  }) : new HttpHeaders({ 'Content-Type': 'application/json' });
-
-  return this.http.get<any[]>(`${this.apiUrl}/auth/donations/details`, { 
-    headers 
-  });
+  return this.http.get<Donation[]>(`${this.apiUrl}/auth/donations/details`, { headers });
 }
 
 
- 
- 
 
   updateDonation(donationUpdate: DonationUpdate): Observable<any> {
     const token = localStorage.getItem('token');
@@ -62,6 +58,15 @@ getDonations(): Observable<any[]> {
 
     return this.http.get(`${this.apiUrl}/auth/donations/${email}`, { headers });
   }
- 
+
+  getPendingDonations(): Observable<any[]> {
+    const token = localStorage.getItem('token');
+    const headers = token ? new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }) : new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.get<any[]>(`${this.apiUrl}/auth/donations/pending`, { headers });
+  }
 }
 

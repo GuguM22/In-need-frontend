@@ -113,7 +113,7 @@ export const routes: Routes = [
 
   {path: 'preview-sponsor/:id', component:PreviewSponsor },
    
-   {path: 'review-request', component: ReviewRequest}
+   {path: 'review-request', component: ReviewRequest},
   
  
 

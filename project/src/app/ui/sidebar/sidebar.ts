@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from "../navbar/navbar";
 import { CommonModule } from '@angular/common';
 import { Logout } from "../../component/logout/logout";
@@ -15,11 +15,39 @@ import { Router, RouterModule } from '@angular/router';
   styleUrls: ['./sidebar.css']
 
 })
-export class Sidebar {
+export class Sidebar implements OnInit {
   toggle = true;
   showLogoutModal = false;
+  profileImageUrl: string = 'logo.png'; 
 
   constructor(private userService: Services, private router: Router) {}
+
+  ngOnInit() {
+  // Default logo
+  this.profileImageUrl = 'logo.png';
+
+  this.userService.profile().subscribe({
+    next: (data: any) => {
+      if (data.profileImagePath) {
+        const img = new Image();
+        img.src = `http://localhost:5050/auth/images/${data.profileImagePath}`;
+        img.onload = () => {
+          // Replace logo only after image is fully loaded
+          this.profileImageUrl = img.src;
+        };
+        img.onerror = () => {
+          // Fallback in case image fails to load
+          this.profileImageUrl = 'logo.png';
+        };
+      }
+    },
+    error: () => {
+      this.profileImageUrl = 'logo.png';
+    }
+  });
+}
+
+
 
   handleToggle() {
     this.toggle = !this.toggle;

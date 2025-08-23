@@ -19,7 +19,7 @@
   <!-- Back button -->
   <button
     type="button"
-    (click)="goBack()" [routerLink]="'/individual-dashboard'"
+    (click)="goBack()" [routerLink]="'/sponsor-dashboard'"
     class="text-sm font-bold text-black focus:outline-none"
   >
     Back
@@ -69,81 +69,74 @@
         <h2 class="text-xl font-[800] choose">Choose Your Donation Type</h2>
       </div>
 
-      <!-- Step Content -->
-      <form class="space-y-4">
-        <!-- Food Donations -->
-        <label
-          class="block border rounded-xl p-4 flex items-center gap-4 cursor-pointer hover:shadow-md transition types"
-          (click)="selectType('food')"
-        >
-          <img
-            src="https://i.pinimg.com/736x/cf/b1/aa/cfb1aa51b9d84c308f0ed811ff4d371e.jpg"
-            alt="Food"
-            class="w-10 h-10 rounded object-cover"
-          />
-          <div>
-            <p class="font-medium heading">Food Donations</p>
-            <p class="text-sm text-gray-500 desc">
-              Fresh foods, groceries, or packaged food items
-            </p>
-          </div>
-          <input
-            type="radio"
-            name="donationType"
-            value="food"
-            class="ml-auto mt-1 accent-blue-500"
-          />
-        </label>
+ <!-- Step 1 -->
+<form class="space-y-4">
+  <!-- Food Donations -->
+  <label class="block border rounded-xl p-4 flex items-center gap-4 cursor-pointer hover:shadow-md transition types">
+    <img
+      src="https://i.pinimg.com/736x/cf/b1/aa/cfb1aa51b9d84c308f0ed811ff4d371e.jpg"
+      alt="Food"
+      class="w-10 h-10 rounded object-cover"
+    />
+    <div>
+      <p class="font-medium heading">Food Donations</p>
+      <p class="text-sm text-gray-500 desc">
+        Fresh foods, groceries, or packaged food items
+      </p>
+    </div>
+    <input
+      type="radio"
+      name="donationType"
+      value="FOOD"
+      class="ml-auto mt-1 accent-blue-500"
+      [(ngModel)]="selectedType"
+    />
+  </label>
 
-        <!-- Item Donations -->
-        <label
-          class="block border rounded-xl p-4 flex items-center gap-4 cursor-pointer hover:shadow-md transition types"
-          (click)="selectType('item')"
-        >
-          <img
-            src="https://i.pinimg.com/736x/86/0a/a0/860aa0fffb5c0f48b61574f355ec217e.jpg"
-            alt="Items"
-            class="w-10 h-10 rounded object-cover"
-          />
-          <div>
-            <p class="font-medium heading">Item Donations</p>
-            <p class="text-sm text-gray-500 desc">
-              Clothing, household material, or personal items
-            </p>
-          </div>
-          <input
-            type="radio"
-            name="donationType"
-            value="item"
-            class="ml-auto mt-1 accent-blue-500"
-            [(ngModel)]  = "selectedType"
-          />
-        </label>
+  <!-- Item Donations -->
+  <label class="block border rounded-xl p-4 flex items-center gap-4 cursor-pointer hover:shadow-md transition types">
+    <img
+      src="https://i.pinimg.com/736x/86/0a/a0/860aa0fffb5c0f48b61574f355ec217e.jpg"
+      alt="Items"
+      class="w-10 h-10 rounded object-cover"
+    />
+    <div>
+      <p class="font-medium heading">Item Donations</p>
+      <p class="text-sm text-gray-500 desc">
+        Clothing, household material, or personal items
+      </p>
+    </div>
+    <input
+      type="radio"
+      name="donationType"
+      value="ITEM"
+      class="ml-auto mt-1 accent-blue-500"
+      [(ngModel)]="selectedType"
+    />
+  </label>
 
-        <!-- Service Donations -->
-        <label
-          class="block border rounded-xl p-4 flex items-center gap-4 cursor-pointer hover:shadow-md transition types"
-          (click)="selectType('service')"
-        >
-          <img
-            src="https://i.pinimg.com/1200x/33/27/f1/3327f18b64752e73e5bbdaa773a16c9c.jpg"
-            alt="Service"
-            class="w-11 h-11 rounded object-cover"
-          />
-          <div>
-            <p class="font-medium heading">Service Donations</p>
-            <p class="text-sm text-gray-500 desc">
-              Offering skills, volunteering or helpful services
-            </p>
-          </div>
-          <input
-            type="radio"
-            name="donationType"
-            value="service"
-            class="ml-auto mt-1 accent-blue-500"
-          />
-        </label>
-      </form>
+  <!-- Service Donations -->
+  <label class="block border rounded-xl p-4 flex items-center gap-4 cursor-pointer hover:shadow-md transition types">
+    <img
+      src="https://i.pinimg.com/1200x/33/27/f1/3327f18b64752e73e5bbdaa773a16c9c.jpg"
+      alt="Service"
+      class="w-11 h-11 rounded object-cover"
+    />
+    <div>
+      <p class="font-medium heading">Service Donations</p>
+      <p class="text-sm text-gray-500 desc">
+        Offering skills, volunteering or helpful services
+      </p>
+    </div>
+    <input
+      type="radio"
+      name="donationType"
+      value="SERVICE"
+      class="ml-auto mt-1 accent-blue-500"
+      [(ngModel)]="selectedType"
+    />
+  </label>
+</form>
     </div>
 
     <!-- Step 2 -->
@@ -176,7 +169,7 @@
     <div class="flex justify-between items-center w-full mt-8">
       <button
         id="backBtn"
-        (click)="goBack()" [routerLink]="'/individual-dashboard'"
+        (click)="goBack()" [routerLink]="'/sponsor-dashboard'"
         class="px-6 py-2 bg-[#D9D9D9] text-gray-700 font-[800] rounded-lg hover:bg-gray-300 transition"
         
       >
@@ -184,7 +177,7 @@
       </button>
       <button
         id="nextBtn"
-        (click)="goNext()"
+        (click)="goNext()"  [disabled]="!selectedType"
         
         class="px-6 py-2 bg-[#5B8E7D] text-white font-[800] rounded-lg hover:bg-emerald-700 transition"
       >
