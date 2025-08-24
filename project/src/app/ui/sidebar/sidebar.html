@@ -17,10 +17,10 @@
           </svg>
       </div>
       <div class="flex flex-col gap-4">
-        <div class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
-          <img class="w-[30px] h-[30px]" src="icons/home.svg"  alt="Discover"/>
+        <a [routerLink]="dashboardRoute" class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
+          <img class="w-[30px] h-[30px]" src="icons/home.svg" />
           <p>Discover</p>
-        </div>
+        </a>
         <div class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
           <img class="w-[30px] h-[30px]" src="icons/donate.svg"  alt="Donate" />
           <p>Donate</p>

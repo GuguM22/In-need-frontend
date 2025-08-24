@@ -1,0 +1,19 @@
+<p>view-ind-post works!</p>
+<div *ngIf="individual">
+    <h2>{{ individual.title }}</h2>
+    <p>{{ individual.description }}</p>
+    <p><strong>Needed by:</strong> {{ individual.neededByDate }}</p>
+    
+    <div class="images">
+      <img *ngFor="let url of individual.mediaUrls" [src]="'http://localhost:5050/' + url" alt="Post image">
+    </div>
+
+    <div class="donate-button-container">
+        <button class="donateBtn bg-green-700" [routerLink]="['/options', individual.id]">Donate</button>
+      </div>
+  </div>
+  
+  <div *ngIf="!individual">
+    <p>Loading post...</p>
+  </div>
+  
