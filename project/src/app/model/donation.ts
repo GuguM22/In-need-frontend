@@ -9,9 +9,10 @@ export interface Donation {
   frequency?: DonationFrequency;
   quantity?: number;
   availability?: string;
-  logisticPreference?: LogisticPreference;
+  preference?: LogisticPreference;
   createdAt?: Date;
   donorEmail?: string;
-  profileImageUrl?: string;
-  userName?: string;
+  donorName?: string;       
+  profileImageUrl?: string; 
+  additionalNotes?: string;
 }  

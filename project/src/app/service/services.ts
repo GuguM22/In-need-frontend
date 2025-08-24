@@ -1,9 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, tap, throwError } from 'rxjs';
-import { environment } from '../env/env';
 import { LoginResponse } from '../dto/loginResponse';
-import { Donation } from '../model/donation';
+import { environment } from '../env/env';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +10,15 @@ import { Donation } from '../model/donation';
 export class Services {
 
   private apiUrl = environment.apiUrl;
+  public currentUser: any = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+     const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      this.currentUser = JSON.parse(savedUser);
+    }
+  }
+  
 
   get baseUrl(): string {
     return this.apiUrl;

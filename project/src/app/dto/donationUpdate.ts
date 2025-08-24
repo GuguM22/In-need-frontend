@@ -1,5 +1,7 @@
+import { DonationStatus } from "../constant/donationStatus";
+
 export interface DonationUpdate {
     id: number;
-    isAccepted: boolean;
+    status: DonationStatus;
 }
   

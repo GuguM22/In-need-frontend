@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { NavbarComponent } from "../../ui/navbar/navbar";
-import { FooterComponent } from "../../ui/footer/footer";
 import { SponsorRequestService } from '../../service/sponsor-request-service';
+import { FooterComponent } from "../../ui/footer/footer";
+import { NavbarComponent } from "../../ui/navbar/navbar";
 
 @Component({
   selector: 'app-options',
@@ -13,7 +13,7 @@ import { SponsorRequestService } from '../../service/sponsor-request-service';
   templateUrl: './options.component.html',
   styleUrls: ['./options.component.css']
 })
-export class OptionsComponent {
+export class OptionsComponent implements OnInit {
   showError: boolean = false;
   errorMessage: string = '';
   currentStep: number = 1;
@@ -27,7 +27,7 @@ export class OptionsComponent {
       label: 'Food Donations',
       value: 'food',
       description: 'Fresh foods, groceries, or packaged food items',
-      icon: '🍞' // Replace with actual icon
+      icon: '🍞'
     },
     {
       label: 'Item Donations',
@@ -43,23 +43,30 @@ export class OptionsComponent {
     }
   ];
 
-  constructor(private router: Router,  private route: ActivatedRoute,
-    private sponsorService: SponsorRequestService) {}
+  constructor(
+    private router: Router,  
+    private route: ActivatedRoute,
+    private sponsorService: SponsorRequestService
+  ) {}
 
   get isFirstStep(): boolean {
     return this.currentStep === 1;
   }
 
   selectType(type: string) {
-    this.selectedType = type
+    this.selectedType = type;
+    this.showError = false; 
   }
 
   goNext(): void {
-    if(this.selectedType == "") return
+    if (this.selectedType === "") {
+      this.showError = true;
+      this.errorMessage = "Please select a donation type to continue.";
+      return;
+    }
 
-    localStorage.setItem('donationType', this.selectedType)
-
-    this.router.navigate(['/donation-request'])
+    localStorage.setItem('donationType', this.selectedType);
+    this.router.navigate(['/donation-request']);
   }
 
   goBack(): void {
@@ -72,25 +79,19 @@ export class OptionsComponent {
     }
   }
 
-  validateStep(): boolean {
-    // Replace this with your real validation logic
-    // For example, check if a form field is filled
-    // return this.myForm.valid;
-    return false; // simulate validation failure
-  }
-
   ngOnInit(): void {
-    this.requestId = this.route.snapshot.paramMap.get('id') || '';
+  this.requestId = this.route.snapshot.paramMap.get('id') || '';
+  console.log('Request ID:', this.requestId);
 
-    this.sponsorService.getById(this.requestId).subscribe({
-      next: (data) => {
-        this.requestDetails = data;
-        // You now have the data for that specific organization/request
-      },
-      error: (err) => {
-        console.error('Error fetching request details:', err);
-      }
-    });
+  if (!this.requestId) {
+    console.error('No request ID provided in URL!');
+    return;
   }
+
+  this.sponsorService.getById(this.requestId).subscribe({
+    next: (data) => this.requestDetails = data,
+    error: (err) => console.error('Error fetching request details:', err)
+  });
 }
 
+}
