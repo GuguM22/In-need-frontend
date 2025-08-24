@@ -7,8 +7,6 @@ import { SponsorRequest } from '../../model/sponsor-req';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { FooterComponent } from '../../ui/footer/footer';
 import {  NavbarComponent } from '../../ui/navbar/navbar';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { IndividualRequest, IndividualService } from '../../service/individual-service';
 
 

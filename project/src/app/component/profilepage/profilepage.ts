@@ -8,6 +8,7 @@ import { Services } from '../../service/services';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { DonationService } from '../../service/donation';
 import { Role } from '../../constant/role';
+import { NavbarComponent } from "../../ui/navbar/navbar";
 
 @Component({
   selector: 'app-profilepage',
@@ -16,7 +17,8 @@ import { Role } from '../../constant/role';
     CommonModule,
     FormsModule,
     RouterModule,
-   
+    FooterComponent,
+    NavbarComponent
 ],
   providers: [Services],
   templateUrl: './profilepage.html',

@@ -22,31 +22,7 @@ export class Sidebar implements OnInit {
 
   constructor(private userService: Services, private router: Router) {}
 
-  ngOnInit() {
-  // Default logo
-  this.profileImageUrl = 'logo.png';
-
-  this.userService.profile().subscribe({
-    next: (data: any) => {
-      if (data.profileImagePath) {
-        const img = new Image();
-        img.src = `http://localhost:5050/auth/images/${data.profileImagePath}`;
-        img.onload = () => {
-          // Replace logo only after image is fully loaded
-          this.profileImageUrl = img.src;
-        };
-        img.onerror = () => {
-          // Fallback in case image fails to load
-          this.profileImageUrl = 'logo.png';
-        };
-      }
-    },
-    error: () => {
-      this.profileImageUrl = 'logo.png';
-    }
-  });
-}
-
+ 
 
 
   handleToggle() {
@@ -78,6 +54,29 @@ export class Sidebar implements OnInit {
   dashboardRoute: string = '/'; // default fallback
 
   ngOnInit() {
+    // Set default logo
+    this.profileImageUrl = 'logo.png';
+
+    // Load profile image if available
+    this.userService.profile().subscribe({
+      next: (data: any) => {
+        if (data.profileImagePath) {
+          const img = new Image();
+          img.src = `http://localhost:5050/auth/images/${data.profileImagePath}`;
+          img.onload = () => {
+            this.profileImageUrl = img.src;
+          };
+          img.onerror = () => {
+            this.profileImageUrl = 'logo.png';
+          };
+        }
+      },
+      error: () => {
+        this.profileImageUrl = 'logo.png';
+      }
+    });
+
+    // Determine dashboard route based on user role
     const role = localStorage.getItem('userRole');
 
     switch (role) {
@@ -97,4 +96,5 @@ export class Sidebar implements OnInit {
         this.dashboardRoute = '/individual-dashboard'; // fallback
     }
   }
+
 }
