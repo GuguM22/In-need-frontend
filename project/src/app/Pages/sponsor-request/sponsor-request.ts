@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { PreviewSponsor } from "../preview-sponsor/preview-sponsor";
 
@@ -59,7 +59,7 @@ previewData: any;
     private fb: FormBuilder,
     private router: Router,
     private http: HttpClient,
-    private sponsorRequestService: SponsorRequestService,
+    private sponsorRequestService: SponsorRequestService
   ) {
     this.sponsorshipForm = this.fb.group({
       title: ['', Validators.required],
