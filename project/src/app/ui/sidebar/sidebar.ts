@@ -85,7 +85,7 @@ export class Sidebar implements OnInit {
     });
   }
 
-  dashboardRoute: string = '/'; // default fallback
+ /* dashboardRoute: string = '/'; // default fallback
 
   ngOnInit() {
     const role = localStorage.getItem('userRole');
@@ -106,5 +106,5 @@ export class Sidebar implements OnInit {
       default:
         this.dashboardRoute = '/individual-dashboard'; // fallback
     }
-  }
+  }*/
 }

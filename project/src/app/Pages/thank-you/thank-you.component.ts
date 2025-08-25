@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from "../../ui/footer/footer";
 import { NavbarComponent } from "../../ui/navbar/navbar";
+import { Router } from '@angular/router';
 
 
 @Component({

@@ -6,11 +6,12 @@ import { DonationStatus } from '../../constant/donationStatus';
 import { LogisticPreference } from '../../constant/logistic-peference';
 import { DonationUpdate } from '../../dto/donationUpdate';
 import { Donation } from '../../model/donation';
-import { DonationService } from '../../service/donation';
+import { DonationService } from '../../service/donation-service';
 import { DonationStateService } from '../../service/donation-state-service';
 import { Services } from '../../service/services';
 import { FooterComponent } from "../../ui/footer/footer";
 import { NavbarComponent } from "../../ui/navbar/navbar";
+import { Role } from '../../constant/role';
 
 @Component({
   selector: 'app-review-request',
@@ -67,16 +68,17 @@ export class ReviewRequest implements OnInit {
       }
     });
   }*/
-
 loadDonations() {
   this.donationService.getPendingDonations().subscribe(res => {
-    console.log("Pending donations response:", res); // 👈 raw API response
+    console.log("Raw donations from backend:", res); // 👈 check actual structure
 
     const mappedDonations = res
-      .filter(d => !this.removedIds.includes(d.id))
+      .filter(d => !this.removedIds.includes(d.id || d.donationId || d.requestId))
       .map(donation => ({
         ...donation,
-        id: donation.id,
+        //  Fallback to any possible key the backend provides
+        id: donation.id ?? donation.donationId ?? donation.requestId,
+
         description: donation.description || '',
         quantity: donation.quantity || 0,
         preference: donation.preference || LogisticPreference.DELIVERY,
@@ -90,7 +92,7 @@ loadDonations() {
         profileImageUrl: donation.profileImageUrl
           ? `http://localhost:5050/auth/images/${donation.profileImageUrl}`
           : 'logo.png',
-        donorRole: donation.donorRole ?? 'UNKNOWN', // fallback
+        donorRole: donation.donorRole as Role | undefined,
       }));
 
     this.donationStateService.setDonations(mappedDonations);
@@ -98,11 +100,19 @@ loadDonations() {
 
   this.donationStateService.donations$.subscribe(donations => {
     this.donation = donations;
+    console.log("Donations after mapping:", this.donation); // 👈 check IDs exist
   });
 }
 
-
   updateDonation(id: number, isAccepted: boolean) {
+    if (!id) {
+    console.error("Donation ID is missing. Cannot update donation.");
+    this.notification = {
+      type: 'error',
+      message: 'Donation ID is missing. Please refresh and try again.'
+    };
+    return;
+  }
     const status = isAccepted ? DonationStatus.ACCEPTED : DonationStatus.DECLINED;
     const selectedDonation: DonationUpdate = { id, status };
 

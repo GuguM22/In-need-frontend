@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Donation } from '../../model/donation';
-import { DonationService } from '../../service/donation';
+import { DonationService } from '../../service/donation-service';
 import { DonationStateService } from '../../service/donation-state-service';
 import { Services } from '../../service/services';
 import { FooterComponent } from '../../ui/footer/footer';
 import { NavbarComponent } from '../../ui/navbar/navbar';
+import { Role } from '../../constant/role';
 
 @Component({
   selector: 'app-sponsorship-request-page',
@@ -36,7 +37,7 @@ ngOnInit() {
       .filter(d => !this.removedIds.includes(d.id!))
       .map(donation => ({
         ...donation,
-        id: donation.id,
+        id: donation.id!,
         profileImageUrl: donation.profileImageUrl
           ? `http://localhost:5050/auth/images/${donation.profileImageUrl}`
           : 'logo.png',
