@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 
 @Component({
@@ -12,12 +12,12 @@ import { SponsorRequestService } from '../../service/sponsor-request-service';
   styleUrls: ['./preview-sponsor.css']
 })
 export class PreviewSponsor implements OnInit {
-  @Input() formData: any;
-  @Input() selectedFiles: File[] = [];
+
+   @Input() formData: any;
   @Input() filePreviews: string[] = [];
   @Output() updateClicked = new EventEmitter<void>();
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private sponsorRequest: SponsorRequestService) {}
+  constructor(private http: HttpClient, private route: ActivatedRoute, private sponsorRequest: SponsorRequestService,  private router: Router,) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id')!;
@@ -49,7 +49,17 @@ export class PreviewSponsor implements OnInit {
     }
   }
 
+  //  onUpdate() {
+  // this.router.navigate(['/sponsor-request'], {
+  //   state: { formData: this.formData, files: this.filePreviews }
+  // });
   onUpdate() {
-    this.updateClicked.emit(); // notify parent component
-  }
+  this.router.navigate(['/sponsor-request'], {
+    state: { formData: this.formData, files: this.filePreviews, id: this.formData?.id }
+  });
 }
+
+
+
+   
+  }

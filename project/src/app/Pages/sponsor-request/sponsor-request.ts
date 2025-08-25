@@ -1,17 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
-
-
-import { FooterComponent } from "../../ui/footer/footer";
-
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { PreviewSponsor } from "../preview-sponsor/preview-sponsor";
 
-// Interface for backend DTO
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+
+// Backend DTO
 export interface SponsorRequest {
   id?: string; 
   title: string;
@@ -22,7 +19,7 @@ export interface SponsorRequest {
   mediaUrls?: File[];
 }
 
-// Validator to prevent past dates
+// Validator for dates
 export function futureDateValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     if (!control.value) return null;
@@ -41,13 +38,22 @@ export function futureDateValidator(): ValidatorFn {
   styleUrls: ['./sponsor-request.css'],
   providers: [SponsorRequestService]
 })
-export class SponsorRequestComponent implements OnDestroy {
+export class SponsorRequestComponent implements OnInit, OnDestroy {
+onEdit() {
+throw new Error('Method not implemented.');
+}
+  requestId: number | null = null;
+
+
+
+
 
   sponsorshipForm: FormGroup;
   selectedFiles: File[] = [];
   filePreviews: string[] = [];
   isSubmitting = false;
   showPreview = false;
+previewData: any;
 
   constructor(
     private fb: FormBuilder,
@@ -99,47 +105,11 @@ export class SponsorRequestComponent implements OnDestroy {
     this.filePreviews = [];
   }
 
-  preview(): void {
-    if (this.sponsorshipForm.valid) {
-      this.showPreview = true;
-    } else {
-      this.sponsorshipForm.markAllAsTouched();
-    }
-  }
+  
 
-  editForm(): void { this.showPreview = false; }
-/* 
+  
+
   onSubmit(): void {
-    if (this.sponsorshipForm.invalid) {
-      this.sponsorshipForm.markAllAsTouched();
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('title', this.sponsorshipForm.get('title')?.value);
-    formData.append('priority', this.sponsorshipForm.get('priority')?.value || '');
-    formData.append('quantity', String(this.sponsorshipForm.get('quantity')?.value));
-    formData.append('requiredDate', this.sponsorshipForm.get('requiredDate')?.value);
-    formData.append('description', this.sponsorshipForm.get('description')?.value);
-
-    this.selectedFiles.forEach(file => formData.append('mediaurls', file, file.name));
-
-    this.isSubmitting = true;
-
-    this.sponsorRequestService.post(formData).subscribe({
-      next: () => {
-        this.resetForm();
-        this.isSubmitting = false;
-        this.router.navigate(['/preview-sponsor']);
-      },
-      error: (err) => {
-        console.error(err);
-        alert('Failed to submit sponsorship request.');
-        this.isSubmitting = false;
-      }
-    });
-  } */
- onSubmit(): void {
   if (this.sponsorshipForm.invalid) {
     this.sponsorshipForm.markAllAsTouched();
     return;
@@ -152,32 +122,93 @@ export class SponsorRequestComponent implements OnDestroy {
   formData.append('requiredDate', this.sponsorshipForm.get('requiredDate')?.value);
   formData.append('description', this.sponsorshipForm.get('description')?.value);
 
-  this.selectedFiles.forEach(file => formData.append('mediaurls', file, file.name));
+  this.selectedFiles.forEach(file => formData.append('mediaFiles', file, file.name));
 
   this.isSubmitting = true;
 
-  // Post to backend
+ if (this.requestId) {
+  // UPDATE
+  this.sponsorRequestService.update(this.requestId, formData).subscribe({
+    next: () => {
+      this.isSubmitting = false;
+      alert('Request updated successfully');
+      this.showPreview = false; 
+      this.requestId = null;   // 👈 reset after update if you want to allow new create
+    },
+    error: (err) => {
+      console.error(err);
+      this.isSubmitting = false;
+      alert('Failed to update request');
+    }
+  });
+} else {
+  // CREATE
   this.sponsorRequestService.post(formData).subscribe({
     next: (createdRequest: any) => {
       this.isSubmitting = false;
       this.resetForm();
-
-      // Navigate to preview page using the returned ID
+      this.requestId = null;   // 👈 ensure future submits start as CREATE
       if (createdRequest?.id) {
-        this.router.navigate(['/manage-sponsor-individual', createdRequest.id]);
+        this.router.navigate(['/preview-sponsor', createdRequest.id]);
       } else {
         console.error('No ID returned from backend');
       }
     },
     error: (err) => {
       console.error(err);
-      alert('Failed to submit sponsorship request.');
       this.isSubmitting = false;
+      alert('Failed to submit request.');
     }
   });
 }
+  }
+
+//   ngOnInit(): void {
+//   this.requestId = null; 
+
+//   const state = history.state;
+//   if (state.formData) {
+//     this.sponsorshipForm.patchValue(state.formData);
+//     this.selectedFiles = state.files || [];
+//     this.filePreviews = this.selectedFiles.map(file => {
+//       if (file instanceof File) return URL.createObjectURL(file);
+//       return file; 
+//     });
+//   }
+// }
+
+ngOnInit(): void {
+  this.requestId = null; 
+
+  const state = history.state;
+  if (state.formData) {
+    this.sponsorshipForm.patchValue(state.formData);
+    this.selectedFiles = state.files || [];
+    this.filePreviews = this.selectedFiles.map(file => {
+      if (file instanceof File) return URL.createObjectURL(file);
+      return file; 
+    });
+    this.requestId = state.id || null;  // 👈 set requestId if editing
+  }
+}
 
 
+  preview(): void {
+    if (this.sponsorshipForm.valid) {
+      this.previewData = this.sponsorshipForm.value;
+      this.filePreviews = this.selectedFiles.map(file => URL.createObjectURL(file));
+      this.showPreview = true;  // show preview component
+    } else {
+      this.sponsorshipForm.markAllAsTouched();
+    }
+  }
+
+  
+
+editForm(): void {
+  // Go back to the form
+  this.showPreview = false;
+}
   private resetForm(): void {
     this.sponsorshipForm.reset({
       title: '',
@@ -195,6 +226,8 @@ export class SponsorRequestComponent implements OnDestroy {
     this.router.navigate(['organization-dashboard']);
   }
 
-  ngOnDestroy(): void { this.revokePreviews(); }
+  ngOnDestroy(): void {
+  this.revokePreviews();
+} 
+} // <-- this closes SponsorRequestComponent class
 
-}
