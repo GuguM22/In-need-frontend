@@ -48,7 +48,7 @@
     <div class="individualCards carousel">
         <div class="indvCard"  *ngFor="let i of individuals" [routerLink]="['/view-indv-post', i.id]">
             <div class="thumbnail">
-                <img *ngFor="let url of i.mediaUrls" [src]="'http://localhost:5050/' + url" />
+                <img *ngFor="let url of i.mediaUrls" [src]="'http://localhost:5050/' + url" class="thumbnailPic" />
             </div>
             <div class="user">
                 <h4 class="names">{{i.title}}</h4>
