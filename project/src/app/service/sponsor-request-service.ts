@@ -108,4 +108,3 @@ getMyPosts(): Observable<any[]> {
 
 }
 
-}
