@@ -15,7 +15,7 @@
     </div>
 
     <!-- FORM -->
-    <form *ngIf="!isEditing" [formGroup]="sponsorshipForm" (ngSubmit)="onSubmit()">
+   <form *ngIf="!showPreview" [formGroup]="sponsorshipForm" (ngSubmit)="onSubmit()">
       <!-- Title -->
       <div class="form-group">
         <label class="form-label" for="title">Title</label>
@@ -100,7 +100,7 @@
     </form>
 
     <!-- PREVIEW -->
-    <div *ngIf="!isEditing" class="bg-gray-50 rounded-2xl p-6 sticky top-6 shadow-lg">
+   <div *ngIf="showPreview" class="bg-gray-50 rounded-2xl p-6 sticky top-6 shadow-lg">
       <h3 class="text-xl font-semibold text-gray-900 mb-6 text-center tracking-wide">Live Preview</h3>
 
       <div class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
@@ -126,9 +126,10 @@
           <!-- Media Preview -->
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             <ng-container *ngFor="let preview of filePreviews">
-              <img *ngIf="preview.endsWith('.png') || preview.endsWith('.jpg') || preview.endsWith('.jpeg')"
-                   [src]="preview"
-                   class="w-full h-40 object-cover rounded-lg border border-gray-200 shadow-sm transition-transform duration-200 hover:scale-105" />
+            <img *ngIf="preview.endsWith('.png') || preview.endsWith('.jpg') || preview.endsWith('.jpeg')"
+     [src]="preview" />
+<video *ngIf="preview.endsWith('.mp4')" [src]="preview" controls></video>
+
 
               <video *ngIf="preview.endsWith('.mp4')" 
                      [src]="preview" 
@@ -147,10 +148,10 @@
 
         <!-- Update Button -->
         <div class="p-6 border-t border-gray-100 flex justify-end">
-          <button (click)="onEdit()" 
-                  class="px-6 py-2 bg-green-900 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all">
-            Update
-          </button>
+          <button (click)="editForm()" 
+            class="px-6 py-2 bg-green-900 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all">
+      Update
+    </button>
         </div>
       </div>
     </div>

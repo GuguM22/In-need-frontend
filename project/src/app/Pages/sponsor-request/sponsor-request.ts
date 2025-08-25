@@ -38,10 +38,11 @@ export function futureDateValidator(): ValidatorFn {
   providers: [SponsorRequestService]
 })
 export class SponsorRequestComponent implements OnDestroy {
-isEditing: any;
-onEdit() {
-throw new Error('Method not implemented.');
-}
+
+
+
+
+
   sponsorshipForm: FormGroup;
   selectedFiles: File[] = [];
   filePreviews: string[] = [];
@@ -99,17 +100,9 @@ previewData: any;
     this.filePreviews = [];
   }
 
-  preview(): void {
-    if (this.sponsorshipForm.valid) {
-      this.showPreview = true;
-    } else {
-      this.sponsorshipForm.markAllAsTouched();
-    }
-  }
+  
 
-  editForm(): void { 
-    this.showPreview = false; 
-  }
+  
 
   onSubmit(): void {
     if (this.sponsorshipForm.invalid) {
@@ -145,8 +138,22 @@ previewData: any;
         this.isSubmitting = false;
       }
     });
-  }
 
+
+  }
+  preview(): void {
+  if (this.sponsorshipForm.valid) {
+    this.previewData = this.sponsorshipForm.value;
+    this.filePreviews = this.selectedFiles?.map(file => URL.createObjectURL(file)) || [];
+    this.showPreview = true;
+  } else {
+    this.sponsorshipForm.markAllAsTouched();
+  }
+}
+
+editForm(): void {
+  this.showPreview = false;
+}
   private resetForm(): void {
     this.sponsorshipForm.reset({
       title: '',
