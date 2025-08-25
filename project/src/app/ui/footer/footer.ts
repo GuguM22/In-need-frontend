@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-footer',
   standalone: true,
@@ -11,6 +11,8 @@ import { RouterModule } from '@angular/router';
 export class FooterComponent {
   
   dashboardRoute: string = '/'; // default fallback
+
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     const role = localStorage.getItem('userRole');
@@ -33,4 +35,9 @@ export class FooterComponent {
         break;
     }
   }
+
+isActive(route: string): boolean {
+  return this.router.url === route || this.router.url.startsWith(route + '/');
+}
+
 }
