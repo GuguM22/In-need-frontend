@@ -68,37 +68,39 @@ export class ReviewRequest implements OnInit {
     });
   }*/
 
-  loadDonations() {
-    this.donationService.getPendingDonations().subscribe(res => {
-      const mappedDonations = res
-        .filter(d => !this.removedIds.includes(d.id))
-        .map(donation => ({
-          ...donation,
-          id: donation.id,
-          description: donation.description || '',
-          quantity: donation.quantity || 0,
-          preference: donation.preference || LogisticPreference.DELIVERY,
-          additionalNotes: donation.additionalNotes || '',
-          donorEmail: donation.donorEmail || '',
-          donorName: donation.donorName || '',
-          createdAt: donation.createdAt ? new Date(donation.createdAt) : new Date(),
-          availability: donation.availability || '',
-          type: donation.type,
-          frequency: donation.frequency || DonationFrequency.ONE_TIME,
-          profileImageUrl: donation.profileImageUrl
-            ? `http://localhost:5050/auth/images/${donation.profileImageUrl}`
-            : 'logo.png',
+loadDonations() {
+  this.donationService.getPendingDonations().subscribe(res => {
+    console.log("Pending donations response:", res); // 👈 raw API response
 
-        }));
+    const mappedDonations = res
+      .filter(d => !this.removedIds.includes(d.id))
+      .map(donation => ({
+        ...donation,
+        id: donation.id,
+        description: donation.description || '',
+        quantity: donation.quantity || 0,
+        preference: donation.preference || LogisticPreference.DELIVERY,
+        additionalNotes: donation.additionalNotes || '',
+        donorEmail: donation.donorEmail || '',
+        donorName: donation.donorName || '',
+        createdAt: donation.createdAt ? new Date(donation.createdAt) : new Date(),
+        availability: donation.availability || '',
+        type: donation.type,
+        frequency: donation.frequency || DonationFrequency.ONE_TIME,
+        profileImageUrl: donation.profileImageUrl
+          ? `http://localhost:5050/auth/images/${donation.profileImageUrl}`
+          : 'logo.png',
+        donorRole: donation.donorRole ?? 'UNKNOWN', // fallback
+      }));
 
-      // Save in state service
-      this.donationStateService.setDonations(mappedDonations);
-    });
+    this.donationStateService.setDonations(mappedDonations);
+  });
 
-    this.donationStateService.donations$.subscribe(donations => {
-      this.donation = donations;
-    });
-  }
+  this.donationStateService.donations$.subscribe(donations => {
+    this.donation = donations;
+  });
+}
+
 
   updateDonation(id: number, isAccepted: boolean) {
     const status = isAccepted ? DonationStatus.ACCEPTED : DonationStatus.DECLINED;
@@ -157,5 +159,15 @@ export class ReviewRequest implements OnInit {
     }
     this.closeModal();
   }
+
+  capitalizeWords(name?: string): string {
+  if (!name) return '';
+  return name
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
 
 }

@@ -33,15 +33,18 @@ ngOnInit() {
   // Fetch donations from backend
   this.donationService.getDonations().subscribe(res => {
     const mappedDonations = res
-      .filter(d => !this.removedIds.includes(d.id))
+      .filter(d => !this.removedIds.includes(d.id!))
       .map(donation => ({
         ...donation,
+        id: donation.id,
         profileImageUrl: donation.profileImageUrl
           ? `http://localhost:5050/auth/images/${donation.profileImageUrl}`
           : 'logo.png',
-        donorName: donation.donorName
+        donorName: donation.donorName,
+        donorRole: donation.donorRole,
+        
       }));
-
+     
     // Save transformed donations in state service
     this.donationStateService.setDonations(mappedDonations);
   });
@@ -73,6 +76,15 @@ loadImage() {
       this.profileImageUrl = 'logo.png';
     },
   });
+}
+
+capitalizeWords(name?: string): string {
+  if (!name) return '';
+  return name
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
 }
 
 

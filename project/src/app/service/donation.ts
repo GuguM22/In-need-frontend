@@ -59,14 +59,27 @@ export class DonationService {
     return this.http.get(`${this.apiUrl}/auth/donations/${email}`, { headers });
   }
 
-  getPendingDonations(): Observable<any[]> {
-    const token = localStorage.getItem('token');
-    const headers = token ? new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    }) : new HttpHeaders({ 'Content-Type': 'application/json' });
+getPendingDonations(): Observable<any[]> {
+  const token = localStorage.getItem('token');
+  const headers = token ? new HttpHeaders({
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  }) : new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    return this.http.get<any[]>(`${this.apiUrl}/auth/donations/pending`, { headers });
-  }
+  return this.http.get<any[]>(`${this.apiUrl}/auth/donations/pending`, { headers })
+    .pipe(
+      tap(res => console.log("API /donations/pending response:", res)) // 👈 debug
+    );
+}
+
+
+
+getDonationById(id: number): Observable<Donation> {
+  const token = localStorage.getItem('token'); // or wherever you store it
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.http.get<Donation>(`${this.apiUrl}/auth/donations/${id}`, { headers });
+}
+
+
 }
 

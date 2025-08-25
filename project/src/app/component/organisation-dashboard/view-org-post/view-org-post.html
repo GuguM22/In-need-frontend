@@ -1,0 +1,15 @@
+<p>view-org-post works!</p>
+<div *ngIf="request">
+    <h1>{{ request.title }}</h1>
+    <p>{{ request.description }}</p>
+    <p>Priority: {{ request.priority }}</p>
+    <p>Needed by: {{ request.requiredDate }}</p>
+    <!-- Show media -->
+    <div *ngFor="let url of request.mediaUrls">
+      <img [src]="'http://localhost:5050/' + url" />
+    </div>
+    <div class="donate-button-container">
+        <button class="donateBtn bg-green-700" [routerLink]="['/options', request.id]">Donate</button>
+      </div>
+  </div>
+  

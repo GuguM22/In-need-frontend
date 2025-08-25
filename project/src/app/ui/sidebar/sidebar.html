@@ -17,21 +17,25 @@
           </svg>
       </div>
       <div class="flex flex-col gap-4">
-        <div class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
+        <a [routerLink]="dashboardRoute" class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
+          <img class="w-[30px] h-[30px]" src="icons/home.svg" alt="Dashboard" />
+           <p>Discover</p>
+          <!--- <div class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
           <img class="w-[30px] h-[30px]" src="icons/home.svg"  alt="Discover"/>
           <p>Discover</p>
-        </div>
-        <div class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
+          </div> -->
+        </a>
+        <div  [routerLink]="'/options'" class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
           <img class="w-[30px] h-[30px]" src="icons/donate.svg"  alt="Donate" />
           <p>Donate</p>
         </div>
-        <div class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
+        <div  [routerLink]="'/sponsorship-request-page'" class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
           <img class="w-[30px] h-[30px]" src="icons/notifications.svg"  alt="Notification" />
           <p>Notifications</p>
         </div>
-        <div class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
+        <div  [routerLink]="'/profile'"  class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
           <img class="w-[30px] h-[30px]" src="icons/profile.svg"  alt="Profile" />
-          <a routerLink="/profile">Profile</a>
+          <p>Profile</p>
         </div>
       </div>
     </div>

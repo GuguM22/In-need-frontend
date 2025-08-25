@@ -6,7 +6,8 @@ import { Router, RouterLink } from '@angular/router';
 import { SponsorRequest } from '../../model/sponsor-req';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { FooterComponent } from '../../ui/footer/footer';
-import { NavbarComponent } from '../../ui/navbar/navbar';
+import {  NavbarComponent } from '../../ui/navbar/navbar';
+import { IndividualRequest, IndividualService } from '../../service/individual-service';
 
 @Component({
   selector: 'app-individual-dasboard',
@@ -18,6 +19,7 @@ import { NavbarComponent } from '../../ui/navbar/navbar';
 export class IndividualDasboardComponent {
  
   requests: SponsorRequest[] =[]
+  individuals: IndividualRequest[] = [];
  
   request: SponsorRequest = {
     title: '',
@@ -26,10 +28,10 @@ export class IndividualDasboardComponent {
     requiredDate: '',
     description: '',
     mediaUrls: [],
-    //posts: []
+   // posts: []
   }
  
-   constructor(private router: Router, private sponsorService: SponsorRequestService, private http: HttpClient, private elementRef: ElementRef) { }
+   constructor(private router: Router, private sponsorService: SponsorRequestService, private http: HttpClient, private elementRef: ElementRef, private individualService: IndividualService) { }
    searchQuery: string = '';
    filteredRequests: SponsorRequest[] = [];
    currentPage: number = 1;
@@ -37,6 +39,7 @@ export class IndividualDasboardComponent {
  
    ngOnInit():void {
    this.loadRequests();
+   this.loadIndividuals();
    }
    navigateToSponsorRequest() {
      this.router.navigate(['individual-request']);
@@ -149,4 +152,16 @@ export class IndividualDasboardComponent {
      this.showFilterDropdown = false;
    }
  }
+
+ loadIndividuals(): void {
+  this.individualService.getAll().subscribe({
+    next: (data) => {
+      this.individuals = data;
+      console.log('Individuals loaded:', this.individuals);
+    },
+    error: (error) => {
+      console.error('Error loading individuals:', error);
+    }
+  });
+}
 }
