@@ -8,6 +8,7 @@ import { Services } from '../../service/services';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { DonationService } from '../../service/donation';
 import { Role } from '../../constant/role';
+import { NavbarComponent } from "../../ui/navbar/navbar";
 
 @Component({
   selector: 'app-profilepage',
@@ -16,7 +17,8 @@ import { Role } from '../../constant/role';
     CommonModule,
     FormsModule,
     RouterModule,
-   
+    FooterComponent,
+    NavbarComponent
 ],
   providers: [Services],
   templateUrl: './profilepage.html',
@@ -65,12 +67,12 @@ private loadProfileImage(imagePath: string) {
         this.profileImageUrl = URL.createObjectURL(blob);
       } else {
         // Set default image if blob is empty
-        this.profileImageUrl = 'assets/default-profile.png';
+        this.profileImageUrl = 'logo.png';
       }
     },
     error: (err) => {
       console.error('Image load error:', err);
-      this.profileImageUrl = 'assets/default-profile.png';
+      this.profileImageUrl = 'logo.png';
     }
   });
 }
@@ -96,7 +98,7 @@ toggleEdit() {
   if (this.isEditing) {
     const updateData = {
       bio: this.editBio,
-      phone: this.editPhone, // ✅ Include phone number
+      phone: this.editPhone, 
       location: {
         city: this.editLocation.split(',')[0]?.trim() || '',
         province: this.editLocation.split(',')[1]?.trim() || ''
@@ -108,7 +110,7 @@ toggleEdit() {
         console.log('Profile updated:', res);
         this.name = this.editName;
         this.email = this.editEmail;
-        this.phone = this.editPhone; // ✅ Update local phone
+        this.phone = this.editPhone; 
         this.bio = this.editBio;
         this.Location = this.editLocation;
       },
@@ -120,7 +122,7 @@ toggleEdit() {
   } else {
     this.editName = this.name;
     this.editEmail = this.email;
-    this.editPhone = this.phone; // ✅ Initialize phone
+    this.editPhone = this.phone; 
     this.editBio = this.bio;
     this.editLocation = this.Location;
   }

@@ -1,13 +1,161 @@
-import { Component } from '@angular/core';
-import {  NavbarComponent } from "../../ui/navbar/navbar";
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { DonationFrequency } from '../../constant/donation-frequency';
+import { DonationStatus } from '../../constant/donationStatus';
+import { LogisticPreference } from '../../constant/logistic-peference';
+import { DonationUpdate } from '../../dto/donationUpdate';
+import { Donation } from '../../model/donation';
+import { DonationService } from '../../service/donation';
+import { DonationStateService } from '../../service/donation-state-service';
+import { Services } from '../../service/services';
 import { FooterComponent } from "../../ui/footer/footer";
+import { NavbarComponent } from "../../ui/navbar/navbar";
 
 @Component({
   selector: 'app-review-request',
-  imports: [FooterComponent, NavbarComponent],
+  imports: [FooterComponent, NavbarComponent, CommonModule, RouterModule],
   templateUrl: './review-request.html',
-  styleUrl: './review-request.css'
+  styleUrls: ['./review-request.css']
 })
-export class ReviewRequest {
+export class ReviewRequest implements OnInit {
+
+  emailAddress: string = '';
+  profileImageUrl: string = '';
+  removedIds: number[] = [];
+  /*  donation: {
+      id: number;
+      description: string;
+      quantity: number;
+      preference: LogisticPreference;
+      additionalNotes: string;
+      donorEmail: string;
+      donorName: string;
+      createdAt: Date;
+      availability: string;
+      type: DonationType;
+      frequency: DonationFrequency;
+      profileImageUrl: string;
+    }[] = [];*/
+
+
+  donation: Donation[] = [];
+  notification: { message: string, type: 'success' | 'error' } | null = null;
+  backButtonVisible: boolean = true;
+
+
+
+  constructor(private donationService: DonationService,
+    private router: Router, private donationStateService: DonationStateService, private service: Services) {
+    this.emailAddress = localStorage.getItem('userEmail') || '';
+
+  }
+
+  ngOnInit() {
+    this.loadDonations();
+
+  }
+
+  /*getDonation() {
+    this.donationService.getDonation(this.emailAddress).subscribe({
+      next: (response) => {
+        console.log(response)
+        this.donation = response;
+      },
+      error: (err) => {
+        console.error('Error fetching donation:', err);
+      }
+    });
+  }*/
+
+  loadDonations() {
+    this.donationService.getPendingDonations().subscribe(res => {
+      const mappedDonations = res
+        .filter(d => !this.removedIds.includes(d.id))
+        .map(donation => ({
+          ...donation,
+          id: donation.id,
+          description: donation.description || '',
+          quantity: donation.quantity || 0,
+          preference: donation.preference || LogisticPreference.DELIVERY,
+          additionalNotes: donation.additionalNotes || '',
+          donorEmail: donation.donorEmail || '',
+          donorName: donation.donorName || '',
+          createdAt: donation.createdAt ? new Date(donation.createdAt) : new Date(),
+          availability: donation.availability || '',
+          type: donation.type,
+          frequency: donation.frequency || DonationFrequency.ONE_TIME,
+          profileImageUrl: donation.profileImageUrl
+            ? `http://localhost:5050/auth/images/${donation.profileImageUrl}`
+            : 'logo.png',
+
+        }));
+
+      // Save in state service
+      this.donationStateService.setDonations(mappedDonations);
+    });
+
+    this.donationStateService.donations$.subscribe(donations => {
+      this.donation = donations;
+    });
+  }
+
+  updateDonation(id: number, isAccepted: boolean) {
+    const status = isAccepted ? DonationStatus.ACCEPTED : DonationStatus.DECLINED;
+    const selectedDonation: DonationUpdate = { id, status };
+
+    this.donationService.updateDonation(selectedDonation).subscribe({
+      next: () => {
+        // Remove the donation from the list
+        this.donation = this.donation.filter(d => d.id !== id);
+        this.donationStateService.removeDonation(id);
+
+        // Hide the back button
+        this.backButtonVisible = false;
+
+        // Show notification
+        this.notification = {
+          type: 'success',
+          message: isAccepted ? 'Donation accepted successfully' : 'Donation declined successfully'
+        };
+
+        // Navigate back after 1.5 seconds
+        setTimeout(() => {
+          this.router.navigate(['/sponsorship-request-page']);
+        }, 3000);
+      },
+      error: (err) => {
+        console.error('Error updating donation:', err);
+        this.notification = {
+          type: 'error',
+          message: 'Failed to update donation. Please try again.'
+        };
+      }
+    });
+  }
+
+  showModal: boolean = false;
+  modalAction: 'accept' | 'decline' | null = null;
+  selectedDonationId: number | null = null;
+
+  openModal(donationId: number, action: 'accept' | 'decline') {
+    this.selectedDonationId = donationId;
+    this.modalAction = action;
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
+    this.modalAction = null;
+    this.selectedDonationId = null;
+  }
+
+  confirmAction() {
+    if (this.selectedDonationId && this.modalAction) {
+      const isAccept = this.modalAction === 'accept';
+      this.updateDonation(this.selectedDonationId, isAccept);
+    }
+    this.closeModal();
+  }
 
 }

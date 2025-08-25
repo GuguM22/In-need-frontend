@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { PreviewSponsor } from "../preview-sponsor/preview-sponsor";
 
@@ -10,6 +10,7 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 // Backend DTO
 export interface SponsorRequest {
+  id?: string; 
   title: string;
   priority: string;
   quantity: number;
@@ -58,7 +59,7 @@ previewData: any;
     private fb: FormBuilder,
     private router: Router,
     private http: HttpClient,
-    private sponsorRequestService: SponsorRequestService
+    private sponsorRequestService: SponsorRequestService,
   ) {
     this.sponsorshipForm = this.fb.group({
       title: ['', Validators.required],
@@ -149,6 +150,8 @@ previewData: any;
       this.requestId = null;   // 👈 ensure future submits start as CREATE
       if (createdRequest?.id) {
         this.router.navigate(['/preview-sponsor', createdRequest.id]);
+      } else {
+        console.error('No ID returned from backend');
       }
     },
     error: (err) => {

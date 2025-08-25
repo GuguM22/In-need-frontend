@@ -1,50 +1,76 @@
 <app-navbar></app-navbar>
+
 <body class="bg-white min-h-screen flex items-center justify-center flex flex-col pb-20">
   <div class="max-w-sm w-full mx-auto p-6">
     <!-- Back Button -->
-    <button class="flex items-center text-sm text-black mb-6">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    @if (backButtonVisible) {
+    <button [routerLink]="'/sponsorship-request-page'" type="button" class="flex items-center text-sm text-black mb-6">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
       </svg>
       Back
     </button>
+    }
 
-    <!-- Main Card Container -->
-    <div class="bg-white w-full border border-gray-300 rounded-lg p-6 min-h-[500px] space-y-6">
-      <!-- Title -->
+
+    <!-- Notification card -->
+    @if (notification) {
+    <div [ngClass]="{
+       'bg-green-100 border-green-500 text-green-700': notification.type === 'success',
+       'bg-red-100 border-red-500 text-red-700': notification.type === 'error'
+     }" class="border-l-4 p-4 mb-4 rounded shadow">
+      {{ notification.message }}
+    </div>
+    }
+
+    <div *ngFor="let donationItem of donation" class="bg-white w-full border rounded-lg p-6 min-h-[500px] space-y-6">
       <h2 class="text-center text-lg font-semibold mb-8">Review request</h2>
 
-      <!-- Details Section -->
       <div class="text-sm text-gray-800 space-y-4 mb-8">
-        <div><span class="font-semibold">Type:</span> Items</div>
-        <div><span class="font-semibold">Description:</span> this is two t-shirts and a white blazer</div>
-        <div><span class="font-semibold">Quantity:</span> 2 items</div>
-        <div><span class="font-semibold">Frequency:</span> One-time</div>
-        <div><span class="font-semibold">Logistics:</span> Delivery</div>
+        <div>
+          <span class="text-lg font-semibold">Type:</span>
+          <span class="ml-1 font-medium">{{ donationItem.type }}</span>
+        </div>
+        <div>
+          <span class="text-lg font-semibold">Description:</span>
+          <span class="ml-1 font-medium">{{ donationItem.description }}</span>
+        </div>
+        <div>
+          <span class="text-lg font-semibold">Quantity:</span>
+          <span class="ml-1 font-medium">{{ donationItem.quantity }} items</span>
+        </div>
+        <div>
+          <span class="text-lg font-semibold">Frequency:</span>
+          <span class="ml-1 font-medium">{{ donationItem.frequency }}</span>
+        </div>
+        <div>
+          <span class="text-lg font-semibold">Logistics:</span>
+          <span class="ml-1 font-medium">{{ donationItem.preference }}</span>
+        </div>
       </div>
 
-      <!-- Buttons - Now with text forced to one line -->
       <div class="flex justify-center gap-4 mb-8">
-        <button type="submit" class="flex-1 h-10 px-4 text-sm text-white whitespace-nowrap justify-center focus:outline-none rounded-lg border hover:opacity-90 transition duration-200" style="background-color: #5B8E7D; border-color: #5B8E7D;">
-          Accept Donation
-        </button>
-        <button class="flex-1 h-10 px-4 text-sm text-white whitespace-nowrap justify-center rounded-lg border hover:opacity-90 transition duration-200" style="background-color: #C1121F; border-color: #C1121F;">
-          Decline Donation
-        </button>
+        <button (click)="updateDonation(donationItem.id, true)" type="submit"
+          class="flex-1 h-10 px-4 text-sm text-white whitespace-nowrap justify-center focus:outline-none rounded-lg border hover:opacity-90 transition duration-200 bg-[#5B8E7D] border-color-[#5B8E7D]">
+          Accept Donation </button>
+        <button (click)="updateDonation(donationItem.id, false)"
+          class="flex-1 h-10 px-4 text-sm text-white whitespace-nowrap justify-center rounded-lg border hover:opacity-90 transition duration-200 bg-[#C1121F] border-color-[#C1121F]">
+          Decline Donation </button>
       </div>
 
-      <!-- Sponsor Section -->
       <div class="pt-6 border-t border-gray-200">
         <p class="font-semibold text-black mb-4">Sponsored By</p>
         <div class="flex items-center space-x-3">
-          <img src="https://via.placeholder.com/32" alt="Sponsor" class="w-10 h-10 rounded-full">
+          <img [src]="donationItem.profileImageUrl" alt="Sponsor" class="w-10 h-10 rounded-full">
           <div>
-            <p class="text-sm font-medium">Jacky Selebe</p>
+            <p class="text-sm font-medium">{{ donationItem.donorName }}</p>
             <p class="text-xs text-gray-500">Sponsor</p>
           </div>
         </div>
       </div>
     </div>
   </div>
+
 </body>
 <app-footer></app-footer>

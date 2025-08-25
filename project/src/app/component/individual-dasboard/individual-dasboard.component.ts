@@ -1,12 +1,14 @@
-import { Component, ElementRef, HostListener } from '@angular/core';
-import { SponsorRequest } from '../../model/sponsor-req';
-import { Router, RouterLink } from '@angular/router';
-import { SponsorRequestService } from '../../service/sponsor-request-service';
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { Component, ElementRef, HostListener } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { SponsorRequest } from '../../model/sponsor-req';
+import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { FooterComponent } from '../../ui/footer/footer';
 import {  NavbarComponent } from '../../ui/navbar/navbar';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { IndividualRequest, IndividualService } from '../../service/individual-service';
+
 
 @Component({
   selector: 'app-individual-dasboard',
@@ -18,16 +20,20 @@ import { FormsModule } from '@angular/forms';
 export class IndividualDasboardComponent {
  
   requests: SponsorRequest[] =[]
+  individuals: IndividualRequest[] = [];
  
   request: SponsorRequest = {
-     title: '',
-     priority: '',
-     quantity: 0,
-     requiredDate: '',
-     description: '',
-     mediaUrls: []}
+    title: '',
+    priority: '',
+    quantity: 0,
+    requiredDate: '',
+    description: '',
+    mediaUrls: [],
  
-   constructor(private router: Router, private sponsorService: SponsorRequestService, private http: HttpClient, private elementRef: ElementRef) { }
+    
+  }
+ 
+   constructor(private router: Router, private sponsorService: SponsorRequestService, private http: HttpClient, private elementRef: ElementRef, private individualService: IndividualService) { }
    searchQuery: string = '';
    filteredRequests: SponsorRequest[] = [];
    currentPage: number = 1;
@@ -35,6 +41,7 @@ export class IndividualDasboardComponent {
  
    ngOnInit():void {
    this.loadRequests();
+   this.loadIndividuals();
    }
    navigateToSponsorRequest() {
      this.router.navigate(['individual-request']);
@@ -147,4 +154,16 @@ export class IndividualDasboardComponent {
      this.showFilterDropdown = false;
    }
  }
+
+ loadIndividuals(): void {
+  this.individualService.getAll().subscribe({
+    next: (data) => {
+      this.individuals = data;
+      console.log('Individuals loaded:', this.individuals);
+    },
+    error: (error) => {
+      console.error('Error loading individuals:', error);
+    }
+  });
+}
 }

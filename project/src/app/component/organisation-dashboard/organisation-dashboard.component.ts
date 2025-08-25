@@ -1,32 +1,35 @@
 import { Component, ElementRef, HostListener } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { SponsorRequest } from '../../Pages/sponsor-request/sponsor-request';
 import { NavbarComponent } from "../../ui/navbar/navbar";
 import { FooterComponent } from "../../ui/footer/footer";
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { SponsorRequest } from '../../model/sponsor-req';
+import { IndividualRequest, IndividualService } from '../../service/individual-service';
 
 @Component({
   selector: 'app-organisation-dashboard',
+  standalone: true,
   imports: [FooterComponent, NavbarComponent, CommonModule, RouterLink, FormsModule],
   templateUrl: './organisation-dashboard.component.html',
   styleUrl: './organisation-dashboard.component.css'
 })
 export class OrganisationDashboardComponent {
  requests: SponsorRequest[] =[]
+ individuals: IndividualRequest[] = [];
  isVerified: boolean = false;
  showVerificationAlert: boolean = false;
- request: SponsorRequest = {
-    title: '',
-    priority: '',
-    quantity: 0,
-    requiredDate: '',
-    description: '',
-    mediaUrls: []}
+//  request: SponsorRequest = {
+//     title: '',
+//     priority: '',
+//     quantity: 0,
+//     requiredDate: '',
+//     description: '',
+//     mediaUrls: []}
 
-  constructor(private router: Router, private sponsorService: SponsorRequestService, private http: HttpClient, private elementRef: ElementRef) { }
+  constructor(private router: Router, private sponsorService: SponsorRequestService, private http: HttpClient, private elementRef: ElementRef, private individualService: IndividualService) { }
   searchQuery: string = '';
   filteredRequests: SponsorRequest[] = [];
   currentPage: number = 1;
@@ -35,6 +38,7 @@ export class OrganisationDashboardComponent {
   ngOnInit():void {
   this.isVerified = localStorage.getItem('verified') === 'true';
   this.loadRequests();
+  this.loadIndividuals();
   }
   navigateToSponsorRequest() {
     if (this.isVerified) {
@@ -154,6 +158,21 @@ onClickOutside(event: MouseEvent): void {
 }
 goToVerification(): void {
   this.router.navigate(['/verification']);
+}
+
+loadIndividuals(): void {
+  this.individualService.getAll().subscribe({
+    next: (data) => {
+      this.individuals = data;
+      console.log('Individuals loaded:', this.individuals);
+    },
+    error: (error) => {
+      console.error('Error loading individuals:', error);
+    }
+  });
+}
+viewPostDetails(id: string): void {
+  this.router.navigate(['/view-post', id]);
 }
 
 }

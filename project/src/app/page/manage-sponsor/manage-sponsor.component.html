@@ -17,7 +17,7 @@
           />
         </svg>
         <button
-          type=(click)="goBack()" [routerLink]="'/review-request'"
+           (click)="goBack()" [routerLink]="'/review-request'"
           class="text-sm -left-py-3 text-black focus:outline-none"
         >
           Back
@@ -120,7 +120,7 @@
         <div style="width: 150px;" class="bg-gray-200 rounded-full h-2.5 mr-4">
           <div
             class="bg-[#219EBC] h-2.5 rounded-full"
-            [style.width.%]="post.progress"
+            [style.width.%]="calculateProgress(post.progress)"
           ></div>
         </div>
         <span class="text-xs text-gray-600 whitespace-nowrap">{{ post.daysLeft }} Days</span>

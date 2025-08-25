@@ -1,4 +1,5 @@
 export interface SponsorRequest {
+  id?: string;
   title: string;
   priority: string;
   quantity: number;

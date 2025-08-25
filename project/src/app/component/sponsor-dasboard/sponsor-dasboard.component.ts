@@ -7,6 +7,7 @@ import { SponsorRequest } from '../../model/sponsor-req';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { IndividualRequest, IndividualService } from '../../service/individual-service';
 
 @Component({
   selector: 'app-sponsor-dasboard',
@@ -17,16 +18,19 @@ import { FormsModule } from '@angular/forms';
 })
 export class SponsorDasboardComponent {
   requests: SponsorRequest[] =[]
+  individuals: IndividualRequest[] = [];
 
  request: SponsorRequest = {
-    title: '',
-    priority: '',
-    quantity: 0,
-    requiredDate: '',
-    description: '',
-    mediaUrls: []}
+   title: '',
+   priority: '',
+   quantity: 0,
+   requiredDate: '',
+   description: '',
+   mediaUrls: [],
+    
+ }
 
-  constructor(private router: Router, private sponsorService: SponsorRequestService, private http: HttpClient, private elementRef: ElementRef) { }
+  constructor(private router: Router, private sponsorService: SponsorRequestService, private http: HttpClient, private elementRef: ElementRef, private individualService: IndividualService ) { }
   searchQuery: string = '';
   filteredRequests: SponsorRequest[] = [];
   currentPage: number = 1;
@@ -34,6 +38,7 @@ export class SponsorDasboardComponent {
 
   ngOnInit():void {
   this.loadRequests();
+  this.loadIndividuals();
   }
   navigateToSponsorRequest() {
     this.router.navigate(['sponsor-request']);
@@ -146,5 +151,15 @@ onClickOutside(event: MouseEvent): void {
     this.showFilterDropdown = false;
   }
 }
-
+loadIndividuals(): void {
+  this.individualService.getAll().subscribe({
+    next: (data) => {
+      this.individuals = data;
+      console.log('Individuals loaded:', this.individuals);
+    },
+    error: (error) => {
+      console.error('Error loading individuals:', error);
+    }
+  });
+}
 }

@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { NavbarComponent } from "../../ui/navbar/navbar";
-import { FooterComponent } from "../../ui/footer/footer";
 import { DonationFrequency } from '../../constant/donation-frequency';
 import { DonationType } from '../../constant/donation-type';
 import { LogisticPreference } from '../../constant/logistic-peference';
 import { DonationRequestDTO } from '../../dto/donationRequestDTO';
 import { DonationService } from '../../service/donation';
+import { FooterComponent } from "../../ui/footer/footer";
+import { NavbarComponent } from "../../ui/navbar/navbar";
+import { Sidebar } from "../../ui/sidebar/sidebar";
 
 @Component({
   selector: 'app-donation-review',
@@ -28,6 +29,7 @@ export class DonationReviewComponent implements OnInit {
   availability: string = '';
   additionalNotes: string = '';
   emailAddress: string = '';
+  userName: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -42,11 +44,13 @@ export class DonationReviewComponent implements OnInit {
       this.description = donation.description || 'No description';
       this.quantity = donation.quantity || 1;
       this.selectPreference = donation.preference || ''; 
-      this.selectedType = donation.type || '';
+      this.selectedType = localStorage.getItem('donationType') || '';
       this.selectedFrequency = localStorage.getItem('donationFreq') || '';
       this.availability = donation.availability || '';
       this.additionalNotes = donation.additionalNotes || '';
       this.emailAddress = localStorage.getItem('userEmail') || '';
+      this.userName = localStorage.getItem('userName') || '';
+
     }
   }
 
@@ -70,10 +74,11 @@ export class DonationReviewComponent implements OnInit {
       additionalNotes: this.additionalNotes,
       preference: this.selectPreference as LogisticPreference,
       type: this.selectedType as DonationType,
-      frequency: this.selectedFrequency as DonationFrequency, 
+      frequency: this.selectedFrequency as DonationFrequency,
       donorEmail: this.emailAddress,
       createdAt: new Date(),
-      availability: this.availability
+      availability: this.availability,
+      donorName: this.userName,
     };
 
 
