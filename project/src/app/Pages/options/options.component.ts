@@ -21,6 +21,7 @@ export class OptionsComponent implements OnInit {
   selectedType: string = "";
   requestId: string = '';
   requestDetails: any;
+  dashboardRoute: string = '/'; // fallback default
 
   donationOptions = [
     {
@@ -74,24 +75,44 @@ export class OptionsComponent implements OnInit {
       this.currentStep--;
       this.showError = false;
     } else {
-      this.errorMessage = 'You are already on the first step.';
-      this.showError = true;
+      // Navigate to dashboard based on user role
+      this.router.navigate([this.dashboardRoute]);
     }
+    
   }
 
   ngOnInit(): void {
-  this.requestId = this.route.snapshot.paramMap.get('id') || '';
-  console.log('Request ID:', this.requestId);
+    this.requestId = this.route.snapshot.paramMap.get('id') || '';
+    console.log('Request ID:', this.requestId);
 
-  if (!this.requestId) {
-    console.error('No request ID provided in URL!');
-    return;
+    if (!this.requestId) {
+      console.error('No request ID provided in URL!');
+      return;
+    }
+
+    this.sponsorService.getById(this.requestId).subscribe({
+      next: (data) => this.requestDetails = data,
+      error: (err) => console.error('Error fetching request details:', err)
+    });
+
+    // Set dashboard route based on user role
+    const role = localStorage.getItem('userRole');
+    switch (role) {
+      case 'SPONSORS':
+        this.dashboardRoute = '/sponsor-dashboard';
+        break;
+      case 'ORGANIZATION':
+        this.dashboardRoute = '/organization-dashboard';
+        break;
+      case 'INDIVIDUAL':
+        this.dashboardRoute = '/individual-dashboard';
+        break;
+      case 'ADMIN':
+        this.dashboardRoute = '/admin';
+        break;
+      default:
+        this.dashboardRoute = '/individual-dashboard';
+    }
   }
-
-  this.sponsorService.getById(this.requestId).subscribe({
-    next: (data) => this.requestDetails = data,
-    error: (err) => console.error('Error fetching request details:', err)
-  });
-}
 
 }

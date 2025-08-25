@@ -5,7 +5,7 @@
   <!-- Stepper -->
   <div class="flex items-center justify-center space-x-4 mb-6" id="stepper">
     <div *ngFor="let step of [1,2,3,4]" 
-         [ngClass]="currentStep === step ? 'bg-blue-500' : 'bg-[#00000040]'"
+          [ngClass]="step <= currentStep ? 'bg-blue-500' : 'bg-[#00000040]'"
          class="step w-10 h-10 flex items-center justify-center rounded-full text-white font-[800]">
       {{step}}
     </div>

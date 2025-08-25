@@ -6,8 +6,8 @@ import { Router, RouterLink } from '@angular/router';
 import { SponsorRequest } from '../../model/sponsor-req';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { FooterComponent } from '../../ui/footer/footer';
-import {  NavbarComponent } from '../../ui/navbar/navbar';
-import { IndividualRequest, IndividualService } from '../../service/individual-service';
+import { NavbarComponent } from '../../ui/navbar/navbar';
+>>>>>>>>> Temporary merge branch 2
 
 @Component({
   selector: 'app-individual-dasboard',
@@ -28,7 +28,11 @@ export class IndividualDasboardComponent {
     requiredDate: '',
     description: '',
     mediaUrls: [],
-   // posts: []
+<<<<<<<<< Temporary merge branch 1
+     
+=========
+    //posts: []
+>>>>>>>>> Temporary merge branch 2
   }
  
    constructor(private router: Router, private sponsorService: SponsorRequestService, private http: HttpClient, private elementRef: ElementRef, private individualService: IndividualService) { }

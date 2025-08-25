@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { FooterComponent } from "../../ui/footer/footer";
 import { NavbarComponent } from "../../ui/navbar/navbar";
 
+
 @Component({
   selector: 'app-thank-you',
   standalone: true,
@@ -12,5 +13,32 @@ import { NavbarComponent } from "../../ui/navbar/navbar";
   styleUrl: './thank-you.component.css'
 })
 export class ThankYouComponent {
+  constructor(private router: Router) {}
 
+  ngOnInit(): void {
+    const role = localStorage.getItem('userRole');
+    let dashboardRoute = '/';
+
+    switch (role) {
+      case 'SPONSORS':
+        dashboardRoute = '/sponsor-dashboard';
+        break;
+      case 'ORGANIZATION':
+        dashboardRoute = '/organization-dashboard';
+        break;
+      case 'INDIVIDUAL':
+        dashboardRoute = '/individual-dashboard';
+        break;
+      case 'ADMIN':
+        dashboardRoute = '/admin';
+        break;
+      default:
+        dashboardRoute = '/individual-dashboard'; // fallback
+    }
+
+    // Wait for 3 seconds then redirect
+    setTimeout(() => {
+      this.router.navigate([dashboardRoute]);
+    }, 2000);
+  }
 }
