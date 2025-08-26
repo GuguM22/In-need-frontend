@@ -19,7 +19,6 @@ export class FooterComponent {
   this.showOptions = !this.showOptions;
 }*/
 
-constructor(public service: Services){}
 
 goToDonation(){
   console.log("Navigate to sponsor donation");
