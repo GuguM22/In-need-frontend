@@ -84,71 +84,6 @@
         <h3 class="font-bold">Organisations in Need</h3>
         <p class="orgP">Verfied organisations ready for your support</p>
     </div>
-    <!-- <div class="orgCards">
-        <div class="orgCard">
-            <div class="holder1">
-                <div class="profile">
-                    <div class="pfp">
-                        <img src="org.jpg" alt="" class="image">
-                    </div>
-                    <div class="companyName">
-                        <div class="top">
-                            <div class="cmpName">
-                                <h2>Mbali's Children Center </h2>
-                            </div>
-                            <div class="imgs">
-                                <img src="verified.png" alt="" class="verified">
-                            </div>
-                        </div>
-                        <div class="companyLoc">
-                            <div class="locImg">
-                                <img src="loc.png" alt="" class="loc">
-                            </div>
-                            <div class="address">
-                                <p>Gauteng, Johannesburg</p>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="priority">
-                <div class="priotities">
-                    <button>High priority</button>
-                </div>
-            </div>
-              
-            <div class="requests">
-                <div class="reqTitle">
-                    <h1>School supplies</h1>
-                </div>
-                <div class="desc">
-                    <p>Providing educational material for 200+ Children in undeserved communities</p>
-                </div>
-            </div>
-            <div class="progress">
-                <div class="daysLeft">
-                    <div class="holder3">
-                        <div class="dayHeading">
-                            <h3>Days Left</h3>
-                        </div>
-                        <div class="tracker">
-                            <button class="fill">
-                                <button class="empty"></button>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="donate">
-                        <div class="donateItems">
-                            <button class="donateBtn" [routerLink]="['/options']">Donate</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-  
        <!-- <div *ngFor="let request of requests" class="orgCards"> -->
         <div *ngFor="let request of paginatedRequests" class="orgCards">
 
@@ -161,7 +96,9 @@
                     <div class="companyName">
                         <div class="top">
                             <div class="cmpName">
-                                <h2>Mbali Children Center </h2>
+                                <!-- <h2>Mbali Children Center </h2> -->
+                                <h2>{{ request.user?.username || 'Anonymous' }}</h2>
+
                             </div>
                             <div class="imgs">
                                 <img src="verified.png" alt="" class="verified">
