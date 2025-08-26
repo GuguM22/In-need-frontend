@@ -54,7 +54,7 @@ import { ViewOrgPost } from './component/organisation-dashboard/view-org-post/vi
 import { ViewIndPost } from './component/view-ind-post/view-ind-post';
  
 import { ReviewRequest } from './Pages/review-request/review-request';
-import { ManageSponsorIndividualComponent } from './component/manage-sponsor-individual/manage-sponsor-individual.component';
+
  
 
 
