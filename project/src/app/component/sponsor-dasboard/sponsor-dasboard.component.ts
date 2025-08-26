@@ -174,8 +174,10 @@ onClickOutside(event: MouseEvent): void {
 loadIndividuals(): void {
   this.individualService.getAll().subscribe({
     next: (data) => {
-      this.individuals = data;
-      console.log('Individuals loaded:', this.individuals);
+      this.individuals = data.sort(
+        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );      
+      console.log('Individuals loaded (sorted by newest first):', this.individuals);
     },
     error: (error) => {
       console.error('Error loading individuals:', error);
