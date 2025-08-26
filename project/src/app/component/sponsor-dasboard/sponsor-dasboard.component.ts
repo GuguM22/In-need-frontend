@@ -126,7 +126,25 @@ export class SponsorDasboardComponent {
   }
   
   get pagesArray(): number[] {
-    return Array(this.totalPages).fill(0).map((x, i) => i + 1);
+    const maxPages = 6;
+    const total = this.totalPages;
+    let startPage = 1;
+  
+    if (total <= maxPages) {
+      return Array(total).fill(0).map((_, i) => i + 1);
+    }
+  
+    // Calculate start page so currentPage is roughly in the middle
+    if (this.currentPage > total - maxPages + 1) {
+      startPage = total - maxPages + 1;
+    } else if (this.currentPage > Math.floor(maxPages / 2)) {
+      startPage = this.currentPage - Math.floor(maxPages / 2);
+    }
+  
+    // Calculate how many pages to show (can't go past total)
+    const pagesToShow = Math.min(maxPages, total - startPage + 1);
+  
+    return Array(pagesToShow).fill(0).map((_, i) => startPage + i);
   }
   
   goToPage(page: number): void {
