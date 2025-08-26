@@ -27,6 +27,7 @@ export class ViewOrgPost {
   }
 
   loadPostDetails(): void {
+    console.log("in here")
     this.sponsorService.getById(this.requestId).subscribe({
       next: (data) => {
         this.request = data;

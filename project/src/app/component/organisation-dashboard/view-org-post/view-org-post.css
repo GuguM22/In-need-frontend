@@ -1,0 +1,214 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: screen;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin-top: 24px;
+}
+
+
+
+
+
+
+h1 {
+    font-size: 22px;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.location {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+.event-info {
+    background: white;
+    color: black;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+
+.event-title {
+    padding: 3px 14px;
+    border-radius: 15px;
+    font-size: 14px;
+    background: #C9575775;
+    display: inline-block;
+    /* optional but helps spacing */
+}
+
+.event-date {
+    background: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.content {
+    padding: 25px 20px;
+}
+
+h2 {
+    color: #8E7D5B;
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+p {
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #444;
+}
+
+.donate-btn {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    background: #5B8E7D;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 25px 0;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.donate-btn:hover {
+    background: #8E7D5B;
+}
+
+.donors-section {
+    margin-top: 30px;
+}
+
+.donor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.donor:last-child {
+    border-bottom: none;
+}
+
+.donor-info {
+    flex: 1;
+}
+
+.donor-name {
+    font-weight: 600;
+    color: #4a6fa5;
+}
+
+.donor-date {
+    font-size: 14px;
+    color: #777;
+}
+
+.donor-amount {
+    font-weight: 700;
+    color: #4a6fa5;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+    font-size: 14px;
+}
+
+.logo {
+    font-weight: 700;
+    color: #8E7D5B;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.urgency-wrapper {
+    display: flex;
+    /* puts the two "Urgency" items side by side */
+    gap: 10px;
+    /* adds space between them */
+    align-items: center;
+    /* aligns them vertically */
+}
+
+/* Move the title down a bit */
+.title-btn {
+    display: inline-block;
+    text-align: center;
+    margin-top: 30px;
+    /* pushes title & location down */
+    text-decoration: none;
+    /* removes underline */
+    color: black;
+    /* ensures text stays black */
+}
+
+header {
+    background: white;
+    color: black;
+    padding: 55px 20px 25px;
+    /* header taller (top padding increased) */
+    position: relative;
+    text-align: center;
+}
+
+/* Back button stays same, just moved slightly down */
+
+.back-btn {
+    position: absolute;
+    left: 10px;
+    top: -1px;
+    color: black;
+    background: white;
+    /* green background */
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    /* button padding */
+    border-radius: 8px;
+    /* rounded edges */
+    font-size: 20px;
+    transition: background 0.3s;
+}
+
+.back-btn:hover {
+    background: #8E7D5B;
+    /* hover color */
+}
+
+.back-btn i {
+    margin-right: 6px;
+    font-size: 14px;
+}
+
