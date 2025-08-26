@@ -49,8 +49,11 @@
         <div class="indvCard"  *ngFor="let i of individuals" [routerLink]="['/view-indv-post', i.id]">
             <div class="thumbnail">
                   <!-- <pre>{{ i.mediaUrls | json }}</pre> -->
-                <img *ngFor="let url of i.mediaUrls" [src]="'http://localhost:5050/' + url" class="thumbnailPic" (error)="onImageError($event)" />
-            </div>
+                  <img *ngIf="i.mediaUrls && i.mediaUrls.length"
+                  [src]="'http://localhost:5050/' + i.mediaUrls[0]"
+                  class="thumbnailPic"
+                  (error)="onImageError($event)" />
+                         </div>
             <div class="user">
                 <h4 class="names">{{i.title}}</h4>
             </div>
