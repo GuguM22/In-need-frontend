@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { IndividualRequest, IndividualService } from '../../service/individual-service';
 import { CommonModule } from '@angular/common';
+import { FooterComponent } from "../../ui/footer/footer";
 
 @Component({
   selector: 'app-view-ind-post',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FooterComponent],
   templateUrl: './view-ind-post.html',
   styleUrl: './view-ind-post.css'
 })

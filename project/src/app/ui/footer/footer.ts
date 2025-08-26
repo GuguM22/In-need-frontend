@@ -54,5 +54,30 @@ showPost(){
 isActive(route: string): boolean {
   return this.router.url === route || this.router.url.startsWith(route + '/');
 }
+isDonationRoute(): boolean {
+  const donationRoutes = [
+    '/options',
+    '/donation-request',
+    '/freq',
+    '/donation-review'
+  ];
+
+  return donationRoutes.some(route =>
+    this.router.url === route || this.router.url.startsWith(route + '/') || this.router.url.startsWith(route + '?')
+  );
+}
+
+isViewRoute(): boolean {
+  const viewRoutes = [
+    '/view',
+    '/view-post',
+    '/view-indv-post'
+  ];
+
+  return viewRoutes.some(route =>
+    this.router.url === route || this.router.url.startsWith(route + '/') || this.router.url.startsWith(route + '?')
+  );
+}
+
 
 }

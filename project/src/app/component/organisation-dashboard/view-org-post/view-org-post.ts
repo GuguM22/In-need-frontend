@@ -3,10 +3,11 @@ import { SponsorRequest } from '../../../model/sponsor-req';
 import { SponsorRequestService } from '../../../service/sponsor-request-service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FooterComponent } from "../../../ui/footer/footer";
 
 @Component({
   selector: 'app-view-org-post',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FooterComponent],
   templateUrl: './view-org-post.html',
   styleUrl: './view-org-post.css'
 })

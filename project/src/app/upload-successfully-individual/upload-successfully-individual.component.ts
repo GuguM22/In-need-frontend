@@ -12,6 +12,28 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class UploadSuccessfullyindividualComponent {
 activeTab: any;
+dashboardRoute: string = '/';
 
   constructor(private router: Router){}
+
+  ngOnInit(): void {
+
+    const role = localStorage.getItem('userRole');
+    switch (role) {
+      case 'SPONSORS':
+        this.dashboardRoute = '/sponsor-dashboard';
+        break;
+      case 'ORGANIZATION':
+        this.dashboardRoute = '/organization-dashboard';
+        break;
+      case 'INDIVIDUAL':
+        this.dashboardRoute = '/individual-dashboard';
+        break;
+      case 'ADMIN':
+        this.dashboardRoute = '/admin';
+        break;
+      default:
+        this.dashboardRoute = '/individual-dashboard';
+    }
+  }
 }
