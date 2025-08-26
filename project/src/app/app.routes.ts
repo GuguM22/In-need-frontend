@@ -49,7 +49,6 @@ import { PreviewSponsor } from './Pages/preview-sponsor/preview-sponsor';
 
 
 import { ManageSponsorIndividualComponent } from './component/manage-sponsor-individual/manage-sponsor-individual.component';
-import { ViewOrgPost } from './component/organisation-dashboard/view-org-post/view-org-post';
 //  import { ViewOrgPostComponent } from './component/organisation-dashboard/view-org-post/view-org-post';
 import { ViewIndPost } from './component/view-ind-post/view-ind-post';
  

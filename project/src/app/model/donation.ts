@@ -1,7 +1,7 @@
-import { Role } from "react-native";
 import { DonationFrequency } from "../constant/donation-frequency";
 import { DonationType } from "../constant/donation-type";
 import { LogisticPreference } from "../constant/logistic-peference";
+import { Role } from "../constant/role";
 
 export interface Donation {
   id: number;
