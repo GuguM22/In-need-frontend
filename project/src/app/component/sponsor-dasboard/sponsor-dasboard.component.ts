@@ -45,13 +45,14 @@ export class SponsorDasboardComponent {
     this.router.navigate(['sponsor-request']);
   }
 
-  loadRequests():void {
+  loadRequests(): void {
     this.sponsorService.getAll().subscribe({
       next: (data) => {
-        this.requests = data;
-        console.log('Requests loaded:');
-        this.filteredRequests = [...this.requests]; 
-
+        this.requests = data.sort(
+          (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+        this.filteredRequests = [...this.requests];
+        console.log('Requests loaded and sorted by createdAt:', this.requests);
       },
       error: (error) => {
         console.error('Error loading requests:', error);

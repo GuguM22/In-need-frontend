@@ -45,19 +45,20 @@ export class IndividualDasboardComponent {
      this.router.navigate(['individual-request']);
    }
  
-   loadRequests():void {
-     this.sponsorService.getAll().subscribe({
-       next: (data) => {
-         this.requests = data;
-         console.log('Requests loaded:');
-         this.filteredRequests = [...this.requests]; 
- 
-       },
-       error: (error) => {
-         console.error('Error loading requests:', error);
-       }
-     });
-   }
+   loadRequests(): void {
+    this.sponsorService.getAll().subscribe({
+      next: (data) => {
+        this.requests = data.sort(
+          (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+        this.filteredRequests = [...this.requests];
+        console.log('Requests loaded and sorted by createdAt:', this.requests);
+      },
+      error: (error) => {
+        console.error('Error loading requests:', error);
+      }
+    });
+  }
  
    calculateDaysLeft(requiredDate: string): number {
      const today = new Date();
