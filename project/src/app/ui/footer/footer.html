@@ -18,9 +18,13 @@
     </button>
 
     <!-- Views Button -->
-    <button type="button" [routerLink]="'/view'" class="inline-flex flex-col items-center justify-center px-5 group">
+    <button type="button" class="inline-flex flex-col items-center justify-center px-5 group">
       <img width="30" height="30" src="https://img.icons8.com/ios/50/view-file.png" alt="view-file"/>
       <span class="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
+      [ngClass]="{
+        'text-blue-600 dark:text-blue-500 font-bold': isViewRoute(),
+        'text-gray-500 dark:text-gray-400': !isViewRoute()
+      }"
       >Views</span>
     </button>
 
@@ -28,7 +32,12 @@
     <button type="button"  [routerLink]="'/options'" class="inline-flex flex-col items-center justify-center px-5 group">
       <img width="30" height="30" src="https://img.icons8.com/ios/50/donate.png" alt="donate" />
       <span
-        class="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">Donation</span>
+        class="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
+        [ngClass]="{
+          'text-blue-600 dark:text-blue-500 font-bold': isDonationRoute(),
+          'text-gray-500 dark:text-gray-400': !isDonationRoute()
+        }"
+        >Donation</span>
     </button>
 
     <!-- Profile Button with routerLink -->

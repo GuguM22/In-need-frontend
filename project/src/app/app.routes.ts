@@ -54,6 +54,7 @@ import { ViewIndPost } from './component/view-ind-post/view-ind-post';
  
 import { ReviewRequest } from './Pages/review-request/review-request';
 import { ViewOrgPost } from './component/organisation-dashboard/view-org-post/view-org-post';
+import { UploadSuccessfullyindividualComponent } from './upload-successfully-individual/upload-successfully-individual.component';
  
 
 
@@ -125,6 +126,7 @@ export const routes: Routes = [
   {path:'admin-dash', component: AdminDashComponent},
   {path: 'view-post/:id', component: ViewOrgPost},
   {path: 'view-indv-post/:id', component: ViewIndPost},
+  {path: 'upload-verification', component: UploadSuccessfullyindividualComponent}
   // { path: '**', redirectTo: 'fequency' }
 
 
