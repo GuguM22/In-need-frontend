@@ -488,3 +488,84 @@ font-size: 10px;
 .text{
     font-size: 14px;
 }
+
+@media screen and (max-width: 1280px) {
+    .container2, .verfication2, .contact2, .reviewSection2 {
+      width: 90%;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  
+    .email2, .number2, .cipc2 {
+      width: 100%;
+      flex-wrap: wrap;
+    }
+  
+    .cipc2 p {
+      font-size: 13px;
+      word-break: break-word;
+    }
+  
+    .download2 {
+      margin-left: auto;
+      margin-top: 10px;
+    }
+  
+    .accept2 {
+      /* flex-direction: column; */
+      gap: 10px; 
+    }
+  
+    .topRight {
+      justify-content: flex-start;
+      padding-left: 10px;
+    }
+  
+    .heading {
+      margin-right: 0;
+    }
+
+    .acceptBtn2, .rejectBtn2{
+        font-size: 12px;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .profile2 {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .adminLogo2 {
+      height: 60px;
+    }
+  
+    .status2 {
+      margin-left: 0;
+      margin-top: 10px;
+    }
+  
+    .pdfDownload2 {
+      width: 100%;
+      font-size: 12px;
+    }
+  
+    .btnHolder {
+      justify-content: center;
+    }
+  
+    .mid {
+      width: 100%;
+      padding: 20px 10px;
+    }
+  
+    .side3, .container3 {
+      width: 100%;
+      min-width: unset;
+    }
+  
+    .topRight {
+      justify-content: center;
+    }
+  }
+  

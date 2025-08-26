@@ -18,7 +18,7 @@
     <div class="donation-details space-y-3">
       <div class="detail-row flex justify-between">
         <span class="label font-medium">Type:</span>
-        <span class="value">{{ selectedType }}</span>
+        <span class="value">{{ capitalizeWords(selectedType) }}</span>
       </div>
       <div class="detail-row flex justify-between">
         <span class="label font-medium">Description:</span>
@@ -26,15 +26,15 @@
       </div>
       <div class="detail-row flex justify-between">
         <span class="label font-medium">Quantity:</span>
-        <span class="value">{{ quantity }} {{selectedType }}</span>
+        <span class="value">{{ quantity }} {{ capitalizeWords(selectedType) }}</span>
       </div>
       <div class="detail-row flex justify-between">
         <span class="label font-medium">Frequency:</span>
-        <span class="value">{{ selectedFrequency }}</span>
+        <span class="value">{{capitalizeWords(selectedFrequency) }}</span>
       </div>
       <div class="detail-row flex justify-between">
         <span class="label font-medium">Logistics:</span>
-        <span class="value">{{ selectPreference }}</span>
+        <span class="value">{{capitalizeWords(selectPreference) }}</span>
       </div>
     </div>
 

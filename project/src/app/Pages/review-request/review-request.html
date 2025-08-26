@@ -30,7 +30,7 @@
       <div class="text-sm text-gray-800 space-y-4 mb-8">
         <div>
           <span class="text-lg font-semibold">Type:</span>
-          <span class="ml-1 font-medium">{{ donationItem.type }}</span>
+          <span class="ml-1 font-medium">{{  capitalizeWords(donationItem.type) }}</span>
         </div>
         <div>
           <span class="text-lg font-semibold">Description:</span>
@@ -38,15 +38,15 @@
         </div>
         <div>
           <span class="text-lg font-semibold">Quantity:</span>
-          <span class="ml-1 font-medium">{{ donationItem.quantity }} items</span>
+          <span class="ml-1 font-medium">{{ donationItem.quantity }} {{ capitalizeWords(donationItem.type) }}</span>
         </div>
         <div>
           <span class="text-lg font-semibold">Frequency:</span>
-          <span class="ml-1 font-medium">{{ donationItem.frequency }}</span>
+          <span class="ml-1 font-medium">{{  capitalizeWords( donationItem.frequency) }}</span>
         </div>
         <div>
           <span class="text-lg font-semibold">Logistics:</span>
-          <span class="ml-1 font-medium">{{ donationItem.preference }}</span>
+          <span class="ml-1 font-medium">{{  capitalizeWords(donationItem.preference) }}</span>
         </div>
       </div>
 
@@ -64,8 +64,13 @@
         <div class="flex items-center space-x-3">
           <img [src]="donationItem.profileImageUrl" alt="Sponsor" class="w-10 h-10 rounded-full">
           <div>
-            <p class="text-sm font-medium">{{ donationItem.donorName }}</p>
-            <p class="text-xs text-gray-500">Sponsor</p>
+            <p class="text-sm font-medium">{{  donationItem.donorName ? capitalizeWords( donationItem.donorName) : '' }}</p>
+            <p class="text-gray-500 text-sm" [ngSwitch]=" donationItem.donorRole">
+                <span *ngSwitchCase="'SPONSORS'">Sponsor</span>
+                <span *ngSwitchCase="'ORGANIZATION'">Organization</span>
+                <span *ngSwitchCase="'INDIVIDUAL'">Individual</span>
+                <span *ngSwitchDefault>Unknown</span>
+              </p>
           </div>
         </div>
       </div>

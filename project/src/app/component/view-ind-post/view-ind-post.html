@@ -1,19 +1,37 @@
-<p>view-ind-post works!</p>
-<div *ngIf="individual">
-    <h2>{{ individual.title }}</h2>
-    <p>{{ individual.description }}</p>
-    <p><strong>Needed by:</strong> {{ individual.neededByDate }}</p>
-    
-    <div class="images">
-      <img *ngFor="let url of individual.mediaUrls" [src]="'http://localhost:5050/' + url" alt="Post image">
-    </div>
 
-    <div class="donate-button-container">
-        <button class="donateBtn bg-green-700" [routerLink]="['/options', individual.id]">Donate</button>
-      </div>
-  </div>
   
   <div *ngIf="!individual">
     <p>Loading post...</p>
   </div>
   
+
+  <div *ngIf="individual" class="container">
+
+  <div class="event-info">
+    <div class="urgency-wrapper">
+      <div>Urgency</div>
+      <div class="event-title">{{ individual.urgency }}</div>
+    </div>
+    <div class="event-date">Date: {{ individual.neededByDate }}</div>  
+  </div>
+
+  <div class="content">
+    <h2>{{ individual.title }}</h2>
+    
+    <p>{{ individual.description }}</p>
+
+    <button class="donate-btn" [routerLink]="['/options', individual.id]">Donate</button>
+
+    <!-- <div class="donors-section">
+      <h2>Previous Donors</h2>
+
+      <div class="donor" *ngFor="let donor of donors">
+        <div class="donor-info">
+          <div class="donor-name">{{ donor.name }}</div>
+          <div class="donor-date">{{ donor.date }}</div>
+        </div>
+        <div class="donor-amount">{{ donor.amount }}</div>
+      </div>
+    </div> -->
+  </div>
+</div>
