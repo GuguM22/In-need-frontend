@@ -19,6 +19,9 @@ import { Sidebar } from "../../ui/sidebar/sidebar";
   styleUrls: ['./donation-review.component.css']
 })
 export class DonationReviewComponent implements OnInit {
+goNext() {
+throw new Error('Method not implemented.');
+}
 
   selectedFrequency: string = '';
   selectedType: string = '';
