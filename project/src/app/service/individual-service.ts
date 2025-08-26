@@ -11,6 +11,7 @@ export interface IndividualRequest {
   description: string;
   mediaUrls?: string[];
   createdAt: string;
+  username: string;
 }
 
 @Injectable({
