@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Donation } from '../../model/donation';
-import { DonationService } from '../../service/donation';
+import { DonationService } from '../../service/donation-service';
 import { DonationStateService } from '../../service/donation-state-service';
 import { Services } from '../../service/services';
 import { FooterComponent } from '../../ui/footer/footer';
 import { NavbarComponent } from '../../ui/navbar/navbar';
+import { Role } from '../../constant/role';
 
 @Component({
   selector: 'app-sponsorship-request-page',
@@ -33,15 +34,18 @@ ngOnInit() {
   // Fetch donations from backend
   this.donationService.getDonations().subscribe(res => {
     const mappedDonations = res
-      .filter(d => !this.removedIds.includes(d.id))
+      .filter(d => !this.removedIds.includes(d.id!))
       .map(donation => ({
         ...donation,
+        id: donation.id!,
         profileImageUrl: donation.profileImageUrl
           ? `http://localhost:5050/auth/images/${donation.profileImageUrl}`
           : 'logo.png',
-        donorName: donation.donorName
+        donorName: donation.donorName,
+        donorRole: donation.donorRole,
+        
       }));
-
+     
     // Save transformed donations in state service
     this.donationStateService.setDonations(mappedDonations);
   });
@@ -73,6 +77,15 @@ loadImage() {
       this.profileImageUrl = 'logo.png';
     },
   });
+}
+
+capitalizeWords(name?: string): string {
+  if (!name) return '';
+  return name
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
 }
 
 

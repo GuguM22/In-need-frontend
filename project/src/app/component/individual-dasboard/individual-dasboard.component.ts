@@ -9,7 +9,6 @@ import { FooterComponent } from '../../ui/footer/footer';
 import {  NavbarComponent } from '../../ui/navbar/navbar';
 import { IndividualRequest, IndividualService } from '../../service/individual-service';
 
-
 @Component({
   selector: 'app-individual-dasboard',
   standalone: true,
@@ -27,10 +26,9 @@ export class IndividualDasboardComponent {
     priority: '',
     quantity: 0,
     requiredDate: '',
+    createdAt: '',
     description: '',
     mediaUrls: [],
- 
-    
   }
  
    constructor(private router: Router, private sponsorService: SponsorRequestService, private http: HttpClient, private elementRef: ElementRef, private individualService: IndividualService) { }

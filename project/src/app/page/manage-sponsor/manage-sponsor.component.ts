@@ -31,7 +31,7 @@ export class ManageSponsorComponent {
 
   toggleActionMenu(menuId: string): void {
     if (this.activeMenuId === menuId) {
-      this.activeMenuId = null; // close if already open
+      this.activeMenuId = null;
     } else {
       this.activeMenuId = menuId;
     }

@@ -26,3 +26,7 @@
   border-radius: 6px;
   object-fit: cover;
 }
+
+.p-6.border-t.flex.justify-end button {
+  z-index: 20; /* optional if sticky divs overlap */
+}

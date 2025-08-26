@@ -6,116 +6,103 @@
 </div>
 
 <div class="container">
-  <div class="form-container" style="max-height:100vh;">
+  <div class="form-container" style="max-height: 100vh;">
+
+    <!-- HEADER -->
     <div class="form-header">
       <h1 class="form-title text-center font-bold">Create Sponsorship Request</h1>
       <p class="form-subtitle text-center">Fill out the details below to post your sponsorship request</p>
     </div>
 
     <!-- FORM -->
-    <div *ngIf="!showPreview">
-      <form [formGroup]="sponsorshipForm" (ngSubmit)="onSubmit()">
+   <form *ngIf="!showPreview" [formGroup]="sponsorshipForm" (ngSubmit)="onSubmit()">
+      <!-- Title -->
+      <div class="form-group">
+        <label class="form-label" for="title">Title</label>
+        <input type="text" id="title" formControlName="title" class="form-input"
+          placeholder="Enter a title"
+          [class.error]="sponsorshipForm.get('title')?.invalid && sponsorshipForm.get('title')?.touched"/>
+      </div>
 
-        <!-- Title -->
-        <div class="form-group">
-          <label class="form-label" for="title">Title</label>
-          <input type="text" id="title" formControlName="title" class="form-input"
-            placeholder="Enter a title"
-            [class.error]="sponsorshipForm.get('title')?.invalid && sponsorshipForm.get('title')?.touched"/>
+      <!-- Priority -->
+      <div class="form-group">
+        <label class="form-label" for="priority">Priority</label>
+        <select id="priority" formControlName="priority" class="form-select">
+          <option value="">Select priority</option>
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+        </select>
+      </div>
+
+      <!-- Quantity -->
+      <div class="form-group">
+        <label class="form-label" for="quantity">Quantity</label>
+        <input type="number" id="quantity" formControlName="quantity" class="form-input" min="1"
+          [class.error]="sponsorshipForm.get('quantity')?.invalid && sponsorshipForm.get('quantity')?.touched"/>
+      </div>
+
+      <!-- Required Date -->
+      <div class="form-group">
+        <label class="form-label" for="date">Required By Date</label>
+        <input type="date" id="date" formControlName="requiredDate" class="form-input"
+          [class.error]="sponsorshipForm.get('requiredDate')?.invalid && sponsorshipForm.get('requiredDate')?.touched"/>
+        <div class="error-message" *ngIf="sponsorshipForm.get('requiredDate')?.hasError('pastDate') && sponsorshipForm.get('requiredDate')?.touched" style="color:red;">
+          Date cannot be in the past.
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="form-group">
+        <label class="form-label" for="description">Description *</label>
+        <textarea id="description" formControlName="description" rows="4"
+          class="form-textarea"
+          [class.error]="sponsorshipForm.get('description')?.invalid && sponsorshipForm.get('description')?.touched"></textarea>
+      </div>
+
+      <!-- File Upload -->
+      <div class="flex flex-col gap-6">
+        <label>Images or Videos (Optional)</label>
+        <p class="uploadP">Add photos or videos to help sponsors understand your request better</p>
+
+        <div class="dropzone flex items-center justify-center w-full"
+             (drop)="onFileDrop($event)"
+             (dragover)="onDragOver($event)"
+             (dragleave)="onDragLeave($event)">
+          <label class="flex flex-col items-center justify-center cursor-pointer w-full h-25 border-2 border-dashed rounded-lg"
+                 for="dropzone-file">
+            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+              <img src="https://img.icons8.com/ios/50/upload--v1.png" width="25" height="25"/>
+              <p class="mb-2 text-sm text-gray-500"><b>Upload Media Files</b></p>
+              <p class="text-gray-500">Drag & drop files here or <span class="b">browse</span></p>
+            </div>
+            <input id="dropzone-file" type="file" (change)="onFileSelect($event)" multiple accept="image/*,video/*" class="hidden"/>
+          </label>
         </div>
 
-        <!-- Priority -->
-        <div class="form-group">
-          <label class="form-label" for="priority">Priority</label>
-          <select id="priority" formControlName="priority" class="form-select">
-            <option value="">Select priority</option>
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
+        <div *ngIf="selectedFiles?.length" class="file-list mt-4">
+          <h4>Uploaded Files:</h4>
+          <ul style="margin:0; padding-left:1rem;">
+            <li *ngFor="let file of selectedFiles">
+              {{ file.name.length > 30 ? (file.name | slice:0:27) + '...' : file.name }}
+            </li>
+          </ul>
         </div>
+      </div>
 
-        <!-- Quantity -->
-        <div class="form-group">
-          <label class="form-label" for="quantity">Quantity</label>
-          <input type="number" id="quantity" formControlName="quantity" class="form-input" min="1"
-            [class.error]="sponsorshipForm.get('quantity')?.invalid && sponsorshipForm.get('quantity')?.touched"/>
-        </div>
-
-        <!-- Required Date -->
-        <div class="form-group">
-          <label class="form-label" for="date">Required By Date</label>
-          <input type="date" id="date" formControlName="requiredDate" class="form-input"
-            [class.error]="sponsorshipForm.get('requiredDate')?.invalid && sponsorshipForm.get('requiredDate')?.touched"/>
-          <div class="error-message" *ngIf="sponsorshipForm.get('requiredDate')?.hasError('pastDate') && sponsorshipForm.get('requiredDate')?.touched" style="color:red;">
-            Date cannot be in the past.
-          </div>
-        </div>
-
-        <!-- Description -->
-        <div class="form-group">
-          <label class="form-label" for="description">Description *</label>
-          <textarea id="description" formControlName="description" rows="4"
-            class="form-textarea"
-            [class.error]="sponsorshipForm.get('description')?.invalid && sponsorshipForm.get('description')?.touched"></textarea>
-        </div>
-
-        <!-- File Upload -->
-        <div class="flex flex-col gap-6">
-          <label>Images or Videos (Optional)</label>
-          <p class="uploadP">Add photos or videos to help sponsors understand your request better</p>
-
-          <div class="dropzone flex items-center justify-center w-full"
-               (drop)="onFileDrop($event)"
-               (dragover)="onDragOver($event)"
-               (dragleave)="onDragLeave($event)">
-            <label class="flex flex-col items-center justify-center cursor-pointer w-full h-25 border-2 border-dashed rounded-lg"
-                   for="dropzone-file">
-              <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                <img src="https://img.icons8.com/ios/50/upload--v1.png" width="25" height="25"/>
-                <p class="mb-2 text-sm text-gray-500"><b>Upload Media Files</b></p>
-                <p class="text-gray-500">Drag & drop files here or <span class="b">browse</span></p>
-              </div>
-              <input id="dropzone-file" type="file" (change)="onFileSelect($event)" multiple accept="image/*,video/*" class="hidden"/>
-            </label>
-          </div>
-
-          <div *ngIf="selectedFiles?.length" class="file-list mt-4">
-            <h4>Uploaded Files:</h4>
-            <ul style="margin:0; padding-left:1rem;">
-              <li *ngFor="let file of selectedFiles">
-                {{ file.name.length > 30 ? (file.name | slice:0:27) + '...' : file.name }}
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Form Buttons -->
-        <div class="form-buttons mt-4 flex gap-4">
-          <button type="button" class="preview-btn" (click)="preview()">Preview</button>
-          <button type="submit" class="submit-btn" [disabled]="isSubmitting">
-            {{ isSubmitting ? 'Submitting...' : 'Submit Request' }}
-          </button>
-        </div>
-      </form>
-    </div>
-
-    <!-- Preview Section -->
-    <div *ngIf="showPreview">
-      <app-preview-sponsor
-        [formData]="sponsorshipForm.value"
-        [selectedFiles]="selectedFiles"
-        (edit)="editForm()"
-        (submit)="onSubmit()">
-      </app-preview-sponsor>
-
-      <div class="preview-buttons mt-4 flex gap-4">
-        <button type="button" class="edit-btn" (click)="editForm()">Edit Request</button>
-        <button type="button" class="submit-btn" (click)="onSubmit()" [disabled]="isSubmitting">
+      <!-- Form Buttons -->
+      <div class="form-buttons mt-4 flex gap-4">
+        <button type="button" class="preview-btn" (click)="preview()">Preview</button>
+        <button type="submit" class="submit-btn" [disabled]="isSubmitting">
           {{ isSubmitting ? 'Submitting...' : 'Submit Request' }}
         </button>
       </div>
-    </div>
+    </form>
 
-  </div>
-</div>
+    <!-- PREVIEW -->
+  <app-preview-sponsor
+  *ngIf="showPreview"
+  [formData]="previewData"
+  [filePreviews]="filePreviews"
+  (updateClicked)="onEdit()">
+</app-preview-sponsor>

@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 export class ViewOrgPost {
   requestId: string = '';
   request: SponsorRequest | null = null;
+  userName: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,11 +21,13 @@ export class ViewOrgPost {
   ) {}
 
   ngOnInit(): void {
+    this.userName = localStorage.getItem('userName');
     this.requestId = this.route.snapshot.paramMap.get('id') || '';
     this.loadPostDetails();
   }
 
   loadPostDetails(): void {
+    console.log("in here")
     this.sponsorService.getById(this.requestId).subscribe({
       next: (data) => {
         this.request = data;

@@ -19,18 +19,52 @@ export class Sidebar implements OnInit {
   toggle = true;
   showLogoutModal = false;
   profileImageUrl: string = 'logo.png'; 
+  dashboardRoute: string = '/';
 
   constructor(private userService: Services, private router: Router) {}
 
- 
+  ngOnInit() {
+    // Load profile image
+    this.profileImageUrl = 'logo.png';
 
+    this.userService.profile().subscribe({
+      next: (data: any) => {
+        if (data.profileImagePath) {
+          const img = new Image();
+          img.src = `http://localhost:5050/auth/images/${data.profileImagePath}`;
+          img.onload = () => this.profileImageUrl = img.src;
+          img.onerror = () => this.profileImageUrl = 'logo.png';
+        }
+      },
+      error: () => this.profileImageUrl = 'logo.png'
+    });
+
+    // Set dashboard route based on user role
+    const role = localStorage.getItem('userRole');
+    switch (role) {
+      case 'SPONSORS':
+        this.dashboardRoute = '/sponsor-dashboard';
+        break;
+      case 'ORGANIZATION':
+        this.dashboardRoute = '/organization-dashboard';
+        break;
+      case 'INDIVIDUAL':
+        this.dashboardRoute = '/individual-dashboard';
+        break;
+      case 'ADMIN':
+        this.dashboardRoute = '/admin';
+        break;
+      default:
+        this.dashboardRoute = '/individual-dashboard'; // fallback
+    }
+  }
 
   handleToggle() {
     this.toggle = !this.toggle;
   }
 
   openLogoutModal() {
-     this.toggle = false; 
+    this.toggle = false; 
     this.showLogoutModal = true;
   }
 
@@ -51,32 +85,9 @@ export class Sidebar implements OnInit {
     });
   }
 
-  dashboardRoute: string = '/'; // default fallback
+ /* dashboardRoute: string = '/'; // default fallback
 
   ngOnInit() {
-    // Set default logo
-    this.profileImageUrl = 'logo.png';
-
-    // Load profile image if available
-    this.userService.profile().subscribe({
-      next: (data: any) => {
-        if (data.profileImagePath) {
-          const img = new Image();
-          img.src = `http://localhost:5050/auth/images/${data.profileImagePath}`;
-          img.onload = () => {
-            this.profileImageUrl = img.src;
-          };
-          img.onerror = () => {
-            this.profileImageUrl = 'logo.png';
-          };
-        }
-      },
-      error: () => {
-        this.profileImageUrl = 'logo.png';
-      }
-    });
-
-    // Determine dashboard route based on user role
     const role = localStorage.getItem('userRole');
 
     switch (role) {
@@ -95,6 +106,5 @@ export class Sidebar implements OnInit {
       default:
         this.dashboardRoute = '/individual-dashboard'; // fallback
     }
-  }
-
+  }*/
 }
