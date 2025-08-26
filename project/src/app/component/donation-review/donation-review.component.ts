@@ -5,10 +5,10 @@ import { DonationFrequency } from '../../constant/donation-frequency';
 import { DonationType } from '../../constant/donation-type';
 import { LogisticPreference } from '../../constant/logistic-peference';
 import { DonationRequestDTO } from '../../dto/donationRequestDTO';
-import { DonationService } from '../../service/donation';
+import { DonationService } from '../../service/donation-service';
 import { FooterComponent } from "../../ui/footer/footer";
 import { NavbarComponent } from "../../ui/navbar/navbar";
-import { Sidebar } from "../../ui/sidebar/sidebar";
+import { Role } from '../../constant/role';
 
 @Component({
   selector: 'app-donation-review',
@@ -30,6 +30,7 @@ export class DonationReviewComponent implements OnInit {
   additionalNotes: string = '';
   emailAddress: string = '';
   userName: string = '';
+  donorRole: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -50,7 +51,7 @@ export class DonationReviewComponent implements OnInit {
       this.additionalNotes = donation.additionalNotes || '';
       this.emailAddress = localStorage.getItem('userEmail') || '';
       this.userName = localStorage.getItem('userName') || '';
-
+      this.donorRole = donation.role || '';
     }
   }
 
@@ -60,14 +61,26 @@ export class DonationReviewComponent implements OnInit {
     });
   }
 
+  /** Map string to Role enum */
+  private mapToRole(roleStr: string): Role | undefined {
+    switch (roleStr?.toUpperCase()) {
+      case 'SPONSORS':
+        return Role.SPONSORS;
+      case 'ORGANIZATION':
+        return Role.ORGANIZATION;
+      case 'INDIVIDUAL':
+        return Role.INDIVIDUAL;
+      default:
+        return undefined;
+    }
+  }
+
   confirmDonation() {
     if (!this.selectedType || !this.selectedFrequency) {
       alert('Donation type or frequency not selected!');
       return;
     }
 
-    // Convert frequency to UPPER_CASE to match Spring Boot enum
-    
     const donationRequest: DonationRequestDTO = {
       description: this.description,
       quantity: this.quantity,
@@ -79,8 +92,9 @@ export class DonationReviewComponent implements OnInit {
       createdAt: new Date(),
       availability: this.availability,
       donorName: this.userName,
+      donorRole: this.mapToRole(this.donorRole), 
+      id: 0
     };
-
 
     this.donationService.createDonation(donationRequest).subscribe({
       next: (response) => {
@@ -94,6 +108,15 @@ export class DonationReviewComponent implements OnInit {
         alert('Failed to submit donation. Please try again.');
       }
     });
+  }
+
+  capitalizeWords(name?: string): string {
+    if (!name) return '';
+    return name
+      .toLowerCase()
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
   }
 
 }

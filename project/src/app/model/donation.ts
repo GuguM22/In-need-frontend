@@ -1,3 +1,4 @@
+import { Role } from "react-native";
 import { DonationFrequency } from "../constant/donation-frequency";
 import { DonationType } from "../constant/donation-type";
 import { LogisticPreference } from "../constant/logistic-peference";
@@ -15,4 +16,5 @@ export interface Donation {
   donorName?: string;       
   profileImageUrl?: string; 
   additionalNotes?: string;
+  donorRole?: Role;
 }  

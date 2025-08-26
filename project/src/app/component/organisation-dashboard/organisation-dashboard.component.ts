@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { SponsorRequest } from '../../model/sponsor-req';
 import { IndividualRequest, IndividualService } from '../../service/individual-service';
+import { Services } from '../../service/services';
 
 @Component({
   selector: 'app-organisation-dashboard',
@@ -29,16 +30,43 @@ export class OrganisationDashboardComponent {
 //     description: '',
 //     mediaUrls: []}
 
-  constructor(private router: Router, private sponsorService: SponsorRequestService, private http: HttpClient, private elementRef: ElementRef, private individualService: IndividualService) { }
+  constructor(private router: Router, private sponsorService: SponsorRequestService, 
+    private http: HttpClient,
+     private elementRef: ElementRef, 
+     private individualService: IndividualService,
+    private service: Services) { }
   searchQuery: string = '';
   filteredRequests: SponsorRequest[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 3;
+  profileImageUrl: string = 'logo.png';
 
   ngOnInit():void {
   this.isVerified = localStorage.getItem('verified') === 'true';
   this.loadRequests();
   this.loadIndividuals();
+  // Default logo
+  this.profileImageUrl = 'logo.png';
+
+  this.service.profile().subscribe({
+    next: (data: any) => {
+      if (data.profileImagePath) {
+        const img = new Image();
+        img.src = `http://localhost:5050/auth/images/${data.profileImagePath}`;
+        img.onload = () => {
+          // Replace logo only after image is fully loaded
+          this.profileImageUrl = img.src;
+        };
+        img.onerror = () => {
+          // Fallback in case image fails to load
+          this.profileImageUrl = 'logo.png';
+        };
+      }
+    },
+    error: () => {
+      this.profileImageUrl = 'logo.png';
+    }
+  });
   }
   navigateToSponsorRequest() {
     if (this.isVerified) {

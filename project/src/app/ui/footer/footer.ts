@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { Services } from '../../service/services';
 import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-footer',
@@ -10,13 +11,29 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class FooterComponent {
   
-  dashboardRoute: string = '/'; // default fallback
+  dashboardRoute: string = '/';
+  showOptions: boolean = false;
+
+ /* toggleOptions(event: MouseEvent) {
+  event.stopPropagation(); // prevents "View" click from also firing
+  this.showOptions = !this.showOptions;
+}*/
+
+constructor(public service: Services){}
+
+goToDonation(){
+  console.log("Navigate to sponsor donation");
+}
+
+showPost(){
+  console.log("Navigate to org / indi post ");
+}
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    const role = localStorage.getItem('userRole');
 
+    const role = localStorage.getItem('userRole');
     switch (role) {
       case 'SPONSORS':
         this.dashboardRoute = '/sponsor-dashboard';
@@ -32,7 +49,6 @@ export class FooterComponent {
         break;
       default:
         this.dashboardRoute = '/individual-dashboard';
-        break;
     }
   }
 
