@@ -223,7 +223,7 @@ editForm(): void {
   }
 
   backButton(): void {
-    this.router.navigate(['organization-dashboard']);
+    this.router.navigate(['uploaded']);
   }
 
   ngOnDestroy(): void {

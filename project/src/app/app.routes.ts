@@ -55,6 +55,7 @@ import { ManageSponsorIndividualComponent } from './component/manage-sponsor-ind
 import { ViewIndPost } from './component/view-ind-post/view-ind-post';
  
 import { ReviewRequest } from './Pages/review-request/review-request';
+import { Uploaded } from './Pages/uploaded/uploaded';
  
 
 
@@ -134,7 +135,8 @@ export const routes: Routes = [
   {path:'admin-dash', component: AdminDashComponent},
   {path: 'view-post/:id', component: ViewOrgPost},
   {path: 'view-indv-post/:id', component: ViewIndPost},
-  { path: '**', redirectTo: 'fequency' }
+  { path: '**', redirectTo: 'fequency' },
+  {path:'uploaded', component:Uploaded}
 
  
 

@@ -80,24 +80,22 @@
           </label>
         </div>
 
-        <div *ngIf="selectedFiles?.length" class="file-list mt-4">
-          <h4>Uploaded Files:</h4>
-          <ul style="margin:0; padding-left:1rem;">
-            <li *ngFor="let file of selectedFiles">
-              {{ file.name.length > 30 ? (file.name | slice:0:27) + '...' : file.name }}
-            </li>
-          </ul>
-        </div>
-      </div>
+       <div *ngIf="selectedFiles?.length" class="file-list mb-20">
+  <h4>Uploaded Files:</h4>
+  <ul style="margin: 0; padding-left: 1rem;">
+    <li *ngFor="let file of selectedFiles">
+      {{ file.name.length > 30 ? (file.name | slice:0:27) + '...' : file.name }}
+    </li>
+  </ul>
+</div>
 
-      <!-- Form Buttons -->
-      <div class="form-buttons mt-4 flex gap-4">
-        <button type="button" class="preview-btn" (click)="preview()">Preview</button>
-        <button type="submit" class="submit-btn" [disabled]="isSubmitting">
-          {{ isSubmitting ? 'Submitting...' : 'Submit Request' }}
-        </button>
-      </div>
-    </form>
+<!-- Form Buttons -->
+<div class="form-buttons mt-22 flex gap-4">
+  <button type="submit" class="submit-btn" [disabled]="isSubmitting">
+    {{ isSubmitting ? 'Submitting...' : 'Submit Request' }}
+  </button>
+</div>
+
 
     <!-- PREVIEW -->
   <app-preview-sponsor
