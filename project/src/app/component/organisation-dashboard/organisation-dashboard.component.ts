@@ -253,26 +253,16 @@ goToVerification(): void {
 loadIndividuals(): void {
   this.individualService.getAll().subscribe({
     next: (data) => {
-      this.individuals = data;
-      console.log('Individuals loaded:', this.individuals);
+      this.individuals = data.sort(
+        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );      
+      console.log('Individuals loaded (sorted by newest first):', this.individuals);
     },
     error: (error) => {
       console.error('Error loading individuals:', error);
     }
   });
 }
-// loadIndividuals(): void {
-//   this.individualService.getAll().subscribe({
-//     next: (data) => {
-//       // Sort descending by createdAt date
-//       this.individuals = data.sort((a, b) => new Date(b.requestDate).getTime() - new Date(a.requestDate).getTime());
-//       console.log('Individuals loaded:', this.individuals);
-//     },
-//     error: (error) => {
-//       console.error('Error loading individuals:', error);
-//     }
-//   });
-// }
 
 viewPostDetails(id: string): void {
   this.router.navigate(['/view-post', id]);

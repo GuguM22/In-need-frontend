@@ -10,6 +10,7 @@ export interface IndividualRequest {
   neededByDate: string;
   description: string;
   mediaUrls?: string[];
+  createdAt: string;
 }
 
 @Injectable({
