@@ -8,6 +8,9 @@ import { SponsorRequest } from '../model/sponsor-req';
   providedIn: 'root'
 })
 export class SponsorRequestService {
+  put(id: any, formData: FormData) {
+    throw new Error('Method not implemented.');
+  }
   
   private apiUrl = 'http://localhost:5050/api/sponsor-requests';
 
@@ -62,6 +65,11 @@ post(data: any): Observable<any> {
     return this.http.get<SponsorRequest[]>(this.apiUrl, { headers });
   }
   
+   update(id: number, formData: FormData): Observable<any> {
+    const token = this.getToken();
+    const headers = token ? new HttpHeaders({ Authorization: `Bearer ${token}` }) : new HttpHeaders();
+    return this.http.put(`${this.apiUrl}/${id}`, formData, { headers });
+}
   getPostsBySponsorId(id: string): Observable<any[]> {
   const token = this.getToken();
   const headers = new HttpHeaders({
@@ -99,3 +107,4 @@ getMyPosts(): Observable<any[]> {
 
 
 }
+

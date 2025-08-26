@@ -134,7 +134,9 @@ export const routes: Routes = [
  
   {path:'admin-dash', component: AdminDashComponent},
   {path: 'view-post/:id', component: ViewOrgPost},
-  {path: 'view-indv-post/:id', component: ViewIndPost}
+  {path: 'view-indv-post/:id', component: ViewIndPost},
+  // { path: '**', redirectTo: 'fequency' }
+
 
  
 

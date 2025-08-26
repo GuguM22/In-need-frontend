@@ -25,6 +25,7 @@ export class SponsorDasboardComponent {
    priority: '',
    quantity: 0,
    requiredDate: '',
+   createdAt: '',
    description: '',
    mediaUrls: [],
     

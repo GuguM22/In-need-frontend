@@ -27,6 +27,7 @@ export class IndividualDasboardComponent {
     priority: '',
     quantity: 0,
     requiredDate: '',
+    createdAt: '',
     description: '',
     mediaUrls: [],
  
