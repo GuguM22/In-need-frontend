@@ -81,18 +81,27 @@ export class ManageSponsorComponent {
     this.activeMenuId = null; // close menu
   }
 
-  // ngOnInit(): void {
-  //    this.fetchUserPosts();
-  // }
+  ngOnInit(): void {
+     this.fetchUserPosts();
+  }
 
-  // fetchUserPosts(): void {
-  //   this.sponsorRequestService.getMyPosts().subscribe({
-  //     next: (data) => {
-  //       this.posts = data || [];
-  //     },
-  //     error: (err) => console.error('Error fetching user posts:', err)
-  //   });
-  // }
+  fetchUserPosts(): void {
+    this.sponsorRequestService.getMyPosts().subscribe({
+      next: (data) => {
+        const newData = data.map((request) => {
+          const msPerDay = 1000 * 60 * 60 * 24;
+          const requiredDate = new Date(request.requiredDate).getTime();
+          const today = new Date().getTime();
+
+          const daysLeft = Math.ceil((requiredDate - today) / msPerDay);
+
+          return { ...request, daysLeft}
+        })
+        this.posts = newData || [];
+      },
+      error: (err) => console.error('Error fetching user posts:', err)
+    });
+  }
 }
     
   

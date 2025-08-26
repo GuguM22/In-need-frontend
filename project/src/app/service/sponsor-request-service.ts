@@ -87,10 +87,8 @@ getMyPosts(): Observable<any[]> {
   });
 
   console.log("Token used:", token);
-
-  return this.http.get<any[]>(this.apiUrl, { headers }).pipe(
-    map(posts => posts.filter(post => post.organizationId == +userId)) // safe: userId exists
-  );
+  
+  return this.http.get<any[]>(this.apiUrl, { headers });
 }
 
 
