@@ -77,19 +77,36 @@ export class OrganisationDashboardComponent {
     }
   }
 
-  loadRequests():void {
+  // loadRequests():void {
+  //   this.sponsorService.getAll().subscribe({
+  //     next: (data) => {
+  //       this.requests = data;
+  //       console.log('Requests loaded:');
+  //       this.filteredRequests = [...this.requests]; 
+
+  //     },
+  //     error: (error) => {
+  //       console.error('Error loading requests:', error);
+  //     }
+  //   });
+  // }
+  loadRequests(): void {
     this.sponsorService.getAll().subscribe({
       next: (data) => {
-        this.requests = data;
-        console.log('Requests loaded:');
-        this.filteredRequests = [...this.requests]; 
-
+        this.requests = data.sort(
+          (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+        this.filteredRequests = [...this.requests];
+        console.log('Requests loaded and sorted by createdAt:', this.requests);
       },
       error: (error) => {
         console.error('Error loading requests:', error);
       }
     });
   }
+  
+  
+  
 
   calculateDaysLeft(requiredDate: string): number {
     const today = new Date();
@@ -118,6 +135,21 @@ export class OrganisationDashboardComponent {
     }
   }
   
+  // onSearch(): void {
+  //   const query = this.searchQuery.toLowerCase();
+  
+  //   this.filteredRequests = this.requests.filter(request => {
+  //     const matchesTitle = request.title.toLowerCase().includes(query);
+  //     const matchesPriority = this.selectedPriority 
+  //       ? request.priority.toLowerCase() === this.selectedPriority.toLowerCase() 
+  //       : true;
+  
+  //     return matchesTitle && matchesPriority;
+  //   });
+  
+  //   this.currentPage = 1;
+  // }
+  
   onSearch(): void {
     const query = this.searchQuery.toLowerCase();
   
@@ -129,6 +161,11 @@ export class OrganisationDashboardComponent {
   
       return matchesTitle && matchesPriority;
     });
+  
+    // Re-sort filtered requests newest first (just in case)
+    this.filteredRequests.sort(
+      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
   
     this.currentPage = 1;
   }
@@ -157,9 +194,34 @@ export class OrganisationDashboardComponent {
     }
   }
   
+  // get pagesArray(): number[] {
+  //   return Array(this.totalPages).fill(0).map((x, i) => i + 1);
+  // }
+
   get pagesArray(): number[] {
-    return Array(this.totalPages).fill(0).map((x, i) => i + 1);
+    const maxPages = 6;
+    const total = this.totalPages;
+    let startPage = 1;
+  
+    if (total <= maxPages) {
+      return Array(total).fill(0).map((_, i) => i + 1);
+    }
+  
+    // Calculate start page so currentPage is roughly in the middle
+    if (this.currentPage > total - maxPages + 1) {
+      startPage = total - maxPages + 1;
+    } else if (this.currentPage > Math.floor(maxPages / 2)) {
+      startPage = this.currentPage - Math.floor(maxPages / 2);
+    }
+  
+    // Calculate how many pages to show (can't go past total)
+    const pagesToShow = Math.min(maxPages, total - startPage + 1);
+  
+    return Array(pagesToShow).fill(0).map((_, i) => startPage + i);
   }
+  
+  
+  
   
   goToPage(page: number): void {
     this.currentPage = page;
@@ -199,9 +261,29 @@ loadIndividuals(): void {
     }
   });
 }
+// loadIndividuals(): void {
+//   this.individualService.getAll().subscribe({
+//     next: (data) => {
+//       // Sort descending by createdAt date
+//       this.individuals = data.sort((a, b) => new Date(b.requestDate).getTime() - new Date(a.requestDate).getTime());
+//       console.log('Individuals loaded:', this.individuals);
+//     },
+//     error: (error) => {
+//       console.error('Error loading individuals:', error);
+//     }
+//   });
+// }
+
 viewPostDetails(id: string): void {
   this.router.navigate(['/view-post', id]);
 }
+
+onImageError(event: Event): void {
+  const img = event.target as HTMLImageElement;
+  img.src = 'assets/images/library.png';  // or any fallback image path you have
+}
+
+
 
 }
 

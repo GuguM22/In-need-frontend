@@ -50,17 +50,19 @@ import { PreviewSponsor } from './Pages/preview-sponsor/preview-sponsor';
 
 import { ManageSponsorIndividualComponent } from './component/manage-sponsor-individual/manage-sponsor-individual.component';
 import { ViewOrgPost } from './component/organisation-dashboard/view-org-post/view-org-post';
+//  import { ViewOrgPostComponent } from './component/organisation-dashboard/view-org-post/view-org-post';
 import { ViewIndPost } from './component/view-ind-post/view-ind-post';
  
 import { ReviewRequest } from './Pages/review-request/review-request';
+import { ViewOrgPost } from './component/organisation-dashboard/view-org-post/view-org-post';
  
 
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'Landing', pathMatch: 'full' },
 
 
+ { path: '', redirectTo: 'Landing', pathMatch: 'full' },
   { path: 'Landing', component: LandingComponent },
   { path: 'options/:id', component: OptionsComponent},
   { path: 'sign-in', component: SignInComponent },
@@ -89,7 +91,7 @@ export const routes: Routes = [
 
    { path: 'organiseDetails', component: OrganiseDetailsComponent },
 
-   {path:'admin', component:AdminPanelComponent},
+  {path:'admin', component:AdminPanelComponent},
   {path:'donation-review', component: DonationReviewComponent},
   {path:'manage-sponsor', component:  ManageSponsorComponent},
    {path:'review-request', component:  ReviewRequest},
@@ -108,6 +110,7 @@ export const routes: Routes = [
   {path: 'preview-sponsor/:id', component:PreviewSponsor },
    
   { path: 'review-request/:id', component: ReviewRequest },
+
   
 
   {path: 'preview-individual/:id', component:PreviewIndividual },
@@ -119,11 +122,12 @@ export const routes: Routes = [
 
   { path: 'fequency', component: Fequency },
   { path: 'donation-review', component: DonationReviewComponent },
-  { path: '', redirectTo: 'fequency', pathMatch: 'full' },
+ 
   {path:'admin-dash', component: AdminDashComponent},
   {path: 'view-post/:id', component: ViewOrgPost},
   {path: 'view-indv-post/:id', component: ViewIndPost},
-  { path: '**', redirectTo: 'fequency' }
+  // { path: '**', redirectTo: 'fequency' }
+
 
  
 
