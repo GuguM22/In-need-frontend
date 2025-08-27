@@ -335,3 +335,24 @@ header {
     font-size: 15px;
   }
 
+  .event-date span {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+  
+  .today {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+  
+  .past-due {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
+  .future {
+    background-color: #d1ecf1;
+    color: #0c5460;
+  }
+  

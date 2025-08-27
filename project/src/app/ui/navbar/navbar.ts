@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Services } from '../../service/services';
 import { FooterComponent } from "../footer/footer";
 import { Sidebar } from '../sidebar/sidebar';
+import { DonationStateService } from '../../service/donation-state-service';
+import { Donation } from '../../model/donation';
 
 @Component({
   selector: 'app-navbar',
@@ -14,13 +16,25 @@ import { Sidebar } from '../sidebar/sidebar';
 export class NavbarComponent {
   toggle = false;
   profileImageUrl: string = 'logo.png'; 
-
-  constructor(private service: Services) {}
+  // @Input() hasNewDonation: boolean = false;
+  @Input() donationCount: number = 0; 
+  userRole: string | null = null;
+  hasNewDonation: boolean = false;
+  constructor(private service: Services, private donationStateService: DonationStateService) {}
 
   ngOnInit() {
   // Default logo
   this.profileImageUrl = 'logo.png';
 
+  this.userRole = localStorage.getItem('userRole');
+
+  if (this.userRole === 'SPONSORS') {
+    this.hasNewDonation = false;
+    return;
+  }
+  this.donationStateService.donations$.subscribe((donations: Donation[]) => {
+    this.donationCount = donations.length;
+  });
   this.service.profile().subscribe({
     next: (data: any) => {
       if (data.profileImagePath) {
@@ -45,4 +59,8 @@ export class NavbarComponent {
   handleToggle() {
     this.toggle = !this.toggle;
   }
+  handleSidebarClose() {
+    this.toggle = false;  // 👈 Bring back the navbar
+  }
+  
 }

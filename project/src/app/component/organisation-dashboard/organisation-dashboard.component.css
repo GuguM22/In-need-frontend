@@ -486,7 +486,24 @@ button{
     border-radius: 6px;
   }
   
-  
+.no-results{
+  text-align: center;
+  margin-top: 50px;
+  font-weight: 600;
+  font-size: 14px;
+  color: gray;
+}
+
+.badge {
+  padding: 16px 12px;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: inline-block;
+  border: 1px solid transparent;
+}
+
+
 /* @media (max-width: 480px) {
     .search {
         width: 90%;

@@ -78,29 +78,17 @@ export class ViewOrgPost {
     const requiredDate = new Date(requiredDateStr);
     requiredDate.setHours(0, 0, 0, 0);
   
-    // Use request.createdDate if it exists, otherwise assume 3 days before requiredDate
-    const createdDate = this.request?.createdAt
-      ? new Date(this.request.createdAt)
-      : new Date(requiredDate.getTime() - 2 * 24 * 60 * 60 * 1000); // assume 3-day window
+    const daysLeft = Math.ceil((requiredDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
   
-    createdDate.setHours(0, 0, 0, 0);
-  
-    const totalWindow = Math.max(
-      Math.ceil((requiredDate.getTime() - createdDate.getTime()) / (1000 * 60 * 60 * 24)) + 1,
-      1
-    );
-  
-    const daysLeft = Math.max(
-      Math.ceil((requiredDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)),
-      0
-    );
-  
-    const daysUsed = totalWindow - daysLeft;
-  
-    // return `Days Left: ${daysUsed}/${totalWindow}`;
-    return `${daysLeft} day${daysLeft === 1 ? '' : 's'} left`;
-
+    if (daysLeft < 0) {
+      return 'Past Due';
+    } else if (daysLeft === 0) {
+      return 'Today';
+    } else {
+      return `${daysLeft} day${daysLeft === 1 ? '' : 's'} left`;
+    }
   }
+  
   
   getPriorityClass(priority: string): string {
     switch (priority.toLowerCase()) {
@@ -125,4 +113,41 @@ export class ViewOrgPost {
       this.showFullDescription = false;
     }
   }
+
+  getDaysLeftText(requiredDateStr: string): string {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+  
+    const requiredDate = new Date(requiredDateStr);
+    requiredDate.setHours(0, 0, 0, 0);
+  
+    const daysLeft = Math.ceil((requiredDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+  
+    if (daysLeft < 0) {
+      return 'Past Due';
+    } else if (daysLeft === 0) {
+      return 'Today';
+    } else {
+      return `${daysLeft} day${daysLeft === 1 ? '' : 's'} left`;
+    }
+  }
+  
+  getDaysLeftClass(requiredDateStr: string): string {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+  
+    const requiredDate = new Date(requiredDateStr);
+    requiredDate.setHours(0, 0, 0, 0);
+  
+    const daysLeft = Math.ceil((requiredDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+  
+    if (daysLeft < 0) {
+      return 'past-due';
+    } else if (daysLeft === 0) {
+      return 'today';
+    } else {
+      return 'future';
+    }
+  }
+  
 }

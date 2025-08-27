@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NavbarComponent } from "../navbar/navbar";
 import { CommonModule } from '@angular/common';
 import { Logout } from "../../component/logout/logout";
@@ -20,6 +20,9 @@ export class Sidebar implements OnInit {
   showLogoutModal = false;
   profileImageUrl: string = 'logo.png'; 
   dashboardRoute: string = '/';
+  @Input() donationCount: number = 0;
+  @Output() closed = new EventEmitter<void>();
+
 
   constructor(private userService: Services, private router: Router) {}
 
@@ -59,14 +62,17 @@ export class Sidebar implements OnInit {
     }
   }
 
-  handleToggle() {
-    this.toggle = !this.toggle;
-  }
+  // handleToggle() {
+  //   this.toggle = !this.toggle;
+  // }
 
-  openLogoutModal() {
-    this.toggle = false; 
-    this.showLogoutModal = true;
+  handleToggle() {
+    this.closed.emit();  // 👈 Notify the parent (NavbarComponent)
   }
+  openLogoutModal() {
+    this.showLogoutModal = true; // ✅ Show modal, keep sidebar open
+  }
+  
 
   closeLogoutModal() {
     this.showLogoutModal = false;
