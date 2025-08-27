@@ -1,3 +1,5 @@
+import { User } from "./user";
+
 export interface SponsorRequest {
   id?: string;
   title: string;
@@ -7,4 +9,5 @@ export interface SponsorRequest {
   createdAt: string; 
   description: string;
   mediaUrls?: File[]; // for upload, it's File[]; for received data, maybe string[] URLs
+  user?: User;
 }

@@ -7,6 +7,7 @@ import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { PreviewSponsor } from "../preview-sponsor/preview-sponsor";
 
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { User } from '../../model/user';
 
 // Backend DTO
 export interface SponsorRequest {
@@ -17,6 +18,7 @@ export interface SponsorRequest {
   requiredDate: string;
   description: string;
   mediaUrls?: File[];
+  user?: User;
 }
 
 // Validator for dates

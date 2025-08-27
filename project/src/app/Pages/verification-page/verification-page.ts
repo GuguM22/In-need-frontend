@@ -178,7 +178,7 @@ export class VerificationPage implements OnInit {
 
         this.verificationService.uploadFiles(this.uploadedFiles, verificationId).subscribe({
           next: (uploadRes) => {
-            this.router.navigate(['/preview-individual']); 
+            this.router.navigate(['/upload-verification']); 
           },
           error: (uploadErr) => {
             console.error('File upload failed:', uploadErr);

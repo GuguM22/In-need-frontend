@@ -19,6 +19,9 @@ import { Role } from '../../constant/role';
   styleUrls: ['./donation-review.component.css']
 })
 export class DonationReviewComponent implements OnInit {
+goNext() {
+throw new Error('Method not implemented.');
+}
 
   selectedFrequency: string = '';
   selectedType: string = '';
