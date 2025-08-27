@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { DonationFrequency } from '../../constant/donation-frequency';
 import { DonationStatus } from '../../constant/donationStatus';
 import { LogisticPreference } from '../../constant/logistic-peference';
@@ -47,7 +47,7 @@ export class ReviewRequest implements OnInit {
 
 
   constructor(private donationService: DonationService,
-    private router: Router, private donationStateService: DonationStateService, private service: Services) {
+    private router: Router, private donationStateService: DonationStateService, private service: Services, private route: ActivatedRoute) {
     this.emailAddress = localStorage.getItem('userEmail') || '';
 
   }
@@ -71,9 +71,9 @@ export class ReviewRequest implements OnInit {
 loadDonations() {
   this.donationService.getPendingDonations().subscribe(res => {
     console.log("Raw donations from backend:", res); // 👈 check actual structure
-
+    const id = Number(this.route.snapshot.paramMap.get('id'))
     const mappedDonations = res
-      .filter(d => !this.removedIds.includes(d.id || d.donationId || d.requestId))
+      .filter(d => d.id == id)
       .map(donation => ({
         ...donation,
         //  Fallback to any possible key the backend provides
