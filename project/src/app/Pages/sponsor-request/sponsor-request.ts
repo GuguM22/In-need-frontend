@@ -41,6 +41,7 @@ export function futureDateValidator(): ValidatorFn {
 export class SponsorRequestComponent implements OnInit, OnDestroy {
 onEdit() {
 throw new Error('Method not implemented.');
+
 }
   requestId: number | null = null;
 
@@ -51,6 +52,9 @@ throw new Error('Method not implemented.');
   sponsorshipForm: FormGroup;
   selectedFiles: File[] = [];
   filePreviews: string[] = [];
+ 
+fileNames: string[] = [];     // file names
+
   isSubmitting = false;
   showPreview = false;
 previewData: any;
@@ -94,11 +98,12 @@ previewData: any;
   onDragOver(event: DragEvent): void { event.preventDefault(); }
   onDragLeave(event: DragEvent): void { event.preventDefault(); }
 
-  private handleFiles(files: File[]): void {
-    this.revokePreviews();
-    this.selectedFiles = files;
-    this.filePreviews = files.map(file => URL.createObjectURL(file));
-  }
+ private handleFiles(files: File[]): void {
+  this.selectedFiles = files;
+  this.filePreviews = files.map(file => URL.createObjectURL(file));
+  this.fileNames = files.map(file => file.name);
+}
+
 
   private revokePreviews(): void {
     this.filePreviews.forEach(url => URL.revokeObjectURL(url));
@@ -129,11 +134,16 @@ previewData: any;
  if (this.requestId) {
   // UPDATE
   this.sponsorRequestService.update(this.requestId, formData).subscribe({
-    next: () => {
+    next: (response) => {
       this.isSubmitting = false;
       alert('Request updated successfully');
       this.showPreview = false; 
       this.requestId = null;   // 👈 reset after update if you want to allow new create
+      if (response?.id) {
+        this.router.navigate(['/preview-sponsor', response.id]);
+      } else {
+        console.error('No ID returned from backend');
+      }
     },
     error: (err) => {
       console.error(err);
@@ -163,19 +173,7 @@ previewData: any;
 }
   }
 
-//   ngOnInit(): void {
-//   this.requestId = null; 
 
-//   const state = history.state;
-//   if (state.formData) {
-//     this.sponsorshipForm.patchValue(state.formData);
-//     this.selectedFiles = state.files || [];
-//     this.filePreviews = this.selectedFiles.map(file => {
-//       if (file instanceof File) return URL.createObjectURL(file);
-//       return file; 
-//     });
-//   }
-// }
 
 ngOnInit(): void {
   this.requestId = null; 
@@ -194,21 +192,21 @@ ngOnInit(): void {
 
 
   preview(): void {
-    if (this.sponsorshipForm.valid) {
-      this.previewData = this.sponsorshipForm.value;
-      this.filePreviews = this.selectedFiles.map(file => URL.createObjectURL(file));
-      this.showPreview = true;  // show preview component
-    } else {
-      this.sponsorshipForm.markAllAsTouched();
-    }
+  if (this.sponsorshipForm.valid) {
+    this.previewData = this.sponsorshipForm.value;
+    console.log('Preview Data:', this.previewData);
+    console.log('File Names:', this.fileNames);
+    this.showPreview = true;
+  } else {
+    this.sponsorshipForm.markAllAsTouched();
+  }
+}
+
+
+  editForm(): void {
+    this.showPreview = false;
   }
 
-  
-
-editForm(): void {
-  // Go back to the form
-  this.showPreview = false;
-}
   private resetForm(): void {
     this.sponsorshipForm.reset({
       title: '',

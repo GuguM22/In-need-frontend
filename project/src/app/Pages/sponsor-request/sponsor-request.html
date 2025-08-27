@@ -6,7 +6,7 @@
 </div>
 
 <div class="container">
-  <div class="form-container" style="max-height: 100vh;">
+  <div class="ng s">
 
     <!-- HEADER -->
     <div class="form-header">
@@ -14,7 +14,6 @@
       <p class="form-subtitle text-center">Fill out the details below to post your sponsorship request</p>
     </div>
 
-    <!-- FORM -->
    <form *ngIf="!showPreview" [formGroup]="sponsorshipForm" (ngSubmit)="onSubmit()">
       <!-- Title -->
       <div class="form-group">
@@ -80,7 +79,9 @@
           </label>
         </div>
 
-       <div *ngIf="selectedFiles?.length" class="file-list mb-20">
+        
+
+       <div *ngIf="selectedFiles?.length">
   <h4>Uploaded Files:</h4>
   <ul style="margin: 0; padding-left: 1rem;">
     <li *ngFor="let file of selectedFiles">
@@ -89,18 +90,21 @@
   </ul>
 </div>
 
-<!-- Form Buttons -->
-<div class="form-buttons mt-22 flex gap-4">
-  <button type="submit" class="submit-btn" [disabled]="isSubmitting">
-    {{ isSubmitting ? 'Submitting...' : 'Submit Request' }}
-  </button>
+      <div class="flex gap-4">
+      <button type="submit" class="submit-btn" [disabled]="isSubmitting">
+        {{ isSubmitting ? 'Submitting...' : 'Submit Request' }}
+      </button>
+    </div>
+  </div> <!-- end of file upload + button container -->
+</form>
+
+
+    <app-preview-sponsor
+      *ngIf="showPreview"
+      [formData]="previewData"
+      [filePreviews]="filePreviews"
+      (updateClicked)="onEdit()">
+    </app-preview-sponsor>
+
+  </div>
 </div>
-
-
-    <!-- PREVIEW -->
-  <app-preview-sponsor
-  *ngIf="showPreview"
-  [formData]="previewData"
-  [filePreviews]="filePreviews"
-  (updateClicked)="onEdit()">
-</app-preview-sponsor>

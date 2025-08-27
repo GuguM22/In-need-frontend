@@ -133,24 +133,23 @@
       </p>
 
       <!-- Media Preview -->
-      <div class="preview-media">
-        <ng-container *ngFor="let preview of filePreviews">
-          <img *ngIf="preview.endsWith('.png') || preview.endsWith('.jpg') || preview.endsWith('.jpeg')"
-               [src]="preview"
-               class="media-img" />
+     <!-- Uploaded Files -->
+<div *ngIf="selectedFiles?.length" class="file-list mb-8">
+  <h4 class="file-list-title">Uploaded Files:</h4>
+  <ul class="file-names">
+    <li *ngFor="let file of selectedFiles" class="file-name">
+      {{ file.name.length > 30 ? (file.name | slice:0:27) + '...' : file.name }}
+    </li>
+  </ul>
+</div>
 
-          <video *ngIf="preview.endsWith('.mp4')" 
-                 [src]="preview" 
-                 controls
-                 class="media-video">
-          </video>
-        </ng-container>
-      </div>
+
+
 
       <!-- Footer -->
       <div class="preview-footer">
         <span>Needed By: {{ previewData?.neededByDate }}</span>
-        <span class="preview-category">{{ previewData?.category || 'Uncategorized' }}</span>
+        <!-- <span class="preview-category">{{ previewData?.category || 'Uncategorized' }}</span> -->
       </div>
     </div>
 
