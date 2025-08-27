@@ -64,6 +64,7 @@ export const routes: Routes = [
 
  { path: '', redirectTo: 'Landing', pathMatch: 'full' },
   { path: 'Landing', component: LandingComponent },
+  { path: 'options', component: OptionsComponent },
   { path: 'options/:id', component: OptionsComponent},
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
