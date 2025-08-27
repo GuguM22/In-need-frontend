@@ -56,12 +56,18 @@
       <h1 *ngIf="!isEditing" class="font-extrabold text-xl mb-0.5 ">
         {{ capitalizeWords(name) }}
       </h1>
+      <h1 *ngIf="!isEditing" class="font-extrabold text-xl mb-0.5 ">
+        
+      </h1>
       <input 
         *ngIf="isEditing"
         [(ngModel)]="editName"
         class="border p-1 rounded text-black w-full mb-1"
       />
-      <p class="text-xs opacity-70 mb-1">Helping since 2020</p>
+      <div class="flex items-center justify-between gap-2">
+           <p class="text-xs opacity-70 mb-1">Helping since 2020 </p>
+      </div>
+     
     </div>
 
     <!-- Profile Info -->
@@ -87,8 +93,9 @@
             [(ngModel)]="editName"
             class="border p-1 rounded text-black w-full mb-1 pointer-events-none"
           />
+          
           <p *ngIf="!isEditing" class="text-gray-600 text-xs mt-0.5">
-            <span>{{ capitalizeWords(email) }}</span> &nbsp;&bull;&nbsp; <span>{{ phone }}</span>
+            <span>{{ capitalizeWords(email) }}</span> &nbsp;&bull;&nbsp; <span>{{ phone }}</span> &nbsp;&bull;&nbsp; <span>{{ statusText}}</span>
           </p>
           <div *ngIf="isEditing" class="flex flex-col gap-1">
             <input

@@ -14,21 +14,26 @@ import { SponsorRequestService } from '../../service/sponsor-request-service';
 export class PreviewSponsor implements OnInit {
 
    @Input() formData: any;
+   @Input() fileNames: string[] = [];
   @Input() filePreviews: string[] = [];
   @Output() updateClicked = new EventEmitter<void>();
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private sponsorRequest: SponsorRequestService,  private router: Router,) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id')!;
-    console.log(id) // get ID from URL
-    if (id) {
-      this.sponsorRequest.getById(id)
-        .subscribe(data => {
-          this.formData = data; // bind to preview
-        });
-    }
+  const id = this.route.snapshot.paramMap.get('id')!;
+
+  // Only fetch from API if formData was not passed in
+  if (!this.formData && id) {
+    this.sponsorRequest.getById(id)
+      .subscribe(data => {
+        this.formData = data;
+
+        // If the backend provides files, map them to names
+        this.filePreviews = data?.mediaUrls?.map((f: any) => f.name) || [];
+      });
   }
+}
 
   formatDate(date: string): string {
     if (!date) return '';
@@ -60,6 +65,39 @@ export class PreviewSponsor implements OnInit {
 }
 
 
-
-   
+onSubmitUpdate() {
+  if (!this.formData?.id) {
+    alert('No request ID found.');
+    return;
   }
+
+  const formData = new FormData();
+  formData.append('title', this.formData.title);
+  formData.append('priority', this.formData.priority || '');
+  formData.append('quantity', String(this.formData.quantity));
+  formData.append('requiredDate', this.formData.requiredDate);
+  formData.append('description', this.formData.description);
+
+  // If you have files stored separately
+  if (this.filePreviews?.length) {
+    this.filePreviews.forEach((file: any) => {
+      if (file instanceof File) {
+        formData.append('mediaFiles', file, file.name);
+      }
+    });
+  }
+
+  this.sponsorRequest.update(this.formData.id, formData).subscribe({
+    next: (updated: any) => {
+      alert('Request updated successfully.');
+      this.router.navigate(['/sponsor-requests']); // redirect to list or dashboard
+    },
+    error: (err: any) => {
+      console.error(err);
+      alert('Failed to update request.');
+    }
+  });
+}
+
+
+}
