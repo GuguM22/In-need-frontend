@@ -1,0 +1,29 @@
+<div class="flex flex-col h-screen justify-center items-center bg-gray-100 px-4">
+  <!-- Success card -->
+  <div class="bg-white border border-[#00000030] rounded-2xl shadow-lg p-8 max-w-md w-full text-center">
+    <!-- Success Icon -->
+    <div class="flex justify-center mb-4">
+      <svg class="w-14 h-14 text-[#5B8E7D]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    </div>
+
+    <!-- Title -->
+    <h2 class="text-2xl font-bold text-black mb-2">Upload Successful</h2>
+
+
+
+    <p class="text-sm text-gray-600 mb-6">
+      Your documents have been uploaded successfully.<br />
+     
+
+    </p>
+
+    <!-- OK Button -->
+    <button [routerLink]="'/organization-dashboard'"
+      class="bg-[#5B8E7D] hover:bg-[#4b8170] text-white font-medium py-2 px-8 rounded-full transition duration-200">
+      Home
+    </button>
+  </div>
+</div>
