@@ -56,30 +56,33 @@
           <img *ngIf="post.fulfilled" src="https://i.pinimg.com/1200x/14/15/34/141534c31edfe922c168d5f8cbbd4bda.jpg"
             alt="Fulfilled" class="w-8 h-8 mb-5 -ml-40 mb-10" />
 
-
-          <!-- Dot Menu -->
-          <button (click)="toggleActionMenu('actionMenu' + i)" class="text-gray-500 hover:text-black focus:outline-none"
-            aria-label="Actions">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
-            </svg>
-          </button>
-        </div>
-
-        <!-- Action Menu -->
-        <div *ngIf="activeMenuId === 'actionMenu' + i"
-          class="absolute right-4 top-10 bg-white rounded-md shadow-lg z-10 border w-40">
-          <button class="block w-full text-left px-4 py-2 text-sm text-green-600 hover:bg-gray-100"
-            (click)="markFulfilled(i)">
-            Mark Fulfilled
-          </button>
-          <!-- <button
-          class="block w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-100"
-          (click)="updatePost(i)"
+        <!-- Dot Menu -->
+        <button
+          (click)="toggleActionMenu('actionMenu' + i)"
+          class="text-gray-500 hover:text-black focus:outline-none"
+          aria-label="Actions"
         >
-          update
-        </button> -->
-        </div>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Action Menu -->
+      <div
+        *ngIf="activeMenuId === 'actionMenu' + i"
+        class="absolute right-4 top-10 bg-white rounded-md shadow-lg z-10 border w-40"
+      >
+        <button
+          class="block w-full text-left px-4 py-2 text-sm text-green-600 hover:bg-gray-100"
+          (click)="markFulfilled(i)"
+        >
+          Mark Fulfilled
+        </button>
+        
+      </div>
 
         <!-- Card Title & Description -->
         <h3 class="text-base font-semibold">{{ post.title }}</h3>
@@ -90,12 +93,13 @@
           <span class="font-medium">Days Left</span>
         </div>
 
-        <!-- Progress Bar + Days Left -->
-        <div class="flex items-center justify-between">
-          <div class="bg-gray-200 rounded-full h-2.5 mr-4 progress-bar-width">
-            <div class="bg-[#219EBC] h-2.5 rounded-full" [style.width.%]="post.progress"></div>
-          </div>
-          <span class="text-xs text-gray-600 whitespace-nowrap">{{ post.daysLeft }} Days</span>
+      <!-- Progress Bar + Days Left -->
+      <div class="flex items-center justify-between">
+        <div style="width: 150px;" class="bg-gray-200 rounded-full h-2.5 mr-4">
+          <div
+            class="bg-[#219EBC] h-2.5 rounded-full"
+            [style.width.%]="calculateProgress(post.progress)"
+          ></div>
         </div>
       </div>
     </ng-container>
