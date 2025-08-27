@@ -3,11 +3,12 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
+import { FooterComponent } from "../../ui/footer/footer";
 
 @Component({
   selector: 'app-preview-sponsor',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FooterComponent],
   templateUrl: './preview-sponsor.html',
   styleUrls: ['./preview-sponsor.css']
 })
@@ -17,23 +18,55 @@ export class PreviewSponsor implements OnInit {
    @Input() fileNames: string[] = [];
   @Input() filePreviews: string[] = [];
   @Output() updateClicked = new EventEmitter<void>();
+  dashboardRoute: string = '/individual-dashboard'; // default
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private sponsorRequest: SponsorRequestService,  private router: Router,) {}
 
-  ngOnInit(): void {
+//   ngOnInit(): void {
+//   const id = this.route.snapshot.paramMap.get('id')!;
+
+//   if (!this.formData && id) {
+//     this.sponsorRequest.getById(id)
+//       .subscribe(data => {
+//         this.formData = data;
+
+//         this.filePreviews = data?.mediaUrls?.map((f: any) => f.name) || [];
+//       });
+//   }
+// }
+
+ngOnInit(): void {
   const id = this.route.snapshot.paramMap.get('id')!;
 
-  // Only fetch from API if formData was not passed in
+  // Set dashboardRoute based on role
+  const role = localStorage.getItem('userRole');
+  switch (role) {
+    case 'SPONSORS':
+      this.dashboardRoute = '/sponsor-dashboard';
+      break;
+    case 'ORGANIZATION':
+      this.dashboardRoute = '/organization-dashboard';
+      break;
+    case 'INDIVIDUAL':
+      this.dashboardRoute = '/individual-dashboard';
+      break;
+    case 'ADMIN':
+      this.dashboardRoute = '/admin';
+      break;
+    default:
+      this.dashboardRoute = '/individual-dashboard';
+  }
+
+  // Existing code fetching request if formData not present
   if (!this.formData && id) {
     this.sponsorRequest.getById(id)
       .subscribe(data => {
         this.formData = data;
-
-        // If the backend provides files, map them to names
         this.filePreviews = data?.mediaUrls?.map((f: any) => f.name) || [];
       });
   }
 }
+
 
   formatDate(date: string): string {
     if (!date) return '';
@@ -77,6 +110,7 @@ onSubmitUpdate() {
   formData.append('quantity', String(this.formData.quantity));
   formData.append('requiredDate', this.formData.requiredDate);
   formData.append('description', this.formData.description);
+  formData.append('location', this.formData.location)
 
   // If you have files stored separately
   if (this.filePreviews?.length) {
@@ -90,7 +124,7 @@ onSubmitUpdate() {
   this.sponsorRequest.update(this.formData.id, formData).subscribe({
     next: (updated: any) => {
       alert('Request updated successfully.');
-      this.router.navigate(['/sponsor-requests']); // redirect to list or dashboard
+      this.router.navigate([this.dashboardRoute]);
     },
     error: (err: any) => {
       console.error(err);

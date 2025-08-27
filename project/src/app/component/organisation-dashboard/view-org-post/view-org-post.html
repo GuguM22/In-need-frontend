@@ -18,7 +18,7 @@
       </div>
       </div>
         <div class="loc">
-          <h5>Gauteng, Johannesburg</h5>
+          <h5>{{request.location}}</h5>
         </div>
       </div>
     
@@ -33,7 +33,8 @@
         </button>
       </div>
     </div>
-    <div class="event-date">  {{ getDaysLeftInfo(request.requiredDate) }}</div>  
+    <div class="event-date" [ngClass]="getDaysLeftClass(request.requiredDate)">     {{ getDaysLeftText(request.requiredDate) }}
+    </div>  
   </div>
 
   <div class="content">

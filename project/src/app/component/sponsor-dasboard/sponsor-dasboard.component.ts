@@ -27,6 +27,7 @@ export class SponsorDasboardComponent {
    requiredDate: '',
    createdAt: '',
    description: '',
+   location: '',
    mediaUrls: [],
     
  }
