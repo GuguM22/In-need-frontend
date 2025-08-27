@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { SponsorRequest } from '../../model/sponsor-req';
 import { IndividualRequest, IndividualService } from '../../service/individual-service';
+import { Services } from '../../service/services';
 
 @Component({
   selector: 'app-organisation-dashboard',
@@ -29,16 +30,43 @@ export class OrganisationDashboardComponent {
 //     description: '',
 //     mediaUrls: []}
 
-  constructor(private router: Router, private sponsorService: SponsorRequestService, private http: HttpClient, private elementRef: ElementRef, private individualService: IndividualService) { }
+  constructor(private router: Router, private sponsorService: SponsorRequestService, 
+    private http: HttpClient,
+     private elementRef: ElementRef, 
+     private individualService: IndividualService,
+    private service: Services) { }
   searchQuery: string = '';
   filteredRequests: SponsorRequest[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 3;
+  profileImageUrl: string = 'logo.png';
 
   ngOnInit():void {
   this.isVerified = localStorage.getItem('verified') === 'true';
   this.loadRequests();
   this.loadIndividuals();
+  // Default logo
+  this.profileImageUrl = 'logo.png';
+
+  this.service.profile().subscribe({
+    next: (data: any) => {
+      if (data.profileImagePath) {
+        const img = new Image();
+        img.src = `http://localhost:5050/auth/images/${data.profileImagePath}`;
+        img.onload = () => {
+          // Replace logo only after image is fully loaded
+          this.profileImageUrl = img.src;
+        };
+        img.onerror = () => {
+          // Fallback in case image fails to load
+          this.profileImageUrl = 'logo.png';
+        };
+      }
+    },
+    error: () => {
+      this.profileImageUrl = 'logo.png';
+    }
+  });
   }
   navigateToSponsorRequest() {
     if (this.isVerified) {
@@ -49,19 +77,36 @@ export class OrganisationDashboardComponent {
     }
   }
 
-  loadRequests():void {
+  // loadRequests():void {
+  //   this.sponsorService.getAll().subscribe({
+  //     next: (data) => {
+  //       this.requests = data;
+  //       console.log('Requests loaded:');
+  //       this.filteredRequests = [...this.requests]; 
+
+  //     },
+  //     error: (error) => {
+  //       console.error('Error loading requests:', error);
+  //     }
+  //   });
+  // }
+  loadRequests(): void {
     this.sponsorService.getAll().subscribe({
       next: (data) => {
-        this.requests = data;
-        console.log('Requests loaded:');
-        this.filteredRequests = [...this.requests]; 
-
+        this.requests = data.sort(
+          (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+        this.filteredRequests = [...this.requests];
+        console.log('Requests loaded and sorted by createdAt:', this.requests);
       },
       error: (error) => {
         console.error('Error loading requests:', error);
       }
     });
   }
+  
+  
+  
 
   calculateDaysLeft(requiredDate: string): number {
     const today = new Date();
@@ -90,6 +135,21 @@ export class OrganisationDashboardComponent {
     }
   }
   
+  // onSearch(): void {
+  //   const query = this.searchQuery.toLowerCase();
+  
+  //   this.filteredRequests = this.requests.filter(request => {
+  //     const matchesTitle = request.title.toLowerCase().includes(query);
+  //     const matchesPriority = this.selectedPriority 
+  //       ? request.priority.toLowerCase() === this.selectedPriority.toLowerCase() 
+  //       : true;
+  
+  //     return matchesTitle && matchesPriority;
+  //   });
+  
+  //   this.currentPage = 1;
+  // }
+  
   onSearch(): void {
     const query = this.searchQuery.toLowerCase();
   
@@ -101,6 +161,11 @@ export class OrganisationDashboardComponent {
   
       return matchesTitle && matchesPriority;
     });
+  
+    // Re-sort filtered requests newest first (just in case)
+    this.filteredRequests.sort(
+      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
   
     this.currentPage = 1;
   }
@@ -129,9 +194,34 @@ export class OrganisationDashboardComponent {
     }
   }
   
+  // get pagesArray(): number[] {
+  //   return Array(this.totalPages).fill(0).map((x, i) => i + 1);
+  // }
+
   get pagesArray(): number[] {
-    return Array(this.totalPages).fill(0).map((x, i) => i + 1);
+    const maxPages = 6;
+    const total = this.totalPages;
+    let startPage = 1;
+  
+    if (total <= maxPages) {
+      return Array(total).fill(0).map((_, i) => i + 1);
+    }
+  
+    // Calculate start page so currentPage is roughly in the middle
+    if (this.currentPage > total - maxPages + 1) {
+      startPage = total - maxPages + 1;
+    } else if (this.currentPage > Math.floor(maxPages / 2)) {
+      startPage = this.currentPage - Math.floor(maxPages / 2);
+    }
+  
+    // Calculate how many pages to show (can't go past total)
+    const pagesToShow = Math.min(maxPages, total - startPage + 1);
+  
+    return Array(pagesToShow).fill(0).map((_, i) => startPage + i);
   }
+  
+  
+  
   
   goToPage(page: number): void {
     this.currentPage = page;
@@ -163,17 +253,27 @@ goToVerification(): void {
 loadIndividuals(): void {
   this.individualService.getAll().subscribe({
     next: (data) => {
-      this.individuals = data;
-      console.log('Individuals loaded:', this.individuals);
+      this.individuals = data.sort(
+        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );      
+      console.log('Individuals loaded (sorted by newest first):', this.individuals);
     },
     error: (error) => {
       console.error('Error loading individuals:', error);
     }
   });
 }
+
 viewPostDetails(id: string): void {
   this.router.navigate(['/view-post', id]);
 }
+
+onImageError(event: Event): void {
+  const img = event.target as HTMLImageElement;
+  img.src = 'assets/images/library.png';  // or any fallback image path you have
+}
+
+
 
 }
 

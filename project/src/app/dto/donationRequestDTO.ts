@@ -1,6 +1,7 @@
 import { DonationFrequency } from "../constant/donation-frequency";
 import { DonationType } from "../constant/donation-type";
 import { LogisticPreference } from "../constant/logistic-peference";
+import { Role } from "../constant/role";
 
 export interface DonationRequestDTO {
   id?: number; 
@@ -15,4 +16,5 @@ export interface DonationRequestDTO {
   createdAt: Date;
   profileImagePath?: string;
   donorName: string;
+  donorRole?: Role;
 }

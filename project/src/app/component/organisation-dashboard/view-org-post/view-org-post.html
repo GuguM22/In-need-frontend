@@ -1,15 +1,67 @@
-<p>view-org-post works!</p>
-<div *ngIf="request">
-    <h1>{{ request.title }}</h1>
-    <p>{{ request.description }}</p>
-    <p>Priority: {{ request.priority }}</p>
-    <p>Needed by: {{ request.requiredDate }}</p>
-    <!-- Show media -->
-    <div *ngFor="let url of request.mediaUrls">
-      <img [src]="'http://localhost:5050/' + url" />
-    </div>
-    <div class="donate-button-container">
-        <button class="donateBtn bg-green-700" [routerLink]="['/options', request.id]">Donate</button>
-      </div>
+<app-navbar></app-navbar>
+<div *ngIf="request" class="container">
+  <div class="back">
+    <button [routerLink]="dashboardRoute">Back</button>
   </div>
-  
+  <div class="top">
+    <div class="top-container">
+      <div class="pic">
+        <img [src]="profileImageUrl" alt="" class="image">
+      </div>
+      <div class="cmpName">
+        <div class="names flex">
+        <div class="name">
+        <h2 class="name">{{request.user?.username}}</h2>
+        </div>
+        <div class="imgs">
+          <img src="verified.png" alt="" class="verified">
+      </div>
+      </div>
+        <div class="loc">
+          <h5>Gauteng, Johannesburg</h5>
+        </div>
+      </div>
+    
+    </div>
+  </div>
+  <div class="event-info">
+    <div class="urgency-wrapper">
+      <div class="urgency">Urgency</div>
+      <div class="event-title">
+        <button [ngClass]="getPriorityClass(request.priority)">
+          {{ request.priority | titlecase }} Priority
+        </button>
+      </div>
+    </div>
+    <div class="event-date">  {{ getDaysLeftInfo(request.requiredDate) }}</div>  
+  </div>
+
+  <div class="content">
+    <h2 class="reqTitle">{{ request.title }}</h2>
+    <div class="description-wrapper" (click)="toggleDescription()">
+      <p class="description-text" *ngIf="!showFullDescription">
+        {{ getShortDescription(request.description) }}
+      </p>
+    
+      <p class="description-text" *ngIf="showFullDescription">
+        {{ request.description }}
+      </p>
+    </div>
+    
+
+    <button class="donate-btn" [routerLink]="['/options', request.id]">Donate</button>
+
+    <!-- <div class="donors-section">
+      <h2>Previous Donors</h2>
+
+      <div class="donor" *ngFor="let donor of donors">
+        <div class="donor-info">
+          <div class="donor-name">{{ donor.name }}</div>
+          <div class="donor-date">{{ donor.date }}</div>
+        </div>
+        <div class="donor-amount">{{ donor.amount }}</div>
+      </div>
+    </div> -->
+  </div>
+</div>
+<app-footer></app-footer>

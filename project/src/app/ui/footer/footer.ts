@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Services } from '../../service/services';
+import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-footer',
   standalone: true,
@@ -10,11 +11,28 @@ import { RouterModule } from '@angular/router';
 })
 export class FooterComponent {
   
-  dashboardRoute: string = '/'; // default fallback
+  dashboardRoute: string = '/';
+  showOptions: boolean = false;
+
+ /* toggleOptions(event: MouseEvent) {
+  event.stopPropagation(); // prevents "View" click from also firing
+  this.showOptions = !this.showOptions;
+}*/
+
+
+goToDonation(){
+  console.log("Navigate to sponsor donation");
+}
+
+showPost(){
+  console.log("Navigate to org / indi post ");
+}
+
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
-    const role = localStorage.getItem('userRole');
 
+    const role = localStorage.getItem('userRole');
     switch (role) {
       case 'SPONSORS':
         this.dashboardRoute = '/sponsor-dashboard';
@@ -30,7 +48,36 @@ export class FooterComponent {
         break;
       default:
         this.dashboardRoute = '/individual-dashboard';
-        break;
     }
   }
+
+isActive(route: string): boolean {
+  return this.router.url === route || this.router.url.startsWith(route + '/');
+}
+isDonationRoute(): boolean {
+  const donationRoutes = [
+    '/options',
+    '/donation-request',
+    '/freq',
+    '/donation-review'
+  ];
+
+  return donationRoutes.some(route =>
+    this.router.url === route || this.router.url.startsWith(route + '/') || this.router.url.startsWith(route + '?')
+  );
+}
+
+isViewRoute(): boolean {
+  const viewRoutes = [
+    '/view',
+    '/view-post',
+    '/view-indv-post'
+  ];
+
+  return viewRoutes.some(route =>
+    this.router.url === route || this.router.url.startsWith(route + '/') || this.router.url.startsWith(route + '?')
+  );
+}
+
+
 }

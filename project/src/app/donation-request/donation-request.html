@@ -11,16 +11,8 @@
 
         <div class="w-full max-w-sm relative mb-2">
             <div class="absolute -left-3 -top-10 flex items-center space-x-2">
-                <svg fill="#000000" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    width="24" height="24" viewBox="0 0 512 512" id="Layer_1" version="1.1" xml:space="preserve"
-                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <path
-                        d="M50.2,169.6C97.9,56.3,228.5,3.1,341.8,50.9s166.4,178.3,118.7,291.6S282.2,508.9,168.9,461.1  C86.4,426.4,32.7,345.5,32.7,256C32.7,226.3,38.6,196.9,50.2,169.6z M254.7,448c106,0,192-86,192-192s-86-192-192-192  s-192,86-192,192S148.7,448,254.7,448z M226.7,140.7L111.4,256l115.3,115.3l21.2-21.2L168.7,271h208.2v-30H168.7l79.1-79.1  L226.7,140.7z">
-                    </path>
-                </svg>
-                <button type="button" class="text-sm -left-py-3 text-black focus:outline-none" (click)="goBack()">
-                    Back
-                </button>
+             
+             
             </div>
         </div>
 
@@ -90,28 +82,30 @@
 
   <div class="flex flex-wrap gap-4 justify-center">
     <!-- Delivery -->
-    <label class="relative cursor-pointer"> 
-      <input type="radio" formControlName="logistics" value="DELIVERY" class="peer hidden" /> 
-      <div class="w-[125px] h-[85px] bg-white border border-gray-400 peer-checked:border-[#5B8E7D] rounded-lg flex flex-col items-center justify-center"> 
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke="currentColor" class="text-gray-500"> 
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-            d="M9 17h6M9 13h6M4 17h1a1 1 0 001-1V6a1 1 0 011-1h10a1 1 0 011 1v3h2l3 4v5a1 1 0 01-1 1h-1M4 17a2 2 0 104 0 2 2 0 00-4 0zm13 0a2 2 0 104 0 2 2 0 00-4 0z"/> 
-        </svg> 
-        <span class="text-sm text-gray-500 mt-1">Delivery</span> 
-      </div> 
-    </label>
+  
+<label class="relative cursor-pointer"> 
+  <input type="radio" formControlName="logistics" value="DELIVERY" class="peer hidden" /> 
+  <div class="w-[125px] h-[85px] bg-white border border-gray-400 peer-checked:border-[#5B8E7D] rounded-lg flex flex-col items-center justify-center"> 
+    <svg xmlns="https://img.icons8.com/material-outlined/24/truck.png" width="25" height="25" stroke="currentColor" class="text-gray-500 "> 
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+        d="M9 17h6M9 13h6M4 17h1a1 1 0 001-1V6a1 1 0 011-1h10a1 1 0 011 1v3h2l3 4v5a1 1 0 01-1 1h-1M4 17a2 2 0 104 0 2 2 0 00-4 0zm13 0a2 2 0 104 0 2 2 0 00-4 0z"/> 
+    </svg> 
+    <span class="text-sm text-gray-600 mt-1">Delivery</span> 
+  </div> 
+</label>
+
 
     <!-- Pick-up -->
     <label class="relative cursor-pointer"> 
-      <input type="radio" formControlName="logistics" value="PICK_UP" class="peer hidden" /> 
+     
       <div class="w-[125px] h-[85px] bg-white border border-gray-400 peer-checked:border-[#c1121f] rounded-lg flex flex-col items-center justify-center"> 
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke="currentColor" class="text-gray-500"> 
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke="currentColor" class="text-gray-500 opacity-50"> 
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
             d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/> 
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
             d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/> 
         </svg> 
-        <span class="text-sm text-gray-500 mt-1">Pick-up</span> 
+        <span class="text-sm text-gray-300 mt-1">Pick-up</span> 
       </div> 
     </label>
   </div>
@@ -138,6 +132,8 @@
                     <button type="button" class="w-35 py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 flex items-center gap-2 justify-center focus:outline-none bg-gray-200 rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100" (click)="goBack()"> 
                     <img width="17" height="17" src="https://img.icons8.com/ios/50/back--v1.png" alt="back icon"/> Back 
                     </button>
+
+
                     <button
                     type="button"
                     id="nextBtn"

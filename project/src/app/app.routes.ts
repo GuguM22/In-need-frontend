@@ -1,27 +1,25 @@
 import { Routes } from '@angular/router';
 import { LandingComponent } from './Pages/landing/landing.component';
-import { SignInComponent } from './component/sign-in/sign-in.component';
-import { Register } from './component/register/register';
-import { VerifyEmail } from './component/verify-email/verify-email';
-import { SponsorRequest, SponsorRequestComponent } from './Pages/sponsor-request/sponsor-request';
-import { Fequency } from './component/fequency/fequency';
 import { OptionsComponent } from './Pages/options/options.component';
-import { NavbarComponent } from "./ui/navbar/navbar";
+import { SponsorRequestComponent } from './Pages/sponsor-request/sponsor-request';
+import { Fequency } from './component/fequency/fequency';
+import { Register } from './component/register/register';
+import { SignInComponent } from './component/sign-in/sign-in.component';
+import { VerifyEmail } from './component/verify-email/verify-email';
 
 
-import { UploadSuccessfullyComponent } from './Pages/upload-successfully/upload-successfully.component';
-import { ThankYouComponent } from './Pages/thank-you/thank-you.component';
-import { from } from 'rxjs';
 import { OrganiseDetailsComponent } from './Pages/organise-details/organise-details';
+import { ThankYouComponent } from './Pages/thank-you/thank-you.component';
+import { UploadSuccessfullyComponent } from './Pages/upload-successfully/upload-successfully.component';
 
-import { VerificationPage } from './Pages/verification-page/verification-page';
 import { SponsorshipRequestPage } from './Pages/sponsorship-request-page/sponsorship-request-page';
-import { ForgotPassword } from './component/forgot-password/forgot-password';
-import { SponsorDasboardComponent } from './component/sponsor-dasboard/sponsor-dasboard.component';
-import { ResetPassword } from './component/reset-password/reset-password';
+import { VerificationPage } from './Pages/verification-page/verification-page';
 import { AdminPanelComponent } from './component/admin-panel/admin-panel.component';
 import { DonationReviewComponent } from './component/donation-review/donation-review.component';
+import { ForgotPassword } from './component/forgot-password/forgot-password';
 import { OrganisationDashboardComponent } from './component/organisation-dashboard/organisation-dashboard.component';
+import { ResetPassword } from './component/reset-password/reset-password';
+import { SponsorDasboardComponent } from './component/sponsor-dasboard/sponsor-dasboard.component';
 
 
 
@@ -33,16 +31,17 @@ import { Logout } from './component/logout/logout';
 import { ProfilepageComponent } from './component/profilepage/profilepage';
 
 import { AskUploading } from './Pages/ask-uploading/ask-uploading';
-import { DonationRequest } from './donation-request/donation-request';
 import { IndividualDasboardComponent } from './component/individual-dasboard/individual-dasboard.component';
+import { DonationRequest } from './donation-request/donation-request';
 import { IndividualReq } from './individual-req/individual-req';
 
 import { AdminDashComponent } from './component/admin-dash/admin-dash.component';
 // import { ThankYouComponent } from './Pages/thank-you/thank-you.component';
 
 
-import { PreviewSponsor } from './Pages/preview-sponsor/preview-sponsor';
 import { PreviewIndividual } from './Pages/preview-individual/preview-individual';
+import { PreviewSponsor } from './Pages/preview-sponsor/preview-sponsor';
+
 
 
 
@@ -51,35 +50,33 @@ import { PreviewIndividual } from './Pages/preview-individual/preview-individual
 
 
 import { ManageSponsorIndividualComponent } from './component/manage-sponsor-individual/manage-sponsor-individual.component';
- import { ViewOrgPost } from './component/organisation-dashboard/view-org-post/view-org-post';
+//  import { ViewOrgPostComponent } from './component/organisation-dashboard/view-org-post/view-org-post';
 import { ViewIndPost } from './component/view-ind-post/view-ind-post';
  
 import { ReviewRequest } from './Pages/review-request/review-request';
+
 import { Uploaded } from './Pages/uploaded/uploaded';
  
 
 
+import { ViewOrgPost } from './component/organisation-dashboard/view-org-post/view-org-post';
+import { UploadSuccessfullyindividualComponent } from './upload-successfully-individual/upload-successfully-individual.component';
+
+
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'Landing', pathMatch: 'full' },
 
 
+ { path: '', redirectTo: 'Landing', pathMatch: 'full' },
   { path: 'Landing', component: LandingComponent },
   { path: 'options/:id', component: OptionsComponent},
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
   { path: 'verify-email', component: VerifyEmail },
-
   {path: 'sponsor-dashboard', component: SponsorDasboardComponent},
   {path: 'individual-dashboard', component: IndividualDasboardComponent},
-
- 
   {path: 'sponsorship-request-page', component: SponsorshipRequestPage},
   {path: 'verification-page', component: VerificationPage},
-
-
- 
-
   { path: 'forgot-password', component: ForgotPassword },
   { path: 'auth/reset-password', component: ResetPassword },
 
@@ -99,7 +96,7 @@ export const routes: Routes = [
 
    { path: 'organiseDetails', component: OrganiseDetailsComponent },
 
-   {path:'admin', component:AdminPanelComponent},
+  {path:'admin', component:AdminPanelComponent},
   {path:'donation-review', component: DonationReviewComponent},
   {path:'manage-sponsor', component:  ManageSponsorComponent},
    {path:'review-request', component:  ReviewRequest},
@@ -111,32 +108,35 @@ export const routes: Routes = [
   {path: 'individual-request', component: IndividualReq},
 
   {path:'individual-dashboard', component: IndividualDasboardComponent},
-  {path:'manage-sponsor-individual',component: ManageSponsorIndividualComponent},
+ {path: 'manage-sponsor-individual',component: ManageSponsorIndividualComponent},
   {path:'thanks', component: ThankYouComponent},
  
 
   {path: 'preview-sponsor/:id', component:PreviewSponsor },
    
-   {path: 'review-request', component: ReviewRequest},
-  
- 
+  { path: 'review-request/:id', component: ReviewRequest },
 
+  
 
   {path: 'preview-individual/:id', component:PreviewIndividual },
 
-  {path:'manage-sponsor-individual',component: ManageSponsorIndividualComponent},
+  
   {path:'thanks', component: ThankYouComponent},
   
 
 
   { path: 'fequency', component: Fequency },
   { path: 'donation-review', component: DonationReviewComponent },
-  { path: '', redirectTo: 'fequency', pathMatch: 'full' },
+ 
   {path:'admin-dash', component: AdminDashComponent},
   {path: 'view-post/:id', component: ViewOrgPost},
   {path: 'view-indv-post/:id', component: ViewIndPost},
-  { path: '**', redirectTo: 'fequency' },
-  {path:'uploaded', component:Uploaded}
+
+
+  {path: 'upload-verification', component: UploadSuccessfullyindividualComponent}
+  // { path: '**', redirectTo: 'fequency' }
+
+
 
  
 

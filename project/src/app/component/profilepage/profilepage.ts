@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { FooterComponent } from "../../ui/footer/footer";
 import { Services } from '../../service/services';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { DonationService } from '../../service/donation';
+import { DonationService } from '../../service/donation-service';
 import { Role } from '../../constant/role';
 import { NavbarComponent } from "../../ui/navbar/navbar";
 
@@ -28,8 +28,9 @@ export class ProfilepageComponent implements OnInit {
   profileImageUrl: string | ArrayBuffer | null = null;
   uploading = false;
   isSponsor = false;
+  statusText: string = '';
 
-  role = Role.SPONSORS || Role.INDIVIDUAL;
+  role = Role.SPONSORS || Role.INDIVIDUAL || Role.ORGANIZATION;
 
 
   constructor(private location: Location, private service: Services) {}
@@ -40,18 +41,55 @@ ngOnInit() {
       this.name = data.name || '';
       this.email = data.email || '';
       this.bio = data.bio || '';
+
+      const role = data.role;
+
+    if (role === Role.ORGANIZATION) {
+      if (!data.phoneStatus) {
+        this.phone = 'Not verified yet';
+        this.statusText = 'Not verified';
+      } else {
+        switch (data.phoneStatus) {
+          case 'APPROVED':
+            this.phone = data.phone || 'Phone not available';
+            this.statusText = 'Accepted';
+            break;
+          case 'PENDING':
+            this.phone = 'Pending verification';
+            this.statusText = 'Pending';
+            break;
+          case 'REJECTED':
+            this.phone = 'Not verified yet';
+            this.statusText = 'Rejected';
+            break;
+          default:
+            this.phone = 'Not verified yet';
+            this.statusText = 'Not verified';
+        }
+      }
+    } else {
+      this.phone = 'Not applicable';
       
-      // Handle phone number based on role
-      this.isSponsor = data.role?.toUpperCase() === Role.SPONSORS || data.role?.toUpperCase() === Role.INDIVIDUAL;
-      this.phone = this.isSponsor ? 'Not applicable' : (data.phone || 'Not verified yet');
-      
-      // Handle location
+    }
+
+
+      // Location handling
       if (data.location) {
-        this.Location = [data.location.city, data.location.province]
-          .filter(Boolean).join(', ');
+        if (typeof data.location === 'string') {
+          this.Location = data.location;
+        } else if (data.location.city || data.location.province) {
+          this.Location = [data.location.city, data.location.province]
+            .filter(Boolean)
+            .join(', ');
+        } else {
+          this.Location = 'Location not specified';
+        }
+      } else {
+        this.Location = 'Location not specified';
       }
 
-      // Load profile image if available
+      this.editLocation = this.Location;
+
       if (data.profileImagePath) {
         this.loadProfileImage(data.profileImagePath);
       }
@@ -59,6 +97,7 @@ ngOnInit() {
     error: (err) => console.error('Failed to load profile', err)
   });
 }
+
 
 private loadProfileImage(imagePath: string) {
   this.service.getProfileImage(imagePath).subscribe({
@@ -94,20 +133,23 @@ private loadProfileImage(imagePath: string) {
   cipcFile: any;
   founderIdFile: any;
   additionalFile: any;
+
+  
 toggleEdit() {
-  if (this.isEditing) {
+ if (this.isEditing) {
+    // Save changes
+    const locationParts = this.editLocation.split(',');
     const updateData = {
       bio: this.editBio,
       phone: this.editPhone, 
       location: {
-        city: this.editLocation.split(',')[0]?.trim() || '',
-        province: this.editLocation.split(',')[1]?.trim() || ''
+        city: locationParts[0]?.trim() || '',
+        province: locationParts[1]?.trim() || ''
       }
     };
 
     this.service.updateProfile(updateData).subscribe({
       next: (res) => {
-        console.log('Profile updated:', res);
         this.name = this.editName;
         this.email = this.editEmail;
         this.phone = this.editPhone; 
@@ -116,7 +158,6 @@ toggleEdit() {
       },
       error: (err) => {
         console.error('Update failed', err);
-        alert('Failed to update profile');
       }
     });
   } else {
@@ -176,6 +217,16 @@ uploadImage(file: File) {
   showError(arg0: any) {
     
   }
+  
+  capitalizeWords(name: string): string {
+  if (!name) return '';
+  return name
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
   // Array to store uploaded files
   /*uploadedFiles: File[] = [];
 

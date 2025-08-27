@@ -1,0 +1,337 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Readex+Pro:wght@160..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+*{
+    font-family: 'Mulish' ;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%); */
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: screen;
+    /* margin: 0 auto; */
+    background: white;
+    overflow: hidden;
+    /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); */
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+
+
+
+
+
+h1 {
+    font-size: 22px;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.location {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+.event-info {
+    background: white;
+    color: black;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+
+.event-title {
+    padding: 3px 14px;
+    border-radius: 15px;
+    font-size: 14px;
+    /* background: #C9575775; */
+    display: inline-block;
+    /* optional but helps spacing */
+}
+
+.event-date {
+    background: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.content {
+    /* padding: 25px 20px;x */
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 5px;
+}
+
+h2 {
+    color: #8E7D5B;
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+p {
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #444;
+}
+
+.donate-btn {
+    display: block;
+    width: 100%;
+    /* padding: 16px; */
+    background: #5B8E7D;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 25px 0;
+    cursor: pointer;
+    transition: background 0.3s;
+    height: 35px;
+    font-size: 14px;
+}
+
+.donate-btn:hover {
+    background: #4b8170;
+}
+
+.donors-section {
+    margin-top: 30px;
+}
+
+.donor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.donor:last-child {
+    border-bottom: none;
+}
+
+.donor-info {
+    flex: 1;
+}
+
+.donor-name {
+    font-weight: 600;
+    color: #4a6fa5;
+}
+
+.donor-date {
+    font-size: 14px;
+    color: #777;
+}
+
+.donor-amount {
+    font-weight: 700;
+    color: #4a6fa5;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+    font-size: 14px;
+}
+
+.logo {
+    font-weight: 700;
+    color: #8E7D5B;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.urgency-wrapper {
+    display: flex;
+    /* puts the two "Urgency" items side by side */
+    gap: 10px;
+    /* adds space between them */
+    align-items: center;
+    /* aligns them vertically */
+}
+
+/* Move the title down a bit */
+.title-btn {
+    display: inline-block;
+    text-align: center;
+    margin-top: 30px;
+    /* pushes title & location down */
+    text-decoration: none;
+    /* removes underline */
+    color: black;
+    /* ensures text stays black */
+}
+
+header {
+    background: white;
+    color: black;
+    padding: 55px 20px 25px;
+    /* header taller (top padding increased) */
+    position: relative;
+    text-align: center;
+}
+
+/* Back button stays same, just moved slightly down */
+
+.back-btn {
+    position: absolute;
+    left: 10px;
+    top: -1px;
+    color: black;
+    background: white;
+    /* green background */
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    /* button padding */
+    border-radius: 8px;
+    /* rounded edges */
+    font-size: 20px;
+    transition: background 0.3s;
+}
+
+.back-btn:hover {
+    background: #8E7D5B;
+    /* hover color */
+}
+
+.back-btn i {
+    margin-right: 6px;
+    font-size: 14px;
+}
+
+
+.top-container{
+    display: flex;
+    margin-left: 20px;
+    align-items: center;
+}
+.cmpName{
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.image{
+    width: 50px;
+    height: 50px;
+    border-radius: 40px;
+}
+
+.loc{
+    font-size: 13px;
+}
+.name{
+    height: 25px;
+    color:#000000;
+    font-size: 16px;
+}
+
+.imgs{
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
+}
+.names{
+    align-items: center;
+}
+.description-text {
+    white-space: pre-line; /* preserves \n as line breaks */
+    line-height: 1.6; /* adjusts line spacing */
+    font-size: 13px;
+    color: #0000009C;
+    padding: 0 16px; /* adds horizontal spacing */
+    margin-top: 16px;
+    font-weight: 500;
+  }
+  
+  .reqTitle{
+    color: #000000;
+    font-size: 15px;
+  }
+
+  .urgency{
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .event-title{
+    font-size: 13px;
+  }
+
+  .event-date{
+    font-size: 13px;
+    color: #0000009C;
+    font-weight: 700;
+  }
+
+  .read-more-btn {
+    background: none;
+    border: none;
+    color: #0000009C;
+    font-weight: 500;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    padding-left: 16px;
+  }
+  .read-more-btn:hover {
+    text-decoration: underline;
+  }
+  
+  .low-priority {
+    background-color: #CCFF3375; 
+    color: #000000;
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: -20px;
+    font-weight: 600;
+  }
+  
+  .medium-priority {
+    background-color: #FFBA0875; 
+    color: #99582A;
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: -20px;
+    font-weight: 600;
+  }
+  
+  .high-priority {
+    background-color: #C9575775; 
+    color: #C1121F;
+    font-weight: 600;
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: -20px;
+  }
+
+  .back{
+    font-weight: 700;
+    margin-bottom:20px;
+    margin-left: 15px;
+    font-size: 15px;
+  }
+

@@ -25,6 +25,7 @@ export class SponsorDasboardComponent {
    priority: '',
    quantity: 0,
    requiredDate: '',
+   createdAt: '',
    description: '',
    mediaUrls: [],
     
@@ -44,13 +45,14 @@ export class SponsorDasboardComponent {
     this.router.navigate(['sponsor-request']);
   }
 
-  loadRequests():void {
+  loadRequests(): void {
     this.sponsorService.getAll().subscribe({
       next: (data) => {
-        this.requests = data;
-        console.log('Requests loaded:');
-        this.filteredRequests = [...this.requests]; 
-
+        this.requests = data.sort(
+          (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+        this.filteredRequests = [...this.requests];
+        console.log('Requests loaded and sorted by createdAt:', this.requests);
       },
       error: (error) => {
         console.error('Error loading requests:', error);
@@ -125,7 +127,25 @@ export class SponsorDasboardComponent {
   }
   
   get pagesArray(): number[] {
-    return Array(this.totalPages).fill(0).map((x, i) => i + 1);
+    const maxPages = 6;
+    const total = this.totalPages;
+    let startPage = 1;
+  
+    if (total <= maxPages) {
+      return Array(total).fill(0).map((_, i) => i + 1);
+    }
+  
+    // Calculate start page so currentPage is roughly in the middle
+    if (this.currentPage > total - maxPages + 1) {
+      startPage = total - maxPages + 1;
+    } else if (this.currentPage > Math.floor(maxPages / 2)) {
+      startPage = this.currentPage - Math.floor(maxPages / 2);
+    }
+  
+    // Calculate how many pages to show (can't go past total)
+    const pagesToShow = Math.min(maxPages, total - startPage + 1);
+  
+    return Array(pagesToShow).fill(0).map((_, i) => startPage + i);
   }
   
   goToPage(page: number): void {
@@ -154,8 +174,10 @@ onClickOutside(event: MouseEvent): void {
 loadIndividuals(): void {
   this.individualService.getAll().subscribe({
     next: (data) => {
-      this.individuals = data;
-      console.log('Individuals loaded:', this.individuals);
+      this.individuals = data.sort(
+        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );      
+      console.log('Individuals loaded (sorted by newest first):', this.individuals);
     },
     error: (error) => {
       console.error('Error loading individuals:', error);

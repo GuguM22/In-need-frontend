@@ -1,16 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { DonationFrequency } from '../../constant/donation-frequency';
 import { DonationStatus } from '../../constant/donationStatus';
 import { LogisticPreference } from '../../constant/logistic-peference';
 import { DonationUpdate } from '../../dto/donationUpdate';
 import { Donation } from '../../model/donation';
-import { DonationService } from '../../service/donation';
+import { DonationService } from '../../service/donation-service';
 import { DonationStateService } from '../../service/donation-state-service';
 import { Services } from '../../service/services';
 import { FooterComponent } from "../../ui/footer/footer";
 import { NavbarComponent } from "../../ui/navbar/navbar";
+import { Role } from '../../constant/role';
 
 @Component({
   selector: 'app-review-request',
@@ -46,7 +47,7 @@ export class ReviewRequest implements OnInit {
 
 
   constructor(private donationService: DonationService,
-    private router: Router, private donationStateService: DonationStateService, private service: Services) {
+    private router: Router, private donationStateService: DonationStateService, private service: Services, private route: ActivatedRoute) {
     this.emailAddress = localStorage.getItem('userEmail') || '';
 
   }
@@ -67,40 +68,51 @@ export class ReviewRequest implements OnInit {
       }
     });
   }*/
+loadDonations() {
+  this.donationService.getPendingDonations().subscribe(res => {
+    console.log("Raw donations from backend:", res); // 👈 check actual structure
+    const id = Number(this.route.snapshot.paramMap.get('id'))
+    const mappedDonations = res
+      .filter(d => d.id == id)
+      .map(donation => ({
+        ...donation,
+        //  Fallback to any possible key the backend provides
+        id: donation.id ?? donation.donationId ?? donation.requestId,
 
-  loadDonations() {
-    this.donationService.getPendingDonations().subscribe(res => {
-      const mappedDonations = res
-        .filter(d => !this.removedIds.includes(d.id))
-        .map(donation => ({
-          ...donation,
-          id: donation.id,
-          description: donation.description || '',
-          quantity: donation.quantity || 0,
-          preference: donation.preference || LogisticPreference.DELIVERY,
-          additionalNotes: donation.additionalNotes || '',
-          donorEmail: donation.donorEmail || '',
-          donorName: donation.donorName || '',
-          createdAt: donation.createdAt ? new Date(donation.createdAt) : new Date(),
-          availability: donation.availability || '',
-          type: donation.type,
-          frequency: donation.frequency || DonationFrequency.ONE_TIME,
-          profileImageUrl: donation.profileImageUrl
-            ? `http://localhost:5050/auth/images/${donation.profileImageUrl}`
-            : 'logo.png',
+        description: donation.description || '',
+        quantity: donation.quantity || 0,
+        preference: donation.preference || LogisticPreference.DELIVERY,
+        additionalNotes: donation.additionalNotes || '',
+        donorEmail: donation.donorEmail || '',
+        donorName: donation.donorName || '',
+        createdAt: donation.createdAt ? new Date(donation.createdAt) : new Date(),
+        availability: donation.availability || '',
+        type: donation.type,
+        frequency: donation.frequency || DonationFrequency.ONE_TIME,
+        profileImageUrl: donation.profileImageUrl
+          ? `http://localhost:5050/auth/images/${donation.profileImageUrl}`
+          : 'logo.png',
+        donorRole: donation.donorRole as Role | undefined,
+      }));
 
-        }));
+    this.donationStateService.setDonations(mappedDonations);
+  });
 
-      // Save in state service
-      this.donationStateService.setDonations(mappedDonations);
-    });
-
-    this.donationStateService.donations$.subscribe(donations => {
-      this.donation = donations;
-    });
-  }
+  this.donationStateService.donations$.subscribe(donations => {
+    this.donation = donations;
+    console.log("Donations after mapping:", this.donation); // 👈 check IDs exist
+  });
+}
 
   updateDonation(id: number, isAccepted: boolean) {
+    if (!id) {
+    console.error("Donation ID is missing. Cannot update donation.");
+    this.notification = {
+      type: 'error',
+      message: 'Donation ID is missing. Please refresh and try again.'
+    };
+    return;
+  }
     const status = isAccepted ? DonationStatus.ACCEPTED : DonationStatus.DECLINED;
     const selectedDonation: DonationUpdate = { id, status };
 
@@ -157,5 +169,15 @@ export class ReviewRequest implements OnInit {
     }
     this.closeModal();
   }
+
+  capitalizeWords(name?: string): string {
+  if (!name) return '';
+  return name
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
 
 }
