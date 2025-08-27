@@ -29,7 +29,7 @@ export class ProfilepageComponent implements OnInit {
   uploading = false;
   isSponsor = false;
 
-  role = Role.SPONSORS || Role.INDIVIDUAL;
+  role = Role.SPONSORS || Role.INDIVIDUAL || Role.ORGANIZATION;
 
 
   constructor(private location: Location, private service: Services) {}
@@ -40,21 +40,28 @@ ngOnInit() {
       this.name = data.name || '';
       this.email = data.email || '';
       this.bio = data.bio || '';
-      
+
       // Handle phone number based on role
-      this.isSponsor = data.role?.toUpperCase() === Role.SPONSORS || data.role?.toUpperCase() === Role.INDIVIDUAL;
-      this.phone = this.isSponsor ? 'Not applicable' : (data.phone || 'Not verified yet');
-      
+      const role = data.role; 
+      console.log('Backend role:', data);
+
+      if (role === Role.ORGANIZATION) {
+        this.phone = data.phone ? data.phone : 'Not verified yet';
+      } else {
+        this.phone = 'Not applicable';
+      }
+
       // Handle location - more robust handling
       if (data.location) {
         // Check if location is already a string
         if (typeof data.location === 'string') {
           this.Location = data.location;
-        } 
+        }
         // Check if location is an object with city/province
         else if (data.location.city || data.location.province) {
           this.Location = [data.location.city, data.location.province]
-            .filter(Boolean).join(', ');
+            .filter(Boolean)
+            .join(', ');
         }
         // Handle other possible location formats
         else {
