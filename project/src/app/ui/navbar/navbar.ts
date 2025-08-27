@@ -7,7 +7,7 @@ import { Sidebar } from '../sidebar/sidebar';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, FooterComponent, Sidebar],
+  imports: [CommonModule, Sidebar],
    templateUrl: './navbar.html',
   styleUrls: ['./navbar.css']
 })

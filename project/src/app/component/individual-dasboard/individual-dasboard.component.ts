@@ -28,6 +28,7 @@ export class IndividualDasboardComponent {
     requiredDate: '',
     createdAt: '',
     description: '',
+    location: '',
     mediaUrls: [],
   }
  
