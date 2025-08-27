@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<div class="w-screen h-screen grid grid-rows-[auto_1fr_auto] bg-[#f5f5f5] overflow-y-auto">
+<div class="w-screen h-screen grid grid-rows-[auto_1fr_auto] bg-white overflow-y-auto">
   <!-- Header with Back Button -->
 <!----  <div class="flex justify-between items-center px-6 py-4 bg-white shadow-md h-14 z-20 flex-shrink-0">
     <button class="flex items-center gap-2 text-black font-extrabold text-lg" (click)="goBack()">
@@ -9,50 +9,50 @@
       Back
     </button> 
   </div> -->
-
-  <!-- Scrollable Content -->
-  <div class="px-4 pt-4 pb-20">
-    <!-- Added pb-20 to prevent content overlap -->
-    <!-- Cover + Profile -->
-    <div class="relative">
-      <div class="h-[180px] rounded-xl overflow-hidden">
-        <div
-          class="absolute inset-0 bg-cover bg-center"
-          style="
-            background-image: url('https://images.unsplash.com/photo-1509099836639-18ba1795216d');
-          "
-        ></div>
-      </div>
-      <!-- Badge -->
+  <div class="relative w-full">
+    <div class="h-[180px] rounded-xl overflow-hidden">
       <div
-        class="absolute top-2 right-2 bg-[#4CAF50] px-2 py-0.5 rounded-full text-xs font-bold z-none"
-      >
-        IN NEED
-      </div>
-      <!-- Profile Image -->
-      <div class="absolute left-4 -bottom-10 z-20">
-  <img 
-    [src]="profileImageUrl || 'logo.png'" 
-    class="w-[80px] h-[80px] rounded-full border-4 border-white object-cover shadow-lg"
-    alt="Profile Image"
-    (click)="fileInput.click()"
-    style="cursor: pointer;"
-  >
+        class="absolute inset-0 bg-cover bg-center"
+        style="
+          background-image: url('https://images.unsplash.com/photo-1509099836639-18ba1795216d');
+        "
+      ></div>
+    </div>
+    <!-- Badge -->
+    <div
+      class="absolute top-2 right-2 bg-[#5B8E7D] text-white px-2 py-0.5 rounded-full text-xs font-bold z-none"
+    >
+      IN NEED
+    </div>
+    <!-- Profile Image -->
+    <div class="absolute left-4 -bottom-10 z-20">
+<img 
+  [src]="profileImageUrl || 'logo.png'" 
+  class="w-[80px] h-[80px] rounded-full border-4 border-white object-cover shadow-lg"
+  alt="Profile Image"
+  (click)="fileInput.click()"
+  style="cursor: pointer;"
+>
 </div>
 
 <!-- Hidden file input -->
 <input 
-  type="file" 
-  (change)="onFileSelected($event)" 
-  #fileInput 
-  class="hidden" 
-  accept="image/*"
+type="file" 
+(change)="onFileSelected($event)" 
+#fileInput 
+class="hidden" 
+accept="image/*"
 >
 
-    </div>
+  </div>
+  <!-- Scrollable Content -->
+  <div class="px-4 pt-4 pb-20">
+    <!-- Added pb-20 to prevent content overlap -->
+    <!-- Cover + Profile -->
+ 
 
     <!-- Name & Info -->
-    <div class="mt-16 max-w-md mx-auto flex flex-col gap-1 pointer-events-none">
+    <div class="mt-8 ml-2 max-w-md mx-auto flex flex-col gap-1 pointer-events-none">
       <h1 *ngIf="!isEditing" class="font-extrabold text-xl mb-0.5 ">
         {{ capitalizeWords(name) }}
       </h1>
@@ -65,7 +65,7 @@
         class="border p-1 rounded text-black w-full mb-1"
       />
       <div class="flex items-center justify-between gap-2">
-           <p class="text-xs opacity-70 mb-1">Helping since 2020 </p>
+           <!-- <p class="text-xs opacity-70 mb-1">Helping since 2020 </p> -->
       </div>
      
     </div>
@@ -114,9 +114,9 @@
 
       <!-- Short Bio -->
       <div
-        class="p-4 rounded-2xl bg-gradient-to-r from-teal-50 via-white to-blue-50 shadow-lg border border-gray-200 hover:shadow-2xl transition-shadow duration-400 ease-in-out"
+        class="p-4 rounded-2xl bg-white shadow-lg border border-gray-200 hover:shadow-2xl transition-shadow duration-400 ease-in-out"
       >
-        <h3 class="text-lg font-bold text-green-700 mb-2">Short Bio / Story</h3>
+        <h3 class="text-lg font-bold text-black mb-2">Short Bio / Story</h3>
         <p
           *ngIf="!isEditing"
           class="text-gray-700 text-sm leading-relaxed tracking-wide"
@@ -132,9 +132,9 @@
 
       <!-- Location -->
       <div>
-        <div class="flex items-center gap-2 mb-1">
+        <div class="flex items-center gap-2 mb-2">
           <div
-            class="w-7 h-7 flex items-center justify-center rounded-full bg-green-600 text-white"
+            class="w-7 h-7 flex items-center justify-center rounded-full bg-[#5B8E7D] text-white"
           >
             <!---  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.657 0 3-1.343 3-3S13.657 5 12 5 9 6.343 9 8s1.343 3 3 3z" />
@@ -165,14 +165,14 @@
         </div>
         <div
           *ngIf="!isEditing"
-          class="bg-gradient-to-r from-green-50 to-green-100 p-2 rounded-lg shadow-sm flex flex-col gap-1"
+          class="bg-white p-2 rounded-lg shadow-sm flex flex-col gap-1"
         >
           <span class="text-gray-800 text-xs font-medium">{{ capitalizeWords(Location) }}</span>
           <a
             href="https://www.google.com/maps/search/{{ Location }}"
             target="_blank"
             class
-            class="text-green-600 hover:underline text-xs font-semibold self-start"
+            class="text-[#5B8E7D] hover:underline text-xs font-semibold self-start"
           >
             📍 View on Map
           </a>
