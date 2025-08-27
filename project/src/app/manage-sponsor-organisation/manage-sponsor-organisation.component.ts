@@ -14,7 +14,7 @@ import { SponsorRequestService } from '../service/sponsor-request-service';
   templateUrl: './manage-sponsor-organisation.component.html',
   styleUrls: ['./manage-sponsor-organisation.component.css']
 })
-export class ManageSponsorComponent {
+export class  ManageSponsorOrganisationComponent {
   activeTab: string = 'posts';
   activeMenuId: string | null = null;
   post: any;
@@ -99,6 +99,7 @@ export class ManageSponsorComponent {
           return { ...request, daysLeft}
         })
         this.posts = newData || [];
+        console.log(this.posts)
       },
       error: (err: any) => console.error('Error fetching user posts:', err)
     });

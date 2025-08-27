@@ -71,12 +71,12 @@
         </span>
 
         <!-- Image if Fulfilled -->
-<img 
-  *ngIf="post.fulfilled"
-  src="https://i.pinimg.com/1200x/14/15/34/141534c31edfe922c168d5f8cbbd4bda.jpg" 
-  alt="Fulfilled"
-  class="w-8 h-8 mb-5 -ml-40 mb-10"
-/>
+        <img 
+        *ngIf="post.fulfilled"
+        src="https://i.pinimg.com/1200x/14/15/34/141534c31edfe922c168d5f8cbbd4bda.jpg" 
+        alt="Fulfilled"
+        class="w-8 h-8 mb-5 -ml-40 mb-10"
+        />
 
         <!-- Dot Menu -->
         <button
@@ -111,17 +111,17 @@
       <p class="text-sm text-gray-500 mb-3">{{ post.description }}</p>
 
       <!-- Footer -->
-      <div class="flex justify-between text-sm text-black mb-2">
+      <!-- <div class="flex justify-between text-sm text-black mb-2">
         <span class="font-medium">Days Left</span>
-      </div>
+      </div> -->
 
       <!-- Progress Bar + Days Left -->
       <div class="flex items-center justify-between">
         <div style="width: 150px;" class="bg-gray-200 rounded-full h-2.5 mr-4">
-          <div
+          <!-- <div
             class="bg-[#219EBC] h-2.5 rounded-full"
             [style.width.%]="calculateProgress(post.progress)"
-          ></div>
+          ></div> -->
         </div>
         <span class="text-xs text-gray-600 whitespace-nowrap">{{ post.daysLeft }} Days</span>
       </div>

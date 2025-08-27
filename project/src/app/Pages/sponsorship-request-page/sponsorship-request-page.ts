@@ -8,7 +8,15 @@ import { Services } from '../../service/services';
 import { FooterComponent } from '../../ui/footer/footer';
 import { NavbarComponent } from '../../ui/navbar/navbar';
 import { Role } from '../../constant/role';
+import { SponsorRequestService } from '../../service/sponsor-request-service';
 
+interface Post {
+  title: string,
+  description: string,
+  daysLeft: number,
+  progress: number,
+  fulfilled: boolean
+}
 @Component({
   selector: 'app-sponsorship-request-page',
   standalone: true,
@@ -22,15 +30,28 @@ export class SponsorshipRequestPage {
   donations: Donation[] = [];
   removedIds: number[] = [];
   profileImageUrl: string = 'logo.png';
+  posts: Post[] = [
+    {
+      title: '',
+      description: '',
+      daysLeft: 0,
+      progress: 0,
+      fulfilled: false
+    }
+  ];
+  activeMenuId: string | null = null;
+  userId: number = 0;
 
   constructor(
     private router: Router,
     private donationService: DonationService,
     private service: Services,
-    private donationStateService: DonationStateService
+    private donationStateService: DonationStateService,
+    private sponsorRequestService: SponsorRequestService
   ) { }
 
 ngOnInit() {
+  this.userId = Number(localStorage.getItem("userId"))
   // Fetch donations from backend
   this.donationService.getDonations().subscribe(res => {
     const mappedDonations = res
@@ -56,7 +77,28 @@ ngOnInit() {
   });
 
   this.loadImage(); 
+  this.fetchUserPosts();
 }
+
+  toggleActionMenu(menuId: string): void {
+    if (this.activeMenuId === menuId) {
+      this.activeMenuId = null; // close if already open
+    } else {
+      this.activeMenuId = menuId;
+    }
+  }
+
+  markFulfilled(index: number): void {
+    this.posts[index].fulfilled = true;
+    this.activeMenuId = null; // close menu
+  }
+
+  calculateProgress(progressLeft: number): number {
+    const progress = 100; // the maximum progress value
+    if (progressLeft <= 0) return 0;   // full bar
+    if (progressLeft >= progress) return 100; // empty bar
+    return (progressLeft / progress) * 100; // percentage
+  }
 
 loadImage() {
   // Optional: show default logo immediately
@@ -102,7 +144,27 @@ capitalizeWords(name?: string): string {
         }));
     });
   }*/
+  fetchUserPosts(): void {
+    this.sponsorRequestService.getMyPosts().subscribe({
+      next: (data) => {
+        console.log(data)
+        this.posts = [];
+        const newData = data.filter(req => req?.user?.id == this.userId)
+        .map((request) => {
+          const msPerDay = 1000 * 60 * 60 * 24;
+          const requiredDate = new Date(request.requiredDate).getTime();
+          const today = new Date().getTime();
 
+          const daysLeft = Math.ceil((requiredDate - today) / msPerDay);
+
+          return { ...request, daysLeft}
+        })
+        console.log(newData)
+        this.posts = newData || [];   
+      },
+      error: (err) => console.error('Error fetching user posts:', err)
+    });
+  }
 
   goBack() {
     this.router.navigate(['/organization-dashboard']);

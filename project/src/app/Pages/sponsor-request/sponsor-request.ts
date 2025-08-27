@@ -151,7 +151,7 @@ previewData: any;
       this.resetForm();
       this.requestId = null;   // 👈 ensure future submits start as CREATE
       if (createdRequest?.id) {
-        this.router.navigate(['/preview-sponsor', createdRequest.id]);
+        // this.router.navigate(['/preview-sponsor', createdRequest.id]);
       } else {
         console.error('No ID returned from backend');
       }

@@ -115,44 +115,81 @@
       
       } } }
 
-      <!-- Posts Tab Content -->
-      <!--<div *ngIf="activeTab === 'posts'" class="mt-4">
-      <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
-        <div class="mb-4">
-          <p class="text-gray-500 text-sm">Sponsorship request for</p>
-          <h2 class="text-lg font-bold text-gray-800">School Supplies</h2>
-          <p class="text-gray-600 text-sm mt-1">
-            Institutional council member for 200+ children in conference communities...
-          </p>
-        </div>
+      <div class="w-full max-w-sm">
+        <ng-container *ngIf="activeTab === 'posts'">
+          <div *ngIf="posts.length > 0">
+            <div
+              class="bg-white border rounded-xl shadow-sm p-4 mt-2 relative"
+              *ngFor="let post of posts; let i = index"
+            >
+              <!-- High Priority & Dot Menu -->
+              <div class="flex justify-between items-start mb-2">
+                <span class="bg-red-100 text-red-500 text-xs font-semibold px-2 py-1 rounded">
+                  High Priority
+                </span>
 
-        <div class="flex items-center mb-6">
-          <div class="mr-3">
-            <svg width="40" height="40" viewBox="0 0 20 20">
-              -- Profile icon --
-              <path d="M10 0a10 10 0 1 0 10 10A10 10 0 0 0 10 0zm0 3a3 3 0 1 1-3 3 3 3 0 0 1 3-3zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22z"/>
-            </svg>
+                <!-- Image if Fulfilled -->
+                <img 
+                *ngIf="post.fulfilled"
+                src="https://i.pinimg.com/1200x/14/15/34/141534c31edfe922c168d5f8cbbd4bda.jpg" 
+                alt="Fulfilled"
+                class="w-8 -mt-2 -ml-40"
+                />
+
+                <!-- Dot Menu -->
+                <button
+                  (click)="toggleActionMenu('actionMenu' + i)"
+                  class="text-gray-500 hover:text-black focus:outline-none"
+                  aria-label="Actions"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Action Menu -->
+              <div
+                *ngIf="activeMenuId === 'actionMenu' + i"
+                class="absolute right-4 top-10 bg-white rounded-md shadow-lg z-10 border w-40"
+              >
+                <button
+                  class="block w-full text-left px-4 py-2 text-sm text-green-600 hover:bg-gray-100"
+                  (click)="markFulfilled(i)"
+                >
+                  Mark Fulfilled
+                </button>
+                
+              </div>
+
+              <!-- Card Title & Description -->
+              <h3 class="text-base font-semibold">{{ post.title }}</h3>
+              <p class="text-sm text-gray-500 mb-3">{{ post.description }}</p>
+
+              <!-- Footer -->
+              <!-- <div class="flex justify-between text-sm text-black mb-2">
+                <span class="font-medium">Days Left</span>
+              </div> -->
+
+              <!-- Progress Bar + Days Left -->
+              <div class="flex items-center justify-between">
+                <div style="width: 150px;">
+                  <!-- <div
+                    class="bg-[#219EBC] h-2.5 rounded-full"
+                    [style.width.%]="calculateProgress(post.progress)"
+                  ></div> -->
+                </div>
+                <span *ngIf="post.daysLeft == 0" class="text-xs text-gray-600 whitespace-nowrap">Today</span>
+                <span *ngIf="post.daysLeft == 1" class="text-xs text-gray-600 whitespace-nowrap">{{ post.daysLeft }} Day</span>
+                <span *ngIf="post.daysLeft > 1" class="text-xs text-gray-600 whitespace-nowrap">{{ post.daysLeft }} Days</span>
+              </div>
+            </div>
           </div>
-          <div class="flex-grow">
-            <h3 class="text-gray-800 font-medium">Judy Sable</h3>
-            <p class="text-gray-500 text-sm">Sponsor</p>
-          </div>
-        </div>
-
-        <div class="flex justify-between items-center mb-4">
-          <span class="text-gray-500 text-sm">Days Left</span>
-          <span class="text-gray-800 font-medium">18 Days</span>
-        </div>
-
-        <button
-          type="button"
-          class="w-full py-2 px-4 bg-[#5B8E7D] text-sm text-white font-medium rounded-md"
-        >
-          View Request
-        </button>
+          <div *ngIf="posts.length == 0" class="text-center py-6 text-gray-700">No pending posts.</div>
+        </ng-container>
       </div>
-    </div>
-  </div> -->
     </div>
   </div>
 </div>
