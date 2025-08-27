@@ -151,7 +151,7 @@
 
                 <!-- Buttons -->
                 <div class="flex flex-wrap gap-4 justify-center"> 
-                    <button type="button" class="w-35 px-6 py-2 font-[800] me-2 mb-2 text-sm font-medium text-gray-900 flex items-center gap-2 justify-center focus:outline-none bg-[#D9D9D9] rounded-lg border border-gray-200 hover:bg-[#c8c8c8] focus:z-10 focus:ring-4 focus:ring-gray-100" (click)="goBack()"> 
+                    <button type="button"[routerLink]="['/options', requestId]" class="w-35 px-6 py-2 font-[800] me-2 mb-2 text-sm font-medium text-gray-900 flex items-center gap-2 justify-center focus:outline-none bg-[#D9D9D9] rounded-lg border border-gray-200 hover:bg-[#c8c8c8] focus:z-10 focus:ring-4 focus:ring-gray-100"> 
                       &lt; Back 
                     </button>
 
