@@ -74,7 +74,7 @@
                     <div class="companyName">
                         <div class="top">
                             <div class="cmpName">
-                                <h2>{{request.title}} </h2>
+                                <h2>{{request.user?.username}} </h2>
                             </div>
                             <div class="imgs">
                                 <img src="verified.png" alt="" class="verified">
@@ -103,7 +103,7 @@
   
             <div class="requests">
                 <div class="reqTitle">
-                    <h1>School supplies</h1>
+                    <h1>{{request.title}}</h1>
                 </div>
                 <div class="desc">
                     <p>{{request.description}}</p>
