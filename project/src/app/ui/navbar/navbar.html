@@ -11,6 +11,10 @@
       *ngIf="donationCount > 0"
       class="absolute -top-1 -right-1 h-2 w-2 bg-red-600 rounded-full"
     ></span>
+    <span
+    *ngIf="hasPendingDonations"
+    class="absolute -top-1 -right-1 w-2 h-2 bg-red-600 rounded-full">
+  </span>
     </div>
   
     <!-- Profile image -->
