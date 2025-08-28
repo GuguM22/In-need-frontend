@@ -4,11 +4,12 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { FooterComponent } from "../../ui/footer/footer";
+import { NavbarComponent } from "../../ui/navbar/navbar";
 
 @Component({
   selector: 'app-preview-sponsor',
   standalone: true,
-  imports: [CommonModule, FooterComponent],
+  imports: [CommonModule, FooterComponent, NavbarComponent],
   templateUrl: './preview-sponsor.html',
   styleUrls: ['./preview-sponsor.css']
 })

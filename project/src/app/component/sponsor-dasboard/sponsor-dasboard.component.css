@@ -442,6 +442,13 @@ button{
     width: 150px;
   }
   
+  .no-results{
+    text-align: center;
+    margin-top: 50px;
+    font-weight: 600;
+    font-size: 14px;
+    color: gray;
+  }
 /* @media (max-width: 480px) {
     .search {
         width: 90%;
