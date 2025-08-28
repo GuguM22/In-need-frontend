@@ -48,14 +48,19 @@ import { PreviewSponsor } from './Pages/preview-sponsor/preview-sponsor';
 
 
 
+
 import { ManageSponsorIndividualComponent } from './component/manage-sponsor-individual/manage-sponsor-individual.component';
 //  import { ViewOrgPostComponent } from './component/organisation-dashboard/view-org-post/view-org-post';
 import { ViewIndPost } from './component/view-ind-post/view-ind-post';
  
 import { ReviewRequest } from './Pages/review-request/review-request';
+
+import { Uploaded } from './Pages/uploaded/uploaded';
+ 
+
+
 import { ViewOrgPost } from './component/organisation-dashboard/view-org-post/view-org-post';
 import { UploadSuccessfullyindividualComponent } from './upload-successfully-individual/upload-successfully-individual.component';
- 
 
 
 
@@ -104,7 +109,7 @@ export const routes: Routes = [
   {path: 'individual-request', component: IndividualReq},
 
   {path:'individual-dashboard', component: IndividualDasboardComponent},
-  {path:'manage-sponsor-individual',component: ManageSponsorIndividualComponent},
+ {path: 'manage-sponsor-individual',component: ManageSponsorIndividualComponent},
   {path:'thanks', component: ThankYouComponent},
  
 
@@ -116,7 +121,7 @@ export const routes: Routes = [
 
   {path: 'preview-individual/:id', component:PreviewIndividual },
 
-  {path:'manage-sponsor-individual',component: ManageSponsorIndividualComponent},
+  
   {path:'thanks', component: ThankYouComponent},
   
 
@@ -127,8 +132,11 @@ export const routes: Routes = [
   {path:'admin-dash', component: AdminDashComponent},
   {path: 'view-post/:id', component: ViewOrgPost},
   {path: 'view-indv-post/:id', component: ViewIndPost},
+
+
   {path: 'upload-verification', component: UploadSuccessfullyindividualComponent}
   // { path: '**', redirectTo: 'fequency' }
+
 
 
  

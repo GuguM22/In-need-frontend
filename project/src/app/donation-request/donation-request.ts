@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterLink, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import {  NavbarComponent } from "../ui/navbar/navbar";
 import { FooterComponent } from "../ui/footer/footer";
 import { DonationRequestDTO } from '../dto/donationRequestDTO';
@@ -18,8 +18,9 @@ import { DonationFrequency } from '../constant/donation-frequency';
 export class DonationRequest {
 
   sponsorshipForm: FormGroup;
+  requestId: string = '';
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router,   private route: ActivatedRoute) {
     this.sponsorshipForm = this.fb.group({
       description: ['', Validators.required],
       quantity: [1, [Validators.required, Validators.min(1)]],
@@ -66,8 +67,13 @@ goNext() {
   }
 
   goBack() {
-    this.router.navigate(['/options']); 
+    if (this.requestId) {
+      this.router.navigate(['/options', this.requestId]);
+    } else {
+      this.router.navigate(['/profile']);  // fallback
+    }
   }
+  
 
   /*onSubmit() {
     if (this.sponsorshipForm.valid) {
@@ -97,5 +103,10 @@ goNext() {
         this.markFormGroupTouched(control);
       }
     });
+  }
+
+  ngOnInit(): void {
+    this.requestId = this.route.snapshot.paramMap.get('id') || '';
+    console.log('Request ID in DonationRequest:', this.requestId);
   }
 }

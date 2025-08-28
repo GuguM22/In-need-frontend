@@ -41,6 +41,13 @@
       </div>
 
       <div class="form-group">
+        <label class="form-label" for="quantity">Quantity</label>
+        <input type="number" id="quantity" formControlName="quantity" class="form-input" min="1"
+          [class.error]="individualForm.get('quantity')?.invalid && individualForm.get('quantity')?.touched"/>
+      </div>
+
+
+      <div class="form-group">
         <label for="neededByDate" class="form-label">Required By Date</label>
         <input 
           type="date" 
@@ -116,62 +123,53 @@
     </form>
 
     <!-- PREVIEW -->
-   <div *ngIf="!isEditing" class="bg-gray-50 rounded-2xl p-6 sticky top-6 shadow-lg">
-  <h3 class="text-xl font-semibold text-gray-900 mb-6 text-center tracking-wide">Live Preview</h3>
+   <div *ngIf="!isEditing" class="preview-container">
+  <h3 class="preview-title">Live Preview</h3>
 
-  <div class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+  <div class="preview-card">
     <!-- Header -->
-    <div class="p-6 border-b border-gray-100">
-      <h4 class="text-2xl font-bold text-gray-900 mb-2 truncate">
+    <div class="preview-header">
+      <h4 class="preview-item-title">
         {{ previewData?.title || 'Enter a title' }}
       </h4>
-      <div class="flex items-center gap-4 text-sm text-gray-600">
-        <span class="bg-gray-100 px-3 py-1 rounded-md shadow-sm">Qty: {{ previewData?.quantity || 1 }}</span>
-        <span class="bg-blue-50 text-blue-600 px-3 py-1 rounded-md shadow-sm">
-          {{ previewData?.priority || 'Normal Priority' }}
-        </span>
+      <div class="preview-tags">
+        <span class="preview-qty">Qty: {{ previewData?.quantity || 1 }}</span>
+        <span class="preview-priority">{{ previewData?.priority || 'Normal Priority' }}</span>
       </div>
     </div>
 
     <!-- Content -->
-    <div class="p-6 space-y-5">
-      <p class="text-gray-700 leading-relaxed">
+    <div class="preview-content">
+      <p class="preview-description">
         {{ previewData?.description || 'Enter a description...' }}
       </p>
 
       <!-- Media Preview -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        <ng-container *ngFor="let preview of filePreviews">
-          <img *ngIf="preview.endsWith('.png') || preview.endsWith('.jpg') || preview.endsWith('.jpeg')"
-               [src]="preview"
-               class="w-full h-40 object-cover rounded-lg border border-gray-200 shadow-sm transition-transform duration-200 hover:scale-105" />
+     <!-- Uploaded Files -->
+<div *ngIf="selectedFiles?.length" class="file-list mb-8">
+  <h4 class="file-list-title">Uploaded Files:</h4>
+  <ul class="file-names">
+    <li *ngFor="let file of selectedFiles" class="file-name">
+      {{ file.name.length > 30 ? (file.name | slice:0:27) + '...' : file.name }}
+    </li>
+  </ul>
+</div>
 
-          <video *ngIf="preview.endsWith('.mp4')" 
-                 [src]="preview" 
-                 controls
-                 class="w-full h-40 object-cover rounded-lg border border-gray-200 shadow-sm transition-transform duration-200 hover:scale-105">
-          </video>
-        </ng-container>
-      </div>
+
+
 
       <!-- Footer -->
-      <div class="pt-4 border-t border-gray-100 text-sm text-gray-500 flex justify-between items-center">
+      <div class="preview-footer">
         <span>Needed By: {{ previewData?.neededByDate }}</span>
-        <span class="italic">{{ previewData?.category || 'Uncategorized' }}</span>
+        <!-- <span class="preview-category">{{ previewData?.category || 'Uncategorized' }}</span> -->
       </div>
     </div>
 
     <!-- Update Button -->
-    <div class="p-6 border-t border-gray-100 flex justify-end">
-      <button (click)="onEdit()" 
-              class="px-6 py-2 bg-green-900 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all">
+    <div class="preview-actions">
+      <button (click)="onEdit()" class="update-btn">
         Update
       </button>
     </div>
   </div>
 </div>
-
-      </div>
-    </div>
-
- 

@@ -23,6 +23,8 @@ export class SponsorshipRequestPage {
   removedIds: number[] = [];
   profileImageUrl: string = 'logo.png';
   dashboardRoute: string = '/';
+  hasNewDonation: boolean = false;
+
 
   constructor(
     private router: Router,
@@ -54,6 +56,7 @@ ngOnInit() {
   // Subscribe to donation state
   this.donationStateService.donations$.subscribe(donations => {
     this.donations = donations;
+    this.hasNewDonation = donations.length > 0;
   });
 
   this.loadImage(); 

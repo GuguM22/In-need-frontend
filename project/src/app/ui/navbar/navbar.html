@@ -2,13 +2,27 @@
  
 
 <nav *ngIf="!toggle" class="w-full h-[80px] bg-white border border-gray-300 px-6 py-4 flex justify-between items-center sticky top-0 z-50 overflow-hidden">
-    <img (click)="handleToggle()" src="menu-icon.svg" alt="Menu" class="menu" />
+  
+    <!-- Hamburger icon with red dot -->
+    <div class="relative">
+      <img (click)="handleToggle()" src="menu-icon.svg" alt="Menu" class="menu" />
+      
+      <span
+      *ngIf="donationCount > 0"
+      class="absolute -top-1 -right-1 h-2 w-2 bg-red-600 rounded-full"
+    ></span>
+    </div>
+  
+    <!-- Profile image -->
     <img class="rounded-full h-8 w-8 object-cover" [src]="profileImageUrl" alt="Profile" />
-</nav>
+  </nav>
+  
  
  
 
- 
-<app-sidebar *ngIf="toggle"/>
-<app-footer></app-footer>
- 
+  <app-sidebar *ngIf="toggle" [donationCount]="donationCount" (closed)="handleSidebarClose()" />
+
+  <!-- <app-sidebar *ngIf="toggle" [donationCount]="donationCount" /> -->
+  
+
+  

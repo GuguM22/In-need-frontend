@@ -2,18 +2,19 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
-import { FooterComponent } from "../../ui/footer/footer";
-import { NavbarComponent } from "../../ui/navbar/navbar";
-import { SponsorRequestService } from '../../service/sponsor-request-service';
+
+import { FooterComponent } from '../ui/footer/footer';
+import { NavbarComponent } from '../ui/navbar/navbar';
+import { SponsorRequestService } from '../service/sponsor-request-service';
 
 @Component({
   selector: 'app-manage-sponsor',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule, FooterComponent, NavbarComponent],
-  templateUrl: './manage-sponsor-individual.component.html',
-  styleUrls: ['./manage-sponsor-individual.component.css']
+  templateUrl: './manage-sponsor-organisation.component.html',
+  styleUrls: ['./manage-sponsor-organisation.component.css']
 })
-export class ManageSponsorIndividualComponent {
+export class ManageSponsorComponent {
   activeTab: string = 'posts';
   activeMenuId: string | null = null;
   post: any;
@@ -87,7 +88,7 @@ export class ManageSponsorIndividualComponent {
 
   fetchUserPosts(): void {
     this.sponsorRequestService.getMyPosts().subscribe({
-      next: (data) => {
+      next: (data: any[]) => {
         const newData = data.map((request) => {
           const msPerDay = 1000 * 60 * 60 * 24;
           const requiredDate = new Date(request.requiredDate).getTime();
@@ -99,7 +100,7 @@ export class ManageSponsorIndividualComponent {
         })
         this.posts = newData || [];
       },
-      error: (err) => console.error('Error fetching user posts:', err)
+      error: (err: any) => console.error('Error fetching user posts:', err)
     });
   }
 }

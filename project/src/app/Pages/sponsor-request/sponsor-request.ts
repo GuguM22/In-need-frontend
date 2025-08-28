@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { PreviewSponsor } from "../preview-sponsor/preview-sponsor";
 
@@ -17,6 +17,7 @@ export interface SponsorRequest {
   quantity: number;
   requiredDate: string;
   description: string;
+  location: string;
   mediaUrls?: File[];
   user?: User;
 }
@@ -35,7 +36,7 @@ export function futureDateValidator(): ValidatorFn {
 @Component({
   selector: 'app-sponsor-request',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, PreviewSponsor],
+  imports: [ReactiveFormsModule, CommonModule, PreviewSponsor, RouterLink],
   templateUrl: './sponsor-request.html',
   styleUrls: ['./sponsor-request.css'],
   providers: [SponsorRequestService]
@@ -43,6 +44,7 @@ export function futureDateValidator(): ValidatorFn {
 export class SponsorRequestComponent implements OnInit, OnDestroy {
 onEdit() {
 throw new Error('Method not implemented.');
+
 }
   requestId: number | null = null;
 
@@ -53,9 +55,13 @@ throw new Error('Method not implemented.');
   sponsorshipForm: FormGroup;
   selectedFiles: File[] = [];
   filePreviews: string[] = [];
+ 
+fileNames: string[] = [];     // file names
+
   isSubmitting = false;
   showPreview = false;
 previewData: any;
+dashboardRoute: string = '/individual-dashboard';
 
   constructor(
     private fb: FormBuilder,
@@ -69,6 +75,7 @@ previewData: any;
       quantity: [1, [Validators.required, Validators.min(1)]],
       requiredDate: [this.getTodayDate(), [Validators.required, futureDateValidator()]],
       description: ['', Validators.required],
+      location: ['', Validators.required], 
       media: [null]
     });
   }
@@ -96,11 +103,12 @@ previewData: any;
   onDragOver(event: DragEvent): void { event.preventDefault(); }
   onDragLeave(event: DragEvent): void { event.preventDefault(); }
 
-  private handleFiles(files: File[]): void {
-    this.revokePreviews();
-    this.selectedFiles = files;
-    this.filePreviews = files.map(file => URL.createObjectURL(file));
-  }
+ private handleFiles(files: File[]): void {
+  this.selectedFiles = files;
+  this.filePreviews = files.map(file => URL.createObjectURL(file));
+  this.fileNames = files.map(file => file.name);
+}
+
 
   private revokePreviews(): void {
     this.filePreviews.forEach(url => URL.revokeObjectURL(url));
@@ -123,6 +131,8 @@ previewData: any;
   formData.append('quantity', String(this.sponsorshipForm.get('quantity')?.value));
   formData.append('requiredDate', this.sponsorshipForm.get('requiredDate')?.value);
   formData.append('description', this.sponsorshipForm.get('description')?.value);
+  formData.append('location', this.sponsorshipForm.get('location')?.value);
+
 
   this.selectedFiles.forEach(file => formData.append('mediaFiles', file, file.name));
 
@@ -131,11 +141,13 @@ previewData: any;
  if (this.requestId) {
   // UPDATE
   this.sponsorRequestService.update(this.requestId, formData).subscribe({
-    next: () => {
+    next: (response) => {
       this.isSubmitting = false;
       alert('Request updated successfully');
       this.showPreview = false; 
       this.requestId = null;   // 👈 reset after update if you want to allow new create
+      this.router.navigate([this.dashboardRoute]);
+
     },
     error: (err) => {
       console.error(err);
@@ -165,7 +177,9 @@ previewData: any;
 }
   }
 
-//   ngOnInit(): void {
+
+
+// ngOnInit(): void {
 //   this.requestId = null; 
 
 //   const state = history.state;
@@ -176,41 +190,62 @@ previewData: any;
 //       if (file instanceof File) return URL.createObjectURL(file);
 //       return file; 
 //     });
+//     this.requestId = state.id || null;  // 👈 set requestId if editing
 //   }
 // }
 
 ngOnInit(): void {
-  this.requestId = null; 
+  // Set default requestId
+  this.requestId = null;
 
+  // Determine dashboard route based on role
+  const role = localStorage.getItem('userRole');
+  switch (role) {
+    case 'SPONSORS':
+      this.dashboardRoute = '/sponsor-dashboard';
+      break;
+    case 'ORGANIZATION':
+      this.dashboardRoute = '/organization-dashboard';
+      break;
+    case 'INDIVIDUAL':
+      this.dashboardRoute = '/individual-dashboard';
+      break;
+    case 'ADMIN':
+      this.dashboardRoute = '/admin';
+      break;
+    default:
+      this.dashboardRoute = '/individual-dashboard';
+  }
+
+  // Patch form data if editing
   const state = history.state;
   if (state.formData) {
     this.sponsorshipForm.patchValue(state.formData);
     this.selectedFiles = state.files || [];
-    this.filePreviews = this.selectedFiles.map(file => {
-      if (file instanceof File) return URL.createObjectURL(file);
-      return file; 
-    });
-    this.requestId = state.id || null;  // 👈 set requestId if editing
+    this.filePreviews = this.selectedFiles.map(file =>
+      file instanceof File ? URL.createObjectURL(file) : file
+    );
+    this.requestId = state.id || null;
   }
 }
 
 
   preview(): void {
-    if (this.sponsorshipForm.valid) {
-      this.previewData = this.sponsorshipForm.value;
-      this.filePreviews = this.selectedFiles.map(file => URL.createObjectURL(file));
-      this.showPreview = true;  // show preview component
-    } else {
-      this.sponsorshipForm.markAllAsTouched();
-    }
+  if (this.sponsorshipForm.valid) {
+    this.previewData = this.sponsorshipForm.value;
+    console.log('Preview Data:', this.previewData);
+    console.log('File Names:', this.fileNames);
+    this.showPreview = true;
+  } else {
+    this.sponsorshipForm.markAllAsTouched();
+  }
+}
+
+
+  editForm(): void {
+    this.showPreview = false;
   }
 
-  
-
-editForm(): void {
-  // Go back to the form
-  this.showPreview = false;
-}
   private resetForm(): void {
     this.sponsorshipForm.reset({
       title: '',
@@ -224,9 +259,6 @@ editForm(): void {
     this.revokePreviews();
   }
 
-  backButton(): void {
-    this.router.navigate(['organization-dashboard']);
-  }
 
   ngOnDestroy(): void {
   this.revokePreviews();

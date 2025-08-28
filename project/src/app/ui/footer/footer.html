@@ -45,13 +45,13 @@
       type="button" 
       [routerLink]="'/profile'" 
       class="inline-flex flex-col items-center justify-center px-5 group"
+      >
+      <img width="30" height="30" src="https://img.icons8.com/ios/50/user-male-circle--v1.png" alt="user-male-circle--v1"/>
+      <span class="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
       [ngClass]="{
         'text-blue-600 dark:text-blue-500 font-bold': isActive('/profile'),
         'text-gray-500 dark:text-gray-400': !isActive('/profile')
-      }"
-      >
-      <img width="30" height="30" src="https://img.icons8.com/ios/50/user-male-circle--v1.png" alt="user-male-circle--v1"/>
-      <span class="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">
+      }">
         Profile
       </span>
     </button>
