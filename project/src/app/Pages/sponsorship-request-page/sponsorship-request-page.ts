@@ -22,7 +22,9 @@ export class SponsorshipRequestPage {
   donations: Donation[] = [];
   removedIds: number[] = [];
   profileImageUrl: string = 'logo.png';
+  dashboardRoute: string = '/';
   hasNewDonation: boolean = false;
+
 
   constructor(
     private router: Router,
@@ -105,8 +107,26 @@ capitalizeWords(name?: string): string {
     });
   }*/
 
-
   goBack() {
-    this.router.navigate(['/organization-dashboard']);
-  }
+   
+  const role = localStorage.getItem('userRole');
+
+    switch (role) {
+      case 'SPONSORS':
+        this.dashboardRoute = '/sponsor-dashboard';
+        break;
+      case 'ORGANIZATION':
+        this.dashboardRoute = '/organization-dashboard';
+        break;
+      case 'INDIVIDUAL':
+        this.dashboardRoute = '/individual-dashboard';
+        break;
+      case 'ADMIN':
+        this.dashboardRoute = '/admin';
+        break;
+      default:
+        this.dashboardRoute = '/individual-dashboard'; 
+    }
+    this.router.navigate([this.dashboardRoute]);
+  } 
 }
