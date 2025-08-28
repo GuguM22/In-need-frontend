@@ -30,17 +30,9 @@ export class SponsorshipRequestPage {
   donations: Donation[] = [];
   removedIds: number[] = [];
   profileImageUrl: string = 'logo.png';
-  posts: Post[] = [
-    {
-      title: '',
-      description: '',
-      daysLeft: 0,
-      progress: 0,
-      fulfilled: false
-    }
-  ];
-  activeMenuId: string | null = null;
-  userId: number = 0;
+  dashboardRoute: string = '/';
+  hasNewDonation: boolean = false;
+
 
   constructor(
     private router: Router,
@@ -74,6 +66,7 @@ ngOnInit() {
   // Subscribe to donation state
   this.donationStateService.donations$.subscribe(donations => {
     this.donations = donations;
+    this.hasNewDonation = donations.length > 0;
   });
 
   this.loadImage(); 
@@ -144,29 +137,27 @@ capitalizeWords(name?: string): string {
         }));
     });
   }*/
-  fetchUserPosts(): void {
-    this.sponsorRequestService.getMyPosts().subscribe({
-      next: (data) => {
-        console.log(data)
-        this.posts = [];
-        const newData = data.filter(req => req?.user?.id == this.userId)
-        .map((request) => {
-          const msPerDay = 1000 * 60 * 60 * 24;
-          const requiredDate = new Date(request.requiredDate).getTime();
-          const today = new Date().getTime();
-
-          const daysLeft = Math.ceil((requiredDate - today) / msPerDay);
-
-          return { ...request, daysLeft}
-        })
-        console.log(newData)
-        this.posts = newData || [];   
-      },
-      error: (err) => console.error('Error fetching user posts:', err)
-    });
-  }
 
   goBack() {
-    this.router.navigate(['/organization-dashboard']);
-  }
+   
+  const role = localStorage.getItem('userRole');
+
+    switch (role) {
+      case 'SPONSORS':
+        this.dashboardRoute = '/sponsor-dashboard';
+        break;
+      case 'ORGANIZATION':
+        this.dashboardRoute = '/organization-dashboard';
+        break;
+      case 'INDIVIDUAL':
+        this.dashboardRoute = '/individual-dashboard';
+        break;
+      case 'ADMIN':
+        this.dashboardRoute = '/admin';
+        break;
+      default:
+        this.dashboardRoute = '/individual-dashboard'; 
+    }
+    this.router.navigate([this.dashboardRoute]);
+  } 
 }
