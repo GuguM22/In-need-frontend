@@ -7,7 +7,7 @@ export interface User {
   password: string;
   username: string;
   role: Role;
-//  profileImageUrl?: string;
+  profileImageUrl?: string;
   verified: boolean;
  }
 

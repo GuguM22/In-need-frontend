@@ -48,7 +48,7 @@ export class OrganisationDashboardComponent {
   // Default logo
   this.profileImageUrl = 'logo.png';
 
-  this.service.profile().subscribe({
+/*  this.service.profile().subscribe({
     next: (data: any) => {
       if (data.profileImagePath) {
         const img = new Image();
@@ -66,7 +66,7 @@ export class OrganisationDashboardComponent {
     error: () => {
       this.profileImageUrl = 'logo.png';
     }
-  });
+  });*/
   }
   navigateToSponsorRequest() {
     if (this.isVerified) {
@@ -296,6 +296,10 @@ getDaysLeftLabel(requiredDate: string): string {
   if (daysLeft < 0) return 'Past Due';
   if (daysLeft === 0) return 'Today';
   return `${daysLeft} Days`;
+}
+
+getImage(path?: string): string {
+  return path ? `${this.service.baseUrl}/auth/images/${path}` : 'logo.png';
 }
 
 }
