@@ -164,8 +164,7 @@ this.filePreviews = this.selectedFiles.map(file => ({
   ngOnDestroy(): void {
   // Revoke any object URLs to avoid memory leaks
 
-  this.filePreviews.forEach(url => URL.revokeObjectURL(url));
-  this.filePreviews = [];
+ 
 }
   goBack() {
    
@@ -196,4 +195,3 @@ this.filePreviews = [];
   }
 }
 
-}
