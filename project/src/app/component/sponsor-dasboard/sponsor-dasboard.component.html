@@ -7,6 +7,7 @@
         <div class="inputBox">
             <input type="search" placeholder="Search for an organisation" [(ngModel)]="searchQuery"  (input)="onSearch()" >
         </div>
+        
         <!-- <div class="filterIcon">
             <img src="filterIcon.png" alt="" class="iconRight">
         </div> -->
@@ -59,7 +60,9 @@
         <h3 class="font-bold">Organisations in Need</h3>
         <p class="orgP">Verfied organisations ready for your support</p>
     </div>
-
+    <div *ngIf="filteredRequests.length === 0" class="no-results">
+        <p>No matching requests found.</p>
+      </div>
         <div *ngFor="let request of paginatedRequests" class="orgCards">
 
         <div class="orgCard" [routerLink]="['/view-post', request.id]" >

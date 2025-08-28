@@ -34,13 +34,13 @@
                 class="ml-2 px-2 py-0.5 text-xs font-bold text-white bg-red-600 rounded-full">
             {{ donationCount }}
           </span>
-        <div  [routerLink]="'/profile'"  class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
-          <img class="w-[30px] h-[30px]" src="icons/profile.svg"  alt="Profile" />
-          <p>Profile</p>
-        </div>
+      </div>
+      <div  [routerLink]="'/profile'"  class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
+        <img class="w-[30px] h-[30px]" src="icons/profile.svg"  alt="Profile" />
+        <p>Profile</p>
       </div>
     </div>
-    <div  (click)="openLogoutModal()" class="flex gap-2 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
+    <div  (click)="openLogoutModal()" class="flex gap-2 hover:bg-gray-100 p-2 ml-1 mt-83 rounded cursor-pointer tab">
       <img class="w-[30px] h-[30px]" src="icons/exit.svg" alt="Logout"/>
       <p class="text-base font-extrabold">Logout</p>
     </div>
