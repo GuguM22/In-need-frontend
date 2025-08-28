@@ -66,7 +66,8 @@
             <div class="holder1">
                 <div class="profile">
                     <div class="pfp">
-                        <img src="org.jpg" alt="" class="image">
+                       <!--<img src="org.jpg" alt="" class="image">-->
+                       <img [src]="getImage(request.user?.profileImageUrl)" alt="" class="image">
                     </div>
                     <div class="companyName">
                         <div class="top">
