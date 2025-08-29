@@ -18,6 +18,7 @@ export class PreviewSponsor implements OnInit {
    @Input() formData: any;
    @Input() fileNames: string[] = [];
   @Input() filePreviews: string[] = [];
+
   @Output() updateClicked = new EventEmitter<void>();
   dashboardRoute: string = '/individual-dashboard'; // default
 
