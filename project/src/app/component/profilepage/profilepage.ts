@@ -28,8 +28,9 @@ export class ProfilepageComponent implements OnInit {
   profileImageUrl: string | ArrayBuffer | null = null;
   uploading = false;
   isSponsor = false;
+  statusText: string = '';
 
-  role = Role.SPONSORS || Role.INDIVIDUAL;
+  role = Role.SPONSORS || Role.INDIVIDUAL || Role.ORGANIZATION;
 
 
   constructor(private location: Location, private service: Services) {}
@@ -40,34 +41,55 @@ ngOnInit() {
       this.name = data.name || '';
       this.email = data.email || '';
       this.bio = data.bio || '';
+
+      const role = data.role;
+
+    if (role === Role.ORGANIZATION) {
+      if (!data.phoneStatus) {
+        this.phone = 'Not verified yet';
+        this.statusText = 'Not verified';
+      } else {
+        switch (data.phoneStatus) {
+          case 'APPROVED':
+            this.phone = data.phone || 'Phone not available';
+            this.statusText = 'Accepted';
+            break;
+          case 'PENDING':
+            this.phone = 'Pending verification';
+            this.statusText = 'Pending';
+            break;
+          case 'REJECTED':
+            this.phone = 'Not verified yet';
+            this.statusText = 'Rejected';
+            break;
+          default:
+            this.phone = 'Not verified yet';
+            this.statusText = 'Not verified';
+        }
+      }
+    } else {
+      this.phone = 'Not applicable';
       
-      // Handle phone number based on role
-      this.isSponsor = data.role?.toUpperCase() === Role.SPONSORS || data.role?.toUpperCase() === Role.INDIVIDUAL;
-      this.phone = this.isSponsor ? 'Not applicable' : (data.phone || 'Not verified yet');
-      
-      // Handle location - more robust handling
+    }
+
+
+      // Location handling
       if (data.location) {
-        // Check if location is already a string
         if (typeof data.location === 'string') {
           this.Location = data.location;
-        } 
-        // Check if location is an object with city/province
-        else if (data.location.city || data.location.province) {
+        } else if (data.location.city || data.location.province) {
           this.Location = [data.location.city, data.location.province]
-            .filter(Boolean).join(', ');
-        }
-        // Handle other possible location formats
-        else {
+            .filter(Boolean)
+            .join(', ');
+        } else {
           this.Location = 'Location not specified';
         }
       } else {
         this.Location = 'Location not specified';
       }
 
-      // Initialize editLocation with the current location
       this.editLocation = this.Location;
 
-      // Load profile image if available
       if (data.profileImagePath) {
         this.loadProfileImage(data.profileImagePath);
       }
@@ -75,6 +97,7 @@ ngOnInit() {
     error: (err) => console.error('Failed to load profile', err)
   });
 }
+
 
 private loadProfileImage(imagePath: string) {
   this.service.getProfileImage(imagePath).subscribe({

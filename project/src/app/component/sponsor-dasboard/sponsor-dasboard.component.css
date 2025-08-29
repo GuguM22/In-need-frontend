@@ -85,12 +85,12 @@ input{
 }
 .indvCard{
     border: solid #00000030;
-    width: 245px;
+    width: 185px;
     border-radius: 9px;
  }
 .thumbnailPic{
     height: 120px;
-    width: 225px;
+    width: 165px;
     border-radius: 9px;
     margin-left: auto;
     margin-right: auto;
@@ -442,6 +442,13 @@ button{
     width: 150px;
   }
   
+  .no-results{
+    text-align: center;
+    margin-top: 50px;
+    font-weight: 600;
+    font-size: 14px;
+    color: gray;
+  }
 /* @media (max-width: 480px) {
     .search {
         width: 90%;

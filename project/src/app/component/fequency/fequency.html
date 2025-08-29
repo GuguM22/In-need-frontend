@@ -14,7 +14,7 @@
   <!-- Page Title -->
   <div class="place-content-center mt-[10px]">
     <h4 class="font-extrabold text-xl text-center">Frequency</h4>
-    <p class="text-center font-extrabold text-xs">How often would you like to donate</p>
+    <p class="text-center font-[700] text-[#0000009C] text-[14px]">How often would you like to donate</p>
   </div>
 
   <!-- Frequency Tiles -->
@@ -37,23 +37,18 @@
   </div>
 
   <!-- Next / Back Buttons -->
-  <div class="flex flex-row gap-10 mt-6 mb-10">
-   
-      <button type="button" class="w-45 py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 flex items-center gap-2 justify-center focus:outline-none bg-gray-200 rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100" (click)="goBack()"> 
-                    <img width="20" height="17" src="https://img.icons8.com/ios/50/back--v1.png" alt="back icon"/> Back 
-                    </button>
-    
+  <div class="flex flex-row gap-5 mt-6 mb-10 btns">
+    <div class="w-[145px] h-[46px] bg-[#D9D9D9] grid place-content-center rounded-lg">
+      <button class="flex flex-row justify-between items-center w-full h-full px-4" (click)="goBack()">
+         &lt; Back
+      </button>
+    </div>
 
-
-       <button
-                    type="button"
-                    id="nextBtn"
-                    (click)="goNext()" 
-                    class="w-45 py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 flex items-center gap-2 justify-center focus:outline-none bg-[#5B8E7D] rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
-                    > 
-                    Next <img width="20" height="17" src="https://img.icons8.com/?size=100&id=61&format=png&color=000000" alt="next icon"/>
-                    </button>
-    
+    <div class="w-[145px] l h-[46px] grid place-content-center rounded-lg bg-[#5B8E7D]">
+      <button class="flex flex-row justify-between items-center w-full h-full px-4 text-white" (click)="goNext()">
+        Next &gt;
+      </button>
+    </div>
   </div>
 
   <!-- Debug: shows selected frequency -->

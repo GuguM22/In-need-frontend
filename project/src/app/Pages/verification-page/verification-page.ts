@@ -24,6 +24,7 @@ export class VerificationPage implements OnInit {
   showErrorCheck = false;
   phone: string = '';
   isAlreadyVerified = false;
+  dashboardRoute: string = '/';
   
   // Validation
   validationMessages = {
@@ -98,7 +99,27 @@ export class VerificationPage implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/req']);
+   
+  const role = localStorage.getItem('userRole');
+
+    switch (role) {
+      case 'SPONSORS':
+        this.dashboardRoute = '/sponsor-dashboard';
+        break;
+      case 'ORGANIZATION':
+        this.dashboardRoute = '/organization-dashboard';
+        break;
+      case 'INDIVIDUAL':
+        this.dashboardRoute = '/individual-dashboard';
+        break;
+      case 'ADMIN':
+        this.dashboardRoute = '/admin';
+        break;
+      default:
+        this.dashboardRoute = '/individual-dashboard'; 
+    }
+    this.router.navigate([this.dashboardRoute]);
+  
   }
 
   onFileChange(event: Event): void {
@@ -209,7 +230,7 @@ export class VerificationPage implements OnInit {
     return numeric;
   }
   onCloseDirecting(){
-    this.router.navigate(['/req']);
+    this.router.navigate([this.dashboardRoute]);
   this.showPhoneNomberExistModal = false;
   }
 

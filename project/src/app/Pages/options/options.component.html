@@ -1,11 +1,12 @@
 <app-navbar></app-navbar>
 
 <div
-  class=" bg-white flex flex-col  justify-center p-4 container pb-[5.9rem]"
+  class=" bg-white flex flex-col  justify-center p-4 container"
 >
 <div class="top flex items-center space-x-2">
   <!-- Back arrow icon -->
-  
+
+  <!-- Back button -->
 
 </div>
 
@@ -44,7 +45,7 @@
   </div>
   <!-- Main Card -->
   <div
-    class="max-w-md mx-auto p-6 bg-white rounded-lg border border-gray-300 shadow-xl"
+    class="max-w-md mx-auto p-6 bg-white rounded-lg border border-gray-300 shadow-xl test"
   >
     <!-- Step 1 -->
     <div class="step-panel" id="step-1">
@@ -130,17 +131,21 @@
 
     <!-- Buttons -->
     <div class="flex justify-between items-center w-full mt-8">
- <button type="button" class="w-35 py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 flex items-center gap-2 justify-center focus:outline-none bg-gray-200 rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100" (click)="goBack()"> 
-                    <img width="17" height="17" src="https://img.icons8.com/ios/50/back--v1.png" alt="back icon"/> Back 
-                    </button>
-        <button
-                    type="button"
-                    id="nextBtn"
-                    (click)="goNext()" 
-                    class="w-35 py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 flex items-center gap-2 justify-center focus:outline-none bg-[#5B8E7D] rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
-                    > 
-                    Next <img width="17" height="17" src="https://img.icons8.com/?size=100&id=61&format=png&color=000000" alt="next icon"/>
-                    </button>
+      <button
+        id="backBtn"
+        (click)="goBack()" 
+        class="px-6 py-2 bg-[#D9D9D9] text-gray-700 font-[800] rounded-lg hover:bg-[#c8c8c8] transition"
+      >
+        &lt; Back
+      </button>
+      <button
+        id="nextBtn"
+        (click)="goNext()"  [disabled]="!selectedType"
+        
+        class="px-6 py-2 bg-[#5B8E7D] text-white font-[800] rounded-lg hover:bg-[#4b8170] transition"
+      >
+        Next &gt;
+      </button>
     </div>
 
     <!-- Error message -->

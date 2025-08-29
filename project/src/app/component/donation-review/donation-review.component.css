@@ -1,8 +1,12 @@
-
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Readex+Pro:wght@160..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+*{
+    font-family: 'Mulish' ;
+     
+}
 
 .donation-card {
     background: white;
-    border: solid #a2a3a5;
+    border: solid #00000030;
     border-radius: 12px;
     padding: 32px;
     max-width: 400px;
@@ -15,8 +19,8 @@
   }
 
   .stepper{
-padding-top: 100px;
-gap: 30px;
+  padding-top: 40px;
+  gap: 30px;
 }
   .card-title {
     font-size: 20px;
@@ -24,16 +28,18 @@ gap: 30px;
     color: #1f2937;
     margin: 0 0 24px 0;
     text-align: center;
+     
   }
 
   .donation-details {
     margin-bottom: 32px;
-  }
+}
 
   .detail-row {
     display: flex;
     margin-bottom: 16px;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .detail-row:last-child {
@@ -56,7 +62,7 @@ gap: 30px;
   }
 .button-container {
     display: flex;
-    gap: 12px;
+    gap: 15px;
     justify-content: space-between;
     margin-top: 50px;
   }
@@ -102,5 +108,16 @@ gap: 30px;
     height: 16px;
   }
   button{
-    width: 20px;
+    width: 305px;
   }
+
+  .value{
+  font-weight: 400;
+  font-size: 13px;
+
+  }
+
+   .valu{
+    font-size: 13px;
+    font-weight: 400;
+   }

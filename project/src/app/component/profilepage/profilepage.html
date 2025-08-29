@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
-<div class="w-screen h-screen grid grid-rows-[auto_1fr_auto] bg-[#f5f5f5] overflow-y-auto">
+<div class="w-screen h-screen grid grid-rows-[auto_1fr_auto] bg-white overflow-y-auto">
   <!-- Header with Back Button -->
-<!----  <div class="flex justify-between items-center px-6 py-4 bg-white shadow-md h-14 z-20 flex-shrink-0">
+  <!----  <div class="flex justify-between items-center px-6 py-4 bg-white shadow-md h-14 z-20 flex-shrink-0">
     <button class="flex items-center gap-2 text-black font-extrabold text-lg" (click)="goBack()">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
@@ -9,187 +9,135 @@
       Back
     </button> 
   </div> -->
+  <div class="relative w-full">
+    <div class="h-[180px] rounded-xl overflow-hidden">
+      <div class="absolute inset-0 bg-cover bg-center" style="
+          background-image: url('https://images.unsplash.com/photo-1509099836639-18ba1795216d');
+        "></div>
+    </div>
+    <!-- Badge -->
+    <div class="absolute top-2 right-2 bg-[#5B8E7D] text-white px-2 py-0.5 rounded-full text-xs font-bold z-none">
+      IN NEED
+    </div>
+    <!-- Profile Image -->
+    <div class="absolute left-4 -bottom-10 z-20">
+      <img [src]="profileImageUrl || 'logo.png'"
+        class="w-[80px] h-[80px] rounded-full border-4 border-white object-cover shadow-lg" alt="Profile Image"
+        (click)="fileInput.click()" style="cursor: pointer" />
+    </div>
 
+    <!-- Hidden file input -->
+    <input type="file" (change)="onFileSelected($event)" #fileInput class="hidden" accept="image/*" />
+  </div>
   <!-- Scrollable Content -->
   <div class="px-4 pt-4 pb-20">
     <!-- Added pb-20 to prevent content overlap -->
     <!-- Cover + Profile -->
-    <div class="relative">
-      <div class="h-[180px] rounded-xl overflow-hidden">
-        <div
-          class="absolute inset-0 bg-cover bg-center"
-          style="
-            background-image: url('https://images.unsplash.com/photo-1509099836639-18ba1795216d');
-          "
-        ></div>
-      </div>
-      <!-- Badge -->
-      <div
-        class="absolute top-2 right-2 bg-[#4CAF50] px-2 py-0.5 rounded-full text-xs font-bold z-none"
-      >
-        IN NEED
-      </div>
-      <!-- Profile Image -->
-      <div class="absolute left-4 -bottom-10 z-20">
-  <img 
-    [src]="profileImageUrl || 'logo.png'" 
-    class="w-[80px] h-[80px] rounded-full border-4 border-white object-cover shadow-lg"
-    alt="Profile Image"
-    (click)="fileInput.click()"
-    style="cursor: pointer;"
-  >
-</div>
-
-<!-- Hidden file input -->
-<input 
-  type="file" 
-  (change)="onFileSelected($event)" 
-  #fileInput 
-  class="hidden" 
-  accept="image/*"
->
-
-    </div>
 
     <!-- Name & Info -->
-    <div class="mt-16 max-w-md mx-auto flex flex-col gap-1 pointer-events-none">
-      <h1 *ngIf="!isEditing" class="font-extrabold text-xl mb-0.5 ">
+    <div class="mt-8 ml-2 max-w-md mx-auto flex flex-col gap-1 pointer-events-none">
+      <h1 *ngIf="!isEditing" class="font-extrabold text-xl mb-0.5">
         {{ capitalizeWords(name) }}
       </h1>
-      <input 
-        *ngIf="isEditing"
-        [(ngModel)]="editName"
-        class="border p-1 rounded text-black w-full mb-1"
-      />
-      <p class="text-xs opacity-70 mb-1">Helping since 2020</p>
+      <h1 *ngIf="!isEditing" class="font-extrabold text-xl mb-0.5"></h1>
+      <input *ngIf="isEditing" [(ngModel)]="editName" class="border p-1 rounded text-black w-full mb-1" />
+      <div class="flex items-center justify-between gap-2">
+        <!-- <p class="text-xs opacity-70 mb-1">Helping since 2020 </p> -->
+      </div>
     </div>
 
     <!-- Profile Info -->
-       <div class="max-w-md mx-auto flex flex-col gap-4 mt-4">
+    <div class="max-w-md mx-auto flex flex-col gap-4 mt-4">
       <!-- Name & Contact -->
-      <div class="flex items-center gap-3 bg-white p-3 rounded-lg shadow-md">
+      <div class="flex items-center gap-3 bg-white p-3 rounded-lg shadow-md border border-gray-100">
         <div class="flex-shrink-0">
           <div
-            class="w-10 h-10 rounded-full bg-gradient-to-tr from-[#5B8E7D] to-green-700 flex items-center justify-center text-white font-bold text-lg"
-          >
+            class="w-10 h-10 rounded-full bg-gradient-to-tr from-[#5B8E7D] to-green-700 flex items-center justify-center text-white font-bold text-lg">
             {{ name.charAt(0) }}
           </div>
         </div>
-        <div >
-          <h2
-            *ngIf="!isEditing"
-            class="text-xl font-semibold text-gray-900 tracking-wide pointer-events-none"
-          >
+        <div>
+          <h2 *ngIf="!isEditing" class="text-xl font-semibold text-gray-900 tracking-wide pointer-events-none">
             {{ capitalizeWords(name) }}
           </h2>
-          <input
-            *ngIf="isEditing"
-            [(ngModel)]="editName"
-            class="border p-1 rounded text-black w-full mb-1 pointer-events-none"
-          />
-          <p *ngIf="!isEditing" class="text-gray-600 text-xs mt-0.5">
-            <span>{{ capitalizeWords(email) }}</span> &nbsp;&bull;&nbsp; <span>{{ phone }}</span>
+          <input *ngIf="isEditing" [(ngModel)]="editName"
+            class="border p-1 rounded text-black w-full mb-1 pointer-events-none" />
+        <div class="flex items-end justify-between gap-[0.5px]">
+          <p *ngIf="!isEditing" class="text-gray-600 text-xs mt-0.5 flex items-end gap-1">
+            <span>{{ capitalizeWords(email) }}</span> &bull;
+            <span>{{ phone }}</span> &bull;
+        
+            <span class="px-1 py-0.5 text-[9px] font-medium rounded border border-[2px] flex items-center" [ngClass]="{
+                    'bg-[#F7CB73] text-gray-600 border-[#F7CB73]': statusText === 'Pending',
+                    'bg-[#c82027] text-white border-[#c82027]': statusText === 'Rejected',
+                    'bg-[#5B8E7D] text-white border-[#5B8E7D]': statusText === 'Accepted',
+                    'bg-[#F4D0D1] text-white border-gray-200': statusText === 'Not Verified'
+                  }">
+              {{ statusText.toUpperCase() }}
+            </span>
           </p>
+        </div>
+
           <div *ngIf="isEditing" class="flex flex-col gap-1">
-            <input
-              [(ngModel)]="editEmail"
-              class="w-70 h-8 border p-1 rounded text-black text-xs"
-              placeholder="Email" disabled
-            />
-            <input
-              [(ngModel)]="editPhone"   *ngIf="!isSponsor && phone !== 'Not verified yet'"
-              class="w-70 h-8 border p-1 rounded text-black w-full text-xs"
-              placeholder="Phone" 
-            />
+            <input [(ngModel)]="editEmail" class="w-70 h-8 border p-1 rounded text-black text-xs" placeholder="Email"
+              disabled />
+            <input [(ngModel)]="editPhone" *ngIf="!isSponsor && phone !== 'Not verified yet'"
+              class="w-70 h-8 border p-1 rounded text-black w-full text-xs" placeholder="Phone" />
           </div>
         </div>
       </div>
 
       <!-- Short Bio -->
       <div
-        class="p-4 rounded-2xl bg-gradient-to-r from-teal-50 via-white to-blue-50 shadow-lg border border-gray-200 hover:shadow-2xl transition-shadow duration-400 ease-in-out"
-      >
-        <h3 class="text-lg font-bold text-green-700 mb-2">Short Bio / Story</h3>
-        <p
-          *ngIf="!isEditing"
-          class="text-gray-700 text-sm leading-relaxed tracking-wide"
-        >
+        class="p-4 rounded-2xl bg-white shadow-lg border border-gray-200 hover:shadow-2xl transition-shadow duration-400 ease-in-out">
+        <h3 class="text-lg font-bold text-black mb-2">Short Bio / Story</h3>
+        <p *ngIf="!isEditing" class="text-gray-700 text-sm leading-relaxed tracking-wide">
           {{ bio }}
         </p>
-        <textarea
-          *ngIf="isEditing"
-          [(ngModel)]="editBio"
-          class="border resize-none h-30 p-1 rounded text-black w-full text-sm"
-        ></textarea>
+        <textarea *ngIf="isEditing" [(ngModel)]="editBio"
+          class="border resize-none h-30 p-1 rounded text-black w-full text-sm"></textarea>
       </div>
 
       <!-- Location -->
       <div>
-        <div class="flex items-center gap-2 mb-1">
-          <div
-            class="w-7 h-7 flex items-center justify-center rounded-full bg-green-600 text-white"
-          >
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-7 h-7 flex items-center justify-center rounded-full bg-[#5B8E7D] text-white">
             <!---  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.657 0 3-1.343 3-3S13.657 5 12 5 9 6.343 9 8s1.343 3 3 3z" />
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22s8-4.5 8-10a8 8 0 10-16 0c32 5.5 8 10 8 pathogenicity 8 10z" />
             </svg> -->
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="w-4 h-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-              />
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
           </div>
           <h3 class="text-sm font-semibold text-gray-700">Location</h3>
         </div>
-        <div
-          *ngIf="!isEditing"
-          class="bg-gradient-to-r from-green-50 to-green-100 p-2 rounded-lg shadow-sm flex flex-col gap-1"
-        >
+        <div *ngIf="!isEditing" class="bg-white p-2 rounded-lg shadow-sm flex flex-col gap-1">
           <span class="text-gray-800 text-xs font-medium">{{ capitalizeWords(Location) }}</span>
-          <a
-            href="https://www.google.com/maps/search/{{ Location }}"
-            target="_blank"
-            class
-            class="text-green-600 hover:underline text-xs font-semibold self-start"
-          >
+          <a href="https://www.google.com/maps/search/{{ Location }}" target="_blank" class
+            class="text-[#5B8E7D] hover:underline text-xs font-semibold self-start">
             📍 View on Map
           </a>
         </div>
-        <input
-          *ngIf="isEditing"
-          [(ngModel)]="editLocation"
-          class="w-70 h-8 border p-1 rounded text-black w-full text-xs"
-        />
+        <input *ngIf="isEditing" [(ngModel)]="editLocation"
+          class="w-70 h-8 border p-1 rounded text-black w-full text-xs" />
       </div>
 
       <!-- Edit Button -->
       <div class="flex justify-center mt-4">
-        <button
-          (click)="toggleEdit()"
-          class="bg-[#5B8E7D] text-white px-6 py-3 rounded-lg shadow-md text-sm font-semibold w-full max-w-md"
-        >
+        <button (click)="toggleEdit()"
+          class="bg-[#5B8E7D] text-white px-6 py-3 rounded-lg shadow-md text-sm font-semibold w-full max-w-md">
           {{ isEditing ? 'Save Changes' : 'Edit Profile' }}
         </button>
       </div>
 
       <!-- View / Edit Documents -->
       <div class="mt-6 flex flex-col gap-2">
-       <!---- <h3 class="text-lg font-bold text-green-700 mb-2">Documents</h3>
+        <!---- <h3 class="text-lg font-bold text-green-700 mb-2">Documents</h3>
         <div class="flex flex-col gap-2">
           <-- CIPC Registration --
           <div class="flex items-center justify-between gap-2">
@@ -264,9 +212,9 @@
           </div>
         </div>
       </div>-->
+      </div>
     </div>
+
+    <app-footer></app-footer>
   </div>
-
- 
-
-<app-footer></app-footer>
+</div>

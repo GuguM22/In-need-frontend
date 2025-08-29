@@ -1,16 +1,54 @@
+<app-navbar></app-navbar>
 <div *ngIf="request" class="container">
+  <div class="back">
+    <button [routerLink]="dashboardRoute">Back</button>
+  </div>
+  <div class="top">
+    <div class="top-container">
+      <div class="pic">
+        <img [src]="profileImageUrl" alt="" class="image">
+      </div>
+      <div class="cmpName">
+        <div class="names flex">
+        <div class="name">
+        <h2 class="name">{{request.user?.username}}</h2>
+        </div>
+        <div class="imgs">
+          <img src="verified.png" alt="" class="verified">
+      </div>
+      </div>
+        <div class="loc">
+          <h5>{{request.location}}</h5>
+        </div>
+      </div>
+    
+    </div>
+  </div>
   <div class="event-info">
     <div class="urgency-wrapper">
-      <div>Urgency</div>
-      <div class="event-title">{{ request.priority }}</div>
+      <div class="urgency">Urgency</div>
+      <div class="event-title">
+        <button [ngClass]="getPriorityClass(request.priority)">
+          {{ request.priority | titlecase }} Priority
+        </button>
+      </div>
     </div>
-    <div class="event-date">Date: {{ request.requiredDate }}</div>  
+    <div class="event-date" [ngClass]="getDaysLeftClass(request.requiredDate)">     {{ getDaysLeftText(request.requiredDate) }}
+    </div>  
   </div>
 
   <div class="content">
-    <h2>{{ request.title }}</h2>
+    <h2 class="reqTitle">{{ request.title }}</h2>
+    <div class="description-wrapper" (click)="toggleDescription()">
+      <p class="description-text" *ngIf="!showFullDescription">
+        {{ getShortDescription(request.description) }}
+      </p>
     
-    <p>{{ request.description }}</p>
+      <p class="description-text" *ngIf="showFullDescription">
+        {{ request.description }}
+      </p>
+    </div>
+    
 
     <button class="donate-btn" [routerLink]="['/options', request.id]">Donate</button>
 

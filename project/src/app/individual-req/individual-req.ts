@@ -4,6 +4,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { IndividualService } from '../service/individual-service';
 import { PreviewIndividual } from '../Pages/preview-individual/preview-individual';
+import { Route, Router } from '@angular/router';
 
 /** Validator: date cannot be in the past */
 export function futureDateValidator(): ValidatorFn {
@@ -27,6 +28,7 @@ export function futureDateValidator(): ValidatorFn {
 export class IndividualReq implements OnDestroy {
 
   isNewRequest: any;
+  dashboardRoute: string = '/';
 onDragLeave($event: DragEvent) {
 throw new Error('Method not implemented.');
 }
@@ -36,10 +38,10 @@ throw new Error('Method not implemented.');
 onFileDrop($event: DragEvent) {
 throw new Error('Method not implemented.');
 }
-
+filePreviews: { url: string; type: string }[] = [];
  individualForm: FormGroup;
   selectedFiles: File[] = [];
-  filePreviews: string[] = [];
+ 
   isSubmitting = false;
 
   previewData: any = null;
@@ -47,7 +49,8 @@ throw new Error('Method not implemented.');
 
   constructor(
     private fb: FormBuilder,
-    private individualService: IndividualService
+    private individualService: IndividualService, 
+    private router: Router
   ) {
     this.individualForm = this.fb.group({
       title: ['', Validators.required],
@@ -98,7 +101,15 @@ throw new Error('Method not implemented.');
     this.individualService.post(formData).subscribe({
       next: (created: any) => {
         this.previewData = created;
-        this.filePreviews = this.selectedFiles.map(f => URL.createObjectURL(f));
+        // Revoke previous previews
+this.filePreviews.forEach(p => URL.revokeObjectURL(p.url));
+
+// Map selected files to proper preview objects
+this.filePreviews = this.selectedFiles.map(file => ({
+  url: URL.createObjectURL(file),
+  type: file.type
+}));
+      
         this.isEditing = false;       // go to preview
         this.isSubmitting = false;
         this.isNewRequest = false;    // mark that next submit will be an update
@@ -122,7 +133,12 @@ onEdit(): void {
     neededByDate: this.previewData.neededByDate,
     description: this.previewData.description
   });
-  this.filePreviews = this.previewData.mediaUrls || [];
+ this.filePreviews = (this.previewData.mediaUrls || []).map((url: string) => ({
+  url,
+  type: url.endsWith('.mp4') ? 'video/mp4' : 'image/png' // fallback for images
+}));
+
+
 }
 backButton(): void {
   // Option 1: Go back in browser history
@@ -135,15 +151,47 @@ onFileSelect(event: Event): void {
     this.selectedFiles = Array.from(input.files);
 
     // Revoke previous previews
-    this.filePreviews.forEach(url => URL.revokeObjectURL(url));
-    this.filePreviews = this.selectedFiles.map(file => URL.createObjectURL(file));
-  }
-}
+  // Revoke previous previews
+this.filePreviews.forEach(p => URL.revokeObjectURL(p.url));
+
+// Map selected files to proper preview objects
+this.filePreviews = this.selectedFiles.map(file => ({
+  url: URL.createObjectURL(file),
+  type: file.type
+}));
+
+  }}
   ngOnDestroy(): void {
   // Revoke any object URLs to avoid memory leaks
-  this.filePreviews.forEach(url => URL.revokeObjectURL(url));
-  this.filePreviews = [];
-}
 
+ 
+}
+  goBack() {
+   
+  const role = localStorage.getItem('userRole');
+  this.filePreviews.forEach(p => URL.revokeObjectURL(p.url));
+this.filePreviews = [];
+
+
+
+    switch (role) {
+      case 'SPONSORS':
+        this.dashboardRoute = '/sponsor-dashboard';
+        break;
+      case 'ORGANIZATION':
+        this.dashboardRoute = '/organization-dashboard';
+        break;
+      case 'INDIVIDUAL':
+        this.dashboardRoute = '/individual-dashboard';
+        break;
+      case 'ADMIN':
+        this.dashboardRoute = '/admin';
+        break;
+      default:
+        this.dashboardRoute = '/individual-dashboard'; 
+    }
+    this.router.navigate([this.dashboardRoute]);
+  
+  }
 }
 
