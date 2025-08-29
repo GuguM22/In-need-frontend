@@ -90,7 +90,7 @@ export const routes: Routes = [
   { path: 'freq', component: Fequency },
 
 
- { path: 'donation-request', component: DonationRequest },
+ { path: 'donation-request/:id', component: DonationRequest },
 
   {path: 'sponsor-request', component: SponsorRequestComponent},
   {path: 'profile', component : ProfilepageComponent},
