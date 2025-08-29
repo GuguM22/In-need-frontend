@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Logout } from "../../component/logout/logout";
 import { Services } from '../../service/services';
 import { Router, RouterModule } from '@angular/router';
+import { DonationService } from '../../service/donation-service';
 
 
 
@@ -22,14 +23,16 @@ export class Sidebar implements OnInit {
   dashboardRoute: string = '/';
   @Input() donationCount: number = 0;
   @Output() closed = new EventEmitter<void>();
+  userRole: string | null = null;
+  pendingSponsorRequestsCount: number = 0;
 
 
-  constructor(private userService: Services, private router: Router) {}
+  constructor(private userService: Services, private router: Router, private donationService: DonationService) {}
 
   ngOnInit() {
     // Load profile image
     this.profileImageUrl = 'logo.png';
-
+    this.userRole = localStorage.getItem('userRole')
     this.userService.profile().subscribe({
       next: (data: any) => {
         if (data.profileImagePath) {
@@ -47,6 +50,7 @@ export class Sidebar implements OnInit {
     switch (role) {
       case 'SPONSORS':
         this.dashboardRoute = '/sponsor-dashboard';
+        this.loadPendingSponsorRequestsCount();
         break;
       case 'ORGANIZATION':
         this.dashboardRoute = '/organization-dashboard';
@@ -115,4 +119,33 @@ export class Sidebar implements OnInit {
         this.dashboardRoute = '/individual-dashboard'; // fallback
     }
   }*/
+
+  getNotificationRoute(): string {
+    if (this.userRole === 'SPONSORS') {
+      return '/sponsor-activity'; // or your new sponsor activity route
+    }
+    return '/sponsorship-request-page'; // for ORG and others
+  }
+
+
+  // loadPendingSponsorRequestsCount() {
+  //   this.donationService.getDonations().subscribe((donations: any[]) => {
+  //     const userEmail = localStorage.getItem('userEmail');
+  //     this.pendingSponsorRequestsCount = donations.filter(d => 
+  //       d.donorRole === 'SPONSORS' &&
+  //       d.status === 'PENDING' &&
+  //       d.donorEmail === userEmail
+  //     ).length;
+  //   });
+  // }
+  loadPendingSponsorRequestsCount() {
+    const userEmail = localStorage.getItem('userEmail');
+    this.donationService.getDonations().subscribe((donations: any[]) => {
+      this.pendingSponsorRequestsCount = donations.filter(d => 
+        d.donorRole === 'SPONSORS' &&
+        d.donorEmail === userEmail
+      ).length;
+    });
+  }
+  
 }

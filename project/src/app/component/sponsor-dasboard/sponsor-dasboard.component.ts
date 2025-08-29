@@ -8,6 +8,7 @@ import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { IndividualRequest, IndividualService } from '../../service/individual-service';
+import { Services } from '../../service/services';
 
 @Component({
   selector: 'app-sponsor-dasboard',
@@ -32,7 +33,11 @@ export class SponsorDasboardComponent {
     
  }
 
-  constructor(private router: Router, private sponsorService: SponsorRequestService, private http: HttpClient, private elementRef: ElementRef, private individualService: IndividualService ) { }
+  constructor(private router: Router, 
+    private sponsorService: SponsorRequestService, 
+    private http: HttpClient, private elementRef: ElementRef, 
+    private individualService: IndividualService,
+   private service: Services ) { }
   searchQuery: string = '';
   filteredRequests: SponsorRequest[] = [];
   currentPage: number = 1;
@@ -184,5 +189,9 @@ loadIndividuals(): void {
       console.error('Error loading individuals:', error);
     }
   });
+}
+
+getImage(path?: string): string {
+  return path ? `${this.service.baseUrl}/auth/images/${path}` : 'logo.png';
 }
 }

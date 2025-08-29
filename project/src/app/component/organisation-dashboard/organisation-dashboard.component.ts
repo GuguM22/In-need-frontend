@@ -45,20 +45,17 @@ export class OrganisationDashboardComponent {
   this.isVerified = localStorage.getItem('verified') === 'true';
   this.loadRequests();
   this.loadIndividuals();
-  // Default logo
   this.profileImageUrl = 'logo.png';
 
-  this.service.profile().subscribe({
+/*  this.service.profile().subscribe({
     next: (data: any) => {
       if (data.profileImagePath) {
         const img = new Image();
         img.src = `http://localhost:5050/auth/images/${data.profileImagePath}`;
         img.onload = () => {
-          // Replace logo only after image is fully loaded
           this.profileImageUrl = img.src;
         };
         img.onerror = () => {
-          // Fallback in case image fails to load
           this.profileImageUrl = 'logo.png';
         };
       }
@@ -66,8 +63,10 @@ export class OrganisationDashboardComponent {
     error: () => {
       this.profileImageUrl = 'logo.png';
     }
-  });
+  });*/
   }
+
+
   navigateToSponsorRequest() {
     if (this.isVerified) {
       this.router.navigate(['sponsor-request']); // ✅ navigate only if verified
@@ -296,6 +295,10 @@ getDaysLeftLabel(requiredDate: string): string {
   if (daysLeft < 0) return 'Past Due';
   if (daysLeft === 0) return 'Today';
   return `${daysLeft} Days`;
+}
+
+getImage(path?: string): string {
+  return path ? `${this.service.baseUrl}/auth/images/${path}` : 'logo.png';
 }
 
 }

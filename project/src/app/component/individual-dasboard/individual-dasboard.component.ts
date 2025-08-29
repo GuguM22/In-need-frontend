@@ -8,6 +8,7 @@ import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { FooterComponent } from '../../ui/footer/footer';
 import {  NavbarComponent } from '../../ui/navbar/navbar';
 import { IndividualRequest, IndividualService } from '../../service/individual-service';
+import { Services } from '../../service/services';
 
 @Component({
   selector: 'app-individual-dasboard',
@@ -32,7 +33,9 @@ export class IndividualDasboardComponent {
     mediaUrls: [],
   }
  
-   constructor(private router: Router, private sponsorService: SponsorRequestService, private http: HttpClient, private elementRef: ElementRef, private individualService: IndividualService) { }
+   constructor(private router: Router, private sponsorService: SponsorRequestService, 
+    private http: HttpClient, private elementRef: ElementRef,
+     private individualService: IndividualService,  private service: Services) { }
    searchQuery: string = '';
    filteredRequests: SponsorRequest[] = [];
    currentPage: number = 1;
@@ -186,6 +189,10 @@ loadIndividuals(): void {
       console.error('Error loading individuals:', error);
     }
   });
+}
+
+getImage(path?: string): string {
+  return path ? `${this.service.baseUrl}/auth/images/${path}` : 'logo.png';
 }
 
 }

@@ -17,4 +17,5 @@ export interface Donation {
   profileImageUrl?: string; 
   additionalNotes?: string;
   donorRole?: Role;
+  status: string;
 }  
