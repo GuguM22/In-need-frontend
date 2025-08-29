@@ -90,7 +90,10 @@ onSubmitUpdate() {
   this.sponsorRequest.update(this.formData.id, formData).subscribe({
     next: (updated: any) => {
       alert('Request updated successfully.');
-      this.router.navigate(['/sponsor-requests']); // redirect to list or dashboard
+     
+       this.router.navigate(['/uploaded'], {
+        state: { formData: updated, files: this.filePreviews }
+      });
     },
     error: (err: any) => {
       console.error(err);

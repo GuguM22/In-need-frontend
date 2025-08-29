@@ -124,7 +124,7 @@ export const routes: Routes = [
   {path:'thanks', component: ThankYouComponent},
   
 
-
+{path:'uploaded', component: Uploaded},
   { path: 'fequency', component: Fequency },
   { path: 'donation-review', component: DonationReviewComponent },
  
