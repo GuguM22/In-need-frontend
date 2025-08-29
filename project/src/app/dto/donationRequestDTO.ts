@@ -17,4 +17,5 @@ export interface DonationRequestDTO {
   profileImagePath?: string;
   donorName: string;
   donorRole?: Role;
+  sponsorRequestId?: number;
 }

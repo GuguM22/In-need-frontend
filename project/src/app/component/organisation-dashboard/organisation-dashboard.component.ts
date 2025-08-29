@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { SponsorRequest } from '../../model/sponsor-req';
 import { IndividualRequest, IndividualService } from '../../service/individual-service';
 import { Services } from '../../service/services';
+import { DonationStateService } from '../../service/donation-state-service';
 
 @Component({
   selector: 'app-organisation-dashboard',
@@ -34,7 +35,7 @@ export class OrganisationDashboardComponent {
     private http: HttpClient,
      private elementRef: ElementRef, 
      private individualService: IndividualService,
-    private service: Services) { }
+    private service: Services,  private donationStateService: DonationStateService,) { }
   searchQuery: string = '';
   filteredRequests: SponsorRequest[] = [];
   currentPage: number = 1;
@@ -46,6 +47,14 @@ export class OrganisationDashboardComponent {
   this.loadRequests();
   this.loadIndividuals();
   this.profileImageUrl = 'logo.png';
+  // Remove requests automatically if accepted/declined
+this.donationStateService.removedDonations$.subscribe((removedIds: number[]) => {
+  if (removedIds.length > 0) {
+    this.requests = this.requests.filter(r => !removedIds.includes(Number(r.id)));
+    this.filteredRequests = this.filteredRequests.filter(r => !removedIds.includes(Number(r.id)));
+  }
+});
+
 
 /*  this.service.profile().subscribe({
     next: (data: any) => {

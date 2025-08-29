@@ -27,6 +27,7 @@ export class Sidebar implements OnInit {
   pendingSponsorRequestsCount: number = 0;
 
 
+
   constructor(private userService: Services, private router: Router, private donationService: DonationService) {}
 
   ngOnInit() {
@@ -142,9 +143,10 @@ export class Sidebar implements OnInit {
     const userEmail = localStorage.getItem('userEmail');
     this.donationService.getDonations().subscribe((donations: any[]) => {
       this.pendingSponsorRequestsCount = donations.filter(d => 
-        d.donorRole === 'SPONSORS' &&
-        d.donorEmail === userEmail
-      ).length;
+  d.donorRole === 'SPONSORS' &&
+  d.donorEmail === userEmail
+).length;
+
     });
   }
   

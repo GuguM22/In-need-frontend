@@ -67,7 +67,7 @@
             <span>{{ capitalizeWords(email) }}</span> &bull;
             <span>{{ phone }}</span> &bull;
         
-            <span class="px-1 py-0.5 text-[9px] font-medium rounded border border-[2px] flex items-center" [ngClass]="{
+            <span class="px-1 py-0.5 text-[9px] font-medium rounded flex items-center" [ngClass]="{
                     'bg-[#F7CB73] text-gray-600 border-[#F7CB73]': statusText === 'Pending',
                     'bg-[#c82027] text-white border-[#c82027]': statusText === 'Rejected',
                     'bg-[#5B8E7D] text-white border-[#5B8E7D]': statusText === 'Accepted',
