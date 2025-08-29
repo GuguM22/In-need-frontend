@@ -96,8 +96,18 @@ getMyPosts(): Observable<any[]> {
 
   console.log("Token used:", token);
   
-  return this.http.get<any[]>(this.apiUrl, { headers });
+  return this.http.get<any[]>(`${this.apiUrl}/my-posts`, { headers });
 }
+
+/*getMyPosts(): Observable<any[]> {
+  const token = this.getToken();
+  const headers = new HttpHeaders({
+    "Authorization": `Bearer ${token}`
+  });
+
+  return this.http.get<any[]>(`${this.apiUrl}/my-posts`, { headers });
+}*/
+
 
 
 }

@@ -43,6 +43,7 @@ export class ReviewRequest implements OnInit {
   donation: Donation[] = [];
   notification: { message: string, type: 'success' | 'error' } | null = null;
   backButtonVisible: boolean = true;
+  acceptedPosts: Donation[] = [];
 
 
 
@@ -102,9 +103,17 @@ loadDonations() {
     this.donation = donations;
     console.log("Donations after mapping:", this.donation); // 👈 check IDs exist
   });
+
+  this.donationStateService.acceptedDonations$.subscribe(posts => {
+    this.acceptedPosts = posts;
+  });
+
+  this.donationStateService.removedDonations$.subscribe(ids => {
+    this.acceptedPosts = this.acceptedPosts.filter(post => !ids.includes(post.id));
+  });
 }
 
-  updateDonation(id: number, isAccepted: boolean) {
+/*  updateDonation(id: number, isAccepted: boolean) {
     if (!id) {
     console.error("Donation ID is missing. Cannot update donation.");
     this.notification = {
@@ -144,7 +153,39 @@ loadDonations() {
         };
       }
     });
-  }
+  }*/
+
+updateDonation(id: number, isAccepted: boolean) {
+  if (!id) return;
+
+  const status = isAccepted ? DonationStatus.ACCEPTED : DonationStatus.DECLINED;
+  const selectedDonation: DonationUpdate = { id, status };
+
+  this.donationService.updateDonation(selectedDonation).subscribe({
+    next: (updatedDonation) => {
+      // Remove from Sponsor Requests tab and Home Page
+      this.donationStateService.removeDonation(id);
+
+      // Optionally add to accepted posts if needed
+      if (isAccepted) {
+        this.donationStateService.addAcceptedDonation(updatedDonation);
+      }
+
+      this.notification = {
+        type: 'success',
+        message: isAccepted ? 'Donation accepted successfully' : 'Donation declined successfully'
+      };
+
+      setTimeout(() => this.router.navigate(['/sponsorship-request-page']), 3000);
+    },
+    error: (err) => {
+      console.error(err);
+      this.notification = { type: 'error', message: 'Failed to update donation.' };
+    }
+  });
+}
+
+
 
   showModal: boolean = false;
   modalAction: 'accept' | 'decline' | null = null;

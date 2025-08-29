@@ -6,11 +6,12 @@ import { Sidebar } from '../sidebar/sidebar';
 import { DonationStateService } from '../../service/donation-state-service';
 import { Donation } from '../../model/donation';
 import { DonationService } from '../../service/donation-service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, Sidebar],
+  imports: [CommonModule, Sidebar, RouterModule],
    templateUrl: './navbar.html',
   styleUrls: ['./navbar.css']
 })

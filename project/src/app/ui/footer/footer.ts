@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Services } from '../../service/services';
-import { Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { filter } from 'rxjs/operators';
 @Component({
   selector: 'app-footer',
   standalone: true,
@@ -9,31 +10,25 @@ import { Router, RouterModule } from '@angular/router';
   templateUrl: './footer.html',
   styleUrls: ['./footer.css']
 })
-export class FooterComponent {
+export class FooterComponent implements OnInit{
   
-  dashboardRoute: string = '/';
-  showOptions: boolean = false;
+dashboardRoute: string = '/';
+  currentUrl: string = '';
+  userRole: string | null = null;
 
- /* toggleOptions(event: MouseEvent) {
-  event.stopPropagation(); // prevents "View" click from also firing
-  this.showOptions = !this.showOptions;
-}*/
-
-
-goToDonation(){
-  console.log("Navigate to sponsor donation");
-}
-
-showPost(){
-  console.log("Navigate to org / indi post ");
-}
+  donationRoutes = [
+    '/options',
+    '/donation-request',
+    '/freq',
+    '/donation-review'
+  ];
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
+    this.userRole = (localStorage.getItem('userRole') || '').trim().toUpperCase();
 
-    const role = localStorage.getItem('userRole');
-    switch (role) {
+    switch (this.userRole) {
       case 'SPONSORS':
         this.dashboardRoute = '/sponsor-dashboard';
         break;
@@ -49,35 +44,45 @@ showPost(){
       default:
         this.dashboardRoute = '/individual-dashboard';
     }
+
+    this.currentUrl = this.router.url;
+
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      this.currentUrl = (event as NavigationEnd).urlAfterRedirects;
+    });
   }
 
-isActive(route: string): boolean {
-  return this.router.url === route || this.router.url.startsWith(route + '/');
-}
-isDonationRoute(): boolean {
-  const donationRoutes = [
-    '/options',
-    '/donation-request',
-    '/freq',
-    '/donation-review'
-  ];
+  isActive(route: string): boolean {
+    return this.currentUrl === route || this.currentUrl.startsWith(route + '/');
+  }
 
-  return donationRoutes.some(route =>
-    this.router.url === route || this.router.url.startsWith(route + '/') || this.router.url.startsWith(route + '?')
-  );
-}
+  isDonationRoute(): boolean {
+    if (this.userRole !== 'SPONSORS') return false; // only sponsors
+    return this.donationRoutes.some(route =>
+      this.currentUrl === route ||
+      this.currentUrl.startsWith(route + '/') ||
+      this.currentUrl.startsWith(route + '?')
+    );
+  }
 
-isViewRoute(): boolean {
-  const viewRoutes = [
-    '/view',
-    '/view-post',
-    '/view-indv-post'
-  ];
+  isViewRoute(): boolean {
+    const viewRoutes = ['/view', '/view-post', '/view-indv-post'];
+    return viewRoutes.some(route =>
+      this.currentUrl === route ||
+      this.currentUrl.startsWith(route + '/') ||
+      this.currentUrl.startsWith(route + '?')
+    );
+  }
 
-  return viewRoutes.some(route =>
-    this.router.url === route || this.router.url.startsWith(route + '/') || this.router.url.startsWith(route + '?')
-  );
-}
+  goToDonation() {
+    if (this.userRole === 'SPONSORS') {
+      this.router.navigate(['/options']); 
+    }
+  }
 
-
+  showPost() {
+    console.log("Navigate to org / indi post ");
+  }
 }
