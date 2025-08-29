@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { DonationRequestDTO } from '../dto/donationRequestDTO';
 import { DonationUpdate } from '../dto/donationUpdate';
 import { environment } from '../env/env';
@@ -79,6 +79,12 @@ getDonationById(id: number): Observable<Donation> {
   return this.http.get<Donation>(`${this.apiUrl}/auth/donations/${id}`, { headers });
 }
 
+private donationsSubject = new BehaviorSubject<Donation[]>([]);
+donations$ = this.donationsSubject.asObservable();
+
+setDonations(donations: Donation[]) {
+  this.donationsSubject.next(donations);
+}
 
 }
 

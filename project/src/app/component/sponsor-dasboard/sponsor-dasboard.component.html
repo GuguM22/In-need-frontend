@@ -7,6 +7,7 @@
         <div class="inputBox">
             <input type="search" placeholder="Search for an organisation" [(ngModel)]="searchQuery"  (input)="onSearch()" >
         </div>
+        
         <!-- <div class="filterIcon">
             <img src="filterIcon.png" alt="" class="iconRight">
         </div> -->
@@ -59,19 +60,22 @@
         <h3 class="font-bold">Organisations in Need</h3>
         <p class="orgP">Verfied organisations ready for your support</p>
     </div>
-
+    <div *ngIf="filteredRequests.length === 0" class="no-results">
+        <p>No matching requests found.</p>
+      </div>
         <div *ngFor="let request of paginatedRequests" class="orgCards">
 
         <div class="orgCard" [routerLink]="['/view-post', request.id]" >
             <div class="holder1">
                 <div class="profile">
                     <div class="pfp">
-                        <img src="org.jpg" alt="" class="image">
+                       <!--<img src="org.jpg" alt="" class="image">-->
+                       <img [src]="getImage(request.user?.profileImageUrl)" alt="" class="image">
                     </div>
                     <div class="companyName">
                         <div class="top">
                             <div class="cmpName">
-                                <h2>{{request.title}} </h2>
+                                <h2>{{request.user?.username}} </h2>
                             </div>
                             <div class="imgs">
                                 <img src="verified.png" alt="" class="verified">
@@ -82,7 +86,7 @@
                                 <img src="loc.png" alt="" class="loc">
                             </div>
                             <div class="address">
-                                <p>Gauteng, Johannesburg</p>
+                                <p>{{request.location}}</p>
                             </div>
                         </div>
                     </div>
@@ -100,7 +104,7 @@
   
             <div class="requests">
                 <div class="reqTitle">
-                    <h1>School supplies</h1>
+                    <h1>{{request.title}}</h1>
                 </div>
                 <div class="desc">
                     <p>{{request.description}}</p>

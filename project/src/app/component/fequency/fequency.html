@@ -14,7 +14,7 @@
   <!-- Page Title -->
   <div class="place-content-center mt-[10px]">
     <h4 class="font-extrabold text-xl text-center">Frequency</h4>
-    <p class="text-center font-extrabold text-xs">How often would you like to donate</p>
+    <p class="text-center font-[700] text-[#0000009C] text-[14px]">How often would you like to donate</p>
   </div>
 
   <!-- Frequency Tiles -->
@@ -37,18 +37,16 @@
   </div>
 
   <!-- Next / Back Buttons -->
-  <div class="flex flex-row gap-2 mt-6 mb-10">
-    <div class="w-full h-[46px] bg-[#D9D9D9] grid place-content-center rounded-lg">
+  <div class="flex flex-row gap-5 mt-6 mb-10 btns">
+    <div class="w-[145px] h-[46px] bg-[#D9D9D9] grid place-content-center rounded-lg">
       <button class="flex flex-row justify-between items-center w-full h-full px-4" (click)="goBack()">
-        <img src="icons/lessthan.svg" alt="back" class="w-5 h-5"/>
-        <span>Back</span>
+         &lt; Back
       </button>
     </div>
 
-    <div class="w-full h-[46px] grid place-content-center rounded-lg bg-[#5B8E7D]">
+    <div class="w-[145px] l h-[46px] grid place-content-center rounded-lg bg-[#5B8E7D]">
       <button class="flex flex-row justify-between items-center w-full h-full px-4 text-white" (click)="goNext()">
-        <span>Next</span>
-        <img src="icons/greaterthan.svg" alt="next" class="w-5 h-5"/>
+        Next &gt;
       </button>
     </div>
   </div>

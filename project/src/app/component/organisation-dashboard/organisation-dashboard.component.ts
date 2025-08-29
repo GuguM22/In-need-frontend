@@ -45,20 +45,17 @@ export class OrganisationDashboardComponent {
   this.isVerified = localStorage.getItem('verified') === 'true';
   this.loadRequests();
   this.loadIndividuals();
-  // Default logo
   this.profileImageUrl = 'logo.png';
 
-  this.service.profile().subscribe({
+/*  this.service.profile().subscribe({
     next: (data: any) => {
       if (data.profileImagePath) {
         const img = new Image();
         img.src = `http://localhost:5050/auth/images/${data.profileImagePath}`;
         img.onload = () => {
-          // Replace logo only after image is fully loaded
           this.profileImageUrl = img.src;
         };
         img.onerror = () => {
-          // Fallback in case image fails to load
           this.profileImageUrl = 'logo.png';
         };
       }
@@ -66,8 +63,10 @@ export class OrganisationDashboardComponent {
     error: () => {
       this.profileImageUrl = 'logo.png';
     }
-  });
+  });*/
   }
+
+
   navigateToSponsorRequest() {
     if (this.isVerified) {
       this.router.navigate(['sponsor-request']); // ✅ navigate only if verified
@@ -108,11 +107,19 @@ export class OrganisationDashboardComponent {
   
   
 
+  // calculateDaysLeft(requiredDate: string): number {
+  //   const today = new Date();
+  //   const endDate = new Date(requiredDate);
+  //   const timeDiff = endDate.getTime() - today.getTime();
+  //   return Math.max(0, Math.ceil(timeDiff / (1000 * 3600 * 24))); // No negative values
+  // }
   calculateDaysLeft(requiredDate: string): number {
     const today = new Date();
+    today.setHours(0, 0, 0, 0); // Ensure comparison is at date level
     const endDate = new Date(requiredDate);
+    endDate.setHours(0, 0, 0, 0);
     const timeDiff = endDate.getTime() - today.getTime();
-    return Math.max(0, Math.ceil(timeDiff / (1000 * 3600 * 24))); // No negative values
+    return Math.ceil(timeDiff / (1000 * 3600 * 24)); // Can be negative now
   }
   
   calculateProgressPercent(requiredDate: string): number {
@@ -274,6 +281,25 @@ onImageError(event: Event): void {
 }
 
 
+getDaysLeftClass(requiredDate: string): string {
+  const daysLeft = this.calculateDaysLeft(requiredDate);
+
+  if (daysLeft < 0) return ' text-red-700 border-red-300';
+  if (daysLeft === 0) return ' text-yellow-800 border-yellow-300';
+  if (daysLeft <= 3) return ' text-orange-700 border-orange-300';
+  return ' text-green-700 border-green-300';
+}
+
+getDaysLeftLabel(requiredDate: string): string {
+  const daysLeft = this.calculateDaysLeft(requiredDate);
+  if (daysLeft < 0) return 'Past Due';
+  if (daysLeft === 0) return 'Today';
+  return `${daysLeft} Days`;
+}
+
+getImage(path?: string): string {
+  return path ? `${this.service.baseUrl}/auth/images/${path}` : 'logo.png';
+}
 
 }
 

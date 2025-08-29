@@ -5,34 +5,35 @@
 
   <!-- Stepper -->
   <div class="flex items-center justify-center space-x-4 mb-6 stepper" id="stepper">
-    <div class="step w-10 h-10 flex items-center justify-center rounded-full bg-blue-500 text-white">1</div>
-    <div class="step w-10 h-10 flex items-center justify-center rounded-full bg-blue-500 text-white">2</div>
-    <div class="step w-10 h-10 flex items-center justify-center rounded-full bg-blue-500 text-white">3</div>
-    <div class="step w-10 h-10 flex items-center justify-center rounded-full bg-blue-500 text-white">4</div>
+    <div class="step w-10 h-10 flex items-center justify-center rounded-full bg-blue-500 font-[800] text-white">1</div>
+    <div class="step w-10 h-10 flex items-center justify-center rounded-full bg-blue-500 font-[800] text-white">2</div>
+    <div class="step w-10 h-10 flex items-center justify-center rounded-full bg-blue-500 font-[800] text-white">3</div>
+    <div class="step w-10 h-10 flex items-center justify-center rounded-full bg-blue-500 font-[800] text-white">4</div>
   </div>
 
   <!-- Donation Card -->
   <div class="donation-card max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+    <div class="head">
     <h2 class="card-title font-bold text-xl mb-4">Review your donation</h2>
-
+</div>
     <div class="donation-details space-y-3">
-      <div class="detail-row flex justify-between">
+      <div class="detail-row flex">
         <span class="label font-medium">Type:</span>
         <span class="value">{{ capitalizeWords(selectedType) }}</span>
       </div>
-      <div class="detail-row flex justify-between">
+      <div class="detail-row flex">
         <span class="label font-medium">Description:</span>
-        <span class="value">{{ description }}</span>
+        <span class="valu">{{ description }}</span>
       </div>
-      <div class="detail-row flex justify-between">
+      <div class="detail-row fle">
         <span class="label font-medium">Quantity:</span>
         <span class="value">{{ quantity }} {{ capitalizeWords(selectedType) }}</span>
       </div>
-      <div class="detail-row flex justify-between">
+      <div class="detail-row flex">
         <span class="label font-medium">Frequency:</span>
         <span class="value">{{capitalizeWords(selectedFrequency) }}</span>
       </div>
-      <div class="detail-row flex justify-between">
+      <div class="detail-row fle"x>
         <span class="label font-medium">Logistics:</span>
         <span class="value">{{capitalizeWords(selectPreference) }}</span>
       </div>
@@ -41,16 +42,14 @@
 
     <div class="button-container flex gap-4 mt-1000">
       <button (click)="goBack()"
-        class="flex-1 flex items-center rounded-lg justify-center gap-2 px-6 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition"
+        class="flex items-center rounded-lg justify-center gap-2 px-6 py-2 bg-[#D9D9D9] font-[700] text-gray-800 rounded  hover:bg-[#c8c8c8] transition"
         (click)="goBack()">
-        <img width="14" height="14" src="https://img.icons8.com/ios/50/back--v1.png" alt="back" />
-        Back
+        &lt; Back
       </button>
       <button
-        class="flex-1 flex items-center rounded-lg justify-center gap-2 px-4 py-2 bg-[#5B8E7D] text-white rounded hover:bg-[#5B8E7D] transition"
+        class="flex items-center rounded-lg justify-center gap-2 px-4 py-2 bg-[#5B8E7D] font-[700] text-white rounded hover:bg-[#4b8170] transition"
         (click)="confirmDonation()">
         <span>Confirm</span>
-        <img src="icons/greaterthan.svg" alt="next" class="w-5 h-5" />
       </button>
     </div>
   </div>

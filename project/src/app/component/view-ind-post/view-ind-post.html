@@ -1,4 +1,4 @@
-
+<!-- 
   
   <div *ngIf="!individual">
     <p>Loading post...</p>
@@ -19,6 +19,54 @@
     <h2>{{ individual.title }}</h2>
     
     <p>{{ individual.description }}</p>
+
+    <button class="donate-btn" [routerLink]="['/options', individual.id]">Donate</button>
+  </div>
+</div>
+<app-footer></app-footer> -->
+<app-navbar></app-navbar>
+<div *ngIf="individual" class="container">
+  <div class="back">
+    <button [routerLink]="dashboardRoute">Back</button>
+  </div>
+  <div class="top">
+    <div class="top-container">
+      <div class="pic">
+        <img [src]="profileImageUrl" alt="" class="image">
+      </div>
+      <div class="cmpName">
+        <div class="names flex">
+        <div class="name">
+        <h2 class="name">Username</h2>
+        </div>
+        <div class="imgs">
+          <img src="verified.png" alt="" class="verified">
+      </div>
+      </div>
+        <div class="loc">
+          <h5>Gauteng, Johannesburg</h5>
+        </div>
+      </div>
+    
+    </div>
+  </div>
+  <div class="event-info">
+
+    <div class="event-date">  {{ getDaysLeftInfo(individual.neededByDate) }}</div>  
+  </div>
+
+  <div class="content">
+    <h2 class="reqTitle">{{ individual.title }}</h2>
+    <div class="description-wrapper" (click)="toggleDescription()">
+      <p class="description-text" *ngIf="!showFullDescription">
+        {{ getShortDescription(individual.description) }}
+      </p>
+    
+      <p class="description-text" *ngIf="showFullDescription">
+        {{ individual.description }}
+      </p>
+    </div>
+    
 
     <button class="donate-btn" [routerLink]="['/options', individual.id]">Donate</button>
 

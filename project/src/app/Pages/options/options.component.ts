@@ -76,8 +76,26 @@ export class OptionsComponent implements OnInit {
       this.showError = false;
     } else {
       // Navigate to dashboard based on user role
-      this.router.navigate([this.dashboardRoute]);
+     const role = localStorage.getItem('userRole');
+
+    switch (role) {
+      case 'SPONSORS':
+        this.dashboardRoute = '/sponsor-dashboard';
+        break;
+      case 'ORGANIZATION':
+        this.dashboardRoute = '/organization-dashboard';
+        break;
+      case 'INDIVIDUAL':
+        this.dashboardRoute = '/individual-dashboard';
+        break;
+      case 'ADMIN':
+        this.dashboardRoute = '/admin';
+        break;
+      default:
+        this.dashboardRoute = '/individual-dashboard'; 
     }
+    this.router.navigate([this.dashboardRoute]);
+  } 
     
   }
 
@@ -96,7 +114,7 @@ export class OptionsComponent implements OnInit {
     });
 
     // Set dashboard route based on user role
-    const role = localStorage.getItem('userRole');
+  /*  const role = localStorage.getItem('userRole');
     switch (role) {
       case 'SPONSORS':
         this.dashboardRoute = '/sponsor-dashboard';
@@ -112,7 +130,7 @@ export class OptionsComponent implements OnInit {
         break;
       default:
         this.dashboardRoute = '/individual-dashboard';
-    }
+    }*/
   }
-
 }
+

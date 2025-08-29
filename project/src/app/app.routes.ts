@@ -61,6 +61,7 @@ import { Uploaded } from './Pages/uploaded/uploaded';
 
 import { ViewOrgPost } from './component/organisation-dashboard/view-org-post/view-org-post';
 import { UploadSuccessfullyindividualComponent } from './upload-successfully-individual/upload-successfully-individual.component';
+import { SponsorActivityComponent } from './component/sponsor-activity/sponsor-activity.component';
 
 
 
@@ -69,6 +70,7 @@ export const routes: Routes = [
 
  { path: '', redirectTo: 'Landing', pathMatch: 'full' },
   { path: 'Landing', component: LandingComponent },
+  { path: 'options', component: OptionsComponent },
   { path: 'options/:id', component: OptionsComponent},
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: Register },
@@ -133,7 +135,8 @@ export const routes: Routes = [
   {path: 'view-indv-post/:id', component: ViewIndPost},
 
 
-  {path: 'upload-verification', component: UploadSuccessfullyindividualComponent}
+  {path: 'upload-verification', component: UploadSuccessfullyindividualComponent},
+  {path: 'sponsor-activity', component: SponsorActivityComponent}
   // { path: '**', redirectTo: 'fequency' }
 
 
