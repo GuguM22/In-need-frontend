@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { PreviewSponsor } from "../preview-sponsor/preview-sponsor";
 
@@ -17,7 +17,6 @@ export interface SponsorRequest {
   quantity: number;
   requiredDate: string;
   description: string;
-  location: string;
   mediaUrls?: File[];
   user?: User;
 }
@@ -36,7 +35,7 @@ export function futureDateValidator(): ValidatorFn {
 @Component({
   selector: 'app-sponsor-request',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, PreviewSponsor, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, PreviewSponsor],
   templateUrl: './sponsor-request.html',
   styleUrls: ['./sponsor-request.css'],
   providers: [SponsorRequestService]
@@ -61,7 +60,6 @@ fileNames: string[] = [];     // file names
   isSubmitting = false;
   showPreview = false;
 previewData: any;
-dashboardRoute: string = '/individual-dashboard';
 
   constructor(
     private fb: FormBuilder,
@@ -75,7 +73,6 @@ dashboardRoute: string = '/individual-dashboard';
       quantity: [1, [Validators.required, Validators.min(1)]],
       requiredDate: [this.getTodayDate(), [Validators.required, futureDateValidator()]],
       description: ['', Validators.required],
-      location: ['', Validators.required], 
       media: [null]
     });
   }
@@ -131,8 +128,6 @@ dashboardRoute: string = '/individual-dashboard';
   formData.append('quantity', String(this.sponsorshipForm.get('quantity')?.value));
   formData.append('requiredDate', this.sponsorshipForm.get('requiredDate')?.value);
   formData.append('description', this.sponsorshipForm.get('description')?.value);
-  formData.append('location', this.sponsorshipForm.get('location')?.value);
-
 
   this.selectedFiles.forEach(file => formData.append('mediaFiles', file, file.name));
 
@@ -146,8 +141,11 @@ dashboardRoute: string = '/individual-dashboard';
       alert('Request updated successfully');
       this.showPreview = false; 
       this.requestId = null;   // 👈 reset after update if you want to allow new create
-      this.router.navigate([this.dashboardRoute]);
-
+      if (response?.id) {
+        this.router.navigate(['/preview-sponsor', response.id]);
+      } else {
+        console.error('No ID returned from backend');
+      }
     },
     error: (err) => {
       console.error(err);
@@ -179,53 +177,18 @@ dashboardRoute: string = '/individual-dashboard';
 
 
 
-// ngOnInit(): void {
-//   this.requestId = null; 
-
-//   const state = history.state;
-//   if (state.formData) {
-//     this.sponsorshipForm.patchValue(state.formData);
-//     this.selectedFiles = state.files || [];
-//     this.filePreviews = this.selectedFiles.map(file => {
-//       if (file instanceof File) return URL.createObjectURL(file);
-//       return file; 
-//     });
-//     this.requestId = state.id || null;  // 👈 set requestId if editing
-//   }
-// }
-
 ngOnInit(): void {
-  // Set default requestId
-  this.requestId = null;
+  this.requestId = null; 
 
-  // Determine dashboard route based on role
-  const role = localStorage.getItem('userRole');
-  switch (role) {
-    case 'SPONSORS':
-      this.dashboardRoute = '/sponsor-dashboard';
-      break;
-    case 'ORGANIZATION':
-      this.dashboardRoute = '/organization-dashboard';
-      break;
-    case 'INDIVIDUAL':
-      this.dashboardRoute = '/individual-dashboard';
-      break;
-    case 'ADMIN':
-      this.dashboardRoute = '/admin';
-      break;
-    default:
-      this.dashboardRoute = '/individual-dashboard';
-  }
-
-  // Patch form data if editing
   const state = history.state;
   if (state.formData) {
     this.sponsorshipForm.patchValue(state.formData);
     this.selectedFiles = state.files || [];
-    this.filePreviews = this.selectedFiles.map(file =>
-      file instanceof File ? URL.createObjectURL(file) : file
-    );
-    this.requestId = state.id || null;
+    this.filePreviews = this.selectedFiles.map(file => {
+      if (file instanceof File) return URL.createObjectURL(file);
+      return file; 
+    });
+    this.requestId = state.id || null;  // 👈 set requestId if editing
   }
 }
 
@@ -259,9 +222,13 @@ ngOnInit(): void {
     this.revokePreviews();
   }
 
+  backButton(): void {
+    this.router.navigate(['uploaded']);
+  }
 
   ngOnDestroy(): void {
   this.revokePreviews();
 } 
 } // <-- this closes SponsorRequestComponent class
+
 
