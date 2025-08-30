@@ -2,12 +2,13 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { PreviewSponsor } from "../preview-sponsor/preview-sponsor";
 
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { User } from '../../model/user';
+import { Toast } from '../../ui/toast/toast';
 
 // Backend DTO
 export interface SponsorRequest {
@@ -36,7 +37,7 @@ export function futureDateValidator(): ValidatorFn {
 @Component({
   selector: 'app-sponsor-request',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, PreviewSponsor],
+  imports: [ReactiveFormsModule, CommonModule, PreviewSponsor, RouterLink, Toast],
   templateUrl: './sponsor-request.html',
   styleUrls: ['./sponsor-request.css'],
   providers: [SponsorRequestService]
@@ -61,7 +62,10 @@ fileNames: string[] = [];     // file names
   isSubmitting = false;
   showPreview = false;
 previewData: any;
-
+dashboardRoute: string = '/';
+toastMessage: string = '';
+toastType: 'success' | 'error' = 'success';
+showToast: boolean = false;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -141,8 +145,7 @@ previewData: any;
   this.sponsorRequestService.update(this.requestId, formData).subscribe({
     next: (response) => {
       this.isSubmitting = false;
-      alert('Request updated successfully');
-      this.showPreview = false; 
+       this.showPreview = false; 
       this.requestId = null;   // 👈 reset after update if you want to allow new create
       if (response?.id) {
         this.router.navigate(['/preview-sponsor', response.id]);
@@ -153,7 +156,7 @@ previewData: any;
     error: (err) => {
       console.error(err);
       this.isSubmitting = false;
-      alert('Failed to update request');
+      this.showToastMessage('Failed to update request.', 'error');
     }
   });
 } else {
@@ -191,7 +194,25 @@ ngOnInit(): void {
       if (file instanceof File) return URL.createObjectURL(file);
       return file; 
     });
-    this.requestId = state.id || null;  // 👈 set requestId if editing
+       this.requestId = state.id;  // 👈 set requestId if editing
+  }
+
+  const role = localStorage.getItem('userRole');
+  switch (role) {
+    case 'SPONSORS':
+      this.dashboardRoute = '/sponsor-dashboard';
+       break;
+    case 'ORGANIZATION':
+      this.dashboardRoute = '/organization-dashboard';
+      break;
+    case 'INDIVIDUAL':
+      this.dashboardRoute = '/individual-dashboard';
+      break;
+    case 'ADMIN':
+      this.dashboardRoute = '/admin';
+      break;
+    default:
+      this.dashboardRoute = '/individual-dashboard'; // fallback
   }
 }
 
@@ -232,6 +253,16 @@ ngOnInit(): void {
   ngOnDestroy(): void {
   this.revokePreviews();
 } 
+
+showToastMessage(message: string, type: 'success' | 'error') {
+  this.toastMessage = message;
+  this.toastType = type;
+  this.showToast = true;
+
+  setTimeout(() => {
+    this.showToast = false;
+  }, 4000);
+}
 } // <-- this closes SponsorRequestComponent class
 
 

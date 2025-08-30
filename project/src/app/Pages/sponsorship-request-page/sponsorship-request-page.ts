@@ -54,10 +54,15 @@ const savedIds = localStorage.getItem('removedDonations');
           : 'logo.png',
         donorName: donation.donorName,
         donorRole: donation.donorRole,
-      }));
-
+      }))
+      .sort((a, b) => {
+        const dateA = new Date(a.createdAt ?? 0).getTime();
+        const dateB = new Date(b.createdAt ?? 0).getTime();
+          return dateB - dateA;
+        })
     this.donationStateService.setDonations(mappedDonations);
   });
+  
 
   this.donationStateService.donations$.subscribe(donations => {
     this.donations = donations;
@@ -189,18 +194,29 @@ capitalizeWords(name?: string): string {
   fetchUserPosts(): void {
     this.sponsorRequestService.getMyPosts().subscribe({
       next: (data) => {
+        const msPerDay = 1000 * 60 * 60 * 24;
+        const today = new Date().getTime();
+  
         const newData = data.map((request) => {
-          const msPerDay = 1000 * 60 * 60 * 24;
-          const requiredDate = new Date(request.requiredDate).getTime();
-          const today = new Date().getTime();
-
-          const daysLeft = Math.ceil((requiredDate - today) / msPerDay);
-
-          return { ...request, daysLeft}
-        })
-        this.posts = newData || [];
+          const requiredDate = request.requiredDate;
+          const createdAt = request.createdAt;
+          const daysLeft = Math.ceil(
+            (new Date(requiredDate).getTime() - today) / msPerDay
+          );
+  
+          return { ...request, createdAt, requiredDate, daysLeft };
+        });
+  
+        // 🔽 Sort by createdAt (newest first)
+        this.posts = (newData || []).sort(
+          (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+  
+        console.log('Posts sorted by createdAt:', this.posts);
       },
       error: (err) => console.error('Error fetching user posts:', err)
     });
   }
+  
+  
 }
