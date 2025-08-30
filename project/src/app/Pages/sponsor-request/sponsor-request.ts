@@ -17,6 +17,7 @@ export interface SponsorRequest {
   quantity: number;
   requiredDate: string;
   description: string;
+  location: string;
   mediaUrls?: File[];
   user?: User;
 }
@@ -73,6 +74,7 @@ previewData: any;
       quantity: [1, [Validators.required, Validators.min(1)]],
       requiredDate: [this.getTodayDate(), [Validators.required, futureDateValidator()]],
       description: ['', Validators.required],
+      location: ['', Validators.required], 
       media: [null]
     });
   }
@@ -128,6 +130,7 @@ previewData: any;
   formData.append('quantity', String(this.sponsorshipForm.get('quantity')?.value));
   formData.append('requiredDate', this.sponsorshipForm.get('requiredDate')?.value);
   formData.append('description', this.sponsorshipForm.get('description')?.value);
+  formData.append('location', this.sponsorshipForm.get('location')?.value);
 
   this.selectedFiles.forEach(file => formData.append('mediaFiles', file, file.name));
 
