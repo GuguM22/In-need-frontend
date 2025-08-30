@@ -67,7 +67,7 @@ export class OptionsComponent implements OnInit {
     }
 
     localStorage.setItem('donationType', this.selectedType);
-    this.router.navigate(['/donation-request']);
+    this.router.navigate(['/donation-request', this.requestId]);
   }
 
   goBack(): void {

@@ -51,11 +51,14 @@ goNext() {
     type: DonationType.FOOD,
     frequency: DonationFrequency.ONE_TIME,
     donorName:  localStorage.getItem('donorName') || '',
+    sponsorRequestId: this.requestId ? +this.requestId : undefined 
   };
 
   localStorage.setItem('donationRequest', JSON.stringify(donationRequest));
-  this.router.navigateByUrl('/freq');
-}
+  this.router.navigate(['/freq'], {
+    queryParams: { id: this.requestId }
+  });
+  }
 
 
   // Custom validator for future dates
