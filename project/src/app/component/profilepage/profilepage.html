@@ -40,7 +40,7 @@
         {{ capitalizeWords(name) }}
       </h1>
       <h1 *ngIf="!isEditing" class="font-extrabold text-xl mb-0.5"></h1>
-      <input *ngIf="isEditing" [(ngModel)]="editName" class="border p-1 rounded text-black w-full mb-1" />
+      <input *ngIf="isEditing" [(ngModel)]="editName" class="border-1 border-[#00000030] p-1 rounded text-gray font-[400]  w-full mb-1" />
       <div class="flex items-center justify-between gap-2">
         <!-- <p class="text-xs opacity-70 mb-1">Helping since 2020 </p> -->
       </div>
@@ -61,13 +61,13 @@
             {{ capitalizeWords(name) }}
           </h2>
           <input *ngIf="isEditing" [(ngModel)]="editName"
-            class="border p-1 rounded text-black w-full mb-1 pointer-events-none" />
+            class="border-1 border-[#00000030] p-1 rounded text-gray font-[400]  w-full mb-1 pointer-events-none" />
         <div class="flex items-end justify-between gap-[0.5px]">
           <p *ngIf="!isEditing" class="text-gray-600 text-xs mt-0.5 flex items-end gap-1">
             <span>{{ capitalizeWords(email) }}</span> &bull;
             <span>{{ phone }}</span> &bull;
         
-            <span class="px-1 py-0.5 text-[9px] font-medium rounded flex items-center" [ngClass]="{
+            <span class="px-1 py-0.4 text-[9px] font-medium rounded flex items-center" [ngClass]="{
                     'bg-[#F7CB73] text-gray-600 border-[#F7CB73]': statusText === 'Pending',
                     'bg-[#c82027] text-white border-[#c82027]': statusText === 'Rejected',
                     'bg-[#5B8E7D] text-white border-[#5B8E7D]': statusText === 'Accepted',
@@ -79,7 +79,7 @@
         </div>
 
           <div *ngIf="isEditing" class="flex flex-col gap-1">
-            <input [(ngModel)]="editEmail" class="w-70 h-8 border p-1 rounded text-black text-xs" placeholder="Email"
+            <input [(ngModel)]="editEmail" class="w-70 h-8 border-1 border-[#00000030] p-1 rounded text-gray font-[400] text-xs" placeholder="Email"
               disabled />
             <input [(ngModel)]="editPhone" *ngIf="!isSponsor && phone !== 'Not verified yet'"
               class="w-70 h-8 border p-1 rounded text-black w-full text-xs" placeholder="Phone" />
@@ -95,7 +95,7 @@
           {{ bio }}
         </p>
         <textarea *ngIf="isEditing" [(ngModel)]="editBio"
-          class="border resize-none h-30 p-1 rounded text-black w-full text-sm"></textarea>
+          class="border-1 border-[#00000030] resize-none h-30 p-1 rounded text-gray font-[400] w-full text-sm"></textarea>
       </div>
 
       <!-- Location -->
@@ -118,13 +118,9 @@
         </div>
         <div *ngIf="!isEditing" class="bg-white p-2 rounded-lg shadow-sm flex flex-col gap-1">
           <span class="text-gray-800 text-xs font-medium">{{ capitalizeWords(Location) }}</span>
-          <a href="https://www.google.com/maps/search/{{ Location }}" target="_blank" class
-            class="text-[#5B8E7D] hover:underline text-xs font-semibold self-start">
-            📍 View on Map
-          </a>
         </div>
         <input *ngIf="isEditing" [(ngModel)]="editLocation"
-          class="w-70 h-8 border p-1 rounded text-black w-full text-xs" />
+          class=" h-8 border-1 border-[#00000030]  p-1 rounded text-gray font-[400]  w-full text-xs" />
       </div>
 
       <!-- Edit Button -->
