@@ -18,10 +18,10 @@ body {
     max-width: screen;
     /* margin: 0 auto; */
     background: white;
-    overflow: hidden;
+    /* overflow: hidden; */
     /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); */
     margin-top: 30px;
-    margin-bottom: 50px;
+    padding-bottom: 107px;
 }
 
 
