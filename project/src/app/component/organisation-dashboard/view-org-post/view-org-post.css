@@ -371,3 +371,22 @@ header {
     font-size: 14px;
      height: 10px;
   }
+
+  .need{
+     margin-bottom: 10px;
+  }
+
+  .uploaded-img{
+    height: 150px;
+    width: 150px;
+    border-radius: 12px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .image-gallery{
+     text-align: center;
+    display: flex;
+    align-items: center;
+  }

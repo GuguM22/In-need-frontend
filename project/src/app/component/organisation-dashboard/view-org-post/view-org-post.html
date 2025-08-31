@@ -54,7 +54,7 @@
       </p>
  <!-- Uploaded Images Section -->
 <div *ngIf="request?.mediaUrls?.length" class="uploaded-images">
-  <h3>Attached Images:</h3>
+  <h3 class="font-[700] need">What we're in need of:</h3>
   <div class="image-gallery">
     <img *ngFor="let url of request.mediaUrls" [src]="url" alt="Uploaded image" class="uploaded-img" />
   </div>

@@ -163,23 +163,18 @@ showToast: boolean = false;
 } else {
   // CREATE
   this.sponsorRequestService.post(this.sponsorshipForm.value, this.selectedFiles).subscribe({
-    next: (createdRequest: any) => {
+    next: () => {
       this.isSubmitting = false;
       this.resetForm();
-      this.requestId = null;   // 👈 ensure future submits start as CREATE
-      if (createdRequest?.id) {
-        this.router.navigate(['/preview-sponsor', createdRequest.id]);
-      } else {
-        console.error('No ID returned from backend');
-      }
+      this.requestId = null;
+      this.showToastMessage('Sponsorship request submitted successfully!', 'success');
+      this.router.navigate(['/upload-successfully']);
     },
     error: (err) => {
       console.error(err);
       this.isSubmitting = false;
-      alert('Failed to submit request.');
-    }
-  });
-}
+      this.showToastMessage('Failed to submit request.', 'error');
+}})}
   }
 
 
