@@ -162,7 +162,7 @@ showToast: boolean = false;
   });
 } else {
   // CREATE
-  this.sponsorRequestService.post(formData).subscribe({
+  this.sponsorRequestService.post(this.sponsorshipForm.value, this.selectedFiles).subscribe({
     next: (createdRequest: any) => {
       this.isSubmitting = false;
       this.resetForm();
