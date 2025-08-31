@@ -32,6 +32,7 @@ export class SponsorDasboardComponent {
    description: '',
    location: '',
    mediaUrls: [],
+   fulfilled: false
     
  }
 
@@ -60,9 +61,12 @@ export class SponsorDasboardComponent {
   loadRequests(): void {
     this.sponsorService.getAll().subscribe({
       next: (data) => {
-        this.requests = data.sort(
+        const unfulfilledRequests = data.filter(request => !request.fulfilled);
+
+        this.requests = unfulfilledRequests.sort(
           (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
+        
         this.filteredRequests = [...this.requests];
         console.log('Requests loaded and sorted by createdAt:', this.requests);
       },

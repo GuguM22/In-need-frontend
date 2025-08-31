@@ -21,7 +21,7 @@ export interface SponsorRequest {
   location: string;
   mediaUrls?: File[];
   user?: User;
-}
+ }
 
 // Validator for dates
 export function futureDateValidator(): ValidatorFn {

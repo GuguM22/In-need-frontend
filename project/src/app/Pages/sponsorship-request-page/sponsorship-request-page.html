@@ -160,8 +160,12 @@
     </div>
   </div> -->
   <ng-container *ngIf="activeTab === 'posts'">
+    <div *ngIf="message" class="alert bg-[#5B8E7D] text-white mt-2">
+      {{ message }}
+    </div>
+    
     <div
-      class="bg-white border rounded-xl shadow-sm p-4 mt-2 relative"
+      class="bg-white border-[#00000033] border-1 rounded-xl shadow-sm p-4 mt-2 relative"
       *ngFor="let post of posts; let i = index"
     >
       <!-- High Priority & Dot Menu -->
@@ -198,7 +202,7 @@
         class="absolute right-4 top-10 bg-white rounded-md shadow-lg z-10 border w-40"
       >
         <button
-          class="block w-full text-left px-4 py-2 text-sm text-green-600 hover:bg-gray-100"
+          class="block w-full text-left px-4 py-2 text-sm text-black hover:bg-gray-100"
           (click)="markFulfilled(i)"
         >
           Mark Fulfilled

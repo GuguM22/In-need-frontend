@@ -28,6 +28,7 @@ export class SponsorshipRequestPage {
   dashboardRoute: string = '/';
   hasNewDonation: boolean = false;
   isLoading = true;
+  message: string = '';
 
 
   constructor(
@@ -153,7 +154,7 @@ capitalizeWords(name?: string): string {
   sponsorId: any;
 
     posts = [
-    {
+    { id: 1,
       title: 'School Supplies',
       description:
         'Providing educational materials for 200+ children in underserved communities...',
@@ -192,9 +193,30 @@ capitalizeWords(name?: string): string {
   }
 
   markFulfilled(index: number): void {
-    this.posts[index].fulfilled = true;
-   // this.activeMenuId = null; // close menu
+    const fulfilledPost = this.posts[index];
+    // Remove from UI immediately for responsiveness
+    this.posts.splice(index, 1); 
+    this.activeMenuId = null;
+  
+    this.sponsorRequestService.markPostAsFulfilled(fulfilledPost.id).subscribe({
+      next: () => {
+        this.message = 'Post fulfilled!';
+        // Clear message after 3 seconds
+        setTimeout(() => {
+          this.message = '';
+        }, 2000);
+      },
+      error: (err) => {
+        console.error('Error marking fulfilled', err);
+        this.message = 'Failed to mark post as fulfilled.';
+        setTimeout(() => {
+          this.message = '';
+        }, 3000);
+      }
+    });
   }
+  
+  
 
 
   fetchUserPosts(): void {
@@ -214,7 +236,8 @@ capitalizeWords(name?: string): string {
         });
   
         // 🔽 Sort by createdAt (newest first)
-        this.posts = (newData || []).sort(
+        this.posts = (newData || []).filter(post => !post.fulfilled).sort(
+          
           (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
   
