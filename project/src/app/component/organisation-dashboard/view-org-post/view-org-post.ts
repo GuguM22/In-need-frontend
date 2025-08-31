@@ -5,10 +5,11 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from "../../../ui/footer/footer";
 import { NavbarComponent } from "../../../ui/navbar/navbar";
+import { Loader } from '../../../ui/loader/loader';
 
 @Component({
   selector: 'app-view-org-post',
-  imports: [CommonModule, RouterLink, FooterComponent, NavbarComponent],
+  imports: [CommonModule, RouterLink, FooterComponent, NavbarComponent, Loader],
   templateUrl: './view-org-post.html',
   styleUrl: './view-org-post.css'
 })
@@ -19,12 +20,18 @@ export class ViewOrgPost {
   profileImageUrl: string = 'logo.png';
   showFullDescription = false;
   dashboardRoute: string = '/';
+  isLoading = true;
+
 
   constructor(
     private route: ActivatedRoute,
     private sponsorService: SponsorRequestService,
     private eRef: ElementRef
-  ) {}
+  ) {
+    setTimeout(() =>{
+      this.isLoading = false}, 1000
+    )
+  }
 
   ngOnInit(): void {
     const role = localStorage.getItem('userRole');

@@ -10,11 +10,12 @@ import { NavbarComponent } from '../../ui/navbar/navbar';
 import { Role } from '../../constant/role';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { DonationStatus } from '../../constant/donationStatus';
+import { Loader } from '../../ui/loader/loader';
 
 @Component({
   selector: 'app-sponsorship-request-page',
   standalone: true,
-  imports: [CommonModule, RouterModule, FooterComponent, NavbarComponent],
+  imports: [CommonModule, RouterModule, FooterComponent, NavbarComponent, Loader],
   templateUrl: './sponsorship-request-page.html',
   styleUrls: ['./sponsorship-request-page.css'],
 })
@@ -26,6 +27,7 @@ export class SponsorshipRequestPage {
   profileImageUrl: string = 'logo.png';
   dashboardRoute: string = '/';
   hasNewDonation: boolean = false;
+  isLoading = true;
 
 
   constructor(
@@ -34,7 +36,11 @@ export class SponsorshipRequestPage {
     private service: Services,
     private donationStateService: DonationStateService,
     private sponsorRequestService: SponsorRequestService
-  ) { }
+  ) {
+    setTimeout(() =>{
+      this.isLoading = false}, 1000
+    )
+   }
 
 ngOnInit() {
 const savedIds = localStorage.getItem('removedDonations');

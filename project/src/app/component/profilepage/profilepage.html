@@ -1,4 +1,10 @@
-<app-navbar></app-navbar>
+ 
+ 
+@if(isLoading){
+  <app-loader/>
+  }
+@else {
+  <app-navbar></app-navbar>
 <div class="w-screen h-screen grid grid-rows-[auto_1fr_auto] bg-white overflow-y-auto">
   <!-- Header with Back Button -->
   <!----  <div class="flex justify-between items-center px-6 py-4 bg-white shadow-md h-14 z-20 flex-shrink-0">
@@ -210,7 +216,10 @@
       </div>-->
       </div>
     </div>
-
-    <app-footer></app-footer>
-  </div>
+  
+   </div>
 </div>
+<app-footer></app-footer>
+
+}
+ 

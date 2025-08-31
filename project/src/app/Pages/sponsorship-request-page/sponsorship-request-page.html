@@ -1,4 +1,8 @@
 <!-- <app-navbar [hasNewDonation]="hasNewDonation" [donationCount]="donations.length"></app-navbar> -->
+@if(isLoading){
+  <app-loader/>
+  }
+  @else {
 <app-navbar></app-navbar>
 <div class="w-full h-screen overflow-x-hidden overflow-y-auto relative">
   <div
@@ -227,3 +231,4 @@
   </div>
 </div>
 <app-footer></app-footer>
+  }
