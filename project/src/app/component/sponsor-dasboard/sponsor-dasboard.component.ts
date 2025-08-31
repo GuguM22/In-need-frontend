@@ -9,17 +9,19 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { IndividualRequest, IndividualService } from '../../service/individual-service';
 import { Services } from '../../service/services';
+import { Loader } from '../../ui/loader/loader';
 
 @Component({
   selector: 'app-sponsor-dasboard',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, FooterComponent, RouterLink, FormsModule],
+  imports: [CommonModule, NavbarComponent, FooterComponent, RouterLink, FormsModule, Loader],
   templateUrl: './sponsor-dasboard.component.html',
   styleUrls: ['./sponsor-dasboard.component.css']
 })
 export class SponsorDasboardComponent {
   requests: SponsorRequest[] =[]
   individuals: IndividualRequest[] = [];
+  isLoading = true;
 
  request: SponsorRequest = {
    title: '',
@@ -37,7 +39,11 @@ export class SponsorDasboardComponent {
     private sponsorService: SponsorRequestService, 
     private http: HttpClient, private elementRef: ElementRef, 
     private individualService: IndividualService,
-   private service: Services ) { }
+   private service: Services ) {
+    setTimeout(() =>{
+      this.isLoading = false}, 1000
+    )
+    }
   searchQuery: string = '';
   filteredRequests: SponsorRequest[] = [];
   currentPage: number = 1;
