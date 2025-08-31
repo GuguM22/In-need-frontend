@@ -69,6 +69,19 @@
       </div>
     </div> -->
   </div>
+ <!-- <div *ngIf="showThankYouMessage" style="color: green; font-weight: bold; font-size: 18px;">
+  Thank you! The organization has confirmed your donation.
+</div> -->
+<div *ngIf="donations.length > 0" class="messages">
+  <div>
+    <h1 class="messageHeading">Recent Sponsors:</h1>
+  </div>
+  <div *ngFor="let donation of donations">
+   <p class="messageP"> Thank you <strong>{{ donation.donorName }}</strong> for donating to this organisation!</p>
+  </div>
+</div>
+
+  
 </div>
 <app-footer></app-footer>
   } 

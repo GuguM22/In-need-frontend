@@ -86,5 +86,19 @@ setDonations(donations: Donation[]) {
   this.donationsSubject.next(donations);
 }
 
+confirmReceipt(donationId: number) {
+  return this.http.put<Donation>(`http://localhost:5050/auth/donations/${donationId}/confirm-receipt`, {});
+}
+
+getDonationsBySponsorRequestId(requestId: number): Observable<Donation[]> {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  });
+
+  return this.http.get<Donation[]>(`${this.apiUrl}/auth/donations/sponsor-request/${requestId}/donations`, { headers });
+}
+
 }
 

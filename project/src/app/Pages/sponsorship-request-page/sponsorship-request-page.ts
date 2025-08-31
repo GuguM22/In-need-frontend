@@ -29,7 +29,7 @@ export class SponsorshipRequestPage {
   hasNewDonation: boolean = false;
   isLoading = true;
   message: string = '';
-
+  userRole: string | null = localStorage.getItem('userRole');
 
   constructor(
     private router: Router,
@@ -45,13 +45,14 @@ export class SponsorshipRequestPage {
 
 ngOnInit() {
 const savedIds = localStorage.getItem('removedDonations');
+this.userRole = localStorage.getItem('userRole');
   if (savedIds) {
     this.removedIds = JSON.parse(savedIds);
   }
 
   this.donationService.getDonations().subscribe(res => {
     const mappedDonations = res
-      .filter(d => d.status === DonationStatus.PENDING)
+      .filter(d => d.status === DonationStatus.PENDING || d.status === DonationStatus.ACCEPTED)
       .filter(d => !this.removedIds.includes(d.id!))
       .map(donation => ({
         ...donation,
@@ -244,6 +245,21 @@ capitalizeWords(name?: string): string {
         console.log('Posts sorted by createdAt:', this.posts);
       },
       error: (err) => console.error('Error fetching user posts:', err)
+    });
+  }
+  
+  markAsReceived(donationId: number): void {
+    this.donationService.confirmReceipt(donationId).subscribe({
+      next: (updatedDonation) => {
+        // Update the local state so the button disappears
+        this.donations = this.donations.map(donation =>
+          donation.id === donationId ? { ...donation, isReceived: true } : donation
+        );
+      },
+      error: (err) => {
+        console.error('Error confirming receipt:', err);
+        alert('Failed to confirm donation receipt.');
+      }
     });
   }
   

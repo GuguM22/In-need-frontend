@@ -111,10 +111,28 @@
                 <span *ngSwitchDefault>Unknown</span>
               </p>
             </div>
-            <button type="button" [routerLink]="['/review-request',  donationItem.id]"
-              class="py-2 px-4 bg-[#5B8E7D] text-sm text-white font-medium rounded-md">
-              View Request
-            </button>
+            <div class="btns" *ngIf="donationItem.status !== 'ACCEPTED' && !donationItem.isReceived">
+              <button
+                type="button"
+                [routerLink]="['/review-request', donationItem.id]"
+                class="py-2 px-4 bg-[#5B8E7D] text-sm text-white font-medium rounded-md">
+                View Request
+              </button>
+            </div>
+            
+            <!-- Show "Confirm Received" ONLY if accepted and not yet received -->
+            <div class="btns" *ngIf="donationItem.status === 'ACCEPTED' && !donationItem.isReceived && userRole === 'ORGANIZATION'">
+              <button
+                (click)="markAsReceived(donationItem.id)"
+                class="py-2 px-4 bg-[#5B8E7D] text-sm text-white font-medium rounded-md">
+                Confirm Received
+              </button>
+            </div>
+
+<!-- Optional: Show a checkmark or text if already received -->
+<span *ngIf="donationItem.isReceived" class=" inline-block text-green-700 text-sm font-semibold">
+  Received!
+</span>
           </div>
         </div>
       </div>

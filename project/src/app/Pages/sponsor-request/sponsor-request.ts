@@ -21,6 +21,7 @@ export interface SponsorRequest {
   location: string;
   mediaUrls?: File[];
   user?: User;
+  donationConfirmed?: boolean; 
  }
 
 // Validator for dates
