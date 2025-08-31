@@ -29,20 +29,35 @@ export class SponsorActivityComponent {
   ) {}
 
   ngOnInit(): void {
-  this.donationService.getDonations().subscribe(res => {
-    const sponsorDonations = res
-      .filter(d => d.donorEmail === this.currentUserEmail && d.donorRole === 'SPONSORS')
-      .map(d => ({
-        ...d,
-        profileImageUrl: d.profileImageUrl
-          ? `http://localhost:5050/uploads/${d.profileImageUrl}` 
-          : 'logo.png' 
-      }));
-
-    this.donations = sponsorDonations;
-  });
-}
-
+    this.donationService.getDonations().subscribe(res => {
+      const msPerDay = 1000 * 60 * 60 * 24;
+      const now = new Date().getTime();
+  
+      const sponsorDonations = res
+        .filter(d => d.donorEmail === this.currentUserEmail && d.donorRole === 'SPONSORS')
+        // Filter out donations older than 2 days
+        .filter(d => {
+          if (!d.createdAt) return false;  // exclude if no date
+          const createdAt = new Date(d.createdAt).getTime();
+          const ageInDays = (now - createdAt) / msPerDay;
+          return ageInDays <= 2;  // keep only donations <= 2 days old
+        })
+        .map(d => ({
+          ...d,
+          profileImageUrl: d.profileImageUrl
+            ? `http://localhost:5050/uploads/${d.profileImageUrl}` 
+            : 'logo.png' 
+        }))
+        .sort((a, b) => {
+          const dateA = new Date(a.createdAt!).getTime();
+          const dateB = new Date(b.createdAt!).getTime();
+          return dateB - dateA; // Newest first
+        });
+  
+      this.donations = sponsorDonations;
+    });
+  }
+  
 
   getStatusMessage(donation: Donation): string {
     switch (donation.status) {

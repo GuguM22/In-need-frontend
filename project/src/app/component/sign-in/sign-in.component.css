@@ -34,3 +34,8 @@ p{
 input{
     padding-left: 9px;
 }
+
+.message{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

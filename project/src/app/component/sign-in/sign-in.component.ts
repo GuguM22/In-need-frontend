@@ -24,6 +24,8 @@ export class SignInComponent {
   showConfirmPassword = false;
   loginError = '';
   userRole: string | null = null;
+  signInMessage = '';
+  userName: string | null = null;
 
 
   constructor(
@@ -57,6 +59,7 @@ export class SignInComponent {
   if (this.loginForm.valid) {
     const email = this.loginForm.get('email')?.value;
     const password = this.loginForm.get('password')?.value;
+    this.userName = localStorage.getItem('userName');
 
     this.userService.login(email, password).subscribe({
       next: (response: LoginResponse) => {
@@ -72,24 +75,27 @@ export class SignInComponent {
 
         // Optionally, show logged-in role on UI
         this.userRole = role; 
-
-        switch (role) {
-          case Role.SPONSORS:
-            this.router.navigate(['/sponsor-dashboard']);
-            break;
-          case Role.ORGANIZATION:
-            this.router.navigate(['/organization-dashboard']);
-            break;
-          case Role.INDIVIDUAL:
-            this.router.navigate(['/individual-dashboard']);
-            break;
-          case Role.ADMIN:
-            this.router.navigate(['/admin']);
-            break;
-          default:
-            this.router.navigate(['/individual-dashboard']);
-            break;
-        }
+        this.userName = response.username
+        this.signInMessage = `Welcome ${this.userName}`;
+        setTimeout(() => {
+          switch (role) {
+            case Role.SPONSORS:
+              this.router.navigate(['/sponsor-dashboard']);
+              break;
+            case Role.ORGANIZATION:
+              this.router.navigate(['/organization-dashboard']);
+              break;
+            case Role.INDIVIDUAL:
+              this.router.navigate(['/individual-dashboard']);
+              break;
+            case Role.ADMIN:
+              this.router.navigate(['/admin']);
+              break;
+            default:
+              this.router.navigate(['/individual-dashboard']);
+              break;
+          }
+        }, 2000);
       },
       error: (err) => {
         if (err.error && err.error.error) {

@@ -10,11 +10,12 @@ import { SponsorRequest } from '../../model/sponsor-req';
 import { IndividualRequest, IndividualService } from '../../service/individual-service';
 import { Services } from '../../service/services';
 import { DonationStateService } from '../../service/donation-state-service';
+import { Loader } from '../../ui/loader/loader';
 
 @Component({
   selector: 'app-organisation-dashboard',
   standalone: true,
-  imports: [FooterComponent, NavbarComponent, CommonModule, RouterLink, FormsModule],
+  imports: [FooterComponent, NavbarComponent, CommonModule, RouterLink, FormsModule, Loader],
   templateUrl: './organisation-dashboard.component.html',
   styleUrl: './organisation-dashboard.component.css'
 })
@@ -30,18 +31,24 @@ export class OrganisationDashboardComponent {
 //     requiredDate: '',
 //     description: '',
 //     mediaUrls: []}
+isLoading = true;
 
   constructor(private router: Router, private sponsorService: SponsorRequestService, 
     private http: HttpClient,
      private elementRef: ElementRef, 
      private individualService: IndividualService,
-    private service: Services,  private donationStateService: DonationStateService,) { }
+    private service: Services,  private donationStateService: DonationStateService,) {
+      setTimeout(() =>{
+        this.isLoading = false}, 1500
+      )
+  
+     }
   searchQuery: string = '';
   filteredRequests: SponsorRequest[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 3;
   profileImageUrl: string = 'logo.png';
-
+ 
   ngOnInit():void {
   this.isVerified = localStorage.getItem('verified') === 'true';
   this.loadRequests();
@@ -101,9 +108,12 @@ this.donationStateService.removedDonations$.subscribe((removedIds: number[]) => 
   loadRequests(): void {
     this.sponsorService.getAll().subscribe({
       next: (data) => {
-        this.requests = data.sort(
+        const unfulfilledRequests = data.filter(request => !request.fulfilled);
+
+        this.requests = unfulfilledRequests.sort(
           (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
+        
         this.filteredRequests = [...this.requests];
         console.log('Requests loaded and sorted by createdAt:', this.requests);
       },

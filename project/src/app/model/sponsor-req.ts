@@ -11,4 +11,6 @@ export interface SponsorRequest {
   location: string;
   mediaUrls?: File[]; // for upload, it's File[]; for received data, maybe string[] URLs
   user?: User;
+  fulfilled: boolean;
+  donationConfirmed?: boolean;
 }

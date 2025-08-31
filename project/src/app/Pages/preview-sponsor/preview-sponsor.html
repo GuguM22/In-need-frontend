@@ -1,5 +1,12 @@
 <app-navbar></app-navbar>
+ 
+
 <div class="bg-white rounded-xl p-6 sticky top- mt-10">
+  <app-toast
+  [message]="toastMessage"
+  [type]="toastType"
+  [show]="showToast">
+</app-toast>
   <h3 class="text-lg font-semibold text-gray-900 mb-4">Live Preview</h3>
 
   <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">

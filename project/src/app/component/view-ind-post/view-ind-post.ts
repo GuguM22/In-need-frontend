@@ -4,10 +4,11 @@ import { IndividualRequest, IndividualService } from '../../service/individual-s
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from "../../ui/footer/footer";
 import { NavbarComponent } from '../../ui/navbar/navbar';
+import { Loader } from '../../ui/loader/loader';
 
 @Component({
   selector: 'app-view-ind-post',
-  imports: [CommonModule, RouterLink, FooterComponent, NavbarComponent],
+  imports: [CommonModule, RouterLink, FooterComponent, NavbarComponent, Loader],
   templateUrl: './view-ind-post.html',
   styleUrl: './view-ind-post.css'
 })
@@ -17,9 +18,14 @@ export class ViewIndPost {
   dashboardRoute: string = '/';
   showFullDescription = false;
   profileImageUrl: string = 'logo.png';
+  isLoading = true;
 
 
-  constructor(private route: ActivatedRoute, private individualService: IndividualService) {}
+  constructor(private route: ActivatedRoute, private individualService: IndividualService) {
+    setTimeout(() =>{
+      this.isLoading = false}, 1000
+    )
+  }
 
   ngOnInit(): void {
     // Get ID from route

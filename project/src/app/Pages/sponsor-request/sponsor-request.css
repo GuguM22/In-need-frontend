@@ -129,6 +129,10 @@ margin-bottom: 10px;
 
 .nav{
   background-color: white;
+  margin-top: 20px;
+  /* border: solid 13px white; */
+  padding-bottom: 10px;
+  padding-top: 10px;
 }
 
 .drop{

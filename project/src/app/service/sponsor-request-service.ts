@@ -108,7 +108,19 @@ getMyPosts(): Observable<any[]> {
   return this.http.get<any[]>(`${this.apiUrl}/my-posts`, { headers });
 }*/
 
+// markPostAsFulfilled(id: number): Observable<any> {
+//   return this.http.put(`${this.apiUrl}/${id}/fulfill`, {});
+// }
 
+markPostAsFulfilled(id: number): Observable<any> {
+  const token = this.getToken();
+  const headers = token
+    ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+    : undefined;
+
+  // ✅ match the backend URL and method
+  return this.http.put(`${this.apiUrl}/${id}/fulfill`, {}, { headers });
+}
 
 }
 

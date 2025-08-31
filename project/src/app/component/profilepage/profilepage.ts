@@ -9,6 +9,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { DonationService } from '../../service/donation-service';
 import { Role } from '../../constant/role';
 import { NavbarComponent } from "../../ui/navbar/navbar";
+import { Loader } from '../../ui/loader/loader';
 
 @Component({
   selector: 'app-profilepage',
@@ -18,7 +19,8 @@ import { NavbarComponent } from "../../ui/navbar/navbar";
     FormsModule,
     RouterModule,
     FooterComponent,
-    NavbarComponent
+    NavbarComponent,
+    Loader
 ],
   providers: [Services],
   templateUrl: './profilepage.html',
@@ -28,12 +30,18 @@ export class ProfilepageComponent implements OnInit {
   profileImageUrl: string | ArrayBuffer | null = null;
   uploading = false;
   isSponsor = false;
-  statusText: string = '';
+  statusText: string = '';//
+  isLoading = true;
+
 
   role = Role.SPONSORS || Role.INDIVIDUAL || Role.ORGANIZATION;
 
 
-  constructor(private location: Location, private service: Services) {}
+  constructor(private location: Location, private service: Services) {
+    setTimeout(() =>{
+      this.isLoading = false}, 1000
+    )
+  }
 
 ngOnInit() {
   this.service.profile().subscribe({

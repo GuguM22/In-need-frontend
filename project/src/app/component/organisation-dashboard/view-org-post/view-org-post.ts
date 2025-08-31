@@ -5,10 +5,14 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from "../../../ui/footer/footer";
 import { NavbarComponent } from "../../../ui/navbar/navbar";
+import { Loader } from '../../../ui/loader/loader';
+import { DonationService } from '../../../service/donation-service';
+import { DonationRequest } from '../../../donation-request/donation-request';
+import { Donation } from '../../../model/donation';
 
 @Component({
   selector: 'app-view-org-post',
-  imports: [CommonModule, RouterLink, FooterComponent, NavbarComponent],
+  imports: [CommonModule, RouterLink, FooterComponent, NavbarComponent, Loader],
   templateUrl: './view-org-post.html',
   styleUrl: './view-org-post.css'
 })
@@ -19,12 +23,21 @@ export class ViewOrgPost {
   profileImageUrl: string = 'logo.png';
   showFullDescription = false;
   dashboardRoute: string = '/';
+  isLoading = true;
+  donationConfirmed?: boolean;
+  showThankYouMessage: boolean = false;  // add this
+  donations: DonationSummary[] = []; 
 
   constructor(
     private route: ActivatedRoute,
     private sponsorService: SponsorRequestService,
-    private eRef: ElementRef
-  ) {}
+    private eRef: ElementRef,
+    private donationService: DonationService
+  ) {
+    setTimeout(() =>{
+      this.isLoading = false}, 1000
+    )
+  }
 
   ngOnInit(): void {
     const role = localStorage.getItem('userRole');
@@ -48,17 +61,57 @@ export class ViewOrgPost {
     this.userName = localStorage.getItem('userName');
     this.requestId = this.route.snapshot.paramMap.get('id') || '';
     this.loadPostDetails();
+    this.loadDonationsBySponsorRequestId()
   }
   
-
   loadPostDetails(): void {
-    console.log("in here")
     this.sponsorService.getById(this.requestId).subscribe({
       next: (data) => {
         this.request = data;
+  
+        // Now fetch donations associated with this post
+        this.donationService.getDonationsBySponsorRequestId(Number(this.requestId)).subscribe({
+          next: (donations) => {
+               this.showThankYouMessage = donations.some(d => d.isReceived === true);
+
+          },
+          error: (err) => {
+            console.error('Error fetching donations:', err);
+          }
+        });
       },
       error: (err) => {
         console.error('Error loading post:', err);
+      }
+    });
+  }
+  
+  loadDonationsBySponsorRequestId(): void {
+    this.donationService.getDonationsBySponsorRequestId(Number(this.requestId)).subscribe({
+      next: (donations: Donation[]) => {
+        this.donations = donations.map(d => ({
+          id: d.id,
+          description: d.description,
+          quantity: d.quantity,
+          availability: d.availability,
+          additionalNotes: d.additionalNotes,
+          preference: d.preference,
+          type: d.type,
+          frequency: d.frequency,
+          donorEmail: d.donorEmail,
+          createdAt: d.createdAt,
+          profileImageUrl: d.profileImageUrl,
+          donorName: d.donorName || '',
+          donorRole: d.donorRole || null,
+          status: d.status,
+          sponsorRequestId: d.sponsorRequestId,
+          isReceived: d.isReceived
+        }));
+  
+        this.showThankYouMessage = this.donations.some(d => d.isReceived === true);
+      },
+      error: (err) => {
+        console.error('Error fetching donations:', err);
       }
     });
   }
