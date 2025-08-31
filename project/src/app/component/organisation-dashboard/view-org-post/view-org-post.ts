@@ -63,17 +63,32 @@ export class ViewOrgPost {
     this.loadPostDetails();
     this.loadDonationsBySponsorRequestId()
   }
-  
   loadPostDetails(): void {
     this.sponsorService.getById(this.requestId).subscribe({
       next: (data) => {
         this.request = data;
   
+        // Ensure mediaUrls is an array
+        if (this.request.mediaUrls && Array.isArray(this.request.mediaUrls)) {
+          // Filter only strings, then map to full URLs if needed
+          this.request.mediaUrls = this.request.mediaUrls
+            .filter(url => typeof url === 'string') // exclude non-string (File) entries if any
+            .map(url => {
+              if (url.startsWith('http')) {
+                return url;
+              }
+              // Encode URI components to handle spaces, special chars
+              return `http://localhost:5050/uploads/${encodeURIComponent(url)}`;
+            });
+        } else {
+          // If mediaUrls is undefined or not an array, set empty array
+          this.request.mediaUrls = [];
+        }
+  
         // Now fetch donations associated with this post
         this.donationService.getDonationsBySponsorRequestId(Number(this.requestId)).subscribe({
           next: (donations) => {
-               this.showThankYouMessage = donations.some(d => d.isReceived === true);
-
+            this.showThankYouMessage = donations.some(d => d.isReceived === true);
           },
           error: (err) => {
             console.error('Error fetching donations:', err);
@@ -85,6 +100,8 @@ export class ViewOrgPost {
       }
     });
   }
+  
+  
   
   loadDonationsBySponsorRequestId(): void {
     this.donationService.getDonationsBySponsorRequestId(Number(this.requestId)).subscribe({

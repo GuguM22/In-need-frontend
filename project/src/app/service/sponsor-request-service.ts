@@ -30,21 +30,48 @@ export class SponsorRequestService {
   //   return this.http.post(this.apiUrl, jsonData, { headers });
   // }
 
-post(data: any): Observable<any> {
-  const jsonData = formDataToJson(data) as any; // cast to any
-  const userId = localStorage.getItem('userId');
-  if (userId) {
-    jsonData.organizationId = +userId; // assign logged-in user's ID
-  }
+// post(data: any): Observable<any> {
+//   const jsonData = formDataToJson(data) as any; 
+//   const userId = localStorage.getItem('userId');
+//   if (userId) {
+//     jsonData.organizationId = +userId; 
+//   }
 
+//   const token = this.getToken();
+//   const headers = token ? new HttpHeaders({ "Authorization": `Bearer ${token}` }) : undefined;
+
+//   console.log("Posting with organizationId:", jsonData.organizationId);
+
+//   return this.http.post(this.apiUrl, jsonData, { headers });
+// }
+
+post(form: any, selectedFiles: File[]): Observable<any> {
+  const formData = new FormData();
+
+  // Append all the text fields
+  formData.append('title', form.title);
+  formData.append('priority', form.priority);
+  formData.append('quantity', form.quantity);
+  formData.append('requiredDate', form.requiredDate); // Ensure it's in correct format (e.g. YYYY-MM-DD)
+  formData.append('description', form.description);
+  formData.append('location', form.location);
+
+  // Append all files under the same field name `media`
+  selectedFiles.forEach(file => {
+    formData.append('media', file);
+  });
+
+  // Optional: profile image URL or other fields if needed
+  // formData.append('profileImageUrl', 'your-value');
+
+  // Auth header (no need to set content-type manually)
   const token = this.getToken();
-  const headers = token ? new HttpHeaders({ "Authorization": `Bearer ${token}` }) : undefined;
+  const headers = token
+    ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+    : undefined;
 
-  console.log("Posting with organizationId:", jsonData.organizationId);
-
-  return this.http.post(this.apiUrl, jsonData, { headers });
+  return this.http.post(this.apiUrl, formData, { headers });
 }
-
 
   
   getById(id: any): Observable<SponsorRequest> {
