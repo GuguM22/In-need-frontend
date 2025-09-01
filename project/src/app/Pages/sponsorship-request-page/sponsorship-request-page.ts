@@ -50,32 +50,32 @@ this.userRole = localStorage.getItem('userRole');
     this.removedIds = JSON.parse(savedIds);
   }
 
-  this.donationService.getDonations().subscribe(res => {
-    const mappedDonations = res
-      .filter(d => d.status === DonationStatus.PENDING || d.status === DonationStatus.ACCEPTED)
-      .filter(d => !this.removedIds.includes(d.id!))
-      .map(donation => ({
-        ...donation,
-        id: donation.id!,
-        profileImageUrl: donation.profileImageUrl
-          ? `http://localhost:5050/auth/images/${donation.profileImageUrl}`
-          : 'logo.png',
-        donorName: donation.donorName,
-        donorRole: donation.donorRole,
-      }))
-      .sort((a, b) => {
-        const dateA = new Date(a.createdAt ?? 0).getTime();
-        const dateB = new Date(b.createdAt ?? 0).getTime();
-          return dateB - dateA;
-        })
-    this.donationStateService.setDonations(mappedDonations);
-  });
+  // this.donationService.getDonations().subscribe(res => {
+  //   const mappedDonations = res
+  //     .filter(d => d.status === DonationStatus.PENDING || d.status === DonationStatus.ACCEPTED)
+  //     .filter(d => !this.removedIds.includes(d.id!))
+  //     .map(donation => ({
+  //       ...donation,
+  //       id: donation.id!,
+  //       profileImageUrl: donation.profileImageUrl
+  //         ? `http://localhost:5050/auth/images/${donation.profileImageUrl}`
+  //         : 'logo.png',
+  //       donorName: donation.donorName,
+  //       donorRole: donation.donorRole,
+  //     }))
+  //     .sort((a, b) => {
+  //       const dateA = new Date(a.createdAt ?? 0).getTime();
+  //       const dateB = new Date(b.createdAt ?? 0).getTime();
+  //         return dateB - dateA;
+  //       })
+  //   this.donationStateService.setDonations(mappedDonations);
+  // });
   
 
-  this.donationStateService.donations$.subscribe(donations => {
-    this.donations = donations;
-    this.hasNewDonation = donations.length > 0;
-  });
+  // this.donationStateService.donations$.subscribe(donations => {
+  //   this.donations = donations;
+  //   this.hasNewDonation = donations.length > 0;
+  // });
 
   this.loadImage(); 
   this.fetchUserPosts();
@@ -196,7 +196,7 @@ capitalizeWords(name?: string): string {
   markFulfilled(index: number): void {
     const fulfilledPost = this.posts[index];
     // Remove from UI immediately for responsiveness
-    this.posts.splice(index, 1); 
+    // this.posts.splice(index, 1); 
     this.activeMenuId = null;
   
     this.sponsorRequestService.markPostAsFulfilled(fulfilledPost.id).subscribe({
@@ -235,9 +235,14 @@ capitalizeWords(name?: string): string {
   
           return { ...request, createdAt, requiredDate, daysLeft };
         });
-  
+        //Get donations
+        const donations = data.flatMap((post) => {
+          return post.donations
+        })
+        this.donations = donations;
+
         // 🔽 Sort by createdAt (newest first)
-        this.posts = (newData || []).filter(post => !post.fulfilled).sort(
+        this.posts = (newData || []).sort(
           
           (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
@@ -261,7 +266,5 @@ capitalizeWords(name?: string): string {
         alert('Failed to confirm donation receipt.');
       }
     });
-  }
-  
-  
+  } 
 }

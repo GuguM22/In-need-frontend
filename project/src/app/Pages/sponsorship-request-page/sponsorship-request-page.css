@@ -7,3 +7,10 @@
 .btns{
     margin-top: 10px;
 }
+
+.verified{
+    height: 18px;
+    width: 18px;
+    margin-top: 4px;
+    margin-left: -15px;
+}
