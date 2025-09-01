@@ -137,6 +137,14 @@
   <div class="error-message text-red-500 text-xs mt-1" *ngIf="sponsorshipForm.get('requiredDate')?.hasError('pastDate') && sponsorshipForm.get('requiredDate')?.touched">
   Date cannot be in the past.
   </div>
+  <div
+  *ngIf="sponsorshipForm.get('requiredDate')?.errors?.['afterRequiredDate'] && sponsorshipForm.get('requiredDate')?.touched"
+  class="error text-red-500 text-xs mt-1"
+>
+Delivery date must not be after the organization's required date ({{ sponsorRequestRequiredDate | date: 'longDate' }}).
+</div>
+
+  
 </div>
                 <!-- Notes -->
                 <div class="form-group mb-4 text-gray-500">
