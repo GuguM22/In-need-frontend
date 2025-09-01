@@ -61,8 +61,9 @@ export class SponsorActivityComponent {
 
   getStatusMessage(donation: Donation): string {
     if (donation.status === 'ACCEPTED' && donation.isReceived) {
-      return 'Your donation has been accepted & received by the organization!';
+      return `Your donation has been accepted & received by ${donation.organizationUsername || 'the organization'} organization!`;
     }
+    
   
     switch (donation.status) {
       case 'PENDING':
