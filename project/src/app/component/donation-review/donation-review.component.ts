@@ -34,6 +34,7 @@ throw new Error('Method not implemented.');
   emailAddress: string = '';
   userName: string = '';
   donorRole: string = '';
+  selectedSponsorRequestId?: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -55,6 +56,7 @@ throw new Error('Method not implemented.');
       this.emailAddress = localStorage.getItem('userEmail') || '';
       this.userName = localStorage.getItem('userName') || '';
       this.donorRole = donation.role || '';
+      this.selectedSponsorRequestId = donation.sponsorRequestId || undefined;
     }
   }
 
@@ -95,8 +97,9 @@ throw new Error('Method not implemented.');
       createdAt: new Date(),
       availability: this.availability,
       donorName: this.userName,
-      donorRole: this.mapToRole(this.donorRole), 
-      id: 0
+      donorRole: this.mapToRole(this.donorRole),
+      id: 0,
+      sponsorRequestId: this.selectedSponsorRequestId,
     };
 
     this.donationService.createDonation(donationRequest).subscribe({

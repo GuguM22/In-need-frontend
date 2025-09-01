@@ -5,11 +5,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { FooterComponent } from "../../ui/footer/footer";
 import { NavbarComponent } from "../../ui/navbar/navbar";
+import { Toast } from '../../ui/toast/toast';
 
 @Component({
   selector: 'app-preview-sponsor',
   standalone: true,
-  imports: [CommonModule, FooterComponent, NavbarComponent],
+  imports: [CommonModule, FooterComponent, NavbarComponent, Toast],
   templateUrl: './preview-sponsor.html',
   styleUrls: ['./preview-sponsor.css']
 })
@@ -18,9 +19,12 @@ export class PreviewSponsor implements OnInit {
    @Input() formData: any;
    @Input() fileNames: string[] = [];
   @Input() filePreviews: string[] = [];
+
   @Output() updateClicked = new EventEmitter<void>();
   dashboardRoute: string = '/individual-dashboard'; // default
-
+  toastMessage: string = '';
+  toastType: 'success' | 'error' = 'success';
+  showToast: boolean = false;
   constructor(private http: HttpClient, private route: ActivatedRoute, private sponsorRequest: SponsorRequestService,  private router: Router,) {}
 
 //   ngOnInit(): void {
@@ -124,7 +128,7 @@ onSubmitUpdate() {
 
   this.sponsorRequest.update(this.formData.id, formData).subscribe({
     next: (updated: any) => {
-      alert('Request updated successfully.');
+      this.showToastMessage('Request updated successfully!', 'success');
 
      
        this.router.navigate(['/uploaded'], {
@@ -135,10 +139,19 @@ onSubmitUpdate() {
     },
     error: (err: any) => {
       console.error(err);
-      alert('Failed to update request.');
+      this.showToastMessage('Failed to update request.', 'error');
     }
   });
 }
 
+showToastMessage(message: string, type: 'success' | 'error') {
+  this.toastMessage = message;
+  this.toastType = type;
+  this.showToast = true;
+
+  setTimeout(() => {
+    this.showToast = false;
+  }, 4000);
+}
 
 }

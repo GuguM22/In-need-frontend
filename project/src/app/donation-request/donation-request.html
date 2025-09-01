@@ -47,7 +47,7 @@
                 <!-- Description -->
                 <div class="mb-4 text-gray-500"> 
                     <label for="description" class="block mb-2 text-sm font-medium">
-                    Description: <span class="text-gray-500">*</span>
+                    Description: <span class="text-gray-500"><span class="text-red-500 text-md">*</span></span>
                     </label> 
                     <input 
                     type="text" 
@@ -64,7 +64,7 @@
                 <!-- Quantity -->
                 <div class="form-group mb-4">
                     <label for="quantity" class="form-label block mb-2 text-sm font-medium text-gray-500">
-                    Quantity: <span class="text-gray-500">*</span>
+                    Quantity: <span class="text-gray-500"><span class="text-red-500 text-md">*</span></span>
                     </label>
                     <input 
                     type="number" 
@@ -80,26 +80,12 @@
                 </div>
 
                 <!-- Required Date -->
-                <div class="form-group mb-4">
-                    <label for="requiredDate" class="form-label block mb-2 text-sm font-medium text-gray-500">
-                    Delivered By Date: <span class="text-gray-500">*</span>
-                    </label>
-                    <input 
-                    type="date" 
-                    id="requiredDate" 
-                    formControlName="requiredDate" 
-                    class="bg-white border border-gray-400 text-gray-700 text-sm rounded-lg w-full p-2.5 
-                            focus:ring-blue-500 focus:border-blue-500"
-                    />
-                    <div class="error-message text-red-500 text-xs mt-1" *ngIf="sponsorshipForm.get('requiredDate')?.hasError('pastDate') && sponsorshipForm.get('requiredDate')?.touched">
-                    Date cannot be in the past.
-                    </div>
-                </div>
+                
 
                 <!-- Logistics -->
                 <div class="mb-4 text-gray-500"> 
   <label class="block mb-2 text-sm font-medium">
-    Logistic Preference: <span class="text-gray-500">*</span>
+    Logistic Preference: <span class="text-gray-500"><span class="text-red-500 text-md">*</span></span>
   </label> 
 
   <div class="flex flex-wrap gap-4 justify-center">
@@ -132,10 +118,24 @@
   </div>
 </div>
 
-
+<div class="form-group mb-4">
+  <label for="requiredDate" class="form-label block mb-2 text-sm font-medium text-gray-500">
+  Delivered By Date: <span class="text-gray-500"><span class="text-red-500 text-md">*</span></span>
+  </label>
+  <input 
+  type="date" 
+  id="requiredDate" 
+  formControlName="requiredDate" 
+  class="bg-white border border-gray-400 text-gray-700 text-sm rounded-lg w-full p-2.5 
+          focus:ring-blue-500 focus:border-blue-500"
+  />
+  <div class="error-message text-red-500 text-xs mt-1" *ngIf="sponsorshipForm.get('requiredDate')?.hasError('pastDate') && sponsorshipForm.get('requiredDate')?.touched">
+  Date cannot be in the past.
+  </div>
+</div>
                 <!-- Notes -->
                 <div class="form-group mb-4 text-gray-500">
-                    <label for="notes" class="block mb-2 text-sm font-medium">Additional Notes *</label>
+                    <label for="notes" class="block mb-2 text-sm font-medium">Additional Notes <span class="text-red-500 text-md">*</span></label>
                     <textarea 
                     id="notes" 
                     formControlName="notes" 

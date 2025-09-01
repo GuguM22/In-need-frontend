@@ -1,4 +1,9 @@
-<app-navbar></app-navbar>
+@if(isLoading){
+    <app-loader/>
+    }
+ 
+  @else {
+  <app-navbar></app-navbar>
 <div class="container">
     <div class="search">
          <div class="srcIcon">
@@ -97,7 +102,7 @@
                 <div class="profile">
                     <div class="pfp">
                        <!--<img [src]="profileImageUrl" alt="" class="image">-->
-                        <img [src]="getImage(request.user?.profileImageUrl)" alt="" class="image">
+                        <img [src]="getImage(request.user?.profileImageUrl)" alt="User Photo" class="image">
                     </div>
                     <div class="companyName">
                         <div class="top">
@@ -178,6 +183,7 @@
           </div>
           
 </div>
+    
 <app-footer></app-footer>
 
-
+  }

@@ -8,6 +8,7 @@ import { PreviewSponsor } from "../preview-sponsor/preview-sponsor";
 
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { User } from '../../model/user';
+import { Toast } from '../../ui/toast/toast';
 
 // Backend DTO
 export interface SponsorRequest {
@@ -20,7 +21,8 @@ export interface SponsorRequest {
   location: string;
   mediaUrls?: File[];
   user?: User;
-}
+  donationConfirmed?: boolean; 
+ }
 
 // Validator for dates
 export function futureDateValidator(): ValidatorFn {
@@ -36,7 +38,7 @@ export function futureDateValidator(): ValidatorFn {
 @Component({
   selector: 'app-sponsor-request',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, PreviewSponsor, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, PreviewSponsor, RouterLink, Toast],
   templateUrl: './sponsor-request.html',
   styleUrls: ['./sponsor-request.css'],
   providers: [SponsorRequestService]
@@ -61,8 +63,10 @@ fileNames: string[] = [];     // file names
   isSubmitting = false;
   showPreview = false;
 previewData: any;
-dashboardRoute: string = '/individual-dashboard';
-
+dashboardRoute: string = '/';
+toastMessage: string = '';
+toastType: 'success' | 'error' = 'success';
+showToast: boolean = false;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -133,7 +137,6 @@ dashboardRoute: string = '/individual-dashboard';
   formData.append('description', this.sponsorshipForm.get('description')?.value);
   formData.append('location', this.sponsorshipForm.get('location')?.value);
 
-
   this.selectedFiles.forEach(file => formData.append('mediaFiles', file, file.name));
 
   this.isSubmitting = true;
@@ -143,27 +146,10 @@ dashboardRoute: string = '/individual-dashboard';
   this.sponsorRequestService.update(this.requestId, formData).subscribe({
     next: (response) => {
       this.isSubmitting = false;
-      alert('Request updated successfully');
-      this.showPreview = false; 
+       this.showPreview = false; 
       this.requestId = null;   // 👈 reset after update if you want to allow new create
-      this.router.navigate([this.dashboardRoute]);
-
-    },
-    error: (err) => {
-      console.error(err);
-      this.isSubmitting = false;
-      alert('Failed to update request');
-    }
-  });
-} else {
-  // CREATE
-  this.sponsorRequestService.post(formData).subscribe({
-    next: (createdRequest: any) => {
-      this.isSubmitting = false;
-      this.resetForm();
-      this.requestId = null;   // 👈 ensure future submits start as CREATE
-      if (createdRequest?.id) {
-        this.router.navigate(['/preview-sponsor', createdRequest.id]);
+      if (response?.id) {
+        this.router.navigate(['/preview-sponsor', response.id]);
       } else {
         console.error('No ID returned from backend');
       }
@@ -171,39 +157,47 @@ dashboardRoute: string = '/individual-dashboard';
     error: (err) => {
       console.error(err);
       this.isSubmitting = false;
-      alert('Failed to submit request.');
+      this.showToastMessage('Failed to update request.', 'error');
     }
   });
-}
+} else {
+  // CREATE
+  this.sponsorRequestService.post(this.sponsorshipForm.value, this.selectedFiles).subscribe({
+    next: () => {
+      this.isSubmitting = false;
+      this.resetForm();
+      this.requestId = null;
+      this.showToastMessage('Sponsorship request submitted successfully!', 'success');
+      this.router.navigate(['/upload-successfully']);
+    },
+    error: (err) => {
+      console.error(err);
+      this.isSubmitting = false;
+      this.showToastMessage('Failed to submit request.', 'error');
+}})}
   }
 
 
 
-// ngOnInit(): void {
-//   this.requestId = null; 
-
-//   const state = history.state;
-//   if (state.formData) {
-//     this.sponsorshipForm.patchValue(state.formData);
-//     this.selectedFiles = state.files || [];
-//     this.filePreviews = this.selectedFiles.map(file => {
-//       if (file instanceof File) return URL.createObjectURL(file);
-//       return file; 
-//     });
-//     this.requestId = state.id || null;  // 👈 set requestId if editing
-//   }
-// }
-
 ngOnInit(): void {
-  // Set default requestId
-  this.requestId = null;
+  this.requestId = null; 
 
-  // Determine dashboard route based on role
+  const state = history.state;
+  if (state.formData) {
+    this.sponsorshipForm.patchValue(state.formData);
+    this.selectedFiles = state.files || [];
+    this.filePreviews = this.selectedFiles.map(file => {
+      if (file instanceof File) return URL.createObjectURL(file);
+      return file; 
+    });
+       this.requestId = state.id;  // 👈 set requestId if editing
+  }
+
   const role = localStorage.getItem('userRole');
   switch (role) {
     case 'SPONSORS':
       this.dashboardRoute = '/sponsor-dashboard';
-      break;
+       break;
     case 'ORGANIZATION':
       this.dashboardRoute = '/organization-dashboard';
       break;
@@ -214,18 +208,7 @@ ngOnInit(): void {
       this.dashboardRoute = '/admin';
       break;
     default:
-      this.dashboardRoute = '/individual-dashboard';
-  }
-
-  // Patch form data if editing
-  const state = history.state;
-  if (state.formData) {
-    this.sponsorshipForm.patchValue(state.formData);
-    this.selectedFiles = state.files || [];
-    this.filePreviews = this.selectedFiles.map(file =>
-      file instanceof File ? URL.createObjectURL(file) : file
-    );
-    this.requestId = state.id || null;
+      this.dashboardRoute = '/individual-dashboard'; // fallback
   }
 }
 
@@ -259,9 +242,23 @@ ngOnInit(): void {
     this.revokePreviews();
   }
 
+  backButton(): void {
+    this.router.navigate(['uploaded']);
+  }
 
   ngOnDestroy(): void {
   this.revokePreviews();
 } 
+
+showToastMessage(message: string, type: 'success' | 'error') {
+  this.toastMessage = message;
+  this.toastType = type;
+  this.showToast = true;
+
+  setTimeout(() => {
+    this.showToast = false;
+  }, 4000);
+}
 } // <-- this closes SponsorRequestComponent class
+
 

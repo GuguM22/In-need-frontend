@@ -28,13 +28,20 @@ export class Fequency implements OnInit {
 
   constructor(private router: Router, private route: ActivatedRoute) {}
 
+  requestId: string = '';
+
+  // ngOnInit(): void {
+  //    this.route.queryParams.subscribe(params => {
+  //     this.selectedFrequency = (params['frequency'] || '').toUpperCase();
+  //   });
+  // }
+
   ngOnInit(): void {
-    // Restore selection if coming back from Donation Review
     this.route.queryParams.subscribe(params => {
       this.selectedFrequency = (params['frequency'] || '').toUpperCase();
+      this.requestId = params['id'] || '';
     });
   }
-
   selectFrequency(tileValue: string) {
     this.selectedFrequency = tileValue.toUpperCase();
   }
@@ -51,8 +58,11 @@ export class Fequency implements OnInit {
 
     localStorage.setItem('donationFreq', this.selectedFrequency);
 
-    this.router.navigate(['/donation-review'], { 
-      queryParams: { frequency: this.selectedFrequency } 
+    this.router.navigate(['/donation-review'], {
+      queryParams: {
+        frequency: this.selectedFrequency,
+        id: this.requestId
+      }
     });
-  }
+  }    
 }

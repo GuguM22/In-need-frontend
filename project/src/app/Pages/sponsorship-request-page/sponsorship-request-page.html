@@ -1,4 +1,8 @@
 <!-- <app-navbar [hasNewDonation]="hasNewDonation" [donationCount]="donations.length"></app-navbar> -->
+@if(isLoading){
+  <app-loader/>
+  }
+  @else {
 <app-navbar></app-navbar>
 <div class="w-full h-screen overflow-x-hidden overflow-y-auto relative">
   <div
@@ -77,7 +81,8 @@
     <!-- Tab Content -->
     <div class="w-full max-w-sm">
       <!-- Sponsor Request Tab Content -->
-      @if (activeTab === 'sponsor') {@if (donations.length === 0) {
+      @if (activeTab === 'sponsor') {
+        @if (donations.length === 0 ) {
       <div class="text-center py-6 text-gray-700">No pending donations.</div>
       }@else { @for (donationItem of donations; track $index) {
       
@@ -106,10 +111,28 @@
                 <span *ngSwitchDefault>Unknown</span>
               </p>
             </div>
-            <button type="button" [routerLink]="['/review-request',  donationItem.id]"
-              class="py-2 px-4 bg-[#5B8E7D] text-sm text-white font-medium rounded-md">
-              View Request
-            </button>
+            <div class="btns" *ngIf="donationItem.status !== 'ACCEPTED' && !donationItem.isReceived">
+              <button
+                type="button"
+                [routerLink]="['/review-request', donationItem.id]"
+                class="py-2 px-4 bg-[#5B8E7D] text-sm text-white font-medium rounded-md">
+                View Request
+              </button>
+            </div>
+            
+            <!-- Show "Confirm Received" ONLY if accepted and not yet received -->
+            <div class="btns" *ngIf="donationItem.status === 'ACCEPTED' && !donationItem.isReceived && userRole === 'ORGANIZATION'">
+              <button
+                (click)="markAsReceived(donationItem.id)"
+                class="py-2 px-4 bg-[#5B8E7D] text-sm text-white font-medium rounded-md">
+                Confirm Received
+              </button>
+            </div>
+
+<!-- Optional: Show a checkmark or text if already received -->
+<span *ngIf="donationItem.isReceived" class=" inline-block text-green-700 text-sm font-semibold">
+  Received!
+</span>
           </div>
         </div>
       </div>
@@ -154,7 +177,80 @@
       </div>
     </div>
   </div> -->
+  <ng-container *ngIf="activeTab === 'posts'">
+    <div *ngIf="message" class="alert bg-[#5B8E7D] text-white mt-2">
+      {{ message }}
+    </div>
+    
+    <div
+      class="bg-white border-[#00000033] border-1 rounded-xl shadow-sm p-4 mt-2 relative"
+      *ngFor="let post of posts; let i = index"
+    >
+      <!-- High Priority & Dot Menu -->
+      <div class="flex justify-between items-start mb-2">
+        <span class="bg-red-100 text-red-500 text-xs font-semibold px-2 py-1 rounded">
+          High Priority
+        </span>
+
+        <!-- Image if Fulfilled -->
+<img 
+  *ngIf="post.fulfilled"
+  src="https://i.pinimg.com/1200x/14/15/34/141534c31edfe922c168d5f8cbbd4bda.jpg" 
+  alt="Fulfilled"
+  class="w-8 h-8 mb-5 -ml-40 mb-10"
+/>
+
+        <!-- Dot Menu -->
+        <button
+          (click)="toggleActionMenu('actionMenu' + i)"
+          class="text-gray-500 hover:text-black focus:outline-none"
+          aria-label="Actions"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Action Menu -->
+      <div
+        *ngIf="activeMenuId === 'actionMenu' + i"
+        class="absolute right-4 top-10 bg-white rounded-md shadow-lg z-10 border w-40"
+      >
+        <button
+          class="block w-full text-left px-4 py-2 text-sm text-black hover:bg-gray-100"
+          (click)="markFulfilled(i)"
+        >
+          Mark Fulfilled
+        </button>
+        
+      </div>
+
+      <!-- Card Title & Description -->
+      <h3 class="text-base font-semibold">{{ post.title }}</h3>
+      <p class="text-sm text-gray-500 mb-3">{{ post.description }}</p>
+
+      <!-- Footer -->
+      <div class="flex justify-between text-sm text-black mb-2">
+        <span class="font-medium">Days Left</span>
+      </div>
+
+      <!-- Progress Bar + Days Left -->
+      <div class="flex items-center justify-between">
+        <div style="width: 150px;" class="bg-gray-200 rounded-full h-2.5 mr-4">
+          <div
+            class="bg-[#219EBC] h-2.5 rounded-full"
+            [style.width.%]="calculateProgress(post.progress)"
+          ></div>
+        </div>
+        <span class="text-xs text-gray-600 whitespace-nowrap">{{ post.daysLeft }} Days</span>
+      </div>
+    </div>
+  </ng-container>
     </div>
   </div>
 </div>
 <app-footer></app-footer>
+  }
