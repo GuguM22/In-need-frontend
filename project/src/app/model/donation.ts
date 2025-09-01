@@ -20,5 +20,6 @@ export interface Donation {
   status: string;
   sponsorRequestId?: number;
   isReceived?: boolean;
+  organizationUsername?: string;
 
 }  

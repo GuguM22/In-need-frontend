@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import {  NavbarComponent } from "../ui/navbar/navbar";
 import { FooterComponent } from "../ui/footer/footer";
 import { DonationRequestDTO } from '../dto/donationRequestDTO';
 import { DonationType } from '../constant/donation-type';
 import { DonationFrequency } from '../constant/donation-frequency';
+import { SponsorRequestService } from '../service/sponsor-request-service';
+import { SponsorRequest } from '../model/sponsor-req';
 
 @Component({
   selector: 'app-donation-request',
@@ -19,8 +21,9 @@ export class DonationRequest {
 
   sponsorshipForm: FormGroup;
   requestId: string = '';
-
-  constructor(private fb: FormBuilder, private router: Router,   private route: ActivatedRoute) {
+  sponsorRequestRequiredDate: string = '';
+  sponsorRequiredDate: string = '';
+  constructor(private fb: FormBuilder, private router: Router,   private route: ActivatedRoute, private sponsorRequestService: SponsorRequestService) {
     this.sponsorshipForm = this.fb.group({
       description: ['', Validators.required],
       quantity: [1, [Validators.required, Validators.min(1)]],
@@ -107,9 +110,43 @@ goNext() {
       }
     });
   }
-
   ngOnInit(): void {
     this.requestId = this.route.snapshot.paramMap.get('id') || '';
-    console.log('Request ID in DonationRequest:', this.requestId);
+  
+    if (this.requestId) {
+      this.sponsorRequestService.getById(+this.requestId).subscribe({
+        next: (sponsorRequest: SponsorRequest) => {
+          this.sponsorRequestRequiredDate = sponsorRequest.requiredDate;
+  
+          // Add custom validator after date is fetched
+          this.sponsorshipForm.get('requiredDate')?.setValidators([
+            Validators.required,
+            this.futureDateValidator,
+            this.notAfterRequiredDateValidator(this.sponsorRequestRequiredDate)
+          ]);
+  
+          this.sponsorshipForm.get('requiredDate')?.updateValueAndValidity();
+        },
+        error: err => {
+          console.error('Failed to fetch sponsor request', err);
+        }
+      });
+    }
   }
+  
+  notAfterRequiredDateValidator(requiredDate: string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value || !requiredDate) return null;
+  
+      const selected = new Date(control.value);
+      const required = new Date(requiredDate);
+      selected.setHours(0, 0, 0, 0);
+      required.setHours(0, 0, 0, 0);
+  
+      return selected <= required
+        ? null
+        : { afterRequiredDate: true };
+    };
+  }
+  
 }
