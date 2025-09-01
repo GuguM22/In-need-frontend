@@ -121,11 +121,11 @@ export class Sidebar implements OnInit {
     }
   }*/
 
-  getNotificationRoute(): string {
+  getNotificationRoute() {
     if (this.userRole === 'SPONSORS') {
-      return '/sponsor-activity'; // or your new sponsor activity route
+      this.router.navigate(['/sponsor-activity']); // or your new sponsor activity route
     }
-    return '/sponsorship-request-page'; // for ORG and others
+    this.router.navigate(['/sponsorship-request-page']); // for ORG and others
   }
 
 
@@ -142,10 +142,11 @@ export class Sidebar implements OnInit {
   loadPendingSponsorRequestsCount() {
     const userEmail = localStorage.getItem('userEmail');
     this.donationService.getDonations().subscribe((donations: any[]) => {
+      console.log(donations)
       this.pendingSponsorRequestsCount = donations.filter(d => 
-  d.donorRole === 'SPONSORS' &&
-  d.donorEmail === userEmail
-).length;
+        d.donorRole === 'SPONSORS' &&
+        d.donorEmail === userEmail
+      ).length;
 
     });
   }

@@ -26,7 +26,7 @@
           <p>Donate</p>
         </div>
         <div class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
-          <div [routerLink]="getNotificationRoute()" class="flex items-center gap-4">
+          <div (click)="getNotificationRoute()" class="flex items-center gap-4">
             <img class="w-[30px] h-[30px]" src="icons/notifications.svg" alt="Notification" />
             <p>Notifications</p>
           </div>
