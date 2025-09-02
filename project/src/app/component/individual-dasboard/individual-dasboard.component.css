@@ -442,6 +442,17 @@ button{
     width: 150px;
   }
   
+  .username{
+    font-size: 11px;
+    margin-left: 10px;
+    font-weight: 800;
+    margin-top: 5px;
+    color: gray;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 195px; /* adjust until it fits 'i' */
+   }
 /* @media (max-width: 480px) {
     .search {
         width: 90%;

@@ -377,8 +377,8 @@ header {
   }
 
   .uploaded-img{
-    height: 150px;
-    width: 150px;
+    height: 180px;
+    width: 130px;
     border-radius: 12px;
     text-align: center;
     margin-left: auto;
