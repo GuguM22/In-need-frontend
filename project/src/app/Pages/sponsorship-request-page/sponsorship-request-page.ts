@@ -243,7 +243,9 @@ capitalizeWords(name?: string): string {
         this.donations = allDonations.filter(d => d.status !== DonationStatus.DECLINED);
   
         // 🔽 Sort by createdAt (newest first)
-        this.posts = (newData || []).sort(
+        this.posts = (newData || [])
+        .filter(post => post.daysLeft >= 0)
+        .sort(
           (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
   

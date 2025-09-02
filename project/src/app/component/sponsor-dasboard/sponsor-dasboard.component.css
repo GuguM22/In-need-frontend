@@ -467,6 +467,8 @@ button{
     text-overflow: ellipsis;
     max-width: 195px; /* adjust until it fits 'i' */
    }
+
+
 /* @media (max-width: 480px) {
     .search {
         width: 90%;
