@@ -131,8 +131,9 @@ export class Sidebar implements OnInit {
   getNotificationRoute() {
     if (this.userRole === 'SPONSORS') {
       this.router.navigate(['/sponsor-activity']); // or your new sponsor activity route
+    } else {
+      this.router.navigate(['/sponsorship-request-page']); // for ORG and others
     }
-    this.router.navigate(['/sponsorship-request-page']); // for ORG and others
   }
 
 
