@@ -74,13 +74,13 @@
           </div>
           </li>
           <li>
-            <div class="items fixed bottom-0 hover:bg-gray-100" (click)="openLogoutModal()">
+            <div class="items fixed bottom-0 hover:bg-gray-100">
               <div class="leftItems  hover:bg-gray-100 rounded cursor-pointer">
               <div class="itemIcon">
                 <img class="w-[25px] h-[25px]" src="icons/exit.svg" alt="Logout"/>
               </div>
               <div class="itemButton">
-            <button class="w-full text-left p-2 hover:bg-gray-100 rounded  cursor-pointer">Logout</button>
+            <button class="w-full text-left p-2 hover:bg-gray-100 rounded  cursor-pointer" [routerLink]="['/logout']" >Logout</button>
           </div>
           </div>
           <!-- <div class="notification">

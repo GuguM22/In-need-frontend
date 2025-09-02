@@ -5,7 +5,7 @@ import { ApprovedComponent } from './approved/approved.component';
 import { RejectedComponent } from './rejected/rejected.component';
 import { VerificationRequest, VerificationResponse } from '../../dto/veriificationRequest';
 import { VerificationService } from '../../service/verification-service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Services } from '../../service/services';
 import { FooterComponent } from '../../ui/footer/footer';
 import { Logout } from '../logout/logout';
@@ -15,7 +15,7 @@ import { Loader } from '../../ui/loader/loader';
 
 @Component({
   selector: 'app-admin-panel',
-  imports: [CommonModule, PendingComponent, ApprovedComponent, RejectedComponent, Logout, AdminDashComponent, Loader],
+  imports: [CommonModule, PendingComponent, ApprovedComponent, RejectedComponent, Logout, AdminDashComponent, Loader, RouterLink],
   templateUrl: './admin-panel.component.html',
   styleUrl: './admin-panel.component.css'
 })
