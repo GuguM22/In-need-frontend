@@ -82,6 +82,7 @@ export class Sidebar implements OnInit {
   }
   openLogoutModal() {
     this.showLogoutModal = true; // ✅ Show modal, keep sidebar open
+    this.toggle = false;  // Close sidebar when modal opens
   }
   
 

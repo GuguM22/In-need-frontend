@@ -1,7 +1,7 @@
 
 <!-- <body class="overflow-hidden"> -->
   <!-- Sidebar -->
-  <div *ngIf="toggle" 
+<div *ngIf="toggle" 
      (click)="handleToggle()" 
      class="overlay fixed inset-0 bg-opacity-30 z-[9998]">
 </div>
@@ -56,12 +56,12 @@
         <p>Profile</p>
       </div>
     </div>
-    <div  (click)="openLogoutModal()" class="flex gap-2 hover:bg-gray-100 p-2 ml-1 mt-83 rounded cursor-pointer tab">
-      <img class="w-[20px] h-[20px]" src="icons/exit.svg" alt="Logout"/>
-      <p class="text-base font-extrabold">Logout</p>
-    </div>
   </div>
-
+  <div  (click)="openLogoutModal()" class="flex gap-2 hover:bg-gray-100 p-2 ml-1 rounded cursor-pointer tab">
+    <img class="w-[20px] h-[20px]" src="icons/exit.svg" alt="Logout"/>
+    <p class="text-base font-extrabold">Logout</p>
+  </div>
+</div>
   <!-- Top bar -->
   <!-- <div *ngIf="!toggle"
     class=" sticky top-0 w-full h-[80px] bg-white border border-gray-300 rounded-b-[20px] z-10 px-6 py-4 flex justify-between items-center second">
@@ -70,10 +70,10 @@
   </div> -->
 
   @if(showLogoutModal){
- <app-logout
-  (cancel)="closeLogoutModal()"
-  (confirm)="confirmLogout()"
-></app-logout>
-}
+    <app-logout
+      (cancel)="closeLogoutModal()"
+      (confirm)="confirmLogout()"
+    ></app-logout>
+  }
 <!-- </body> -->
 
