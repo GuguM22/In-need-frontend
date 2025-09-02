@@ -70,14 +70,14 @@
             class="border-1 border-[#00000030] p-1 rounded text-gray font-[400]  w-full mb-1 pointer-events-none" />
             <div class="flex items-end justify-end gap-[0.5px]">
           <p *ngIf="!isEditing" class="text-xs mt-0.5 flex items-end gap-1">
-            <span class="text-gray-600">{{ capitalizeWords(email) }}</span>
-            <!-- <span class="text-gray-600"> &bull; {{ phone }}</span> &bull; -->
+            <span class="text-gray-600">{{ capitalizeWords(email) }}</span> &bull;
+            <span class="text-gray-600"> {{ phone }}</span> &bull;
             <span
               class="px-1 py-0.4 text-[9px] font-medium rounded flex items-center"
               [ngClass]="{
                 'bg-[#F7CB73] text-gray-700 p-0.9 mb-0.5 ml-1 border-[#F7CB73]': statusText === 'Pending',
-                'bg-[#c82027] text-[#FFFFFF] ml-1 p-0.5 border-[#c82027]': statusText === 'Rejected',
-                'bg-[#5B8E7D] text-[#FFFFF0] ml-1   p-0.5 border-[#5B8E7D]': statusText === 'Accepted',
+                'bg-[#c82027] text-[#FFFFFF] ml-1 pt-1 pb-0.5 border-[#c82027]': statusText === 'Rejected',
+                'bg-[#5B8E7D] text-[#FFFFF0] ml-1 mb-0.5   p-0.5 border-[#5B8E7D]': statusText === 'Accepted',
                 'bg-[#6d6d6d] text-white ml-1 p-0.5 border-gray-200': statusText === 'Not verified'
               }"
             >
@@ -90,7 +90,7 @@
             <input [(ngModel)]="editEmail" class="w-70 h-8 border-1 border-[#00000030] p-1 rounded text-gray font-[400] text-xs" placeholder="Email"
               disabled />
             <input [(ngModel)]="editPhone" *ngIf="!isSponsor && phone !== 'Not verified yet'"
-              class="w-70 h-8 border p-1 rounded text-black w-full text-xs" placeholder="Phone" />
+              class="w-70 h-8 border p-1 border-[#00000030] border-1 rounded text-black w-full text-xs" placeholder="Phone" />
           </div>
         </div>
       </div>
