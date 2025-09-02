@@ -54,7 +54,6 @@ ngOnInit() {
 
     if (role === Role.ORGANIZATION) {
       if (!data.phoneStatus) {
-        this.phone = 'Not verified yet';
         this.statusText = 'Not verified';
       } else {
         switch (data.phoneStatus) {
