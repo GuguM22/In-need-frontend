@@ -11,6 +11,7 @@ import { Role } from '../../constant/role';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { DonationStatus } from '../../constant/donationStatus';
 import { Loader } from '../../ui/loader/loader';
+import { Subscription, interval, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-sponsorship-request-page',
@@ -29,7 +30,8 @@ export class SponsorshipRequestPage {
   hasNewDonation: boolean = false;
   isLoading = true;
   message: string = '';
-  userRole: string | null = localStorage.getItem('userRole');
+  userRole: string | null = sessionStorage.getItem('userRole');
+  subscription: Subscription | null = null;
 
   constructor(
     private router: Router,
@@ -44,41 +46,46 @@ export class SponsorshipRequestPage {
    }
 
 ngOnInit() {
-const savedIds = localStorage.getItem('removedDonations');
-this.userRole = localStorage.getItem('userRole');
+const savedIds = sessionStorage.getItem('removedDonations');
+this.userRole = sessionStorage.getItem('userRole');
   if (savedIds) {
     this.removedIds = JSON.parse(savedIds);
   }
 
-  // this.donationService.getDonations().subscribe(res => {
-  //   const mappedDonations = res
-  //     .filter(d => d.status === DonationStatus.PENDING || d.status === DonationStatus.ACCEPTED)
-  //     .filter(d => !this.removedIds.includes(d.id!))
-  //     .map(donation => ({
-  //       ...donation,
-  //       id: donation.id!,
-  //       profileImageUrl: donation.profileImageUrl
-  //         ? `http://localhost:5050/auth/images/${donation.profileImageUrl}`
-  //         : 'logo.png',
-  //       donorName: donation.donorName,
-  //       donorRole: donation.donorRole,
-  //     }))
-  //     .sort((a, b) => {
-  //       const dateA = new Date(a.createdAt ?? 0).getTime();
-  //       const dateB = new Date(b.createdAt ?? 0).getTime();
-  //         return dateB - dateA;
-  //       })
-  //   this.donationStateService.setDonations(mappedDonations);
-  // });
-  
-
-  // this.donationStateService.donations$.subscribe(donations => {
-  //   this.donations = donations;
-  //   this.hasNewDonation = donations.length > 0;
-  // });
+  if(this.userRole == 'ORGANIZATION') {
+    this.getOrganizationDonations();
+  } else if(this.userRole = 'SPONSOR') {
+    this.getSponsorDonations();
+  }
+  this.donationStateService.donations$.subscribe(donations => {
+    this.donations = donations;
+    this.hasNewDonation = donations.length > 0;
+  });
 
   this.loadImage(); 
-  this.fetchUserPosts();
+}
+
+getSponsorDonations() {
+  this.donationService.getDonations().subscribe(res => {
+    const mappedDonations = res
+      .filter(d => d.status === DonationStatus.PENDING || d.status === DonationStatus.ACCEPTED)
+      .filter(d => !this.removedIds.includes(d.id!))
+      .map(donation => ({
+        ...donation,
+        id: donation.id!,
+        profileImageUrl: donation.profileImageUrl
+          ? `http://localhost:5050/auth/images/${donation.profileImageUrl}`
+          : 'logo.png',
+        donorName: donation.donorName,
+        donorRole: donation.donorRole,
+      }))
+      .sort((a, b) => {
+        const dateA = new Date(a.createdAt ?? 0).getTime();
+        const dateB = new Date(b.createdAt ?? 0).getTime();
+          return dateB - dateA;
+        })
+    this.donationStateService.setDonations(mappedDonations);
+  });
 }
 
 loadImage() {
@@ -128,7 +135,7 @@ capitalizeWords(name?: string): string {
 
   goBack() {
    
-  const role = localStorage.getItem('userRole');
+  const role = sessionStorage.getItem('userRole');
 
     switch (role) {
       case 'SPONSORS':
@@ -220,10 +227,14 @@ capitalizeWords(name?: string): string {
   
 
 
-  fetchUserPosts(): void {
-    this.sponsorRequestService.getMyPosts().subscribe({
+  getOrganizationDonations(): void {
+    this.subscription = interval(1000) // every 1 second
+    .pipe(
+      switchMap(() => this.sponsorRequestService.getMyPosts())
+    )
+    .subscribe({
       next: (data) => {
-        const msPerDay = 1000 * 60 * 60 * 24;
+      const msPerDay = 1000 * 60 * 60 * 24;
         const today = new Date().getTime();
   
         const newData = data.map((request) => {
@@ -248,8 +259,6 @@ capitalizeWords(name?: string): string {
         .sort(
           (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
-  
-        console.log('Filtered donations:', this.donations);
       },
       error: (err) => console.error('Error fetching user posts:', err)
     });

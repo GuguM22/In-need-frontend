@@ -161,7 +161,6 @@ toggleEdit() {
         this.phone = this.editPhone;
         this.bio = this.editBio;
         this.Location = this.editLocation;
-        console.log('Profile updated successfully');
       },
       error: (err) => console.error('Update failed', err)
     });
@@ -189,7 +188,6 @@ saveProfile() {
 
   this.service.updateProfile(updateData).subscribe({
     next: (res) => {
-      console.log('Profile updated successfully', res);
 
       // Update local UI immediately
       if (this.role === Role.ORGANIZATION) {

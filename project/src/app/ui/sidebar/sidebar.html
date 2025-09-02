@@ -3,59 +3,81 @@
   <!-- Sidebar -->
 <div *ngIf="toggle" 
      (click)="handleToggle()" 
-     class="fixed inset-0 bg-gray-100 bg-opacity-10 z-10 overlay">
+     class="overlay fixed inset-0 bg-opacity-30 z-[9998]">
 </div>
-<div *ngIf="toggle"
-  class="fixed top-0 left-0 h-full w-[283px] z-[9999] bg-white border border-gray-300 rounded-[12px] px-4 py-10 flex flex-col justify-between">
-  <div class="flex flex-col gap-10">
-    <div class="flex justify-between">
-
-      <img class="rounded-full h-10 w-10" [src]="profileImageUrl"  alt="Logo" />
-      <!-- <img (click)="handleToggle()" class="w-[30px] h-[30px] cursor-pointer hover:opacity-80" src="icons/close.svg" /> -->
-      <svg (click)="handleToggle()" class="cursor-pointer hover:opacity-80" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 50 50">
-        <path d="M 7.71875 6.28125 L 6.28125 7.71875 L 23.5625 25 L 6.28125 42.28125 L 7.71875 43.71875 L 25 26.4375 L 42.28125 43.71875 L 43.71875 42.28125 L 26.4375 25 L 43.71875 7.71875 L 42.28125 6.28125 L 25 23.5625 Z"></path>
-      </svg>
-    </div>
+  <div [class.open]="toggle"
+    class="fixed sidebar top-0 w-[250px] left-0 h-full z-[9999] bg-white border border-gray-300 p-4 flex flex-col justify-between">
     <div class="flex flex-col gap-4">
-      <a [routerLink]="dashboardRoute" class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
-        <img class="w-[30px] h-[30px]" src="icons/home.svg" alt="Discover"/>
-        <p>Discover</p>
-      </a>
-      <div  [routerLink]="'/options'" class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
-        <img class="w-[30px] h-[30px]" src="icons/donate.svg"  alt="Donate" />
-        <p>Donate</p>
+      <div class="flex justify-between">
+        <div></div>
+        <!-- <img (click)="handleToggle()" class="w-[30px] h-[30px] cursor-pointer hover:opacity-80" src="icons/close.svg" /> -->
+        <svg (click)="handleToggle()" class="cursor-pointer hover:opacity-80" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 50 50">
+          <path d="M 7.71875 6.28125 L 6.28125 7.71875 L 23.5625 25 L 6.28125 42.28125 L 7.71875 43.71875 L 25 26.4375 L 42.28125 43.71875 L 43.71875 42.28125 L 26.4375 25 L 43.71875 7.71875 L 42.28125 6.28125 L 25 23.5625 Z"></path>
+        </svg>
       </div>
-      <div class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
-        <div [routerLink]="getNotificationRoute()" class="flex items-center gap-4">
-          <img class="w-[30px] h-[30px]" src="icons/notifications.svg" alt="Notification" />
-          <p>Notifications</p>
+      <div class="flex flex-col gap-4">
+        <a [routerLink]="dashboardRoute"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }" 
+          class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer">
+          <img class="w-[20px] h-[20px]" src="icons/home.svg" alt="Discover"/>
+          <p>Discover</p>
+        </a>
+        <div  [routerLink]="'/options'"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }" 
+          class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer">
+          <img class="w-[20px] h-[20px]" src="icons/donate.svg"  alt="Donate" />
+          <p>Donate</p>
         </div>
-        <span *ngIf="userRole === 'SPONSORS' && pendingSponsorRequestsCount > 0"
-          class="ml-2 px-2 py-0.5 text-xs font-bold text-white bg-red-600 rounded-full">
-          {{ pendingSponsorRequestsCount }}
-        </span>
-        <span *ngIf="donationCount > 0"
-              class="ml-2 px-2 py-0.5 text-xs font-bold text-white bg-red-600 rounded-full">
-          {{ donationCount }}
-        </span>
+        <div 
+          (click)="getNotificationRoute()" 
+          [ngClass]="{'active': currentRoute == '/sponsor-activity' || currentRoute == '/sponsorship-request-page'}"
+          class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer">
+          <div class="flex items-center gap-4">
+            <img class="w-[20px] h-[20px]" src="icons/notifications.svg" alt="Notification" />
+            <p>Notifications</p>
+          </div>
+          <!-- <span *ngIf="userRole === 'SPONSORS' && pendingSponsorRequestsCount > 0"
+            class="ml-2 px-2 py-0.5 text-xs font-bold text-white bg-[#334646] rounded-full">
+            {{ pendingSponsorRequestsCount }}
+          </span> -->
+          <span *ngIf="donationCount > 0 && (userRole === 'ORGANIZATION' || userRole === 'SPONSORS')"
+                class="ml-2 px-2 py-0.5 text-xs font-bold text-white bg-[#334646] rounded-full">
+            {{ donationCount }}
+          </span>
       </div>
-      <div  [routerLink]="'/profile'"  class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
-        <img class="w-[30px] h-[30px]" src="icons/profile.svg"  alt="Profile" />
+      <div  [routerLink]="'/profile'"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }" 
+        class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer">
+        <img class="w-[20px] h-[20px]" src="icons/profile.svg"  alt="Profile" />
         <p>Profile</p>
       </div>
     </div>
   </div>
-  <div  (click)="openLogoutModal()" class="flex gap-2 hover:bg-gray-100 p-2 ml-1 rounded cursor-pointer tab">
-    <img class="w-[30px] h-[30px]" src="icons/exit.svg" alt="Logout"/>
-    <p class="text-base font-extrabold">Logout</p>
+  <div class="flex flex-col gap-4">
+    <div class="flex flex-row gap-4">
+      <img class="rounded-full h-10 w-10" [src]="profileImageUrl"  alt="Logo" />
+      <div>
+        <p>{{userName}}</p>
+        <h6 class="text-gray-500 font-medium text-xs">{{userRole}}</h6>
+      </div>
+    </div>
+    <div  (click)="openLogoutModal()" class="flex flex-row justify-center w-full gap-2 hover:bg-gray-100 border-solid border border-[#faa7a7] bg-[#fef2f2] p-2 rounded cursor-pointer">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#570f0f" class="size-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+      </svg>
+      <h6 class="text-base font-semibold text-[#570f0f]">Logout</h6>
+    </div>
   </div>
 </div>
   <!-- Top bar -->
-  <div *ngIf="!toggle"
+  <!-- <div *ngIf="!toggle"
     class=" sticky top-0 w-full h-[80px] bg-white border border-gray-300 rounded-b-[20px] z-10 px-6 py-4 flex justify-between items-center second">
     <img (click)="handleToggle()" class="w-[30px] h-[30px] cursor-pointer hover:opacity-80" src="menu-icon.svg"  alt="Menu" />
     <img class="h-8 w-8 rounded-full"[src]="profileImageUrl"   alt="Logo"/>
-  </div>
+  </div> -->
 
   @if(showLogoutModal){
     <app-logout

@@ -13,7 +13,7 @@ export class Services {
   public currentUser: any = null;
 
   constructor(private http: HttpClient) { 
-     const savedUser = localStorage.getItem('user');
+     const savedUser = sessionStorage.getItem('user');
     if (savedUser) {
       this.currentUser = JSON.parse(savedUser);
     }
@@ -62,7 +62,7 @@ export class Services {
 
   // user-services.ts
   logout(): Observable<any> {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token ?? ''}`
     });
@@ -74,20 +74,20 @@ export class Services {
       tap({
         next: () => {
 
-          localStorage.removeItem('token');
-          localStorage.removeItem('user');
+          sessionStorage.removeItem('token');
+          sessionStorage.removeItem('user');
         },
         error: () => {
 
-          localStorage.removeItem('token');
-          localStorage.removeItem('user');
+          sessionStorage.removeItem('token');
+          sessionStorage.removeItem('user');
         }
       })
     );
   }
 
   profile(): Observable<any> {
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
   return this.http.get(`${this.apiUrl}/auth/profile`, {
     headers: { Authorization: `Bearer ${token}` }
   });
@@ -95,7 +95,7 @@ export class Services {
 
 
   updateProfile(updateData: any): Observable<any> {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     return this.http.patch(
       `${this.apiUrl}/auth/profile`,
       updateData,
@@ -109,7 +109,7 @@ export class Services {
     const formData = new FormData();
     formData.append('profileImage', file);
 
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
 
     return this.http.post(`${this.apiUrl}/auth/upload-profile-image`, formData, {
       headers: {

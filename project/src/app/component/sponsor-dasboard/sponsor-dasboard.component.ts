@@ -77,7 +77,6 @@ export class SponsorDasboardComponent {
   
         this.requests = unfulfilledAndNotExpired;
         this.filteredRequests = [...this.requests];
-        console.log('Requests loaded (excluding expired):', this.requests);
       },
       error: (error) => {
         console.error('Error loading requests:', error);
@@ -203,7 +202,6 @@ loadIndividuals(): void {
       this.individuals = data.sort(
         (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       );      
-      console.log('Individuals loaded (sorted by newest first):', this.individuals);
     },
     error: (error) => {
       console.error('Error loading individuals:', error);
