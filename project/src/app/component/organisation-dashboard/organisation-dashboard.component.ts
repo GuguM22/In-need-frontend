@@ -108,20 +108,30 @@ this.donationStateService.removedDonations$.subscribe((removedIds: number[]) => 
   loadRequests(): void {
     this.sponsorService.getAll().subscribe({
       next: (data) => {
-        const unfulfilledRequests = data.filter(request => !request.fulfilled);
-
-        this.requests = unfulfilledRequests.sort(
-          (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        );
-        
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // normalize to date only
+  
+        const unfulfilledAndNotExpired = data
+          .filter(request => {
+            const requiredDate = new Date(request.requiredDate);
+            requiredDate.setHours(0, 0, 0, 0); // normalize as well
+            return (
+              !request.fulfilled &&
+              requiredDate >= today // ✅ only future or today
+            );
+          })
+          .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  
+        this.requests = unfulfilledAndNotExpired;
         this.filteredRequests = [...this.requests];
-        console.log('Requests loaded and sorted by createdAt:', this.requests);
+        console.log('Requests loaded (excluding expired):', this.requests);
       },
       error: (error) => {
         console.error('Error loading requests:', error);
       }
     });
   }
+  
   
   
   
