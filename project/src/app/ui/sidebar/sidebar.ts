@@ -24,6 +24,7 @@ export class Sidebar implements OnInit {
   @Input() toggle = false;
   @Output() closed = new EventEmitter<void>();
   userRole: string | null = null;
+  userName: string | null = null;
   pendingSponsorRequestsCount: number = 0;
   currentRoute: string = '';
 
@@ -46,8 +47,10 @@ export class Sidebar implements OnInit {
       error: () => this.profileImageUrl = 'logo.png'
     });
 
+    this.userName = sessionStorage.getItem('userName');
     // Set dashboard route based on user role
     const role = sessionStorage.getItem('userRole');
+    this.userRole = role;
     switch (role) {
       case 'SPONSORS':
         this.dashboardRoute = '/sponsor-dashboard';
@@ -149,7 +152,9 @@ export class Sidebar implements OnInit {
   // }
   loadPendingSponsorRequestsCount(role: string) {
     const userEmail = sessionStorage.getItem('userEmail');
+    console.log(userEmail)
     this.donationService.getDonations().subscribe((donations: any[]) => {
+      console.log(donations)
       this.pendingSponsorRequestsCount = donations.filter(d => 
         d.donorRole === role &&
         d.donorEmail === userEmail

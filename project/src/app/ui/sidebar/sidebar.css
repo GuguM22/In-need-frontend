@@ -26,12 +26,6 @@ p, a{
   background-color: rgba(0, 0, 0, 0.3);
 }
 
-.tab{
-    display: flex;
-    align-items: center;
-    justify-content: start;
-}
-
 .active {
   background-color: #c5dcd8;
   font-weight: bold;
