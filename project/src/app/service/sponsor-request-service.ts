@@ -18,7 +18,7 @@ export class SponsorRequestService {
 
   // Get token if user is logged in
   private getToken(): string | null {
-    return localStorage.getItem('token');
+    return sessionStorage.getItem('token');
   }
 
   // POST request with token
@@ -32,7 +32,7 @@ export class SponsorRequestService {
 
 // post(data: any): Observable<any> {
 //   const jsonData = formDataToJson(data) as any; 
-//   const userId = localStorage.getItem('userId');
+//   const userId = sessionStorage.getItem('userId');
 //   if (userId) {
 //     jsonData.organizationId = +userId; 
 //   }
@@ -107,10 +107,10 @@ post(form: any, selectedFiles: File[]): Observable<any> {
 
 getMyPosts(): Observable<any[]> {
   const token = this.getToken(); // fetch JWT
-  const userId = localStorage.getItem('userId'); // logged-in user's ID
+  const userId = sessionStorage.getItem('userId'); // logged-in user's ID
 
   if (!userId) {
-    console.warn('No userId found in localStorage');
+    console.warn('No userId found in sessionStorage');
     return new Observable<any[]>(observer => {
       observer.next([]); // return empty array if no userId
       observer.complete();

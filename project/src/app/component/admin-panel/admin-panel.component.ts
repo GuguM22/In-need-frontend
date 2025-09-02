@@ -49,9 +49,9 @@ selectedApplication: VerificationRequest | null = null;
 
 
 // ngOnInit(): void {
-//   this.userEmail = localStorage.getItem('userEmail');
-//   this.userId = localStorage.getItem('userId');
-//   this.userName = localStorage.getItem('userName');
+//   this.userEmail = sessionStorage.getItem('userEmail');
+//   this.userId = sessionStorage.getItem('userId');
+//   this.userName = sessionStorage.getItem('userName');
 
 //   combineLatest([
 //     this.verificationService.getVerifications('PENDING'),
@@ -80,9 +80,9 @@ selectedApplication: VerificationRequest | null = null;
   
 
 ngOnInit(): void {
-  this.userEmail = localStorage.getItem('userEmail');
-  this.userId = localStorage.getItem('userId');
-  this.userName = localStorage.getItem('userName');
+  this.userEmail = sessionStorage.getItem('userEmail');
+  this.userId = sessionStorage.getItem('userId');
+  this.userName = sessionStorage.getItem('userName');
 
   combineLatest([
     this.verificationService.getVerifications('PENDING'),

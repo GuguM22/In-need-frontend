@@ -35,7 +35,7 @@ export class ViewIndPost {
     }
   
     // Set dashboard route based on user role
-    const role = localStorage.getItem('userRole');
+    const role = sessionStorage.getItem('userRole');
     switch (role) {
       case 'SPONSORS':
         this.dashboardRoute = '/sponsor-dashboard';

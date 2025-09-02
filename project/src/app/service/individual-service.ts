@@ -23,7 +23,7 @@ export class IndividualService {
   constructor(private http: HttpClient) {}
 
   private getToken(): string | null {
-    return localStorage.getItem('token');
+    return sessionStorage.getItem('token');
   }
 
   post(formData: FormData): Observable<any> {

@@ -22,11 +22,14 @@ dashboardRoute: string = '/';
     '/freq',
     '/donation-review'
   ];
+  currentRoute: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    this.currentRoute = this.router.url;
+  }
 
   ngOnInit(): void {
-    this.userRole = (localStorage.getItem('userRole') || '').trim().toUpperCase();
+    this.userRole = (sessionStorage.getItem('userRole') || '').trim().toUpperCase();
 
     switch (this.userRole) {
       case 'SPONSORS':
@@ -52,6 +55,14 @@ dashboardRoute: string = '/';
     ).subscribe((event: NavigationEnd) => {
       this.currentUrl = (event as NavigationEnd).urlAfterRedirects;
     });
+
+  }
+
+  getNotificationRoute() {
+    if (this.userRole === 'SPONSORS') {
+      this.router.navigate(['/sponsor-activity']); // or your new sponsor activity route
+    }
+    this.router.navigate(['/sponsorship-request-page']); // for ORG and others
   }
 
   isActive(route: string): boolean {

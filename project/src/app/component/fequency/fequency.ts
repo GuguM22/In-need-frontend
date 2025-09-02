@@ -56,7 +56,7 @@ export class Fequency implements OnInit {
       return;
     }
 
-    localStorage.setItem('donationFreq', this.selectedFrequency);
+    sessionStorage.setItem('donationFreq', this.selectedFrequency);
 
     this.router.navigate(['/donation-review'], {
       queryParams: {

@@ -82,7 +82,7 @@ export class VerificationPage implements OnInit {
   }
 
   private checkVerificationStatus(): void {
-      const userId = localStorage.getItem('userId');
+      const userId = sessionStorage.getItem('userId');
     if (userId) {
         this.verificationService.getUserVerificationStatus(userId).subscribe({
           next: (status: string) => {
@@ -100,7 +100,7 @@ export class VerificationPage implements OnInit {
 
   goBack() {
    
-  const role = localStorage.getItem('userRole');
+  const role = sessionStorage.getItem('userRole');
 
     switch (role) {
       case 'SPONSORS':
@@ -166,9 +166,9 @@ export class VerificationPage implements OnInit {
 
   private createVerificationRequest() {
     const placeholderUrls = this.uploadedFiles.map(file => `pending-${file.name}`);
-      const email = localStorage.getItem('userEmail');
-      const userId = localStorage.getItem('userId');
-      const username = localStorage.getItem('userName');
+      const email = sessionStorage.getItem('userEmail');
+      const userId = sessionStorage.getItem('userId');
+      const username = sessionStorage.getItem('userName');
       const verificationRequest: VerificationRequest = {
         id: 0,
         phone: this.verificationForm.value.phone,
@@ -181,13 +181,13 @@ export class VerificationPage implements OnInit {
       }
     // Check if required fields are present
     if (!email) {
-      console.error('Email is required but not found in localStorage');
+      console.error('Email is required but not found in sessionStorage');
       // Handle the error - show message to user
       return;
     }
     
     if (!userId) {
-      console.error('User ID is required but not found in localStorage');
+      console.error('User ID is required but not found in sessionStorage');
       // Handle the error - show message to user
       return;
     }
@@ -195,7 +195,7 @@ export class VerificationPage implements OnInit {
     this.verificationService.createVerification(verificationRequest).subscribe({
       next: (res) => {
         const verificationId = res.id;
-        localStorage.setItem('hasVerified', 'true'); 
+        sessionStorage.setItem('hasVerified', 'true'); 
 
         this.verificationService.uploadFiles(this.uploadedFiles, verificationId).subscribe({
           next: (uploadRes) => {

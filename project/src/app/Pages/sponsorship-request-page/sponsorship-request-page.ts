@@ -29,7 +29,7 @@ export class SponsorshipRequestPage {
   hasNewDonation: boolean = false;
   isLoading = true;
   message: string = '';
-  userRole: string | null = localStorage.getItem('userRole');
+  userRole: string | null = sessionStorage.getItem('userRole');
 
   constructor(
     private router: Router,
@@ -44,41 +44,46 @@ export class SponsorshipRequestPage {
    }
 
 ngOnInit() {
-const savedIds = localStorage.getItem('removedDonations');
-this.userRole = localStorage.getItem('userRole');
+const savedIds = sessionStorage.getItem('removedDonations');
+this.userRole = sessionStorage.getItem('userRole');
   if (savedIds) {
     this.removedIds = JSON.parse(savedIds);
   }
 
-  // this.donationService.getDonations().subscribe(res => {
-  //   const mappedDonations = res
-  //     .filter(d => d.status === DonationStatus.PENDING || d.status === DonationStatus.ACCEPTED)
-  //     .filter(d => !this.removedIds.includes(d.id!))
-  //     .map(donation => ({
-  //       ...donation,
-  //       id: donation.id!,
-  //       profileImageUrl: donation.profileImageUrl
-  //         ? `http://localhost:5050/auth/images/${donation.profileImageUrl}`
-  //         : 'logo.png',
-  //       donorName: donation.donorName,
-  //       donorRole: donation.donorRole,
-  //     }))
-  //     .sort((a, b) => {
-  //       const dateA = new Date(a.createdAt ?? 0).getTime();
-  //       const dateB = new Date(b.createdAt ?? 0).getTime();
-  //         return dateB - dateA;
-  //       })
-  //   this.donationStateService.setDonations(mappedDonations);
-  // });
-  
-
-  // this.donationStateService.donations$.subscribe(donations => {
-  //   this.donations = donations;
-  //   this.hasNewDonation = donations.length > 0;
-  // });
+  if(this.userRole == 'ORGANIZATION') {
+    this.getOrganizationDonations();
+  } else if(this.userRole = 'SPONSOR') {
+    this.getSponsorDonations();
+  }
+  this.donationStateService.donations$.subscribe(donations => {
+    this.donations = donations;
+    this.hasNewDonation = donations.length > 0;
+  });
 
   this.loadImage(); 
-  this.fetchUserPosts();
+}
+
+getSponsorDonations() {
+  this.donationService.getDonations().subscribe(res => {
+    const mappedDonations = res
+      .filter(d => d.status === DonationStatus.PENDING || d.status === DonationStatus.ACCEPTED)
+      .filter(d => !this.removedIds.includes(d.id!))
+      .map(donation => ({
+        ...donation,
+        id: donation.id!,
+        profileImageUrl: donation.profileImageUrl
+          ? `http://localhost:5050/auth/images/${donation.profileImageUrl}`
+          : 'logo.png',
+        donorName: donation.donorName,
+        donorRole: donation.donorRole,
+      }))
+      .sort((a, b) => {
+        const dateA = new Date(a.createdAt ?? 0).getTime();
+        const dateB = new Date(b.createdAt ?? 0).getTime();
+          return dateB - dateA;
+        })
+    this.donationStateService.setDonations(mappedDonations);
+  });
 }
 
 loadImage() {
@@ -128,7 +133,7 @@ capitalizeWords(name?: string): string {
 
   goBack() {
    
-  const role = localStorage.getItem('userRole');
+  const role = sessionStorage.getItem('userRole');
 
     switch (role) {
       case 'SPONSORS':
@@ -220,7 +225,7 @@ capitalizeWords(name?: string): string {
   
 
 
-  fetchUserPosts(): void {
+  getOrganizationDonations(): void {
     this.sponsorRequestService.getMyPosts().subscribe({
       next: (data) => {
         const msPerDay = 1000 * 60 * 60 * 24;
@@ -239,7 +244,7 @@ capitalizeWords(name?: string): string {
         const donations = data.flatMap((post) => {
           return post.donations
         })
-        this.donations = donations;
+        this.donationStateService.setDonations(donations);
 
         // 🔽 Sort by createdAt (newest first)
         this.posts = (newData || []).sort(

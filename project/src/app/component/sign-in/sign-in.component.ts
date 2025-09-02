@@ -59,16 +59,16 @@ export class SignInComponent {
   if (this.loginForm.valid) {
     const email = this.loginForm.get('email')?.value;
     const password = this.loginForm.get('password')?.value;
-    this.userName = localStorage.getItem('userName');
+    this.userName = sessionStorage.getItem('userName');
 
     this.userService.login(email, password).subscribe({
       next: (response: LoginResponse) => {
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('userRole', response.role);
-        localStorage.setItem('userEmail', response.email);
-        localStorage.setItem('verified', response.verified.toString());
-        localStorage.setItem('userId', response.id.toString());
-        localStorage.setItem('userName', response.username);
+        sessionStorage.setItem('token', response.token);
+        sessionStorage.setItem('userRole', response.role);
+        sessionStorage.setItem('userEmail', response.email);
+        sessionStorage.setItem('verified', response.verified.toString());
+        sessionStorage.setItem('userId', response.id.toString());
+        sessionStorage.setItem('userName', response.username);
 
         // Use enum for role checking
         const role = response.role as Role;

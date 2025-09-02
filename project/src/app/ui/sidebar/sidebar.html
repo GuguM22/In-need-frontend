@@ -3,10 +3,10 @@
   <!-- Sidebar -->
   <div *ngIf="toggle" 
      (click)="handleToggle()" 
-     class="fixed inset-0 bg-gray-100 bg-opacity-10 z-[9998] overlay">
+     class="overlay fixed inset-0 bg-opacity-30 z-[9998]">
 </div>
-  <div *ngIf="toggle"
-    class="fixed top-0 left-0 h-full w-[283px] z-[9999] bg-white border border-gray-300 rounded-[12px] px-4 py-10 flex flex-col justify-between">
+  <div [class.open]="toggle"
+    class="fixed sidebar top-0 w-[250px] left-0 h-full z-[9999] bg-white border border-gray-300 px-4 py-10 flex flex-col justify-between">
     <div class="flex flex-col gap-10">
       <div class="flex justify-between">
   
@@ -17,45 +17,57 @@
           </svg>
       </div>
       <div class="flex flex-col gap-4">
-        <a [routerLink]="dashboardRoute" class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
-          <img class="w-[30px] h-[30px]" src="icons/home.svg" alt="Discover"/>
+        <a [routerLink]="dashboardRoute"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }" 
+          class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
+          <img class="w-[20px] h-[20px]" src="icons/home.svg" alt="Discover"/>
           <p>Discover</p>
         </a>
-        <div  [routerLink]="'/options'" class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
-          <img class="w-[30px] h-[30px]" src="icons/donate.svg"  alt="Donate" />
+        <div  [routerLink]="'/options'"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }" 
+          class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
+          <img class="w-[20px] h-[20px]" src="icons/donate.svg"  alt="Donate" />
           <p>Donate</p>
         </div>
-        <div class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
-          <div (click)="getNotificationRoute()" class="flex items-center gap-4">
-            <img class="w-[30px] h-[30px]" src="icons/notifications.svg" alt="Notification" />
+        <div 
+          (click)="getNotificationRoute()" 
+          [ngClass]="{'active': currentRoute == '/sponsor-activity' || currentRoute == '/sponsorship-request-page'}"
+          class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
+          <div class="flex items-center gap-4">
+            <img class="w-[20px] h-[20px]" src="icons/notifications.svg" alt="Notification" />
             <p>Notifications</p>
           </div>
           <span *ngIf="userRole === 'SPONSORS' && pendingSponsorRequestsCount > 0"
-            class="ml-2 px-2 py-0.5 text-xs font-bold text-white bg-red-600 rounded-full">
-        {{ pendingSponsorRequestsCount }}
-      </span>
+            class="ml-2 px-2 py-0.5 text-xs font-bold text-white bg-[#334646] rounded-full">
+            {{ pendingSponsorRequestsCount }}
+          </span>
           <span *ngIf="donationCount > 0"
-                class="ml-2 px-2 py-0.5 text-xs font-bold text-white bg-red-600 rounded-full">
+                class="ml-2 px-2 py-0.5 text-xs font-bold text-white bg-[#334646] rounded-full">
             {{ donationCount }}
           </span>
       </div>
-      <div  [routerLink]="'/profile'"  class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
-        <img class="w-[30px] h-[30px]" src="icons/profile.svg"  alt="Profile" />
+      <div  [routerLink]="'/profile'"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }" 
+        class="flex gap-4 hover:bg-gray-100 p-2 rounded cursor-pointer tab">
+        <img class="w-[20px] h-[20px]" src="icons/profile.svg"  alt="Profile" />
         <p>Profile</p>
       </div>
     </div>
     <div  (click)="openLogoutModal()" class="flex gap-2 hover:bg-gray-100 p-2 ml-1 mt-83 rounded cursor-pointer tab">
-      <img class="w-[30px] h-[30px]" src="icons/exit.svg" alt="Logout"/>
+      <img class="w-[20px] h-[20px]" src="icons/exit.svg" alt="Logout"/>
       <p class="text-base font-extrabold">Logout</p>
     </div>
   </div>
 
   <!-- Top bar -->
-  <div *ngIf="!toggle"
+  <!-- <div *ngIf="!toggle"
     class=" sticky top-0 w-full h-[80px] bg-white border border-gray-300 rounded-b-[20px] z-10 px-6 py-4 flex justify-between items-center second">
     <img (click)="handleToggle()" class="w-[30px] h-[30px] cursor-pointer hover:opacity-80" src="menu-icon.svg"  alt="Menu" />
     <img class="h-8 w-8 rounded-full"[src]="profileImageUrl"   alt="Logo"/>
-  </div>
+  </div> -->
 
   @if(showLogoutModal){
  <app-logout

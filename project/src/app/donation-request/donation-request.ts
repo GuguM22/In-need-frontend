@@ -48,16 +48,16 @@ goNext() {
     quantity: formValue.quantity,
     preference: formValue.logistics,
     additionalNotes: formValue.notes,
-    donorEmail: localStorage.getItem('userEmail') || '',
+    donorEmail: sessionStorage.getItem('userEmail') || '',
     createdAt: new Date(),
     availability: formValue.requiredDate,
     type: DonationType.FOOD,
     frequency: DonationFrequency.ONE_TIME,
-    donorName:  localStorage.getItem('donorName') || '',
+    donorName:  sessionStorage.getItem('donorName') || '',
     sponsorRequestId: this.requestId ? +this.requestId : undefined 
   };
 
-  localStorage.setItem('donationRequest', JSON.stringify(donationRequest));
+  sessionStorage.setItem('donationRequest', JSON.stringify(donationRequest));
   this.router.navigate(['/freq'], {
     queryParams: { id: this.requestId }
   });

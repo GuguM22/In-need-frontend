@@ -193,7 +193,7 @@ ngOnInit(): void {
        this.requestId = state.id;  // 👈 set requestId if editing
   }
 
-  const role = localStorage.getItem('userRole');
+  const role = sessionStorage.getItem('userRole');
   switch (role) {
     case 'SPONSORS':
       this.dashboardRoute = '/sponsor-dashboard';

@@ -17,7 +17,7 @@ export class ThankYouComponent {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    const role = localStorage.getItem('userRole');
+    const role = sessionStorage.getItem('userRole');
     let dashboardRoute = '/';
 
     switch (role) {

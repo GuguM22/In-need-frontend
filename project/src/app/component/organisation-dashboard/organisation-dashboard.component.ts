@@ -50,7 +50,7 @@ isLoading = true;
   profileImageUrl: string = 'logo.png';
  
   ngOnInit():void {
-  this.isVerified = localStorage.getItem('verified') === 'true';
+  this.isVerified = sessionStorage.getItem('verified') === 'true';
   this.loadRequests();
   this.loadIndividuals();
   this.profileImageUrl = 'logo.png';

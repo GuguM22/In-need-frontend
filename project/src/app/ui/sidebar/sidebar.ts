@@ -3,7 +3,7 @@ import { NavbarComponent } from "../navbar/navbar";
 import { CommonModule } from '@angular/common';
 import { Logout } from "../../component/logout/logout";
 import { Services } from '../../service/services';
-import { Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { DonationService } from '../../service/donation-service';
 
 
@@ -17,15 +17,15 @@ import { DonationService } from '../../service/donation-service';
 
 })
 export class Sidebar implements OnInit {
-  toggle = true;
   showLogoutModal = false;
   profileImageUrl: string = 'logo.png'; 
   dashboardRoute: string = '/';
   @Input() donationCount: number = 0;
+  @Input() toggle = false;
   @Output() closed = new EventEmitter<void>();
   userRole: string | null = null;
   pendingSponsorRequestsCount: number = 0;
-
+  currentRoute: string = '';
 
 
   constructor(private userService: Services, private router: Router, private donationService: DonationService) {}
@@ -33,7 +33,7 @@ export class Sidebar implements OnInit {
   ngOnInit() {
     // Load profile image
     this.profileImageUrl = 'logo.png';
-    this.userRole = localStorage.getItem('userRole')
+    this.userRole = sessionStorage.getItem('userRole')
     this.userService.profile().subscribe({
       next: (data: any) => {
         if (data.profileImagePath) {
@@ -47,24 +47,30 @@ export class Sidebar implements OnInit {
     });
 
     // Set dashboard route based on user role
-    const role = localStorage.getItem('userRole');
+    const role = sessionStorage.getItem('userRole');
     switch (role) {
       case 'SPONSORS':
         this.dashboardRoute = '/sponsor-dashboard';
-        this.loadPendingSponsorRequestsCount();
+        this.loadPendingSponsorRequestsCount('SPONSORS');
         break;
       case 'ORGANIZATION':
         this.dashboardRoute = '/organization-dashboard';
+        this.loadPendingSponsorRequestsCount('ORGANIZATION');
         break;
       case 'INDIVIDUAL':
         this.dashboardRoute = '/individual-dashboard';
+        this.loadPendingSponsorRequestsCount('INDIVIDUAL');
         break;
       case 'ADMIN':
         this.dashboardRoute = '/admin';
+        this.loadPendingSponsorRequestsCount('ADMIN');
         break;
       default:
-        this.dashboardRoute = '/individual-dashboard'; // fallback
+        this.dashboardRoute = '/individual-dashboard'; 
+        this.loadPendingSponsorRequestsCount('default');
     }
+
+    this.currentRoute = this.router.url;
   }
 
   // handleToggle() {
@@ -101,7 +107,7 @@ export class Sidebar implements OnInit {
  /* dashboardRoute: string = '/'; // default fallback
 
   ngOnInit() {
-    const role = localStorage.getItem('userRole');
+    const role = sessionStorage.getItem('userRole');
 
     switch (role) {
       case 'SPONSORS':
@@ -131,7 +137,7 @@ export class Sidebar implements OnInit {
 
   // loadPendingSponsorRequestsCount() {
   //   this.donationService.getDonations().subscribe((donations: any[]) => {
-  //     const userEmail = localStorage.getItem('userEmail');
+  //     const userEmail = sessionStorage.getItem('userEmail');
   //     this.pendingSponsorRequestsCount = donations.filter(d => 
   //       d.donorRole === 'SPONSORS' &&
   //       d.status === 'PENDING' &&
@@ -139,12 +145,11 @@ export class Sidebar implements OnInit {
   //     ).length;
   //   });
   // }
-  loadPendingSponsorRequestsCount() {
-    const userEmail = localStorage.getItem('userEmail');
+  loadPendingSponsorRequestsCount(role: string) {
+    const userEmail = sessionStorage.getItem('userEmail');
     this.donationService.getDonations().subscribe((donations: any[]) => {
-      console.log(donations)
       this.pendingSponsorRequestsCount = donations.filter(d => 
-        d.donorRole === 'SPONSORS' &&
+        d.donorRole === role &&
         d.donorEmail === userEmail
       ).length;
 

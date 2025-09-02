@@ -49,7 +49,7 @@ export class ReviewRequest implements OnInit {
 
   constructor(private donationService: DonationService,
     private router: Router, private donationStateService: DonationStateService, private service: Services, private route: ActivatedRoute) {
-    this.emailAddress = localStorage.getItem('userEmail') || '';
+    this.emailAddress = sessionStorage.getItem('userEmail') || '';
 
   }
 

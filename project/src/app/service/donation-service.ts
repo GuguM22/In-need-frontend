@@ -17,7 +17,7 @@ export class DonationService {
 
   createDonation(donation: DonationRequestDTO): Observable<any> {
 
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const headers = token ? new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
@@ -27,7 +27,7 @@ export class DonationService {
   }
 
   getDonations(): Observable<Donation[]> {
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
 
   const headers = token ? new HttpHeaders({
     'Authorization': `Bearer ${token}`,
@@ -40,7 +40,7 @@ export class DonationService {
 
 
 updateDonation(donationUpdate: DonationUpdate): Observable<any> {
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
   const headers = token ? new HttpHeaders({
     'Authorization': `Bearer ${token}`,
     'Content-Type': 'application/json'
@@ -53,7 +53,7 @@ updateDonation(donationUpdate: DonationUpdate): Observable<any> {
 
 
   getDonation(email: string): Observable<any> {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const headers = token ? new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
@@ -63,7 +63,7 @@ updateDonation(donationUpdate: DonationUpdate): Observable<any> {
   }
 
   getPendingDonations(): Observable<any[]> {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const headers = token ? new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
@@ -74,7 +74,7 @@ updateDonation(donationUpdate: DonationUpdate): Observable<any> {
 
 
 getDonationById(id: number): Observable<Donation> {
-  const token = localStorage.getItem('token'); // or wherever you store it
+  const token = sessionStorage.getItem('token'); // or wherever you store it
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
   return this.http.get<Donation>(`${this.apiUrl}/auth/donations/${id}`, { headers });
 }
@@ -91,7 +91,7 @@ confirmReceipt(donationId: number) {
 }
 
 getDonationsBySponsorRequestId(requestId: number): Observable<Donation[]> {
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
   const headers = new HttpHeaders({
     'Authorization': `Bearer ${token}`,
     'Content-Type': 'application/json'
