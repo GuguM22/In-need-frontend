@@ -59,7 +59,6 @@ export class ViewIndPost {
     this.individualService.getById(id).subscribe({
       next: (data) => {
         this.individual = data;
-        console.log('Individual post:', data);
       },
       error: (err) => {
         console.error('Error loading individual post:', err);

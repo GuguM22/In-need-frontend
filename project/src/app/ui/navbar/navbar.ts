@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { Services } from '../../service/services';
-import { FooterComponent } from "../footer/footer";
 import { Sidebar } from '../sidebar/sidebar';
-import { DonationStateService } from '../../service/donation-state-service';
 import { Donation } from '../../model/donation';
 import { DonationService } from '../../service/donation-service';
 import { RouterModule } from '@angular/router';
+import { SponsorRequestService } from '../../service/sponsor-request-service';
+import { Subscription, interval, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -22,12 +22,14 @@ export class NavbarComponent {
   @Input() donationCount: number = 0; 
   userRole: string | null = null;
   hasNewDonation: boolean = false;
-  constructor(private service: Services, private donationStateService: DonationStateService, private donationService: DonationService,  private cd: ChangeDetectorRef) {}
+  subscription: Subscription | null = null;
+
+  constructor(private service: Services, private donationService: DonationService,  private cd: ChangeDetectorRef, private sponsorRequestService: SponsorRequestService) {}
 
 //   ngOnInit() {
 //   this.profileImageUrl = 'logo.png';
 
-//   this.userRole = localStorage.getItem('userRole');
+//   this.userRole = sessionStorage.getItem('userRole');
 
 //   if (this.userRole === 'SPONSORS') {
 //     this.hasNewDonation = false;
@@ -56,26 +58,42 @@ export class NavbarComponent {
 // }
 
 ngOnInit() {
-  this.userRole = localStorage.getItem('userRole') ?? null;
+  this.userRole = sessionStorage.getItem('userRole') ?? null;
 
   // Load profile image
   this.loadProfileImage();
 
   // Subscribe to donations BehaviorSubject to update counts reactively
-  this.donationStateService.donations$.subscribe((donations: Donation[]) => {
-    if (this.userRole === 'SPONSORS') {
-      const userEmail = localStorage.getItem('userEmail');
-      this.pendingSponsorRequestsCount = donations.filter(d =>
+  if (this.userRole === 'SPONSORS') {
+    this.subscription = interval(1000)
+    .pipe(
+      switchMap(() => this.donationService.getDonations())
+    )
+    .subscribe((donations: Donation[]) => {
+      const userEmail = sessionStorage.getItem('userEmail');
+
+      this.donationCount = donations.filter(d =>
         d.donorRole === 'SPONSORS' &&
-        d.status === 'PENDING' &&
         d.donorEmail === userEmail
       ).length;
-    } else {
-      // For ORG and other roles, show total donations count
-      this.donationCount = donations.length;
-    }
-    this.cd.detectChanges(); // Trigger UI update
-  });
+    });
+  } else if(this.userRole === 'ORGANIZATION') {
+    this.subscription = interval(1000) // every 1 second
+    .pipe(
+      switchMap(() => this.sponsorRequestService.getMyPosts())
+    )
+    .subscribe({
+      next: (data) => {
+        const donations = data.flatMap(post => post.donations);
+        this.donationCount = donations.length;
+      },
+      error: (err) => console.error('Error fetching user posts:', err)
+    });
+  }
+}
+
+ngOnDestroy() {
+  this.subscription?.unsubscribe();
 }
   handleToggle() {
     this.toggle = !this.toggle;

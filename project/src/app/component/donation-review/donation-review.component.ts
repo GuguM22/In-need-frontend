@@ -104,7 +104,6 @@ throw new Error('Method not implemented.');
 
     this.donationService.createDonation(donationRequest).subscribe({
       next: (response) => {
-        console.log('Donation created successfully:', response);
         this.router.navigate(['/thanks'], { 
           queryParams: { frequency: this.selectedFrequency } 
         });

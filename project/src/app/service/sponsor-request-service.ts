@@ -79,7 +79,6 @@ post(form: any, selectedFiles: File[]): Observable<any> {
     const headers = new HttpHeaders({
       "Authorization": `Bearer ${token}`
     });
-    console.log("Token used:", token);
     return this.http.get<SponsorRequest>(this.apiUrl + "/" + id, { headers });
   }
 
@@ -88,7 +87,6 @@ post(form: any, selectedFiles: File[]): Observable<any> {
     const headers = new HttpHeaders({
       "Authorization": `Bearer ${token}`
     });
-    console.log("Token used:", token);
     return this.http.get<SponsorRequest[]>(this.apiUrl, { headers });
   }
   
@@ -120,8 +118,6 @@ getMyPosts(): Observable<any[]> {
   const headers = new HttpHeaders({
     "Authorization": `Bearer ${token}`
   });
-
-  console.log("Token used:", token);
   
   return this.http.get<any[]>(`${this.apiUrl}/my-posts`, { headers });
 }

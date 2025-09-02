@@ -40,7 +40,6 @@ export class PendingComponent {
     this.verificationService.verifyUser(+app.userId).subscribe({
       next: () => {
         (app as any).verified = true; // ⚠️ Temporary if `verified` isn't in the interface
-        console.log(`User ${app.userId} verified successfully`);
       },
       error: (err) => {
         console.error(`Error verifying user ${app.userId}:`, err);
@@ -57,8 +56,6 @@ export class PendingComponent {
     // Just remove the application from the list
     this.applications = this.applications.filter(a => a.userId !== app.userId);
     this.selectedApplication = null;
-  
-    console.log(`User ${app.userId} application rejected (no action taken on backend).`);
   }
   
   approve(app: VerificationRequest) {

@@ -46,8 +46,6 @@ updateDonation(donationUpdate: DonationUpdate): Observable<any> {
     'Content-Type': 'application/json'
   }) : new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  console.log('PUT payload:', donationUpdate); // debug
-
   return this.http.put(`${this.apiUrl}/auth/donations/update`, donationUpdate, { headers });
 }
 

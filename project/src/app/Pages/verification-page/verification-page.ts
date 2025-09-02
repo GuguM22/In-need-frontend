@@ -139,8 +139,6 @@ export class VerificationPage implements OnInit {
       this.verificationForm.patchValue({
         documents: this.uploadedFiles,
       });
-
-      console.log('Selected files:', this.uploadedFiles);
     }
   }
   onSubmit(): void {

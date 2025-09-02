@@ -11,6 +11,7 @@ import { Role } from '../../constant/role';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { DonationStatus } from '../../constant/donationStatus';
 import { Loader } from '../../ui/loader/loader';
+import { Subscription, interval, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-sponsorship-request-page',
@@ -30,6 +31,7 @@ export class SponsorshipRequestPage {
   isLoading = true;
   message: string = '';
   userRole: string | null = sessionStorage.getItem('userRole');
+  subscription: Subscription | null = null;
 
   constructor(
     private router: Router,
@@ -226,35 +228,37 @@ capitalizeWords(name?: string): string {
 
 
   getOrganizationDonations(): void {
-    this.sponsorRequestService.getMyPosts().subscribe({
+    this.subscription = interval(1000) // every 1 second
+    .pipe(
+      switchMap(() => this.sponsorRequestService.getMyPosts())
+    )
+    .subscribe({
       next: (data) => {
-        const msPerDay = 1000 * 60 * 60 * 24;
-        const today = new Date().getTime();
-  
-        const newData = data.map((request) => {
-          const requiredDate = request.requiredDate;
-          const createdAt = request.createdAt;
-          const daysLeft = Math.ceil(
-            (new Date(requiredDate).getTime() - today) / msPerDay
-          );
-  
-          return { ...request, createdAt, requiredDate, daysLeft };
-        });
-        //Get donations
-        const donations = data.flatMap((post) => {
-          return post.donations
-        })
-        this.donationStateService.setDonations(donations);
+      const msPerDay = 1000 * 60 * 60 * 24;
+      const today = new Date().getTime();
 
-        // 🔽 Sort by createdAt (newest first)
-        this.posts = (newData || []).sort(
-          
-          (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      const newData = data.map((request) => {
+        const requiredDate = request.requiredDate;
+        const createdAt = request.createdAt;
+        const daysLeft = Math.ceil(
+          (new Date(requiredDate).getTime() - today) / msPerDay
         );
-  
-        console.log('Posts sorted by createdAt:', this.posts);
-      },
-      error: (err) => console.error('Error fetching user posts:', err)
+
+        return { ...request, createdAt, requiredDate, daysLeft };
+      });
+      //Get donations
+      const donations = data.flatMap((post) => {
+        return post.donations
+      })
+      this.donationStateService.setDonations(donations);
+
+      // 🔽 Sort by createdAt (newest first)
+      this.posts = (newData || []).sort(
+        
+        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+    },
+    error: (err) => console.error('Error fetching user posts:', err)
     });
   }
   

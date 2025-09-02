@@ -38,10 +38,10 @@
             <img class="w-[20px] h-[20px]" src="icons/notifications.svg" alt="Notification" />
             <p>Notifications</p>
           </div>
-          <span *ngIf="userRole === 'SPONSORS' && pendingSponsorRequestsCount > 0"
+          <!-- <span *ngIf="userRole === 'SPONSORS' && pendingSponsorRequestsCount > 0"
             class="ml-2 px-2 py-0.5 text-xs font-bold text-white bg-[#334646] rounded-full">
             {{ pendingSponsorRequestsCount }}
-          </span>
+          </span> -->
           <span *ngIf="donationCount > 0 && (userRole === 'ORGANIZATION' || userRole === 'SPONSORS')"
                 class="ml-2 px-2 py-0.5 text-xs font-bold text-white bg-[#334646] rounded-full">
             {{ donationCount }}

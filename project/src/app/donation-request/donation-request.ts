@@ -31,12 +31,10 @@ export class DonationRequest {
       logistics: ['', Validators.required],
       notes: ['']
     });
-    console.log(this.sponsorshipForm.value);
   }
 goNext() {
   if (!this.sponsorshipForm.valid) {
     this.sponsorshipForm.markAllAsTouched();
-    console.log('Form invalid', this.sponsorshipForm.value);
     return;
   }
 

@@ -107,7 +107,6 @@ export class OptionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.requestId = this.route.snapshot.paramMap.get('id') || '';
-    console.log('Request ID:', this.requestId);
 
     if (!this.requestId) {
       console.error('No request ID provided in URL!');

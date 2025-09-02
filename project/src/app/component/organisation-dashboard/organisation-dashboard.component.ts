@@ -53,7 +53,7 @@ isLoading = true;
   this.isVerified = sessionStorage.getItem('verified') === 'true';
   this.loadRequests();
   this.loadIndividuals();
-  this.profileImageUrl = 'logo.png';
+  this.profileImageUrl = '';
   // Remove requests automatically if accepted/declined
 this.donationStateService.removedDonations$.subscribe((removedIds: number[]) => {
   if (removedIds.length > 0) {
@@ -115,7 +115,6 @@ this.donationStateService.removedDonations$.subscribe((removedIds: number[]) => 
         );
         
         this.filteredRequests = [...this.requests];
-        console.log('Requests loaded and sorted by createdAt:', this.requests);
       },
       error: (error) => {
         console.error('Error loading requests:', error);
@@ -282,7 +281,6 @@ loadIndividuals(): void {
       this.individuals = data.sort(
         (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       );      
-      console.log('Individuals loaded (sorted by newest first):', this.individuals);
     },
     error: (error) => {
       console.error('Error loading individuals:', error);

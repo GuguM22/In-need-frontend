@@ -152,9 +152,7 @@ export class Sidebar implements OnInit {
   // }
   loadPendingSponsorRequestsCount(role: string) {
     const userEmail = sessionStorage.getItem('userEmail');
-    console.log(userEmail)
     this.donationService.getDonations().subscribe((donations: any[]) => {
-      console.log(donations)
       this.pendingSponsorRequestsCount = donations.filter(d => 
         d.donorRole === role &&
         d.donorEmail === userEmail

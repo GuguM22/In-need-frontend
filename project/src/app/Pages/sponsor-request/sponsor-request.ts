@@ -216,8 +216,6 @@ ngOnInit(): void {
   preview(): void {
   if (this.sponsorshipForm.valid) {
     this.previewData = this.sponsorshipForm.value;
-    console.log('Preview Data:', this.previewData);
-    console.log('File Names:', this.fileNames);
     this.showPreview = true;
   } else {
     this.sponsorshipForm.markAllAsTouched();
