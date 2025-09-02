@@ -96,4 +96,5 @@ dashboardRoute: string = '/';
   showPost() {
     console.log("Navigate to org / indi post ");
   }
+  
 }

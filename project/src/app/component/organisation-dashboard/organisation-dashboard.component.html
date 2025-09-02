@@ -51,7 +51,7 @@
 </div>
 <div class="container2">
     <div class="individualCards carousel">
-        <div class="indvCard"  *ngFor="let i of individuals" [routerLink]="['/view-indv-post', i.id]">
+        <div class="indvCard bg-white"  *ngFor="let i of individuals" [routerLink]="['/view-indv-post', i.id]">
             <div class="thumbnail">
                   <!-- <pre>{{ i.mediaUrls | json }}</pre> -->
                   <img *ngIf="i.mediaUrls && i.mediaUrls.length"
@@ -60,7 +60,8 @@
                   (error)="onImageError($event)" />
                          </div>
             <div class="user">
-                <h4 class="names">{{i.username}}</h4>
+                <h4 class="names">{{i.title}}</h4>
+                <p class="username">{{i.username}}</p>
             </div>
             <div class="description">
                 <p class="descriptions">{{i.description}}
@@ -97,7 +98,7 @@
        <!-- <div *ngFor="let request of requests" class="orgCards"> -->
         <div *ngFor="let request of paginatedRequests" class="orgCards">
 
-        <div class="orgCard"  [routerLink]="['/view-post', request.id]" >
+        <div class="orgCard bg-white"  [routerLink]="['/view-post', request.id]" >
             <div class="holder1">
                 <div class="profile">
                     <div class="pfp">

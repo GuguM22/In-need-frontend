@@ -235,32 +235,35 @@ capitalizeWords(name?: string): string {
     .subscribe({
       next: (data) => {
       const msPerDay = 1000 * 60 * 60 * 24;
-      const today = new Date().getTime();
-
-      const newData = data.map((request) => {
-        const requiredDate = request.requiredDate;
-        const createdAt = request.createdAt;
-        const daysLeft = Math.ceil(
-          (new Date(requiredDate).getTime() - today) / msPerDay
+        const today = new Date().getTime();
+  
+        const newData = data.map((request) => {
+          const requiredDate = request.requiredDate;
+          const createdAt = request.createdAt;
+          const daysLeft = Math.ceil(
+            (new Date(requiredDate).getTime() - today) / msPerDay
+          );
+  
+          return { ...request, createdAt, requiredDate, daysLeft };
+        });
+  
+        // ✅ Get all donations from all posts
+        const allDonations = data.flatMap(post => post.donations);
+  
+        // ✅ Filter out declined ones
+        this.donations = allDonations.filter(d => d.status !== DonationStatus.DECLINED);
+  
+        // 🔽 Sort by createdAt (newest first)
+        this.posts = (newData || [])
+        .filter(post => post.daysLeft >= 0)
+        .sort(
+          (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
-
-        return { ...request, createdAt, requiredDate, daysLeft };
-      });
-      //Get donations
-      const donations = data.flatMap((post) => {
-        return post.donations
-      })
-      this.donationStateService.setDonations(donations);
-
-      // 🔽 Sort by createdAt (newest first)
-      this.posts = (newData || []).sort(
-        
-        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      );
-    },
-    error: (err) => console.error('Error fetching user posts:', err)
+      },
+      error: (err) => console.error('Error fetching user posts:', err)
     });
   }
+  
   
   markAsReceived(donationId: number): void {
     this.donationService.confirmReceipt(donationId).subscribe({
