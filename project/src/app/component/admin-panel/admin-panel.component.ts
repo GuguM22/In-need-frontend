@@ -11,10 +11,11 @@ import { FooterComponent } from '../../ui/footer/footer';
 import { Logout } from '../logout/logout';
 import { AdminDashComponent } from "../admin-dash/admin-dash.component";
 import { combineLatest } from 'rxjs';
+import { Loader } from '../../ui/loader/loader';
 
 @Component({
   selector: 'app-admin-panel',
-  imports: [CommonModule, PendingComponent, ApprovedComponent, RejectedComponent, Logout, AdminDashComponent],
+  imports: [CommonModule, PendingComponent, ApprovedComponent, RejectedComponent, Logout, AdminDashComponent, Loader],
   templateUrl: './admin-panel.component.html',
   styleUrl: './admin-panel.component.css'
 })
@@ -33,13 +34,18 @@ export class AdminPanelComponent {
   modalAction: (() => void) | null = null;
   showLogoutModal = false;
   toggle = true; 
+  isLoading = true;
 
 selectedApplication: VerificationRequest | null = null;
 
-  activePanel: 'pending' | 'approved' | 'rejected' | null = 'pending'; // default to pending
+  activePanel: 'pending' | 'approved' | 'rejected' | null = null; // default to pending
 
 
-  constructor(private verificationService: VerificationService, private router: Router, private userService: Services) {}
+  constructor(private verificationService: VerificationService, private router: Router, private userService: Services) {
+    setTimeout(() =>{
+      this.isLoading = false}, 1000
+    )
+  }
 
 
 // ngOnInit(): void {

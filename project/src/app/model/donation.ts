@@ -19,4 +19,7 @@ export interface Donation {
   donorRole?: Role;
   status: string;
   sponsorRequestId?: number;
+  isReceived?: boolean;
+  organizationUsername?: string;
+
 }  

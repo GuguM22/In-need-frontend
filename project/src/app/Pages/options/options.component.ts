@@ -5,11 +5,12 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { FooterComponent } from "../../ui/footer/footer";
 import { NavbarComponent } from "../../ui/navbar/navbar";
+import { Loader } from '../../ui/loader/loader';
 
 @Component({
   selector: 'app-options',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, NavbarComponent, FooterComponent],
+  imports: [CommonModule, FormsModule, RouterModule, NavbarComponent, FooterComponent, Loader],
   templateUrl: './options.component.html',
   styleUrls: ['./options.component.css']
 })
@@ -22,6 +23,7 @@ export class OptionsComponent implements OnInit {
   requestId: string = '';
   requestDetails: any;
   dashboardRoute: string = '/'; // fallback default
+  isLoading = true;
 
   donationOptions = [
     {
@@ -48,7 +50,11 @@ export class OptionsComponent implements OnInit {
     private router: Router,  
     private route: ActivatedRoute,
     private sponsorService: SponsorRequestService
-  ) {}
+  ) {
+    setTimeout(() =>{
+      this.isLoading = false}, 1000
+    )
+  }
 
   get isFirstStep(): boolean {
     return this.currentStep === 1;
@@ -67,7 +73,7 @@ export class OptionsComponent implements OnInit {
     }
 
     localStorage.setItem('donationType', this.selectedType);
-    this.router.navigate(['/donation-request']);
+    this.router.navigate(['/donation-request', this.requestId]);
   }
 
   goBack(): void {

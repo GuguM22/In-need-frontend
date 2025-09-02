@@ -10,11 +10,12 @@ import { NavbarComponent } from '../../ui/navbar/navbar';
 import { Role } from '../../constant/role';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { DonationStatus } from '../../constant/donationStatus';
+import { Loader } from '../../ui/loader/loader';
 
 @Component({
   selector: 'app-sponsorship-request-page',
   standalone: true,
-  imports: [CommonModule, RouterModule, FooterComponent, NavbarComponent],
+  imports: [CommonModule, RouterModule, FooterComponent, NavbarComponent, Loader],
   templateUrl: './sponsorship-request-page.html',
   styleUrls: ['./sponsorship-request-page.css'],
 })
@@ -26,7 +27,9 @@ export class SponsorshipRequestPage {
   profileImageUrl: string = 'logo.png';
   dashboardRoute: string = '/';
   hasNewDonation: boolean = false;
-
+  isLoading = true;
+  message: string = '';
+  userRole: string | null = localStorage.getItem('userRole');
 
   constructor(
     private router: Router,
@@ -34,35 +37,45 @@ export class SponsorshipRequestPage {
     private service: Services,
     private donationStateService: DonationStateService,
     private sponsorRequestService: SponsorRequestService
-  ) { }
+  ) {
+    setTimeout(() =>{
+      this.isLoading = false}, 1000
+    )
+   }
 
 ngOnInit() {
 const savedIds = localStorage.getItem('removedDonations');
+this.userRole = localStorage.getItem('userRole');
   if (savedIds) {
     this.removedIds = JSON.parse(savedIds);
   }
 
-  this.donationService.getDonations().subscribe(res => {
-    const mappedDonations = res
-      .filter(d => d.status === DonationStatus.PENDING)
-      .filter(d => !this.removedIds.includes(d.id!))
-      .map(donation => ({
-        ...donation,
-        id: donation.id!,
-        profileImageUrl: donation.profileImageUrl
-          ? `http://localhost:5050/auth/images/${donation.profileImageUrl}`
-          : 'logo.png',
-        donorName: donation.donorName,
-        donorRole: donation.donorRole,
-      }));
+  // this.donationService.getDonations().subscribe(res => {
+  //   const mappedDonations = res
+  //     .filter(d => d.status === DonationStatus.PENDING || d.status === DonationStatus.ACCEPTED)
+  //     .filter(d => !this.removedIds.includes(d.id!))
+  //     .map(donation => ({
+  //       ...donation,
+  //       id: donation.id!,
+  //       profileImageUrl: donation.profileImageUrl
+  //         ? `http://localhost:5050/auth/images/${donation.profileImageUrl}`
+  //         : 'logo.png',
+  //       donorName: donation.donorName,
+  //       donorRole: donation.donorRole,
+  //     }))
+  //     .sort((a, b) => {
+  //       const dateA = new Date(a.createdAt ?? 0).getTime();
+  //       const dateB = new Date(b.createdAt ?? 0).getTime();
+  //         return dateB - dateA;
+  //       })
+  //   this.donationStateService.setDonations(mappedDonations);
+  // });
+  
 
-    this.donationStateService.setDonations(mappedDonations);
-  });
-
-  this.donationStateService.donations$.subscribe(donations => {
-    this.donations = donations;
-    this.hasNewDonation = donations.length > 0;
-  });
+  // this.donationStateService.donations$.subscribe(donations => {
+  //   this.donations = donations;
+  //   this.hasNewDonation = donations.length > 0;
+  // });
 
   this.loadImage(); 
   this.fetchUserPosts();
@@ -142,7 +155,7 @@ capitalizeWords(name?: string): string {
   sponsorId: any;
 
     posts = [
-    {
+    { id: 1,
       title: 'School Supplies',
       description:
         'Providing educational materials for 200+ children in underserved communities...',
@@ -181,26 +194,77 @@ capitalizeWords(name?: string): string {
   }
 
   markFulfilled(index: number): void {
-    this.posts[index].fulfilled = true;
-   // this.activeMenuId = null; // close menu
+    const fulfilledPost = this.posts[index];
+    // Remove from UI immediately for responsiveness
+    // this.posts.splice(index, 1); 
+    this.activeMenuId = null;
+  
+    this.sponsorRequestService.markPostAsFulfilled(fulfilledPost.id).subscribe({
+      next: () => {
+        this.message = 'Post fulfilled!';
+        // Clear message after 3 seconds
+        setTimeout(() => {
+          this.message = '';
+        }, 2000);
+      },
+      error: (err) => {
+        console.error('Error marking fulfilled', err);
+        this.message = 'Failed to mark post as fulfilled.';
+        setTimeout(() => {
+          this.message = '';
+        }, 3000);
+      }
+    });
   }
+  
+  
 
 
   fetchUserPosts(): void {
     this.sponsorRequestService.getMyPosts().subscribe({
       next: (data) => {
+        const msPerDay = 1000 * 60 * 60 * 24;
+        const today = new Date().getTime();
+  
         const newData = data.map((request) => {
-          const msPerDay = 1000 * 60 * 60 * 24;
-          const requiredDate = new Date(request.requiredDate).getTime();
-          const today = new Date().getTime();
-
-          const daysLeft = Math.ceil((requiredDate - today) / msPerDay);
-
-          return { ...request, daysLeft}
+          const requiredDate = request.requiredDate;
+          const createdAt = request.createdAt;
+          const daysLeft = Math.ceil(
+            (new Date(requiredDate).getTime() - today) / msPerDay
+          );
+  
+          return { ...request, createdAt, requiredDate, daysLeft };
+        });
+        //Get donations
+        const donations = data.flatMap((post) => {
+          return post.donations
         })
-        this.posts = newData || [];
+        this.donations = donations;
+
+        // 🔽 Sort by createdAt (newest first)
+        this.posts = (newData || []).sort(
+          
+          (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+  
+        console.log('Posts sorted by createdAt:', this.posts);
       },
       error: (err) => console.error('Error fetching user posts:', err)
     });
   }
+  
+  markAsReceived(donationId: number): void {
+    this.donationService.confirmReceipt(donationId).subscribe({
+      next: (updatedDonation) => {
+        // Update the local state so the button disappears
+        this.donations = this.donations.map(donation =>
+          donation.id === donationId ? { ...donation, isReceived: true } : donation
+        );
+      },
+      error: (err) => {
+        console.error('Error confirming receipt:', err);
+        alert('Failed to confirm donation receipt.');
+      }
+    });
+  } 
 }

@@ -31,6 +31,7 @@ export class IndividualDasboardComponent {
     description: '',
     location: '',
     mediaUrls: [],
+    fulfilled: false
   }
  
    constructor(private router: Router, private sponsorService: SponsorRequestService, 

@@ -9,6 +9,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { DonationService } from '../../service/donation-service';
 import { Role } from '../../constant/role';
 import { NavbarComponent } from "../../ui/navbar/navbar";
+import { Loader } from '../../ui/loader/loader';
 
 @Component({
   selector: 'app-profilepage',
@@ -18,7 +19,8 @@ import { NavbarComponent } from "../../ui/navbar/navbar";
     FormsModule,
     RouterModule,
     FooterComponent,
-    NavbarComponent
+    NavbarComponent,
+    Loader
 ],
   providers: [Services],
   templateUrl: './profilepage.html',
@@ -28,12 +30,18 @@ export class ProfilepageComponent implements OnInit {
   profileImageUrl: string | ArrayBuffer | null = null;
   uploading = false;
   isSponsor = false;
-  statusText: string = '';
+  statusText: string = '';//
+  isLoading = true;
+
 
   role = Role.SPONSORS || Role.INDIVIDUAL || Role.ORGANIZATION;
 
 
-  constructor(private location: Location, private service: Services) {}
+  constructor(private location: Location, private service: Services) {
+    setTimeout(() =>{
+      this.isLoading = false}, 1000
+    )
+  }
 
 ngOnInit() {
   this.service.profile().subscribe({
@@ -68,10 +76,8 @@ ngOnInit() {
         }
       }
     } else {
-      this.phone = 'Not applicable';
-      
+       this.phone = data.phone || 'Not applicable';
     }
-
 
       // Location handling
       if (data.location) {
@@ -97,6 +103,7 @@ ngOnInit() {
     error: (err) => console.error('Failed to load profile', err)
   });
 }
+
 
 
 private loadProfileImage(imagePath: string) {
@@ -136,12 +143,11 @@ private loadProfileImage(imagePath: string) {
 
   
 toggleEdit() {
- if (this.isEditing) {
-    // Save changes
+  if (this.isEditing) {
     const locationParts = this.editLocation.split(',');
     const updateData = {
       bio: this.editBio,
-      phone: this.editPhone, 
+      phone: this.editPhone,
       location: {
         city: locationParts[0]?.trim() || '',
         province: locationParts[1]?.trim() || ''
@@ -152,23 +158,54 @@ toggleEdit() {
       next: (res) => {
         this.name = this.editName;
         this.email = this.editEmail;
-        this.phone = this.editPhone; 
+        this.phone = this.editPhone;
         this.bio = this.editBio;
         this.Location = this.editLocation;
+        console.log('Profile updated successfully');
       },
-      error: (err) => {
-        console.error('Update failed', err);
-      }
+      error: (err) => console.error('Update failed', err)
     });
   } else {
     this.editName = this.name;
     this.editEmail = this.email;
-    this.editPhone = this.phone; 
+    this.editPhone = this.phone;
     this.editBio = this.bio;
     this.editLocation = this.Location;
   }
+
+  // Toggle editing state
   this.isEditing = !this.isEditing;
 }
+
+saveProfile() {
+  const updateData: any = {
+    bio: this.bio,
+    location: {
+      city: this.editLocation,
+      province: this.editLocation
+    },
+    phone: this.phone 
+  };
+
+  this.service.updateProfile(updateData).subscribe({
+    next: (res) => {
+      console.log('Profile updated successfully', res);
+
+      // Update local UI immediately
+      if (this.role === Role.ORGANIZATION) {
+        this.statusText = 'Pending';
+      } else {
+        this.statusText = 'Accepted';
+      }
+
+      this.phone = this.phone;
+    },
+    error: (err) => {
+      console.error('Update failed', err);
+    }
+  });
+}
+
 
 private capitalizeFirstLetter(str: string): string {
   if (!str) return str;

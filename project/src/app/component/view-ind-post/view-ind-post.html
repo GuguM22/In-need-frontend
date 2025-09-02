@@ -24,6 +24,10 @@
   </div>
 </div>
 <app-footer></app-footer> -->
+@if(isLoading){
+  <app-loader/>
+  }
+  @else {
 <app-navbar></app-navbar>
 <div *ngIf="individual" class="container">
   <div class="back">
@@ -84,3 +88,4 @@
   </div>
 </div>
 <app-footer></app-footer>
+  }

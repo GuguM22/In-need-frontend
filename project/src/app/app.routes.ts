@@ -62,6 +62,7 @@ import { Uploaded } from './Pages/uploaded/uploaded';
 import { ViewOrgPost } from './component/organisation-dashboard/view-org-post/view-org-post';
 import { UploadSuccessfullyindividualComponent } from './upload-successfully-individual/upload-successfully-individual.component';
 import { SponsorActivityComponent } from './component/sponsor-activity/sponsor-activity.component';
+import { Loader } from './ui/loader/loader';
 
 
 
@@ -90,7 +91,7 @@ export const routes: Routes = [
   { path: 'freq', component: Fequency },
 
 
- { path: 'donation-request', component: DonationRequest },
+ { path: 'donation-request/:id', component: DonationRequest },
 
   {path: 'sponsor-request', component: SponsorRequestComponent},
   {path: 'profile', component : ProfilepageComponent},
@@ -136,7 +137,7 @@ export const routes: Routes = [
 
 
   {path: 'upload-verification', component: UploadSuccessfullyindividualComponent},
-  {path: 'sponsor-activity', component: SponsorActivityComponent}
+  {path: 'sponsor-activity', component: SponsorActivityComponent},
   // { path: '**', redirectTo: 'fequency' }
 
 

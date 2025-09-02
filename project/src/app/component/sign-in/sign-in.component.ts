@@ -24,7 +24,8 @@ export class SignInComponent {
   showConfirmPassword = false;
   loginError = '';
   userRole: string | null = null;
-
+  signInMessage = '';
+  userName: string | null = null;
 
   constructor(
     private userService: Services,
@@ -53,54 +54,73 @@ export class SignInComponent {
 
   ngOnInit(): void {}
 
- onSubmit() {
-  if (this.loginForm.valid) {
-    const email = this.loginForm.get('email')?.value;
-    const password = this.loginForm.get('password')?.value;
+  onSubmit() {
+    if (this.loginForm.valid) {
+      const email = this.loginForm.get('email')?.value;
+      const password = this.loginForm.get('password')?.value;
 
-    this.userService.login(email, password).subscribe({
-      next: (response: LoginResponse) => {
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('userRole', response.role);
-        localStorage.setItem('userEmail', response.email);
-        localStorage.setItem('verified', response.verified.toString());
-        localStorage.setItem('userId', response.id.toString());
-        localStorage.setItem('userName', response.username);
+      this.userService.login(email, password).subscribe({
+        next: (response: LoginResponse) => {
+          // Save user details
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('userRole', response.role);
+          localStorage.setItem('userEmail', response.email);
+          localStorage.setItem('verified', response.verified.toString());
+          localStorage.setItem('userId', response.id.toString());
+          localStorage.setItem('userName', response.username);
 
-        // Use enum for role checking
-        const role = response.role as Role;
+          this.userRole = response.role as Role;
+          this.userName = response.username;
+          this.signInMessage = `Welcome ${this.userName}`;
 
-        // Optionally, show logged-in role on UI
-        this.userRole = role; 
+          this.loginError = '';
 
-        switch (role) {
-          case Role.SPONSORS:
-            this.router.navigate(['/sponsor-dashboard']);
-            break;
-          case Role.ORGANIZATION:
-            this.router.navigate(['/organization-dashboard']);
-            break;
-          case Role.INDIVIDUAL:
-            this.router.navigate(['/individual-dashboard']);
-            break;
-          case Role.ADMIN:
-            this.router.navigate(['/admin']);
-            break;
-          default:
-            this.router.navigate(['/individual-dashboard']);
-            break;
-        }
-      },
-      error: (err) => {
-        if (err.error && err.error.error) {
-          this.loginError = err.error?.error || 'Login failed';
-        } else {
-          this.loginError = 'Login failed. Please try again.';
-        }
-      },
-    });
+          setTimeout(() => {
+            switch (this.userRole) {
+              case Role.SPONSORS:
+                this.router.navigate(['/sponsor-dashboard']);
+                break;
+              case Role.ORGANIZATION:
+                this.router.navigate(['/organization-dashboard']);
+                break;
+              case Role.INDIVIDUAL:
+                this.router.navigate(['/individual-dashboard']);
+                break;
+              case Role.ADMIN:
+                this.router.navigate(['/admin']);
+                break;
+              default:
+                this.router.navigate(['/individual-dashboard']);
+                break;
+            }
+          }, 2000);
+        },
+        error: (err) => {
+          console.log('Backend error:', err);
+
+          const backendError =
+            err.error?.error ?? err.error?.message ?? err.message;
+
+          if (err.error) {
+    // err.error might be a string or object
+    if (typeof err.error === 'string') {
+      this.loginError = err.error;
+    } else if (err.error.error) {
+      this.loginError = err.error.error; // <- this will capture your "Invalid email or password"
+    } else if (err.error.message) {
+      this.loginError = err.error.message;
+    } else {
+      this.loginError = 'Login failed. Please try again.';
+    }
   } else {
-    this.loginForm.markAllAsTouched();
+    this.loginError = 'Login failed. Please try again.';
   }
-}
+          this.userRole = null;
+          this.userName = null;
+        },
+      });
+    } else {
+      this.loginForm.markAllAsTouched();
+    }
+  }
 }
