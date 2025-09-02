@@ -118,10 +118,10 @@
             <div class="progress">
                 <div class="daysLeft">
                   <div class="holder3">
-                    <div class="dayHeading">
-                      <h3>Days Left: {{ calculateDaysLeft(request.requiredDate) }}</h3>
-                    </div>
-              
+                        <div class="dayHeading"
+                        [ngClass]="getDaysLeftClass(request.requiredDate)">
+                        Days Left: {{ getDaysLeftLabel(request.requiredDate) }}
+                  </div>
                     <div class="tracker">
                       <div class="bar-container">
                         <div 
