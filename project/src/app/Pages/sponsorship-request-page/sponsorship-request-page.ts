@@ -235,23 +235,24 @@ capitalizeWords(name?: string): string {
   
           return { ...request, createdAt, requiredDate, daysLeft };
         });
-        //Get donations
-        const donations = data.flatMap((post) => {
-          return post.donations
-        })
-        this.donations = donations;
-
+  
+        // ✅ Get all donations from all posts
+        const allDonations = data.flatMap(post => post.donations);
+  
+        // ✅ Filter out declined ones
+        this.donations = allDonations.filter(d => d.status !== DonationStatus.DECLINED);
+  
         // 🔽 Sort by createdAt (newest first)
         this.posts = (newData || []).sort(
-          
           (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
   
-        console.log('Posts sorted by createdAt:', this.posts);
+        console.log('Filtered donations:', this.donations);
       },
       error: (err) => console.error('Error fetching user posts:', err)
     });
   }
+  
   
   markAsReceived(donationId: number): void {
     this.donationService.confirmReceipt(donationId).subscribe({
