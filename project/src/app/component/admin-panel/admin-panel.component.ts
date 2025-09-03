@@ -15,7 +15,7 @@ import { Loader } from '../../ui/loader/loader';
 
 @Component({
   selector: 'app-admin-panel',
-  imports: [CommonModule, PendingComponent, ApprovedComponent, RejectedComponent, Logout, AdminDashComponent, Loader, RouterLink],
+  imports: [CommonModule, PendingComponent, ApprovedComponent, RejectedComponent, Logout, AdminDashComponent, Loader],
   templateUrl: './admin-panel.component.html',
   styleUrl: './admin-panel.component.css'
 })
@@ -35,8 +35,9 @@ export class AdminPanelComponent {
   showLogoutModal = false;
   toggle = true; 
   isLoading = true;
-
 selectedApplication: VerificationRequest | null = null;
+  userRole: string | null = null;
+  profileImageUrl: string = 'logo.png'; 
 
   activePanel: 'pending' | 'approved' | 'rejected' | null = null; // default to pending
 
@@ -83,7 +84,8 @@ ngOnInit(): void {
   this.userEmail = sessionStorage.getItem('userEmail');
   this.userId = sessionStorage.getItem('userId');
   this.userName = sessionStorage.getItem('userName');
-
+  this.profileImageUrl = 'logo.png';
+  this.userRole = sessionStorage.getItem('userRole')
   combineLatest([
     this.verificationService.getVerifications('PENDING'),
     this.verificationService.getVerifications('APPROVED'),

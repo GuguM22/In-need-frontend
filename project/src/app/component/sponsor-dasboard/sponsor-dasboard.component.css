@@ -114,6 +114,8 @@ input{
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 195px; /* adjust until it fits 'i' */
+    padding-right: 9px;
+
 
 }
 
@@ -191,6 +193,7 @@ input{
     margin-right: auto;
     padding-top: 10px;
     padding-left: 5px;
+    background-color: white;
 }
 
 .top{
@@ -468,7 +471,9 @@ button{
     max-width: 195px; /* adjust until it fits 'i' */
    }
 
-
+.page-button{
+    background: white !important;
+}
 /* @media (max-width: 480px) {
     .search {
         width: 90%;
