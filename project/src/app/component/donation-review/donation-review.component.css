@@ -14,7 +14,7 @@
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     margin-left: auto;
     margin-right: auto;
-    margin-top: 40px;
+    margin-top: 25px;
   }
 
   .stepper{
@@ -27,9 +27,16 @@
     color: #1f2937;
     margin: 0 0 24px 0;
     text-align: center;
-     
   }
 
+  .head{
+  display: flex;
+  align-items: center;
+  }
+  .heading{
+    margin-left: auto;
+    margin-right: auto;
+  }
   .donation-details {
     margin-bottom: 32px;
 }
@@ -119,3 +126,18 @@
     font-size: 13px;
     font-weight: 400;
    }
+
+.title{
+  text-align: center;
+  margin-top: 30px;
+}
+
+.review{
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.view{
+  font-size: 14px;
+  font-weight: 700;
+}
