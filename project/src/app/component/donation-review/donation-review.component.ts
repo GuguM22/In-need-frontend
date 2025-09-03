@@ -43,18 +43,18 @@ throw new Error('Method not implemented.');
   ) {}
 
   ngOnInit(): void {
-    const donationJSON = localStorage.getItem('donationRequest') || '';
+    const donationJSON = sessionStorage.getItem('donationRequest') || '';
     if (donationJSON) {
       const donation = JSON.parse(donationJSON);
       this.description = donation.description || 'No description';
       this.quantity = donation.quantity || 1;
       this.selectPreference = donation.preference || ''; 
-      this.selectedType = localStorage.getItem('donationType') || '';
-      this.selectedFrequency = localStorage.getItem('donationFreq') || '';
+      this.selectedType = sessionStorage.getItem('donationType') || '';
+      this.selectedFrequency = sessionStorage.getItem('donationFreq') || '';
       this.availability = donation.availability || '';
       this.additionalNotes = donation.additionalNotes || '';
-      this.emailAddress = localStorage.getItem('userEmail') || '';
-      this.userName = localStorage.getItem('userName') || '';
+      this.emailAddress = sessionStorage.getItem('userEmail') || '';
+      this.userName = sessionStorage.getItem('userName') || '';
       this.donorRole = donation.role || '';
       this.selectedSponsorRequestId = donation.sponsorRequestId || undefined;
     }
@@ -104,7 +104,6 @@ throw new Error('Method not implemented.');
 
     this.donationService.createDonation(donationRequest).subscribe({
       next: (response) => {
-        console.log('Donation created successfully:', response);
         this.router.navigate(['/thanks'], { 
           queryParams: { frequency: this.selectedFrequency } 
         });

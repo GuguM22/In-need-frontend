@@ -49,7 +49,7 @@ export class ReviewRequest implements OnInit {
 
   constructor(private donationService: DonationService,
     private router: Router, private donationStateService: DonationStateService, private service: Services, private route: ActivatedRoute) {
-    this.emailAddress = localStorage.getItem('userEmail') || '';
+    this.emailAddress = sessionStorage.getItem('userEmail') || '';
 
   }
 
@@ -71,7 +71,6 @@ export class ReviewRequest implements OnInit {
   }*/
 loadDonations() {
   this.donationService.getPendingDonations().subscribe(res => {
-    console.log("Raw donations from backend:", res); // 👈 check actual structure
     const id = Number(this.route.snapshot.paramMap.get('id'))
     const mappedDonations = res
       .filter(d => d.id == id)
@@ -101,7 +100,6 @@ loadDonations() {
 
   this.donationStateService.donations$.subscribe(donations => {
     this.donation = donations;
-    console.log("Donations after mapping:", this.donation); // 👈 check IDs exist
   });
 
   this.donationStateService.acceptedDonations$.subscribe(posts => {

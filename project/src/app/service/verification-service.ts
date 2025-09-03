@@ -16,7 +16,7 @@ export class VerificationService {
 
 // Create verification
 createVerification(data: VerificationRequest): Observable<any> {
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
   const headers = token
     ? new HttpHeaders({
         Authorization: `Bearer ${token}`,
@@ -56,7 +56,7 @@ createVerification(data: VerificationRequest): Observable<any> {
     files.forEach((file) => formData.append('files', file, file.name));
     formData.append('verificationId', verificationId.toString());
 
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const headers = token
       ? new HttpHeaders({ Authorization: `Bearer ${token}` })
       : undefined;
@@ -69,7 +69,7 @@ createVerification(data: VerificationRequest): Observable<any> {
   }
 
   // getVerifications(status?: string): Observable<VerificationRequest[]> {
-  //   const token = localStorage.getItem('token');
+  //   const token = sessionStorage.getItem('token');
   //   const headers = token ? new HttpHeaders().set('Authorization', `Bearer ${token}`) : undefined;
   //   const params = status ? new HttpParams().set('status', status) : undefined;
   
@@ -81,7 +81,7 @@ createVerification(data: VerificationRequest): Observable<any> {
   // }
   
   getVerifications(status?: string): Observable<VerificationRequest[]> {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const headers = token ? new HttpHeaders().set('Authorization', `Bearer ${token}`) : undefined;
     const params = status ? new HttpParams().set('status', status) : undefined;
   
@@ -102,7 +102,7 @@ createVerification(data: VerificationRequest): Observable<any> {
   
   
   verifyUser(userId: number): Observable<any> {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const headers = token
       ? new HttpHeaders({ Authorization: `Bearer ${token}` })
       : undefined;
@@ -111,7 +111,7 @@ createVerification(data: VerificationRequest): Observable<any> {
   }
   
   updateVerificationStatus(verificationId: number, status: string): Observable<any> {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const headers = token ? new HttpHeaders({ Authorization: `Bearer ${token}` }) : undefined;
   
     // We use HttpParams to send the status as query param
@@ -121,7 +121,7 @@ createVerification(data: VerificationRequest): Observable<any> {
   }
   
   updateStatus(id: number, status: 'PENDING' | 'APPROVED' | 'REJECTED'): Observable<any> {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const headers = token ? new HttpHeaders({ Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }) : undefined;
     return this.http.put(`${this.apiUrl}/api/verify/${id}/status`, { status }, { headers });
   }
@@ -136,7 +136,7 @@ createVerification(data: VerificationRequest): Observable<any> {
   }
   
   getAllVerifications(): Observable<VerificationResponse[]> {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const headers = token ? new HttpHeaders().set('Authorization', `Bearer ${token}`) : undefined;
   
     return this.http.get<VerificationResponse[]>(`${this.apiUrl}/api/verify/verifications/all`, {

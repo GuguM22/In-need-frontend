@@ -47,7 +47,7 @@ export class Fequency implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/donation-request']); 
+    this.router.navigate(['/donation-request/:id']); 
   }
 
   goNext() {
@@ -56,7 +56,7 @@ export class Fequency implements OnInit {
       return;
     }
 
-    localStorage.setItem('donationFreq', this.selectedFrequency);
+    sessionStorage.setItem('donationFreq', this.selectedFrequency);
 
     this.router.navigate(['/donation-review'], {
       queryParams: {

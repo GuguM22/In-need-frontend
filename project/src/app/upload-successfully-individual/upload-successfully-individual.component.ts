@@ -18,7 +18,7 @@ dashboardRoute: string = '/';
 
   ngOnInit(): void {
 
-    const role = localStorage.getItem('userRole');
+    const role = sessionStorage.getItem('userRole');
     switch (role) {
       case 'SPONSORS':
         this.dashboardRoute = '/sponsor-dashboard';

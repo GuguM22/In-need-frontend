@@ -18,7 +18,7 @@ import { SponsorRequestService } from '../../service/sponsor-request-service';
 export class SponsorActivityComponent {
 
   donations: Donation[] = [];
-  currentUserEmail: string | null = localStorage.getItem('userEmail');
+  currentUserEmail: string | null = sessionStorage.getItem('userEmail');
    
 
 

@@ -72,7 +72,7 @@ export class OptionsComponent implements OnInit {
       return;
     }
 
-    localStorage.setItem('donationType', this.selectedType);
+    sessionStorage.setItem('donationType', this.selectedType);
     this.router.navigate(['/donation-request', this.requestId]);
   }
 
@@ -82,7 +82,7 @@ export class OptionsComponent implements OnInit {
       this.showError = false;
     } else {
       // Navigate to dashboard based on user role
-     const role = localStorage.getItem('userRole');
+     const role = sessionStorage.getItem('userRole');
 
     switch (role) {
       case 'SPONSORS':
@@ -107,7 +107,6 @@ export class OptionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.requestId = this.route.snapshot.paramMap.get('id') || '';
-    console.log('Request ID:', this.requestId);
 
     if (!this.requestId) {
       console.error('No request ID provided in URL!');
@@ -120,7 +119,7 @@ export class OptionsComponent implements OnInit {
     });
 
     // Set dashboard route based on user role
-  /*  const role = localStorage.getItem('userRole');
+  /*  const role = sessionStorage.getItem('userRole');
     switch (role) {
       case 'SPONSORS':
         this.dashboardRoute = '/sponsor-dashboard';

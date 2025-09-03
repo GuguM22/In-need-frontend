@@ -15,7 +15,6 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 40px;
-    height: 410px;
   }
 
   .stepper{
@@ -64,7 +63,6 @@
     display: flex;
     gap: 15px;
     justify-content: space-between;
-    margin-top: 50px;
   }
 
   .back-button, .confirm-button {

@@ -14,3 +14,41 @@ p{
 button{
     width: 320px;
 }
+
+.body {
+  background: #f9fafb;
+  position: relative;
+  overflow: hidden;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.5;
+  animation: float 20s infinite alternate ease-in-out;
+}
+
+.blob1 {
+  width: 500px;
+  height: 500px;
+  background: #6ee7b7;
+  top: -100px;
+  left: -150px;
+}
+
+.blob2 {
+  width: 400px;
+  height: 400px;
+  background: #93c5fd;
+  bottom: -150px;
+  right: -100px;
+}
+
+.hero-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+}

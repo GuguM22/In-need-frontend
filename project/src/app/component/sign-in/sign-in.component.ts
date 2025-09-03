@@ -54,20 +54,21 @@ export class SignInComponent {
 
   ngOnInit(): void {}
 
-  onSubmit() {
-    if (this.loginForm.valid) {
-      const email = this.loginForm.get('email')?.value;
-      const password = this.loginForm.get('password')?.value;
+ onSubmit() {
+  if (this.loginForm.valid) {
+    const email = this.loginForm.get('email')?.value;
+    const password = this.loginForm.get('password')?.value;
+    this.userName = sessionStorage.getItem('userName');
 
-      this.userService.login(email, password).subscribe({
-        next: (response: LoginResponse) => {
-          // Save user details
-          localStorage.setItem('token', response.token);
-          localStorage.setItem('userRole', response.role);
-          localStorage.setItem('userEmail', response.email);
-          localStorage.setItem('verified', response.verified.toString());
-          localStorage.setItem('userId', response.id.toString());
-          localStorage.setItem('userName', response.username);
+    this.userService.login(email, password).subscribe({
+      next: (response: LoginResponse) => {
+        console.log(response)
+        sessionStorage.setItem('token', response.token);
+        sessionStorage.setItem('userRole', response.role);
+        sessionStorage.setItem('userEmail', response.email);
+        sessionStorage.setItem('verified', response.verified.toString());
+        sessionStorage.setItem('userId', response.id.toString());
+        sessionStorage.setItem('userName', response.username);
 
           this.userRole = response.role as Role;
           this.userName = response.username;
@@ -110,7 +111,7 @@ export class SignInComponent {
     } else if (err.error.message) {
       this.loginError = err.error.message;
     } else {
-      this.loginError = 'Login failed. Please try again.';
+      this.loginError = 'Invalid email or password.';
     }
   } else {
     this.loginError = 'Login failed. Please try again.';
