@@ -27,7 +27,7 @@
       </div>
       <div class="detail-row fle">
         <span class="label font-medium">Quantity:</span>
-        <span class="value">{{ quantity }} {{ capitalizeWords(selectedType) }}</span>
+        <span class="value">{{ quantity }} </span>
       </div>
       <div class="detail-row flex">
         <span class="label font-medium">Frequency:</span>
@@ -41,16 +41,19 @@
 
 
     <div class="button-container flex gap-4 mt-1000">
+
       <button (click)="goBack()"
         class="flex items-center rounded-lg justify-center gap-2 px-6 py-2 bg-[#D9D9D9] font-[700] text-gray-800 rounded  hover:bg-[#c8c8c8] transition"
         (click)="goBack()">
         &lt; Back
       </button>
+
       <button
         class="flex items-center rounded-lg justify-center gap-2 px-4 py-2 bg-[#5B8E7D] font-[700] text-white rounded hover:bg-[#4b8170] transition"
         (click)="confirmDonation()">
         <span>Confirm</span>
       </button>
+      
     </div>
   </div>
 

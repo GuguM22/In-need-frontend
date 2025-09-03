@@ -5,13 +5,29 @@
 <app-navbar></app-navbar>
 
 <div
-  class=" bg-white flex flex-col  justify-center p-4 container"
+  class=" bg-white flex flex-col  justify-center p-4 container pb-[5.9rem]"
 >
 <div class="top flex items-center space-x-2">
   <!-- Back arrow icon -->
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="w-5 h-5 text-black"
+    fill="currentColor"
+    viewBox="0 0 512 512"
+  >
+    <path
+      d="M50.2,169.6C97.9,56.3,228.5,3.1,341.8,50.9s166.4,178.3,118.7,291.6S282.2,508.9,168.9,461.1C86.4,426.4,32.7,345.5,32.7,256C32.7,226.3,38.6,196.9,50.2,169.6z M254.7,448c106,0,192-86,192-192s-86-192-192-192s-192,86-192,192S148.7,448,254.7,448z M226.7,140.7L111.4,256l115.3,115.3l21.2-21.2L168.7,271h208.2v-30H168.7l79.1-79.1L226.7,140.7z"
+    />
+  </svg>
 
   <!-- Back button -->
-
+  <button
+    type="button"
+    (click)="goBack()"
+    class="text-sm font-bold text-black focus:outline-none"
+  >
+    Back
+  </button>
 </div>
 
   <!-- Stepper -->
@@ -49,7 +65,7 @@
   </div>
   <!-- Main Card -->
   <div
-    class="max-w-md mx-auto p-6 bg-white rounded-lg border border-gray-300 shadow-xl test"
+    class="max-w-md mx-auto p-6 bg-white rounded-lg border border-gray-300 shadow-xl"
   >
     <!-- Step 1 -->
     <div class="step-panel" id="step-1">
@@ -104,6 +120,7 @@
   </label>
 
   <!-- Service Donations -->
+ 
 </form>
     </div>
 
@@ -138,7 +155,8 @@
       <button
         id="backBtn"
         (click)="goBack()" 
-        class="px-6 py-2 bg-[#D9D9D9] text-gray-700 font-[800] rounded-lg hover:bg-[#c8c8c8] transition"
+        class="px-6 py-2 bg-[#D9D9D9] text-gray-700 font-[800] rounded-lg hover:bg-gray-300 transition"
+        
       >
         &lt; Back
       </button>
@@ -146,7 +164,7 @@
         id="nextBtn"
         (click)="goNext()"  [disabled]="!selectedType"
         
-        class="px-6 py-2 bg-[#5B8E7D] text-white font-[800] rounded-lg hover:bg-[#4b8170] transition"
+        class="px-6 py-2 bg-[#5B8E7D] text-white font-[800] rounded-lg hover:bg-emerald-700 transition"
       >
         Next &gt;
       </button>
