@@ -4,8 +4,9 @@
   @else {
 <app-navbar></app-navbar>
 
+<div class="grid place-content-center h-screen overflow-auto">
 <div
-  class=" bg-white flex flex-col  justify-center p-4 container pb-[5.9rem]"
+  class=" bg-white flex flex-col  justify-center p-4 container pb-12"
 >
 <div class="top flex items-center space-x-2">
   <!-- Back arrow icon -->
@@ -151,7 +152,7 @@
     </div>
 
     <!-- Buttons -->
-    <div class="flex justify-between items-center w-full mt-8">
+    <div class="flex justify-between items-center w-full mt-8 gap-4">
       <button
         id="backBtn"
         (click)="goBack()" 
@@ -175,6 +176,7 @@
       Please complete the required fields before continuing.
     </p>
   </div>
+</div>
 </div>
 <app-footer></app-footer>
   }
