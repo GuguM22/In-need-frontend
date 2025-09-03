@@ -18,7 +18,7 @@
       <p class="form-subtitle text-center">Fill out the details below to post your sponsorship request</p>
     </div>
 
-<div class="container">
+<div class="grid place-content-center w-full container">
    <div class="form-container ">
       <h1 class="form-title text-center font-bold">Create Sponsorship Request</h1>
       <form *ngIf="!showPreview" [formGroup]="sponsorshipForm" (ngSubmit)="onSubmit()" >
@@ -126,3 +126,4 @@
   </div>
 </div>
 </div>
+<app-footer></app-footer>
