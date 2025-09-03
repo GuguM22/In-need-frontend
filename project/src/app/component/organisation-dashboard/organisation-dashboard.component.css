@@ -29,7 +29,8 @@ input{
     flex-direction: column;
     align-items: center;
     place-content: center;
-    margin-top: 100px;
+    margin-top: 70px;
+    padding-top: 20px;
     width: 100%;
 }
 
@@ -41,7 +42,8 @@ input{
     margin-bottom: 10px;
       width: 90%;
     max-width: 450px;
-   
+   background-color: white;
+
 }
 
 
@@ -162,7 +164,7 @@ input{
 
   .container2{
     padding-left: 8px;
-    margin-bottom: 100px;
+    margin-bottom: 80px;
     padding-bottom: 30px;
   }
   
@@ -516,7 +518,9 @@ button{
   border: 1px solid transparent;
 }
 
-
+.inactive {
+  background-color: white !important;
+}
 /* @media (max-width: 480px) {
     .search {
         width: 90%;
