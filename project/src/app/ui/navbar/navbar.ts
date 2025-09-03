@@ -74,7 +74,8 @@ ngOnInit() {
 
       this.donationCount = donations.filter(d =>
         d.donorRole === 'SPONSORS' &&
-        d.donorEmail === userEmail
+        d.donorEmail === userEmail &&
+        d.status !== 'ACCEPTED'
       ).length;
     });
   } else if(this.userRole === 'ORGANIZATION') {
