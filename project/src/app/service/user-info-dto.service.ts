@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UserInfoDTO } from '../dto/user-info.dto';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -13,11 +13,17 @@ export class UserInfoDtoService {
 
   constructor(private http: HttpClient) { }
 
+  private getToken(): string | null {
+    return sessionStorage.getItem('token');
+  }
  
   getCurrentUser(): Observable<UserInfoDTO> {
-    return this.http.get<UserInfoDTO>(`${this.apiUrl}/api/user/me`, {
-      withCredentials: true // only if cookies are used for auth
-    });
+    const token = this.getToken();
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : undefined;
+
+    return this.http.get<UserInfoDTO>(`${this.apiUrl}/api/user/me` , { headers });
   }
   
 }

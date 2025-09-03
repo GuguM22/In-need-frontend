@@ -62,6 +62,7 @@ export class SignInComponent {
 
     this.userService.login(email, password).subscribe({
       next: (response: LoginResponse) => {
+        console.log(response)
         sessionStorage.setItem('token', response.token);
         sessionStorage.setItem('userRole', response.role);
         sessionStorage.setItem('userEmail', response.email);
@@ -110,7 +111,7 @@ export class SignInComponent {
     } else if (err.error.message) {
       this.loginError = err.error.message;
     } else {
-      this.loginError = 'Login failed. Please try again.';
+      this.loginError = 'Invalid email or password.';
     }
   } else {
     this.loginError = 'Login failed. Please try again.';
