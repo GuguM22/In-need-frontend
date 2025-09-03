@@ -5,7 +5,7 @@
   @else {
   <app-navbar></app-navbar>
 <div class="container">
-    <div class="search">
+    <div class="search rounded-2xl">
          <div class="srcIcon">
             <img src="searchIcon.png" alt="" class="iconLeft">
         </div>
@@ -175,11 +175,13 @@
         </div>
         <div class="pagination-numbers">
             <button 
-  *ngFor="let page of pagesArray"
-  (click)="goToPage(page)"
-  [class.active]="currentPage === page">
-  {{ page }}
-</button>
+                *ngFor="let page of pagesArray"
+                (click)="goToPage(page)"
+                [class.active]="currentPage === page"
+                class="inactive"
+            >
+                {{ page }}
+            </button>
 
           </div>
           

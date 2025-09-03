@@ -5,7 +5,7 @@
 <app-navbar></app-navbar>
 <div class="flex flex-col justify-center">
 <div class="container">
-    <div class="search">
+    <div class="search bg-white rounded-2xl">
          <div class="srcIcon">
             <img src="searchIcon.png" alt="" class="iconLeft">
         </div>
@@ -39,7 +39,7 @@
 </div>
 <div class="container2">
     <div class="individualCards carousel">
-        <div class="indvCard"  *ngFor="let i of individuals" [routerLink]="['/view-indv-post', i.id]" >
+        <div class="indvCard bg-white"  *ngFor="let i of individuals" [routerLink]="['/view-indv-post', i.id]" >
             <div class="thumbnail">
                 <div class="thumbnail">
                     <img *ngIf="i.mediaUrls && i.mediaUrls.length"
@@ -144,11 +144,13 @@
         </div>
         <div class="pagination-numbers">
             <button 
-       *ngFor="let page of pagesArray"
-      (click)="goToPage(page)"
-      [class.active]="currentPage === page">
-      {{ page }}
-      </button>
+                *ngFor="let page of pagesArray"
+                (click)="goToPage(page)"
+                [class.active]="currentPage === page"
+                class="page-button"
+            >
+                {{ page }}
+            </button>
        </div>
           
 </div>
