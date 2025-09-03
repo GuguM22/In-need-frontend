@@ -76,10 +76,6 @@ this.userRole = localStorage.getItem('userRole');
   //   this.donations = donations;
   //   this.hasNewDonation = donations.length > 0;
   // });
-  this.donationService.getDonations().subscribe(res => {
-  this.donations = res.filter(d => d.status !== 'DECLINED');
-});
-
 
   this.loadImage(); 
   this.fetchUserPosts();
@@ -246,7 +242,7 @@ fetchUserPosts(): void {
             : 'logo.png'
         }));
       });
-
+      console.log(donations)
       this.donations = donations;
 
       // 🔽 Sort by createdAt (newest first)
