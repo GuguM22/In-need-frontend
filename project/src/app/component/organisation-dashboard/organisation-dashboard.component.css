@@ -117,6 +117,7 @@ input{
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 195px; /* adjust until it fits 'i' */
+    padding-right: 9px;
  }
 
  .username{
@@ -175,7 +176,7 @@ input{
 }
   @media (max-width: 480px) {
     .individualCards.carousel {
-        padding-left: 16px;
+        padding-left: 106px;
         padding-right: 8px;
         gap: 9px;
     }
