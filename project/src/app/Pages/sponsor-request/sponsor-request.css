@@ -9,6 +9,7 @@
 .box {
   margin-top: 70px !important;
   padding-top: 20px;
+  margin-bottom: 80px;
 }
 
 /* form base */
@@ -23,17 +24,13 @@ padding-right: 33px;
 box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 padding-bottom: 17px;
 margin-bottom: 10px;
-  width: 350px;                /* wider border */
   min-height: 600px; 
 }
 
-.container{
-  max-width: 200px;
-  /* margin: auto; */
-  padding: 20px;
-  /* background: #fff; */
-  /* border-radius: 8px; */
+.container {
+  padding: 12px !important;
 }
+
 .text-align-center {
   text-align: center;
 }

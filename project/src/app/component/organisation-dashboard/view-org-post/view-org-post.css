@@ -16,9 +16,9 @@ body {
 
 .container {
     max-width: screen;
-    background: white;
-    margin-top: 100px;
-    margin-bottom: 100px;
+    margin-top: 70px;
+    margin-bottom: 79px;
+    padding-top: 20px;
 }
 
 h1 {
@@ -33,7 +33,6 @@ h1 {
 }
 
 .event-info {
-    background: white;
     color: black;
     padding: 15px 20px;
     display: flex;
