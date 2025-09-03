@@ -76,6 +76,10 @@ this.userRole = localStorage.getItem('userRole');
   //   this.donations = donations;
   //   this.hasNewDonation = donations.length > 0;
   // });
+  this.donationService.getDonations().subscribe(res => {
+  this.donations = res.filter(d => d.status !== 'DECLINED');
+});
+
 
   this.loadImage(); 
   this.fetchUserPosts();
@@ -271,4 +275,9 @@ fetchUserPosts(): void {
       }
     });
   } 
+
+  getImage(path?: string): string {
+  return path ? `http://localhost:5050/auth/images/${path}` : 'logo.png';
+}
+
 }
