@@ -21,6 +21,7 @@
           </div>
         </div>
         <hr />
+        <div class="flex flex-col h-full justify-between">
         <ul class="space-y-2 p-4">
           <li>
             <div class="items hover:bg-gray-100"  (click)="openPanel('pending')">
@@ -73,22 +74,23 @@
           </div>
           </div>
           </li>
-          <li>
-            <div class="items fixed bottom-0 hover:bg-gray-100">
-              <div class="leftItems  hover:bg-gray-100 rounded cursor-pointer">
-              <div class="itemIcon">
-                <img class="w-[25px] h-[25px]" src="icons/exit.svg" alt="Logout"/>
-              </div>
-              <div class="itemButton">
-            <button class="w-full text-left p-2 hover:bg-gray-100 rounded  cursor-pointer" [routerLink]="['/logout']" >Logout</button>
-          </div>
-          </div>
-          <!-- <div class="notification">
-            <button class="rejectedNoti">{{ rejectedApplications.length }}</button>
-          </div> -->
-          </div>
-          </li>
         </ul>
+        <div class="flex flex-col gap-4 p-4 mb-28">
+          <div class="flex flex-row gap-4">
+            <img class="rounded-full h-10 w-10" [src]="profileImageUrl"  alt="Logo" />
+            <div>
+              <p>{{userName}}</p>
+              <h6 class="text-gray-500 font-medium text-xs">{{userRole == 'SPONSORS' ? 'Sponsor' : 'Organization'}}</h6>
+            </div>
+          </div>
+          <div  (click)="openLogoutModal()" class="flex flex-row justify-center w-full gap-2 border-solid border border-[#faa7a7] bg-[#fef2f2] p-2 rounded cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#570f0f" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+            </svg> 
+            <h6 class="text-base font-semibold text-[#570f0f]">Logout</h6>
+          </div>
+        </div>
+      </div>
       </aside>
 
       <!-- Panel Content -->
