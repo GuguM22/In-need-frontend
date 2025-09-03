@@ -10,11 +10,16 @@
     <div class="step w-10 h-10 flex items-center justify-center rounded-full bg-blue-500 font-[800] text-white">3</div>
     <div class="step w-10 h-10 flex items-center justify-center rounded-full bg-blue-500 font-[800] text-white">4</div>
   </div>
-
+  <div class="title">
+    <h1 class="review">Donation Review</h1>
+    <p class="view text-gray-500">View your donation details</p>
+  </div>
   <!-- Donation Card -->
   <div class="donation-card max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
     <div class="head">
-      <h2 class="card-title font-bold text-xl mb-4">Review your donation</h2>
+      <div class="heading">
+      <h2 class="card-title font-bold mb-4">Review your donation</h2>
+    </div>
     </div>
     <div class="donation-details space-y-3">
       <div class="detail-row flex">
@@ -25,7 +30,7 @@
         <span class="label font-medium">Description:</span>
         <span class="valu">{{ description }}</span>
       </div>
-      <div class="detail-row fle">
+      <div class="detail-row flex">
         <span class="label font-medium">Quantity:</span>
         <span class="value">{{ quantity }} </span>
       </div>
@@ -33,9 +38,13 @@
         <span class="label font-medium">Frequency:</span>
         <span class="value">{{capitalizeWords(selectedFrequency) }}</span>
       </div>
-      <div class="detail-row fle">
+      <div class="detail-row flex">
         <span class="label font-medium">Logistics:</span>
         <span class="value">{{capitalizeWords(selectPreference) }}</span>
+      </div>
+      <div class="detail-row flex">
+        <span class="label font-medium">Drop off date:</span>
+        <span class="value">{{ availability }} </span>
       </div>
     </div>
 

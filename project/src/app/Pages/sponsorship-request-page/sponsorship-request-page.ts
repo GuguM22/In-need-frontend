@@ -11,7 +11,6 @@ import { Role } from '../../constant/role';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { DonationStatus } from '../../constant/donationStatus';
 import { Loader } from '../../ui/loader/loader';
-import { Subscription, interval, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-sponsorship-request-page',
@@ -30,8 +29,7 @@ export class SponsorshipRequestPage {
   hasNewDonation: boolean = false;
   isLoading = true;
   message: string = '';
-  userRole: string | null = sessionStorage.getItem('userRole');
-  subscription: Subscription | null = null;
+  userRole: string | null = localStorage.getItem('userRole');
 
   constructor(
     private router: Router,
@@ -46,46 +44,45 @@ export class SponsorshipRequestPage {
    }
 
 ngOnInit() {
-const savedIds = sessionStorage.getItem('removedDonations');
-this.userRole = sessionStorage.getItem('userRole');
+const savedIds = localStorage.getItem('removedDonations');
+this.userRole = localStorage.getItem('userRole');
   if (savedIds) {
     this.removedIds = JSON.parse(savedIds);
   }
 
-  if(this.userRole == 'ORGANIZATION') {
-    this.getOrganizationDonations();
-  } else if(this.userRole = 'SPONSOR') {
-    this.getSponsorDonations();
-  }
-  this.donationStateService.donations$.subscribe(donations => {
-    this.donations = donations;
-    this.hasNewDonation = donations.length > 0;
-  });
+  // this.donationService.getDonations().subscribe(res => {
+  //   const mappedDonations = res
+  //     .filter(d => d.status === DonationStatus.PENDING || d.status === DonationStatus.ACCEPTED)
+  //     .filter(d => !this.removedIds.includes(d.id!))
+  //     .map(donation => ({
+  //       ...donation,
+  //       id: donation.id!,
+  //       profileImageUrl: donation.profileImageUrl
+  //         ? `http://localhost:5050/auth/images/${donation.profileImageUrl}`
+  //         : 'logo.png',
+  //       donorName: donation.donorName,
+  //       donorRole: donation.donorRole,
+  //     }))
+  //     .sort((a, b) => {
+  //       const dateA = new Date(a.createdAt ?? 0).getTime();
+  //       const dateB = new Date(b.createdAt ?? 0).getTime();
+  //         return dateB - dateA;
+  //       })
+  //   this.donationStateService.setDonations(mappedDonations);
+  // });
+  
+
+  // this.donationStateService.donations$.subscribe(donations => {
+  //   this.donations = donations;
+  //   this.hasNewDonation = donations.length > 0;
+  // });
+  this.donationService.getDonations().subscribe(res => {
+  this.donations = res.filter(d => d.status !== 'DECLINED');
+});
+
 
   this.loadImage(); 
-}
-
-getSponsorDonations() {
-  this.donationService.getDonations().subscribe(res => {
-    const mappedDonations = res
-      .filter(d => d.status === DonationStatus.PENDING || d.status === DonationStatus.ACCEPTED)
-      .filter(d => !this.removedIds.includes(d.id!))
-      .map(donation => ({
-        ...donation,
-        id: donation.id!,
-        profileImageUrl: donation.profileImageUrl
-          ? `http://localhost:5050/auth/images/${donation.profileImageUrl}`
-          : 'logo.png',
-        donorName: donation.donorName,
-        donorRole: donation.donorRole,
-      }))
-      .sort((a, b) => {
-        const dateA = new Date(a.createdAt ?? 0).getTime();
-        const dateB = new Date(b.createdAt ?? 0).getTime();
-          return dateB - dateA;
-        })
-    this.donationStateService.setDonations(mappedDonations);
-  });
+  this.fetchUserPosts();
 }
 
 loadImage() {
@@ -135,7 +132,7 @@ capitalizeWords(name?: string): string {
 
   goBack() {
    
-  const role = sessionStorage.getItem('userRole');
+  const role = localStorage.getItem('userRole');
 
     switch (role) {
       case 'SPONSORS':
@@ -225,45 +222,44 @@ capitalizeWords(name?: string): string {
   }
   
   
-
-
-  getOrganizationDonations(): void {
-    this.subscription = interval(1000) // every 1 second
-    .pipe(
-      switchMap(() => this.sponsorRequestService.getMyPosts())
-    )
-    .subscribe({
-      next: (data) => {
+fetchUserPosts(): void {
+  this.sponsorRequestService.getMyPosts().subscribe({
+    next: (data) => {
       const msPerDay = 1000 * 60 * 60 * 24;
-        const today = new Date().getTime();
-  
-        const newData = data.map((request) => {
-          const requiredDate = request.requiredDate;
-          const createdAt = request.createdAt;
-          const daysLeft = Math.ceil(
-            (new Date(requiredDate).getTime() - today) / msPerDay
-          );
-  
-          return { ...request, createdAt, requiredDate, daysLeft };
-        });
-  
-        // ✅ Get all donations from all posts
-        const allDonations = data.flatMap(post => post.donations);
-  
-        // ✅ Filter out declined ones
-        this.donations = allDonations.filter(d => d.status !== DonationStatus.DECLINED);
-  
-        // 🔽 Sort by createdAt (newest first)
-        this.posts = (newData || [])
-        .filter(post => post.daysLeft >= 0)
-        .sort(
-          (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      const today = new Date().getTime();
+
+      const newData = data.map((request) => {
+        const requiredDate = request.requiredDate;
+        const createdAt = request.createdAt;
+        const daysLeft = Math.ceil(
+          (new Date(requiredDate).getTime() - today) / msPerDay
         );
-      },
-      error: (err) => console.error('Error fetching user posts:', err)
-    });
-  }
-  
+
+        return { ...request, createdAt, requiredDate, daysLeft };
+      });
+
+      const donations = data.flatMap((post) => {
+        return post.donations.map((donation: any) => ({
+          ...donation,
+          profileImageUrl: donation.profileImageUrl
+            ? `http://localhost:5050/auth/images/${donation.profileImageUrl}`
+            : 'logo.png'
+        }));
+      });
+
+      this.donations = donations;
+
+      // 🔽 Sort by createdAt (newest first)
+      this.posts = (newData || []).sort(
+        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+
+      console.log('Posts sorted by createdAt:', this.posts);
+    },
+    error: (err) => console.error('Error fetching user posts:', err)
+  });
+}
+
   
   markAsReceived(donationId: number): void {
     this.donationService.confirmReceipt(donationId).subscribe({
@@ -279,4 +275,9 @@ capitalizeWords(name?: string): string {
       }
     });
   } 
+
+  getImage(path?: string): string {
+  return path ? `http://localhost:5050/auth/images/${path}` : 'logo.png';
+}
+
 }

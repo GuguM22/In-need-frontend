@@ -13,12 +13,15 @@
 
   <!-- Page Title -->
   <div class="place-content-center">
-    <h4 class="font-extrabold text-xl text-center">Frequency</h4>
+    <h4 class="font-extrabold text-[20px] text-center">Frequency</h4>
     <p class="text-center font-[700] text-[#0000009C] text-[14px]">How often would you like to donate</p>
   </div>
 
   <div class="border border-gray-300 rounded-lg shadow-xl px-4 py-6 bg-white">
   <!-- Frequency Tiles -->
+  <div class="place-content-center">
+    <h4 class="font-extrabold text-[20px] mb-4 text-center">Select donation frequency</h4>
+  </div>
   <div class="grid grid-cols-2 gap-4">
     <div *ngFor="let tile of frequencyTiles"
          (click)="selectFrequency(tile.value)"
