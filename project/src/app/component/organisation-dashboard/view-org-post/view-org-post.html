@@ -11,7 +11,7 @@
   <div class="top">
     <div class="top-container">
       <div class="pic">
-        <img [src]="profileImageUrl" alt="" class="image">
+        <img [src]="getImage(request.user?.profileImageUrl)" alt="" class="image">
       </div>
       <div class="cmpName">
         <div class="names flex">
