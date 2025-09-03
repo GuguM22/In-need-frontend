@@ -11,6 +11,7 @@ import { IndividualRequest, IndividualService } from '../../service/individual-s
 import { Services } from '../../service/services';
 import { DonationStateService } from '../../service/donation-state-service';
 import { Loader } from '../../ui/loader/loader';
+import { UserInfoDtoService } from '../../service/user-info-dto.service';
 
 @Component({
   selector: 'app-organisation-dashboard',
@@ -31,55 +32,69 @@ export class OrganisationDashboardComponent {
 //     requiredDate: '',
 //     description: '',
 //     mediaUrls: []}
-isLoading = true;
-
-  constructor(private router: Router, private sponsorService: SponsorRequestService, 
-    private http: HttpClient,
-     private elementRef: ElementRef, 
-     private individualService: IndividualService,
-    private service: Services,  private donationStateService: DonationStateService,) {
-      setTimeout(() =>{
-        this.isLoading = false}, 1500
-      )
-  
-     }
+  isLoading = true;
   searchQuery: string = '';
   filteredRequests: SponsorRequest[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 3;
   profileImageUrl: string = 'logo.png';
+
+  constructor(private router: Router, private sponsorService: SponsorRequestService, 
+    private http: HttpClient,
+    private elementRef: ElementRef, 
+    private individualService: IndividualService,
+    private service: Services,  private donationStateService: DonationStateService, private userInfoDtoService: UserInfoDtoService
+  ) {
+    setTimeout(() =>{
+      this.isLoading = false}, 1500
+    )
+  
+  }
  
   ngOnInit():void {
-  this.isVerified = sessionStorage.getItem('verified') === 'true';
-  this.loadRequests();
-  this.loadIndividuals();
-  this.profileImageUrl = '';
-  // Remove requests automatically if accepted/declined
-this.donationStateService.removedDonations$.subscribe((removedIds: number[]) => {
-  if (removedIds.length > 0) {
-    this.requests = this.requests.filter(r => !removedIds.includes(Number(r.id)));
-    this.filteredRequests = this.filteredRequests.filter(r => !removedIds.includes(Number(r.id)));
-  }
-});
-
-
-/*  this.service.profile().subscribe({
-    next: (data: any) => {
-      if (data.profileImagePath) {
-        const img = new Image();
-        img.src = `http://localhost:5050/auth/images/${data.profileImagePath}`;
-        img.onload = () => {
-          this.profileImageUrl = img.src;
-        };
-        img.onerror = () => {
-          this.profileImageUrl = 'logo.png';
-        };
+    this.isVerified = sessionStorage.getItem('verified') === 'true';
+    this.loadRequests();
+    this.loadIndividuals();
+    this.profileImageUrl = '';
+    // Remove requests automatically if accepted/declined
+    this.donationStateService.removedDonations$.subscribe((removedIds: number[]) => {
+      if (removedIds.length > 0) {
+        this.requests = this.requests.filter(r => !removedIds.includes(Number(r.id)));
+        this.filteredRequests = this.filteredRequests.filter(r => !removedIds.includes(Number(r.id)));
       }
-    },
-    error: () => {
-      this.profileImageUrl = 'logo.png';
-    }
-  });*/
+    });
+
+    this.getCurrentUser();
+    
+    /*  this.service.profile().subscribe({
+        next: (data: any) => {
+          if (data.profileImagePath) {
+            const img = new Image();
+            img.src = `http://localhost:5050/auth/images/${data.profileImagePath}`;
+            img.onload = () => {
+              this.profileImageUrl = img.src;
+            };
+            img.onerror = () => {
+              this.profileImageUrl = 'logo.png';
+            };
+          }
+        },
+        error: () => {
+          this.profileImageUrl = 'logo.png';
+        }
+    });*/
+  }
+
+  getCurrentUser() {
+    this.userInfoDtoService.getCurrentUser().subscribe({
+      next: (data: any) => {
+        console.log(data.verified)
+        this.isVerified = data.verified;
+      }, 
+      error: (err: any) => {
+        console.log(err)
+      }
+    })
   }
 
 

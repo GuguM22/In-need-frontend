@@ -47,7 +47,7 @@ export class Fequency implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/donation-request']); 
+    this.router.navigate(['/donation-request/:id']); 
   }
 
   goNext() {
