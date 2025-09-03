@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 
-<div class="w-screen h-screen flex flex-col justify-center pt-[250px] pb-16 lg:px-[200px] lg:p-0 px-6 gap-4 overflow-y-auto">
+<div class="w-screen h-screen flex flex-col justify-center pt-[220px] pb-24 lg:px-[200px] lg:p-0 px-2 gap-4 overflow-y-auto">
 
   <!-- Stepper -->
   <div class="flex items-center justify-center space-x-4 mb-6" id="stepper">
@@ -17,8 +17,9 @@
     <p class="text-center font-[700] text-[#0000009C] text-[14px]">How often would you like to donate</p>
   </div>
 
+  <div class="border border-gray-300 rounded-lg shadow-xl px-4 py-6">
   <!-- Frequency Tiles -->
-  <div class="grid grid-cols-2 py-[25px] gap-[20px]">
+  <div class="grid grid-cols-2 gap-4">
     <div *ngFor="let tile of frequencyTiles"
          (click)="selectFrequency(tile.value)"
          [ngClass]="selectedFrequency === tile.value ? 'border-2 border-blue-500' : 'border border-gray-300'"
@@ -37,18 +38,19 @@
   </div>
 
   <!-- Next / Back Buttons -->
-  <div class="flex flex-row gap-5 mt-6 mb-10 btns">
-    <div class="w-[145px] h-[46px] bg-[#D9D9D9] grid place-content-center rounded-lg">
+  <div class="flex flex-row gap-4 mt-6">
+    <div class="w-full h-[46px] bg-[#D9D9D9] grid place-content-center rounded-lg">
       <button class="flex flex-row justify-between items-center w-full h-full px-4" (click)="goBack()">
          &lt; Back
       </button>
     </div>
 
-    <div class="w-[145px] l h-[46px] grid place-content-center rounded-lg bg-[#5B8E7D]">
+    <div class="w-full l h-[46px] grid place-content-center rounded-lg bg-[#5B8E7D]">
       <button class="flex flex-row justify-between items-center w-full h-full px-4 text-white" (click)="goNext()">
         Next &gt;
       </button>
     </div>
+  </div>
   </div>
 
   <!-- Debug: shows selected frequency -->

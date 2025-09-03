@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 
-<div class="min-h-screen overflow-y-auto bg-white flex flex-col justify-center pt-[50px] pb-[100px]">
+<div class="min-h-screen overflow-y-auto bg-white flex flex-col justify-center pt-[50px] pb-[100px] px-2">
     <div class=""> 
         <!-- <div class="flex items-center justify-center space-x-9 mt-8" id="stepper">
             <div class="step w-11 h-11 flex items-center justify-center rounded-full bg-blue-500 text-white text-sm">1</div> 
@@ -41,7 +41,7 @@
         <div class="text-gray-800 text-base font-bold mt-8 text-center text-xl">Details</div> 
         <div class="text-gray-500 text-sm font-[700] text-center mt-1">Tell us about your donation</div>
 
-        <div class="mt-4 max-w-sm mx-auto p-6 bg-white border border-gray-300 rounded-lg boxx"> 
+        <div class="mt-4 max-w-sm mx-auto p-6 bg-white border border-gray-300 rounded-lg shadow-xl"> 
             <div class="text-gray-800 text-base font-bold text-[18px] mb-5 text-center">Donation Details</div>
             <form [formGroup]="sponsorshipForm" class="max-w-sm mx-auto border-gray-300"> 
                 <!-- Description -->
@@ -158,8 +158,8 @@ Delivery date must not be after the organization's required date ({{ sponsorRequ
                 </div>
 
                 <!-- Buttons -->
-                <div class="flex flex-wrap gap-4 justify-center"> 
-                    <button type="button"[routerLink]="['/options', requestId]" class="w-35 px-6 py-2 font-[800] me-2 mb-2 text-sm font-medium text-gray-900 flex items-center gap-2 justify-center focus:outline-none bg-[#D9D9D9] rounded-lg border border-gray-200 hover:bg-[#c8c8c8] focus:z-10 focus:ring-4 focus:ring-gray-100"> 
+                <div class="flex flex-row gap-2 justify-center"> 
+                    <button type="button"[routerLink]="['/options', requestId]" class="w-full px-6 py-2 font-[800] me-2 mb-2 text-sm font-medium text-gray-900 flex items-center gap-2 justify-center focus:outline-none bg-[#D9D9D9] rounded-lg border border-gray-200 hover:bg-[#c8c8c8] focus:z-10 focus:ring-4 focus:ring-gray-100"> 
                       &lt; Back 
                     </button>
 
@@ -168,7 +168,7 @@ Delivery date must not be after the organization's required date ({{ sponsorRequ
                     type="button"
                     id="nextBtn"
                     (click)="goNext()" 
-                    class="w-35 px-6 py-2 me-2 mb-2 text-sm font-[800] text-white font-medium text-gray-900 flex items-center gap-2 justify-center focus:outline-none bg-[#5B8E7D] rounded-lg border border-gray-200 hover:bg-[#4b8170] focus:z-10 focus:ring-4 focus:ring-gray-100"
+                    class="w-full px-6 py-2 me-2 mb-2 text-sm font-[800] text-white font-medium text-gray-900 flex items-center gap-2 justify-center focus:outline-none bg-[#5B8E7D] rounded-lg border border-gray-200 hover:bg-[#4b8170] focus:z-10 focus:ring-4 focus:ring-gray-100"
                     > 
                     Next &gt; 
                     </button>
