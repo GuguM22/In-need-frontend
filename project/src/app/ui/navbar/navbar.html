@@ -1,7 +1,7 @@
  
  
 
-<nav *ngIf="!toggle" class="w-full h-[80px] bg-white border border-gray-300 px-6 py-4 flex justify-between items-center sticky -top-1 z-50 overflow-hidden">
+<nav class="w-full h-[80px] bg-white border border-gray-300 px-6 py-4 flex justify-between items-center sticky -top-1 z-50 overflow-hidden">
   
     <!-- Hamburger icon with red dot -->
     <div class="relative">
@@ -18,19 +18,19 @@
     </div>
   
     <!-- Profile image -->
-    <img 
+    <!-- <img 
   class="rounded-full h-8 w-8 object-cover" 
   [src]="profileImageUrl" 
   [routerLink]="['/profile']" 
   alt="Profile" 
-/>
+/> -->
 
   </nav>
   
  
  
 
-  <app-sidebar *ngIf="toggle" [donationCount]="donationCount" (closed)="handleSidebarClose()" />
+  <app-sidebar [donationCount]="donationCount" (closed)="handleSidebarClose()" [toggle]="toggle"/>
 
   <!-- <app-sidebar *ngIf="toggle" [donationCount]="donationCount" /> -->
   

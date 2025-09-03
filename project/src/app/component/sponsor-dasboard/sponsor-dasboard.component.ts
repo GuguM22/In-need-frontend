@@ -61,20 +61,29 @@ export class SponsorDasboardComponent {
   loadRequests(): void {
     this.sponsorService.getAll().subscribe({
       next: (data) => {
-        const unfulfilledRequests = data.filter(request => !request.fulfilled);
-
-        this.requests = unfulfilledRequests.sort(
-          (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        );
-        
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // normalize to date only
+  
+        const unfulfilledAndNotExpired = data
+          .filter(request => {
+            const requiredDate = new Date(request.requiredDate);
+            requiredDate.setHours(0, 0, 0, 0); // normalize as well
+            return (
+              !request.fulfilled &&
+              requiredDate >= today // ✅ only future or today
+            );
+          })
+          .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  
+        this.requests = unfulfilledAndNotExpired;
         this.filteredRequests = [...this.requests];
-        console.log('Requests loaded and sorted by createdAt:', this.requests);
       },
       error: (error) => {
         console.error('Error loading requests:', error);
       }
     });
   }
+  
 
   calculateDaysLeft(requiredDate: string): number {
     const today = new Date();
@@ -193,7 +202,6 @@ loadIndividuals(): void {
       this.individuals = data.sort(
         (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       );      
-      console.log('Individuals loaded (sorted by newest first):', this.individuals);
     },
     error: (error) => {
       console.error('Error loading individuals:', error);
@@ -203,5 +211,22 @@ loadIndividuals(): void {
 
 getImage(path?: string): string {
   return path ? `${this.service.baseUrl}/auth/images/${path}` : 'logo.png';
+}
+
+
+getDaysLeftClass(requiredDate: string): string {
+  const daysLeft = this.calculateDaysLeft(requiredDate);
+
+  if (daysLeft < 0) return ' text-red-700 border-red-300';
+  if (daysLeft === 0) return ' text-yellow-800 border-yellow-300';
+  if (daysLeft <= 3) return ' text-orange-700 border-orange-300';
+  return ' text-green-700 border-green-300';
+}
+
+getDaysLeftLabel(requiredDate: string): string {
+  const daysLeft = this.calculateDaysLeft(requiredDate);
+  if (daysLeft < 0) return 'Past Due';
+  if (daysLeft === 0) return 'Today';
+  return `${daysLeft} Days`;
 }
 }

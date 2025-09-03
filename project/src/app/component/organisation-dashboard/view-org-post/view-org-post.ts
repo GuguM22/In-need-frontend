@@ -40,7 +40,7 @@ export class ViewOrgPost {
   }
 
   ngOnInit(): void {
-    const role = localStorage.getItem('userRole');
+    const role = sessionStorage.getItem('userRole');
     switch (role) {
       case 'SPONSORS':
         this.dashboardRoute = '/sponsor-dashboard';
@@ -58,7 +58,7 @@ export class ViewOrgPost {
         this.dashboardRoute = '/individual-dashboard';
     }
   
-    this.userName = localStorage.getItem('userName');
+    this.userName = sessionStorage.getItem('userName');
     this.requestId = this.route.snapshot.paramMap.get('id') || '';
     this.loadPostDetails();
     this.loadDonationsBySponsorRequestId()

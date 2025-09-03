@@ -11,6 +11,7 @@ import { Role } from '../../constant/role';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { DonationStatus } from '../../constant/donationStatus';
 import { Loader } from '../../ui/loader/loader';
+import { Subscription, interval, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-sponsorship-request-page',
@@ -29,7 +30,8 @@ export class SponsorshipRequestPage {
   hasNewDonation: boolean = false;
   isLoading = true;
   message: string = '';
-  userRole: string | null = localStorage.getItem('userRole');
+  userRole: string | null = sessionStorage.getItem('userRole');
+  subscription: Subscription | null = null;
 
   constructor(
     private router: Router,
@@ -44,12 +46,26 @@ export class SponsorshipRequestPage {
    }
 
 ngOnInit() {
-const savedIds = localStorage.getItem('removedDonations');
-this.userRole = localStorage.getItem('userRole');
+const savedIds = sessionStorage.getItem('removedDonations');
+this.userRole = sessionStorage.getItem('userRole');
   if (savedIds) {
     this.removedIds = JSON.parse(savedIds);
   }
 
+  if(this.userRole == 'ORGANIZATION') {
+    this.getOrganizationDonations();
+  } else if(this.userRole = 'SPONSOR') {
+    this.getSponsorDonations();
+  }
+  this.donationStateService.donations$.subscribe(donations => {
+    this.donations = donations;
+    this.hasNewDonation = donations.length > 0;
+  });
+
+  this.loadImage(); 
+}
+
+getSponsorDonations() {
   this.donationService.getDonations().subscribe(res => {
     const mappedDonations = res
       .filter(d => d.status === DonationStatus.PENDING || d.status === DonationStatus.ACCEPTED)
@@ -70,15 +86,6 @@ this.userRole = localStorage.getItem('userRole');
         })
     this.donationStateService.setDonations(mappedDonations);
   });
-  
-
-  this.donationStateService.donations$.subscribe(donations => {
-    this.donations = donations;
-    this.hasNewDonation = donations.length > 0;
-  });
-
-  this.loadImage(); 
-  this.fetchUserPosts();
 }
 
 loadImage() {
@@ -128,7 +135,7 @@ capitalizeWords(name?: string): string {
 
   goBack() {
    
-  const role = localStorage.getItem('userRole');
+  const role = sessionStorage.getItem('userRole');
 
     switch (role) {
       case 'SPONSORS':
@@ -196,7 +203,7 @@ capitalizeWords(name?: string): string {
   markFulfilled(index: number): void {
     const fulfilledPost = this.posts[index];
     // Remove from UI immediately for responsiveness
-    this.posts.splice(index, 1); 
+    // this.posts.splice(index, 1); 
     this.activeMenuId = null;
   
     this.sponsorRequestService.markPostAsFulfilled(fulfilledPost.id).subscribe({
@@ -220,10 +227,14 @@ capitalizeWords(name?: string): string {
   
 
 
-  fetchUserPosts(): void {
-    this.sponsorRequestService.getMyPosts().subscribe({
+  getOrganizationDonations(): void {
+    this.subscription = interval(1000) // every 1 second
+    .pipe(
+      switchMap(() => this.sponsorRequestService.getMyPosts())
+    )
+    .subscribe({
       next: (data) => {
-        const msPerDay = 1000 * 60 * 60 * 24;
+      const msPerDay = 1000 * 60 * 60 * 24;
         const today = new Date().getTime();
   
         const newData = data.map((request) => {
@@ -236,17 +247,23 @@ capitalizeWords(name?: string): string {
           return { ...request, createdAt, requiredDate, daysLeft };
         });
   
+        // ✅ Get all donations from all posts
+        const allDonations = data.flatMap(post => post.donations);
+  
+        // ✅ Filter out declined ones
+        this.donations = allDonations.filter(d => d.status !== DonationStatus.DECLINED);
+  
         // 🔽 Sort by createdAt (newest first)
-        this.posts = (newData || []).filter(post => !post.fulfilled).sort(
-          
+        this.posts = (newData || [])
+        .filter(post => post.daysLeft >= 0)
+        .sort(
           (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
-  
-        console.log('Posts sorted by createdAt:', this.posts);
       },
       error: (err) => console.error('Error fetching user posts:', err)
     });
   }
+  
   
   markAsReceived(donationId: number): void {
     this.donationService.confirmReceipt(donationId).subscribe({
@@ -261,7 +278,5 @@ capitalizeWords(name?: string): string {
         alert('Failed to confirm donation receipt.');
       }
     });
-  }
-  
-  
+  } 
 }

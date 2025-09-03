@@ -54,7 +54,7 @@ ngOnInit() {
 
     if (role === Role.ORGANIZATION) {
       if (!data.phoneStatus) {
-        this.phone = 'Not verified yet';
+        this.phone = 'No Number yet';
         this.statusText = 'Not verified';
       } else {
         switch (data.phoneStatus) {
@@ -76,10 +76,8 @@ ngOnInit() {
         }
       }
     } else {
-      this.phone = 'Not applicable';
-      
+       this.phone = data.phone || 'Not applicable';
     }
-
 
       // Location handling
       if (data.location) {
@@ -105,6 +103,7 @@ ngOnInit() {
     error: (err) => console.error('Failed to load profile', err)
   });
 }
+
 
 
 private loadProfileImage(imagePath: string) {
@@ -144,12 +143,11 @@ private loadProfileImage(imagePath: string) {
 
   
 toggleEdit() {
- if (this.isEditing) {
-    // Save changes
+  if (this.isEditing) {
     const locationParts = this.editLocation.split(',');
     const updateData = {
       bio: this.editBio,
-      phone: this.editPhone, 
+      phone: this.editPhone,
       location: {
         city: locationParts[0]?.trim() || '',
         province: locationParts[1]?.trim() || ''
@@ -160,23 +158,52 @@ toggleEdit() {
       next: (res) => {
         this.name = this.editName;
         this.email = this.editEmail;
-        this.phone = this.editPhone; 
+        this.phone = this.editPhone;
         this.bio = this.editBio;
         this.Location = this.editLocation;
       },
-      error: (err) => {
-        console.error('Update failed', err);
-      }
+      error: (err) => console.error('Update failed', err)
     });
   } else {
     this.editName = this.name;
     this.editEmail = this.email;
-    this.editPhone = this.phone; 
+    this.editPhone = this.phone;
     this.editBio = this.bio;
     this.editLocation = this.Location;
   }
+
+  // Toggle editing state
   this.isEditing = !this.isEditing;
 }
+
+saveProfile() {
+  const updateData: any = {
+    bio: this.bio,
+    location: {
+      city: this.editLocation,
+      province: this.editLocation
+    },
+    phone: this.phone 
+  };
+
+  this.service.updateProfile(updateData).subscribe({
+    next: (res) => {
+
+      // Update local UI immediately
+      if (this.role === Role.ORGANIZATION) {
+        this.statusText = 'Pending';
+      } else {
+        this.statusText = 'Accepted';
+      }
+
+      this.phone = this.phone;
+    },
+    error: (err) => {
+      console.error('Update failed', err);
+    }
+  });
+}
+
 
 private capitalizeFirstLetter(str: string): string {
   if (!str) return str;

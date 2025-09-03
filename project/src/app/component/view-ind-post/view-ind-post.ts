@@ -35,7 +35,7 @@ export class ViewIndPost {
     }
   
     // Set dashboard route based on user role
-    const role = localStorage.getItem('userRole');
+    const role = sessionStorage.getItem('userRole');
     switch (role) {
       case 'SPONSORS':
         this.dashboardRoute = '/sponsor-dashboard';
@@ -59,7 +59,6 @@ export class ViewIndPost {
     this.individualService.getById(id).subscribe({
       next: (data) => {
         this.individual = data;
-        console.log('Individual post:', data);
       },
       error: (err) => {
         console.error('Error loading individual post:', err);

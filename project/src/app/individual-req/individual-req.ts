@@ -168,7 +168,7 @@ this.filePreviews = this.selectedFiles.map(file => ({
 }
   goBack() {
    
-  const role = localStorage.getItem('userRole');
+  const role = sessionStorage.getItem('userRole');
   this.filePreviews.forEach(p => URL.revokeObjectURL(p.url));
 this.filePreviews = [];
 

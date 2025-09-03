@@ -7,3 +7,23 @@
 .btns{
     margin-top: 10px;
 }
+
+.verified{
+    height: 18px;
+    width: 18px;
+    margin-top: 4px;
+    margin-left: -15px;
+}
+
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+  }
+   .truncate-multiline {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limit to 3 lines, adjust as needed */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }

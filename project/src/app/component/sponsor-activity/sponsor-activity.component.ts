@@ -18,7 +18,7 @@ import { SponsorRequestService } from '../../service/sponsor-request-service';
 export class SponsorActivityComponent {
 
   donations: Donation[] = [];
-  currentUserEmail: string | null = localStorage.getItem('userEmail');
+  currentUserEmail: string | null = sessionStorage.getItem('userEmail');
    
 
 
@@ -60,13 +60,23 @@ export class SponsorActivityComponent {
   
 
   getStatusMessage(donation: Donation): string {
+    if (donation.status === 'ACCEPTED' && donation.isReceived) {
+      return `Your donation has been accepted & received by ${donation.organizationUsername || 'the organization'} organization!`;
+    }
+    
+  
     switch (donation.status) {
-      case 'PENDING': return 'Your donation is still pending.';
-      case 'ACCEPTED': return 'Your donation has been accepted.';
-      case 'DECLINED': return 'Your donation was rejected.';
-      default: return 'Unknown status.';
+      case 'PENDING':
+        return 'Your donation is still pending.';
+      case 'ACCEPTED':
+        return 'Your donation has been accepted.';
+      case 'DECLINED':
+        return 'Your donation was rejected.';
+      default:
+        return 'Unknown status.';
     }
   }
+  
 
   getImage(path?: string): string {
   return path ? `${this.services.baseUrl}/auth/images/${path}` : 'logo.png';

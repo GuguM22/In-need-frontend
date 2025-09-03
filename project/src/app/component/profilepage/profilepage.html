@@ -1,9 +1,9 @@
  
  
-@if(isLoading){
+   @if(isLoading){
   <app-loader/>
   }
-@else {
+@else {   
   <app-navbar></app-navbar>
 <div class="w-screen h-screen grid grid-rows-[auto_1fr_auto] bg-white overflow-y-auto">
   <!-- Header with Back Button -->
@@ -58,7 +58,7 @@
       <div class="flex items-center gap-3 bg-white p-3 rounded-lg shadow-md border border-gray-100">
         <div class="flex-shrink-0">
           <div
-            class="w-10 h-10 rounded-full bg-gradient-to-tr from-[#5B8E7D] to-green-700 flex items-center justify-center text-white font-bold text-lg">
+            class="w-10 h-10 rounded-full bg-[#5B8E7D] flex items-center justify-center text-white font-bold text-lg">
             {{ name.charAt(0) }}
           </div>
         </div>
@@ -68,17 +68,19 @@
           </h2>
           <input *ngIf="isEditing" [(ngModel)]="editName"
             class="border-1 border-[#00000030] p-1 rounded text-gray font-[400]  w-full mb-1 pointer-events-none" />
-        <div class="flex items-end justify-between gap-[0.5px]">
-          <p *ngIf="!isEditing" class="text-gray-600 text-xs mt-0.5 flex items-end gap-1">
-            <span>{{ capitalizeWords(email) }}</span> &bull;
-            <span>{{ phone }}</span> &bull;
-        
-            <span class="px-1 py-0.4 text-[9px] font-medium rounded flex items-center" [ngClass]="{
-                    'bg-[#F7CB73] text-gray-600 border-[#F7CB73]': statusText === 'Pending',
-                    'bg-[#c82027] text-white border-[#c82027]': statusText === 'Rejected',
-                    'bg-[#5B8E7D] text-white border-[#5B8E7D]': statusText === 'Accepted',
-                    'bg-[#F4D0D1] text-white border-gray-200': statusText === 'Not Verified'
-                  }">
+            <div class="flex items-end justify-end gap-[0.5px]">
+          <p *ngIf="!isEditing" class="text-xs mt-0.5 flex items-end gap-1">
+            <span class="text-gray-600">{{ capitalizeWords(email) }}</span> &bull;
+            <span class="text-gray-600"> {{ phone }}</span> &bull;
+            <span
+              class="px-1 py-0.4 text-[9px] font-medium rounded flex items-center"
+              [ngClass]="{
+                'bg-[#F7CB73] text-gray-700 p-0.9 mb-0.5 ml-1 border-[#F7CB73]': statusText === 'Pending',
+                'bg-[#c82027] text-[#FFFFFF] ml-1 pt-1 pb-0.5 border-[#c82027]': statusText === 'Rejected',
+                'bg-[#5B8E7D] text-[#FFFFF0] ml-1 mb-0.5   p-0.5 border-[#5B8E7D]': statusText === 'Accepted',
+                'bg-[#6d6d6d] text-white ml-1 p-0.5 border-gray-200': statusText === 'Not verified'
+              }"
+            >
               {{ statusText.toUpperCase() }}
             </span>
           </p>
@@ -88,7 +90,7 @@
             <input [(ngModel)]="editEmail" class="w-70 h-8 border-1 border-[#00000030] p-1 rounded text-gray font-[400] text-xs" placeholder="Email"
               disabled />
             <input [(ngModel)]="editPhone" *ngIf="!isSponsor && phone !== 'Not verified yet'"
-              class="w-70 h-8 border p-1 rounded text-black w-full text-xs" placeholder="Phone" />
+              class="w-70 h-8 border p-1 border-[#00000030] border-1 rounded text-black w-full text-xs" placeholder="Phone" />
           </div>
         </div>
       </div>
@@ -221,5 +223,5 @@
 </div>
 <app-footer></app-footer>
 
-}
+   }   
  

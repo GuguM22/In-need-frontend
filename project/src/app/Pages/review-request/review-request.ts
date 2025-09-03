@@ -49,7 +49,7 @@ export class ReviewRequest implements OnInit {
 
   constructor(private donationService: DonationService,
     private router: Router, private donationStateService: DonationStateService, private service: Services, private route: ActivatedRoute) {
-    this.emailAddress = localStorage.getItem('userEmail') || '';
+    this.emailAddress = sessionStorage.getItem('userEmail') || '';
 
   }
 
@@ -71,7 +71,6 @@ export class ReviewRequest implements OnInit {
   }*/
 loadDonations() {
   this.donationService.getPendingDonations().subscribe(res => {
-    console.log("Raw donations from backend:", res); // 👈 check actual structure
     const id = Number(this.route.snapshot.paramMap.get('id'))
     const mappedDonations = res
       .filter(d => d.id == id)
@@ -82,7 +81,7 @@ loadDonations() {
 
         description: donation.description || '',
         quantity: donation.quantity || 0,
-        preference: donation.preference || LogisticPreference.DELIVERY,
+        preference: donation.preference || LogisticPreference.DROP_OFF,
         additionalNotes: donation.additionalNotes || '',
         donorEmail: donation.donorEmail || '',
         donorName: donation.donorName || '',
@@ -101,7 +100,6 @@ loadDonations() {
 
   this.donationStateService.donations$.subscribe(donations => {
     this.donation = donations;
-    console.log("Donations after mapping:", this.donation); // 👈 check IDs exist
   });
 
   this.donationStateService.acceptedDonations$.subscribe(posts => {
@@ -155,36 +153,37 @@ loadDonations() {
     });
   }*/
 
-updateDonation(id: number, isAccepted: boolean) {
-  if (!id) return;
-
-  const status = isAccepted ? DonationStatus.ACCEPTED : DonationStatus.DECLINED;
-  const selectedDonation: DonationUpdate = { id, status };
-
-  this.donationService.updateDonation(selectedDonation).subscribe({
-    next: (updatedDonation) => {
-      // Remove from Sponsor Requests tab and Home Page
-      this.donationStateService.removeDonation(id);
-
-      // Optionally add to accepted posts if needed
-      if (isAccepted) {
-        this.donationStateService.addAcceptedDonation(updatedDonation);
+  updateDonation(id: number, isAccepted: boolean) {
+    if (!id) return;
+  
+    const status = isAccepted ? DonationStatus.ACCEPTED : DonationStatus.DECLINED;
+    const selectedDonation: DonationUpdate = { id, status };
+  
+    this.donationService.updateDonation(selectedDonation).subscribe({
+      next: (updatedDonation) => {
+        this.donationStateService.removeDonation(id);
+  
+        if (isAccepted) {
+          this.donationStateService.addAcceptedDonation(updatedDonation);
+        }
+  
+        this.notification = {
+          type: isAccepted ? 'success' : 'error',
+          message: isAccepted ? 'Donation accepted successfully' : 'Donation declined successfully'
+        };
+  
+        setTimeout(() => this.router.navigate(['/sponsorship-request-page']), 2000);
+      },
+      error: (err) => {
+        console.error(err);
+        this.notification = {
+          type: 'error',
+          message: 'Failed to update donation.'
+        };
       }
-
-      this.notification = {
-        type: 'success',
-        message: isAccepted ? 'Donation accepted successfully' : 'Donation declined successfully'
-      };
-
-      setTimeout(() => this.router.navigate(['/sponsorship-request-page']), 3000);
-    },
-    error: (err) => {
-      console.error(err);
-      this.notification = { type: 'error', message: 'Failed to update donation.' };
-    }
-  });
-}
-
+    });
+  }
+  
 
 
   showModal: boolean = false;
@@ -211,14 +210,15 @@ updateDonation(id: number, isAccepted: boolean) {
     this.closeModal();
   }
 
-  capitalizeWords(name?: string): string {
-  if (!name) return '';
-  return name
-    .toLowerCase()
-    .split(' ')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
-}
-
+  capitalizeWords(value?: string): string {
+    if (!value) return '';
+    return value
+      .toLowerCase()
+      .replace(/_/g, ' ') // Replace underscores with spaces
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+  
 
 }
