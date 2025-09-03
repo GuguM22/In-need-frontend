@@ -114,6 +114,8 @@ input{
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 195px; /* adjust until it fits 'i' */
+    padding-right: 9px;
+
 
 }
 
@@ -469,7 +471,7 @@ button{
     max-width: 195px; /* adjust until it fits 'i' */
    }
 
-.page-button{
+.active{
     background: white !important;
 }
 /* @media (max-width: 480px) {
