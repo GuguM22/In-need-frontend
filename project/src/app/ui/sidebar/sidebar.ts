@@ -5,6 +5,7 @@ import { Logout } from "../../component/logout/logout";
 import { Services } from '../../service/services';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { DonationService } from '../../service/donation-service';
+import { UserInfoDtoService } from '../../service/user-info-dto.service';
 
 
 
@@ -27,9 +28,9 @@ export class Sidebar implements OnInit {
   userName: string | null = null;
   pendingSponsorRequestsCount: number = 0;
   currentRoute: string = '';
+  isVerified: boolean = false;
 
-
-  constructor(private userService: Services, private router: Router, private donationService: DonationService) {}
+  constructor(private userService: Services, private router: Router, private donationService: DonationService, private userInfoDtoService: UserInfoDtoService) {}
 
   ngOnInit() {
     // Load profile image
@@ -139,6 +140,30 @@ export class Sidebar implements OnInit {
     }
   }
 
+  getCurrentUser() {
+    this.userInfoDtoService.getCurrentUser().subscribe({
+      next: (data: any) => {
+        this.isVerified = data.verified;
+      }, 
+      error: (err: any) => {
+        console.log(err)
+      }
+    })
+  }
+
+  sponsorRoute() {
+    if(this.isVerified === true) {
+      this.router.navigate(['/sponsor-request'])
+    } else {
+      sessionStorage.setItem('sponsorNote', 'show')
+      this.router.navigate(['/organization-dashboard'])   
+    }
+  }
+
+  donationRoute() {
+    sessionStorage.setItem('donateNote', 'show')
+    this.router.navigate(['/organization-dashboard'])
+  }
 
   // loadPendingSponsorRequestsCount() {
   //   this.donationService.getDonations().subscribe((donations: any[]) => {

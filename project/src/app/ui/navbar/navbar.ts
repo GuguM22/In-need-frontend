@@ -74,7 +74,8 @@ ngOnInit() {
 
       this.donationCount = donations.filter(d =>
         d.donorRole === 'SPONSORS' &&
-        d.donorEmail === userEmail
+        d.donorEmail === userEmail &&
+        d.isReceived !== true
       ).length;
     });
   } else if(this.userRole === 'ORGANIZATION') {
@@ -85,7 +86,7 @@ ngOnInit() {
     .subscribe({
       next: (data) => {
         const donations = data.flatMap(post => post.donations)
-        .filter(donation => donation.status !== "ACCEPTED" && donation.status !== "DECLINED")
+        .filter(donation => donation.status !== "DECLINED" && donation.isReceived !== true)
         this.donationCount = donations.length;
       },
       error: (err) => console.error('Error fetching user posts:', err)

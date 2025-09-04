@@ -25,6 +25,7 @@ export class OrganisationDashboardComponent {
  individuals: IndividualRequest[] = [];
  isVerified: boolean = false;
  showVerificationAlert: boolean = false;
+ showDonateAlert: boolean = false;
 //  request: SponsorRequest = {
 //     title: '',
 //     priority: '',
@@ -66,6 +67,16 @@ export class OrganisationDashboardComponent {
 
     this.getCurrentUser();
     
+    const note = sessionStorage.getItem('sponsorNote')
+    if(note === 'show') {
+      this.showNote();
+    } 
+
+    const donateNote = sessionStorage.getItem('donateNote')
+    if(donateNote === 'show') {
+      this.showDonateNote();
+    } 
+
     /*  this.service.profile().subscribe({
         next: (data: any) => {
           if (data.profileImagePath) {
@@ -97,6 +108,17 @@ export class OrganisationDashboardComponent {
     })
   }
 
+  showNote() {
+    this.showVerificationAlert = true; // show alert if not verified
+    setTimeout(() => this.showVerificationAlert = false, 7000); // optional: hide after 5s
+    sessionStorage.setItem('sponsorNote', 'hide');
+  }
+
+  showDonateNote() {
+    this.showDonateAlert = true; // show alert if not verified
+    setTimeout(() => this.showDonateAlert = false, 7000); // optional: hide after 5s
+    sessionStorage.setItem('donateNote', 'hide');
+  }
 
   navigateToSponsorRequest() {
     if (this.isVerified) {

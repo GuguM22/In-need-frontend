@@ -20,6 +20,7 @@ import { Loader } from '../../ui/loader/loader';
   styleUrls: ['./sponsorship-request-page.css'],
 })
 export class SponsorshipRequestPage {
+[x: string]: any;
   activeTab: string = 'sponsor';
 
   donations: Donation[] = [];
@@ -29,7 +30,7 @@ export class SponsorshipRequestPage {
   hasNewDonation: boolean = false;
   isLoading = true;
   message: string = '';
-  userRole: string | null = localStorage.getItem('userRole');
+  userRole: string | null = sessionStorage.getItem('userRole');
 
   constructor(
     private router: Router,
@@ -44,8 +45,8 @@ export class SponsorshipRequestPage {
    }
 
 ngOnInit() {
-const savedIds = localStorage.getItem('removedDonations');
-this.userRole = localStorage.getItem('userRole');
+const savedIds = sessionStorage.getItem('removedDonations');
+this.userRole = sessionStorage.getItem('userRole');
   if (savedIds) {
     this.removedIds = JSON.parse(savedIds);
   }
@@ -128,7 +129,7 @@ capitalizeWords(name?: string): string {
 
   goBack() {
    
-  const role = localStorage.getItem('userRole');
+  const role = sessionStorage.getItem('userRole');
 
     switch (role) {
       case 'SPONSORS':
