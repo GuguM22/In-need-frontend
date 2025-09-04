@@ -111,18 +111,30 @@ dashboardRoute: string = '/';
     if(this.isVerified === true) {
       this.router.navigate(['/sponsor-request'])
     } else {
-      sessionStorage.setItem('sponsorNote', 'show')
-      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-        this.router.navigate(['/organization-dashboard']);
-      });
+      if (this.userRole === 'SPONSORS') {
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/sponsor-dashboard']);
+        });
+      } else {
+        sessionStorage.setItem('sponsorNote', 'show')
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/organization-dashboard']);
+        });
+      }
     }
   }
 
   donationRoute() {
     sessionStorage.setItem('donateNote', 'show')
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['/organization-dashboard']);
-    });
+    if (this.userRole === 'SPONSORS') {
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['/sponsor-dashboard']);
+      });
+    } else {
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['/organization-dashboard']);
+      });
+    }
   }
 
   showPost() {
