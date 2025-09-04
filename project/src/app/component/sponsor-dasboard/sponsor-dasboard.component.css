@@ -473,6 +473,18 @@ button{
 .active{
     background: white !important;
 }
+
+.alert-warning {
+    padding: 10px;
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    border-radius: 6px;
+    color: #856404;
+    margin-bottom: 15px;
+    margin-top: 10px;
+    width: 378px;
+    font-weight: 700;
+}
 /* @media (max-width: 480px) {
     .search {
         width: 90%;

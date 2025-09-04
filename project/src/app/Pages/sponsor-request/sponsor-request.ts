@@ -40,7 +40,7 @@ export function futureDateValidator(): ValidatorFn {
 @Component({
   selector: 'app-sponsor-request',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, PreviewSponsor, RouterLink, Toast, NavbarComponent, FooterComponent],
+  imports: [ReactiveFormsModule, CommonModule, PreviewSponsor, Toast, NavbarComponent, FooterComponent],
   templateUrl: './sponsor-request.html',
   styleUrls: ['./sponsor-request.css'],
   providers: [SponsorRequestService]

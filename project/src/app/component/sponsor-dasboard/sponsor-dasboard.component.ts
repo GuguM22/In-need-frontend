@@ -22,6 +22,7 @@ export class SponsorDasboardComponent {
   requests: SponsorRequest[] =[]
   individuals: IndividualRequest[] = [];
   isLoading = true;
+  showDonateAlert: boolean = false;
 
  request: SponsorRequest = {
    title: '',
@@ -51,9 +52,21 @@ export class SponsorDasboardComponent {
   itemsPerPage: number = 3;
 
   ngOnInit():void {
-  this.loadRequests();
-  this.loadIndividuals();
+    this.loadRequests();
+    this.loadIndividuals();
+
+    const donateNote = sessionStorage.getItem('donateNote')
+    if(donateNote === 'show') {
+      this.showDonateNote();
+    } 
   }
+
+  showDonateNote() {
+    this.showDonateAlert = true; // show alert if not verified
+    setTimeout(() => this.showDonateAlert = false, 7000); // optional: hide after 5s
+    sessionStorage.setItem('donateNote', 'hide');
+  }
+
   navigateToSponsorRequest() {
     this.router.navigate(['sponsor-request']);
   }
