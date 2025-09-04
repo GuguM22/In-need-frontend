@@ -11,6 +11,7 @@ import { Role } from '../../constant/role';
 import { SponsorRequestService } from '../../service/sponsor-request-service';
 import { DonationStatus } from '../../constant/donationStatus';
 import { Loader } from '../../ui/loader/loader';
+import { Subscription, interval, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-sponsorship-request-page',
@@ -31,6 +32,7 @@ export class SponsorshipRequestPage {
   isLoading = true;
   message: string = '';
   userRole: string | null = sessionStorage.getItem('userRole');
+  subscription: Subscription | null = null;
 
   constructor(
     private router: Router,
@@ -220,12 +222,16 @@ capitalizeWords(name?: string): string {
   
   
 fetchUserPosts(): void {
-  this.sponsorRequestService.getMyPosts().subscribe({
-    next: (data) => {
+  this.subscription = interval(1000)
+  .pipe(
+    switchMap(() => this.sponsorRequestService.getMyPosts())
+  )
+  .subscribe({
+    next: (data: any) => {
       const msPerDay = 1000 * 60 * 60 * 24;
       const today = new Date().getTime();
 
-      const newData = data.map((request) => {
+      const newData = data.map((request: any) => {
         const requiredDate = request.requiredDate;
         const createdAt = request.createdAt;
         const daysLeft = Math.ceil(
@@ -235,7 +241,7 @@ fetchUserPosts(): void {
         return { ...request, createdAt, requiredDate, daysLeft };
       });
 
-      const donations = data.flatMap((post) => {
+      const donations = data.flatMap((post: any) => {
         return post.donations.map((donation: any) => ({
           ...donation,
           profileImageUrl: donation.profileImageUrl
@@ -248,7 +254,7 @@ fetchUserPosts(): void {
 
       // 🔽 Sort by createdAt (newest first)
       this.posts = (newData || []).sort(
-        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        (a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       );
 
       console.log('Posts sorted by createdAt:', this.posts);
