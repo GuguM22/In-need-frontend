@@ -156,13 +156,17 @@ export class Sidebar implements OnInit {
       this.router.navigate(['/sponsor-request'])
     } else {
       sessionStorage.setItem('sponsorNote', 'show')
-      this.router.navigate(['/organization-dashboard'])   
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['/organization-dashboard']);
+      });  
     }
   }
 
   donationRoute() {
     sessionStorage.setItem('donateNote', 'show')
-    this.router.navigate(['/organization-dashboard'])
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/organization-dashboard']);
+    });
   }
 
   // loadPendingSponsorRequestsCount() {
