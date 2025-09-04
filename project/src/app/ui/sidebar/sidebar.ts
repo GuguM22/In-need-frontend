@@ -33,6 +33,7 @@ export class Sidebar implements OnInit {
   constructor(private userService: Services, private router: Router, private donationService: DonationService, private userInfoDtoService: UserInfoDtoService) {}
 
   ngOnInit() {
+    this.getCurrentUser();
     // Load profile image
     this.profileImageUrl = 'logo.png';
     this.userRole = sessionStorage.getItem('userRole')
