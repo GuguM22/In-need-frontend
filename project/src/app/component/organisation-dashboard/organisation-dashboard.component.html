@@ -42,7 +42,9 @@
         Your account is not verified. Please upload documents and wait for admin approval.
         <button class="verify-btn" (click)="goToVerification()">Upload Documents</button>
       </div>
-      
+      <div *ngIf="showDonateAlert" class="alert alert-warning">
+        Please select one of the sponsor requests below to support through a donation.
+      </div>
       
 </div>
 <div class="heading">

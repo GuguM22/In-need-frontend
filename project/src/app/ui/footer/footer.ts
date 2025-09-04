@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Services } from '../../service/services';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { UserInfoDtoService } from '../../service/user-info-dto.service';
 @Component({
   selector: 'app-footer',
   standalone: true,
@@ -23,8 +24,9 @@ dashboardRoute: string = '/';
     '/donation-review'
   ];
   currentRoute: string = '';
+  isVerified: boolean = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private userInfoDtoService: UserInfoDtoService) {
     this.currentRoute = this.router.url;
   }
 
@@ -56,6 +58,18 @@ dashboardRoute: string = '/';
       this.currentUrl = (event as NavigationEnd).urlAfterRedirects;
     });
 
+    this.getCurrentUser();
+  }
+
+  getCurrentUser() {
+    this.userInfoDtoService.getCurrentUser().subscribe({
+      next: (data: any) => {
+        this.isVerified = data.verified;
+      }, 
+      error: (err: any) => {
+        console.log(err)
+      }
+    })
   }
 
   getNotificationRoute() {
@@ -91,6 +105,20 @@ dashboardRoute: string = '/';
     if (this.userRole === 'SPONSORS') {
       this.router.navigate(['/options']); 
     }
+  }
+
+  sponsorRoute() {
+    if(this.isVerified === true) {
+      this.router.navigate(['/sponsor-request'])
+    } else {
+      sessionStorage.setItem('sponsorNote', 'show')
+      this.router.navigate(['/organization-dashboard'])   
+    }
+  }
+
+  donationRoute() {
+    sessionStorage.setItem('donateNote', 'show')
+    this.router.navigate(['/organization-dashboard'])
   }
 
   showPost() {
