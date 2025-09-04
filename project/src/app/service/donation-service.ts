@@ -98,5 +98,13 @@ getDonationsBySponsorRequestId(requestId: number): Observable<Donation[]> {
   return this.http.get<Donation[]>(`${this.apiUrl}/auth/donations/sponsor-request/${requestId}/donations`, { headers });
 }
 
+getDeclinedDonations(): Observable<Donation[]> {
+  const token = sessionStorage.getItem('token');
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  });
+  return this.http.get<Donation[]>(`${this.apiUrl}/auth/donations/declined`);
+}
 }
 

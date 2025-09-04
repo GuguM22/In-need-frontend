@@ -18,14 +18,13 @@
   type="button" 
   class="inline-flex flex-col items-center justify-center px-5 group"
   [routerLink]="'/options'"
-  routerLinkActive="active"
-  [routerLinkActiveOptions]="{ exact: true }" 
+  [ngClass]="{'active': currentRoute.includes('/donation-request') || currentRoute.includes('/options') || currentRoute.includes('/freq') || currentRoute.includes('/donation-review') || currentRoute.includes('/thanks')}"
 >
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEoElEQVR4nNWaa4hVVRTHf6PZKPmYGpGmJipkykdEpJSlHyqjgoosi0gsIbUIygLLLHpYEEUSFNKH7PUhyIjSaAory5KiFxWIppkpFWqJzpTa9MBpbiz4H1gc7j33nn3OPWf6w4GZOXuvtdfee631X+sMFI92YCmwBdgGfAisAOYBnfwPcBbwHPAnUEl4NgMPAF0MIkwAHgK2u4X+C3QDFwNnA9cB9wFvAr+5cQPAOxpXCo4HFgNfx3Z6F7AcGJ8wdyhwAfAMcMDN/Qg4vYjFtwHzgfXa8WgBPcBK4DxgSEqZY4C73SkdBu5qxuKPAGYBq4G/3eLNB1YBlwNH5qBnHPCKk/9swKZUxShgGbDHCe8H1iny2PtmYLH8xvQ9nFXYMcBGZ8AmKTiOYnCvu2YnhwoZoihigrYC0ykeK6T/QJacs1RC9tWJPM3CQuk35z8nVMgZwD+6oxdSDhvokSFXhgoZrmxrQp6iHCyXfkuawXhMQr4DRlA8RrpcMjVUyCm6UpbkplEOFrrsHoy3JcTIXj1YCJ5I/tigNcwNFXCpixKWXZMwGvhJJ/cCcBFwAnA0cCIwQzt7Rco1nKQAcwg4KtSQiPTd3sDYVx1jTaLo/Slpy/2a91KoEdMkYH8dB28BntTYP4DTgBuBNWIAu4E+Z8iDKdbQ4ui/3Y4gLJKA5+vE9lWOMhiBrEbp9wSG7ukuAQ8jEHMlxAqgOOxqvOh2ukc+EUcr8KXGrFWtkQYrNddOPBjHynH7qjhZ5IAVObadTBIv+l71Shq0Awc1P3NB9YkEXVvl3Rq9u6PG3NmuNglZyKOa/x454DYJs8Ipjlk1KEObqrjf9X5BgN4uBY5KFnLo0aHr9ZfKTo9OKdotX2iVAb55kBQoaqHVhf2XyRHrauSSFvWk7N1rwE6XR7rFkG1MGpgvRvXOD1U2LxOuluDtVerkc2PJzrjQlEA9lv0/l5y9zeiYWPz+RQoui/lCt6vWrg84AbQ5892V/BE4lSbhESn5TL+PcflhU2BH0Ay4CvjGnegbCaE8F3S6ds8lLlFtbYBMVpNlXcUdzoCfgTkUhKddcdWvSJambj9TO97vDLAAcWvRxVpnrAn3eIPzzG/ucQZYOH9L/pZLky3LqVQabAWNcKQyCs3nUzKGAV+4RVUjifET/EpjD7rgsDFLgZQHljm6XlEJXIvNXgP86hLbZEW6b/U3+8xQCtrEnQZU4OzVgl533b4W8aKICdjzQSycznAnNLYMQ25xNYVhpqPYAwql+50BRv2X1DixdzOQycyIKLtl7wiTVKcfjn3IeaJOQ3uBxprMwrFTysfXqBa7UiTGCZJlhLNw9El5HolrlGRZe6dwHJJya11mxWhHNAvHNinPg5VOdFSncKyWcusUZsXNLnQXjnlS/n4OstZL1g2UlBB7tYAsXGmmZPTmXcamwRJHvccGfkSN2p/28bQ0DHc19ccpK7l21yP7VJ2SUtGhTwcRGbR/tWjkOu1w9bh1MAcFOlS7e2J4k8LqSD2TFJ0ix45OYtAYEcGuxp0uACQ9vfKJ0q8TCbBoZqHZ8ow1IowB2GM/W56wEFtYdPoPHOeKijMjTzUAAAAASUVORK5CYII=" alt="donate" class="donate"></button>
 
 <!-- Notification Button -->
     <button (click)="getNotificationRoute()"
-      [ngClass]="{'active': currentRoute == '/sponsor-activity' || currentRoute == '/sponsorship-request-page'}"
+      [ngClass]="{'active': currentRoute.includes('/sponsor-activity') || currentRoute.includes('/sponsorship-request-page') || currentRoute.includes('/review-request')}"
       type="button" class="inline-flex flex-col items-center justify-center px-5 group">
       <img class="w-[22px] h-[22px]" src="icons/notifications.svg" alt="Notification" />
     </button>
@@ -34,12 +33,12 @@
     <!-- Profile Button with routerLink -->
     <button 
       type="button" 
-      [routerLink]="'/profile'" 
+      [routerLink]="'/sponsor-request'" 
       class="inline-flex flex-col items-center justify-center px-5 group"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }" 
       >
-      <img width="22" height="22" src="https://img.icons8.com/ios/50/user-male-circle--v1.png" alt="user-male-circle--v1"/>
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 14H12M12 14H14M12 14V16M12 14V12" stroke="#000000" stroke-width="1.5" stroke-linecap="round"></path> <path d="M22 11.7979C22 9.16554 22 7.84935 21.2305 6.99383C21.1598 6.91514 21.0849 6.84024 21.0062 6.76946C20.1506 6 18.8345 6 16.2021 6H15.8284C14.6747 6 14.0979 6 13.5604 5.84678C13.2651 5.7626 12.9804 5.64471 12.7121 5.49543C12.2237 5.22367 11.8158 4.81578 11 4L10.4497 3.44975C10.1763 3.17633 10.0396 3.03961 9.89594 2.92051C9.27652 2.40704 8.51665 2.09229 7.71557 2.01738C7.52976 2 7.33642 2 6.94975 2C6.06722 2 5.62595 2 5.25839 2.06935C3.64031 2.37464 2.37464 3.64031 2.06935 5.25839C2 5.62595 2 6.06722 2 6.94975M21.9913 16C21.9554 18.4796 21.7715 19.8853 20.8284 20.8284C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.8284C2 19.6569 2 17.7712 2 14V11" stroke="#000000" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
     </button>
   </div>
 </div>

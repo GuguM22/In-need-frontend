@@ -9,6 +9,8 @@ import { PreviewSponsor } from "../preview-sponsor/preview-sponsor";
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { User } from '../../model/user';
 import { Toast } from '../../ui/toast/toast';
+import { NavbarComponent } from '../../ui/navbar/navbar';
+import { FooterComponent } from "../../ui/footer/footer";
 
 // Backend DTO
 export interface SponsorRequest {
@@ -38,7 +40,7 @@ export function futureDateValidator(): ValidatorFn {
 @Component({
   selector: 'app-sponsor-request',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, PreviewSponsor, RouterLink, Toast],
+  imports: [ReactiveFormsModule, CommonModule, PreviewSponsor, RouterLink, Toast, NavbarComponent, FooterComponent],
   templateUrl: './sponsor-request.html',
   styleUrls: ['./sponsor-request.css'],
   providers: [SponsorRequestService]

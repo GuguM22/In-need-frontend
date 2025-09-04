@@ -84,7 +84,8 @@ ngOnInit() {
     )
     .subscribe({
       next: (data) => {
-        const donations = data.flatMap(post => post.donations);
+        const donations = data.flatMap(post => post.donations)
+        .filter(donation => donation.status !== "ACCEPTED" && donation.status !== "DECLINED")
         this.donationCount = donations.length;
       },
       error: (err) => console.error('Error fetching user posts:', err)
