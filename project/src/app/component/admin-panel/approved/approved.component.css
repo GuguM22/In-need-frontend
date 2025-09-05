@@ -485,7 +485,7 @@ margin-left: 4px;
 
 @media screen and (max-width: 1280px) {
     .container2, .verfication2, .contact2, .reviewSection2 {
-      width: 90%;
+      width: 100%;
       padding-left: 10px;
       padding-right: 10px;
     }
@@ -502,7 +502,7 @@ margin-left: 4px;
   
     .download2 {
       margin-left: auto;
-      margin-top: 10px;
+      margin-top: -2px;
     }
   
     .accept2 {
@@ -570,7 +570,7 @@ margin-left: 4px;
     border-radius: 8px;
     padding-bottom: 8px;
     padding-top: 8px;
-    width: 410px;
+    /* width: 310px; */
     /* margin-top: 15px; */
     margin-bottom: 50px;
  }
