@@ -241,6 +241,11 @@ align-items: center;
     border-radius: 12px;
 }
 
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .contactHeading2{
     font-weight: 600;
     margin-bottom: 10px;
@@ -264,8 +269,9 @@ align-items: center;
     border-radius: 8px;
     padding-bottom: 8px;
     padding-top: 8px;
-    width: 410px;
-    margin-top: 15px;
+    /* width: 410px; */
+    width: 80%;
+    /* margin-top: 15px; */
     margin-bottom: 8px;
  }
 
@@ -325,6 +331,8 @@ img{
     display: flex;
     align-items: center;
     border: solid rgba(128, 128, 128, 0.687);
+    margin-left: 5px;
+    /* height: 30px; */
 }
 
 .text2{
@@ -548,6 +556,7 @@ font-size: 10px;
     .pdfDownload2 {
       width: 100%;
       font-size: 12px;
+
     }
   
     .btnHolder {
@@ -577,11 +586,17 @@ font-size: 10px;
     padding-bottom: 8px;
     padding-top: 8px;
     padding-right: 50px;
-    /* width: 410px; */
+    /* width: 80%;  */
     /* margin-top: 15px; */
     margin-bottom: 50px;
  }
 
+ @media screen and (min-width: 1280px) and (max-width: 1440px) {
+    .number3 {
+      /* width: 80%;  */
+    }
+  }
+  
  .web{
     /* border: solid red; */
  }
