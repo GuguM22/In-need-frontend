@@ -62,8 +62,8 @@
   }
   
   .metrics-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
+    display: flex;
+    /* grid-template-columns: repeat(auto-fit, minmax(280px, 320px)); */
     gap: 1rem;
     margin-bottom: 2rem;
   }

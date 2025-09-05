@@ -489,6 +489,7 @@ border-color: #b0b0b0;
     max-height: 656px; /* or whatever fits your layout */
     overflow-y: auto;
     padding-right: 18px; /* optional for scrollbar spacing */
+    padding-bottom: 160px;
   }
   
   .message{
@@ -550,9 +551,11 @@ border-color: #b0b0b0;
     }
   
     .cards {
-      max-height: none;
-      overflow-y: visible;
-    }
+        max-height: 656px; /* or whatever fits your layout */
+        overflow-y: auto;
+        padding-right: 18px; /* optional for scrollbar spacing */
+        padding-bottom: 160px;
+      }
   }
 
   @media (min-width: 2560px) {
@@ -576,6 +579,13 @@ border-color: #b0b0b0;
     .email2, .number2, .cipc2 {
       width: 600px;
     }
+    .cards {
+        max-height: 656px; /* or whatever fits your layout */
+        overflow-y: auto;
+        padding-right: 18px; /* optional for scrollbar spacing */
+        padding-bottom: 160px;
+        border: solid red;
+      }
   }
   
   @media (min-width: 1920px) {
@@ -588,5 +598,11 @@ border-color: #b0b0b0;
       width: 20px;
       height: 20px;
     }
+    .cards {
+        max-height: 656px; /* or whatever fits your layout */
+        overflow-y: auto;
+        padding-right: 18px; /* optional for scrollbar spacing */
+        padding-bottom: 160px;
+      }
   }
   
