@@ -68,8 +68,8 @@
           </h2>
           <input *ngIf="isEditing" [(ngModel)]="editName"
             class="border-1 border-[#00000030] p-1 rounded text-gray font-[400]  w-full mb-1 pointer-events-none" />
-            <div class="flex items-end justify-end gap-[0.5px]">
-          <p *ngIf="!isEditing" class="text-xs mt-0.5 flex items-end gap-1">
+            <div class="flex items-end gap-[0.5px]">
+          <p *ngIf="!isEditing" class="text-xs mt-0.5 flex items-center gap-1">
             <span class="text-gray-600">{{ capitalizeWords(email) }}</span> &bull;
             <span class="text-gray-600"> {{ phone }}</span> &bull;
             <span
