@@ -16,13 +16,13 @@ export class DonationService {
   constructor(private http: HttpClient, private donationStateService: DonationStateService) { }
 
   createDonation(donation: DonationRequestDTO): Observable<any> {
-
+    console.log(donation)
     const token = sessionStorage.getItem('token');
     const headers = token ? new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
     }) : new HttpHeaders({ 'Content-Type': 'application/json' });
-
+    console.log(headers)
     return this.http.post(`${this.apiUrl}/auth/donations/post`, donation, { headers });
   }
 
