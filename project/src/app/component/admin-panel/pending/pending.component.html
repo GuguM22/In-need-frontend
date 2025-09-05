@@ -43,6 +43,7 @@
 <!-- Contact Info -->
 <div class="contact2">
   <h1 class="font-semibold mb-2">Contact Information</h1>
+  <div class="wrapper">
   <div class="flex items-center mb-2 email2">
     <img width="22" height="22" src="https://img.icons8.com/ios/50/new-post--v1.png" />
     <p class="ml-2 emailP">{{ selectedApplication.email }}</p>
@@ -55,6 +56,7 @@
     <img width="22" height="22" src="https://img.icons8.com/ios/50/domain--v1.png" alt="domain--v1"/> 
        <p class="ml-2 web">{{ selectedApplication.website}}</p>
   </div>
+  </div>
 </div>
 
 <!-- Verification Docs -->
@@ -62,6 +64,7 @@
   <h1 class="font-semibold mb-2">Verification Documents</h1>
 
   <!-- Each document -->
+  <div class="wrapper">
   <div *ngFor="let doc of selectedApplication.documents">
     <!-- Each document -->
     <div class="cipc2 flex items-center mb-3">
@@ -78,6 +81,7 @@
             </div>
             </div>
           </button>
+          </div>
           </div>
     </div>
     </div>
